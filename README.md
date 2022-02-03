@@ -1,7 +1,7 @@
 #######################################################################################
 
-#                                    WaterMARK
-##                        _Water - Meter Access Repository Kit_
+# WaterMARK
+## _Water - Meter Access Repository Kit_
 
 #######################################################################################
 
@@ -17,7 +17,9 @@ Info:
 
 MIT
 
-### Installation
+
+
+## Installation
 
 ```sh
 _installation instructions_
