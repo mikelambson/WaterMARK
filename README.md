@@ -29,5 +29,11 @@ BSD 3-Clause License
 _installation instructions_
 ```
 
+git config (--global) user.email "email"
+git config (--global) user.name "username"
+git add .
+git status //check the status of the package commits
 
+//normal git ops
+git commit -m "message"
 
