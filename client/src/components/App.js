@@ -20,26 +20,7 @@ function App() {
             <Route path="/data" component={Data} />
             <Route path="/about" component={About} />
           </Switch>
-        </Router>
-            {/* <div className='header'>
-              
-              
-              
-              <div className='navlnk'>Meter Sites</div>
-
-            </div>
-
-            <div className='main'>
-              Iden: Main
-
-              test type this is a test
-
-              New line test
-            </div>
-            <div className='footer'>
-              Iden: footer
-            </div> */}
-        
+        </Router>        
       </div>
     </div>
   );

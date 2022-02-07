@@ -1,32 +1,33 @@
 nav {
-    background: rgba(0, 0, 0, 0.9);
-    padding: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     color: #fff;
     position: relative;
     z-index: 99;
 }
 
+.menu-icon {
+    display: none;
+}
+
 .logo {
     font-weight: 600;
     display: block;
-    padding-top: 10px;
-    padding-left: 2px;
-    padding-right: 300px;
-  }
+}
   
 .wmtitle {
     font-family: sans-serif;
     font-size: 30px;
     line-height: 0.3;
-    padding: 0;
-    margin: 1px;
+    padding-bottom: 15px;
+    margin: 0px;
     color: #f8a538;
-  }
+}
   
 .wmtitle font {
-    color: #537bff;
+    color: rgba(45, 77, 255, 0.6);
 }
   
 .subtitle {
@@ -34,9 +35,9 @@ nav {
     font-size: 10px;
     line-height: 0;
     width: 100%;
-    padding: 15px;
+    padding: 0px;
     text-align: left;
-    text-indent: 25px;
+    text-indent: 38px;
     color:  #e4cdb0;
   }
 
@@ -61,4 +62,48 @@ nav {
     border-radius: 2px;
     color: #000;
     transition: all 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 1000px) {
+    .logo {
+        font-size: 20px;
+    }
+    .menu-list li a {
+        font-size: 14px;
+        margin-left: 10px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .menu-icon {
+        display: block;
+    }
+    .menu-list {
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        right: 0;
+        top: 64px;
+    }
+    .menu-list li {
+        margin-bottom: 20px;
+        width: 100%;
+        text-align: center;
+    }
+    .menu-list li:last-child {
+        margin-bottom: 0px;
+    }
+    .menu-list li a,
+    .menu-list li:last-child a {
+      width: 100px;
+      display: block;
+      margin: auto;
+    }
+  
+    .menu-list.close {
+      right: -100%;
+      transition: all 0.5s ease-in-out;
+    }
 }
