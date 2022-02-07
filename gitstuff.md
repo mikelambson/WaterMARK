@@ -11,3 +11,6 @@ git commit -m "message"
 
 ###Credential Management
 https://techexpertise.medium.com/storing-git-credentials-with-git-credential-helper-33d22a6b5ce7
+
+- git config --global credential.helper store
+- git config --global credential.helper "store --file ~/.my-credentials"
