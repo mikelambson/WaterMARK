@@ -23,10 +23,10 @@ BSD 3-Clause License
 
 
 
-## Installation
+## Dev Environment
 
 ```sh
-_installation instructions_
+_npm start_
 ```
 
 
