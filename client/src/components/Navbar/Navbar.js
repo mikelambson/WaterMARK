@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { MenuList } from './MenuList';
 import './Navbar.css';
 
 const Navbar = () => {
-        const [clicked, setClicked] = useState(false);
+        
         const menuList = MenuList.map(({url, title}, index) => {
             return (
                 <li key={index}>

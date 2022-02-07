@@ -7,6 +7,9 @@ import About from './pages/About';
 import Navbar from './Navbar/Navbar';
 import './App.css';
 
+// App.get("/*", function (req, res) {
+//   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+//})
 
 function App() {
   return (
