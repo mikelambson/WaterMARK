@@ -8,6 +8,12 @@ ___
 
 ### Build: Development
 
+Example showing dev layout of frontend screen:
+![](frontend.png)
+
+Example showing dev layout of backend screen:
+![](backend.png)
+
 
 ___
 
