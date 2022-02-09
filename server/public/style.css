@@ -24,12 +24,36 @@
   display: flex;
   flex-direction: row;
   border-radius: 1em;
-  padding-left: 1em;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  padding-right: 10rem;
-  width: 100vh;
-  margin: 1rem;
+  padding: 2rem;
+  width: 70%;
+  margin-top: 2rem;
+  margin-bottom: 1em;
   align-self: center;
   justify-content: left space-between;
+}
+
+.output {
+  background: linear-gradient(to bottom right, #ffffff, #bdccd8);
+  border: 2px inset #ffffff;
+  display: inline;
+  padding-top: 1px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 95%;
+  height: 90vh;
+  margin: 4px;
+  align-self: center;
+  justify-content: left space-between;
+  overflow: scroll;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  white-space: pre-line;
+  font-family: monospace;
+  font-size: 15px;
+}
+
+.output hr {
+  margin-top: 1em;
+  padding: 0;
+  border-top: 3px double #0023c0;
 }
