@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "roboto", sans-serif;
+  overflow: hidden;
 }
 
 .container {
@@ -18,12 +19,6 @@
   position: relative;
 }
 
-.title {
-  display: flex;
-  flex-direction: row;  
-}
-
-
 .jumbotron {
   background: linear-gradient(to bottom right, #8b8b8b, #6e7275);
   border: 2px inset #a1a1a1;
@@ -34,6 +29,7 @@
   width: 70%;
   margin-top: 2rem;
   margin-bottom: 1em;
+  margin-right: 2rem;
   align-self: center;
   justify-content: left space-between;
 }
@@ -45,9 +41,12 @@
   padding-top: 1px;
   padding-left: 1rem;
   padding-right: 1rem;
-  width: 95%;
-  height: 90vh;
-  margin: 4px;
+  width: 85%;
+  height: 60vh;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 2rem;
+  margin-left: 0.1rem;
   align-self: center;
   justify-content: left space-between;
   overflow: scroll;
