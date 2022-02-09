@@ -1,3 +1,5 @@
+[![Build Status] (https://img.shields.io/badge/build-development-red)
+
 ___
 
 # WaterMARK

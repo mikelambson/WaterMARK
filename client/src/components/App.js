@@ -7,9 +7,14 @@ import About from './pages/About';
 import Navbar from './Navbar/Navbar';
 import './App.css';
 
-// App.get("/*", function (req, res) {
-//   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-//})
+
+// import vega
+// var vega = require('vega');
+// Documentation at: https://vega.github.io/vega/usage/
+
+
+
+
 
 function App() {
   return (

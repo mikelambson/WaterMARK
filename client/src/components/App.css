@@ -31,6 +31,7 @@
 
 .page-heading {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 80vh;
@@ -53,4 +54,12 @@
   }
 }
 
-
+/* Meters Page */
+.graph {
+  font-size: 5rem;
+  color: #000000;
+  font-weight: 300;
+  background-color: rgba(255, 191, 191, 0.5);
+  padding: 0px 20px;
+  border-radius: 2px;
+}
