@@ -18,7 +18,7 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
-            <Route path="/" exact component={Home} /> //"exact" needed on root to enable all routes
+            <Route path="/" exact component={Home} /> {/* "exact" needs to be on root to enable all routes*/}
             <Route path="/meters" component={Meters} />
             <Route path="/data" component={Data} />
             <Route path="/about" component={About} />
