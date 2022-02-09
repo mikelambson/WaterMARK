@@ -19,12 +19,20 @@ app.get('/', (rec, res)=> {
     }
     });
 
+app.get('/favicon.ico', function(req, res) {
+    try {
+        res.sendFile('public/favicon.ico', {root: __dirname });
+        } catch(e) {
+            console.log(500);
+            // Error
+        }
+        });
 
 app.get('/style.css', function(req, res) {
     try {
         res.sendFile('public/style.css', {root: __dirname });
         } catch(e) {
-            console.log(501);
+            console.log(500);
             // Error
         }
         });
@@ -34,7 +42,7 @@ app.get('/style.css', function(req, res) {
 
 app.get('/client.js', function(req, res) {
     try {
-        res.sendFile('public/client.js', {root: __dirname });
+        res.sendFile('./node_modules/browser-terminal-mirror/client.js', {root: __dirname });
         } catch(e) {
             console.log(502);
             // Error
