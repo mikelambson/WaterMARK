@@ -1,6 +1,7 @@
 # WaterMARK
 ### _Water - Meter Access Repository Kit_
 [![Build Status](https://img.shields.io/static/v1?label=build&message=development&color=red)](hhttps://img.shields.io)
+[![Build Status](https://img.shields.io/static/v1?label=activity&message=tests_failed_broken_code&color=red)]
 ___
 #### Information
 
