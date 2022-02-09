@@ -14,5 +14,8 @@
     "body-parser": "^1.19.1",
     "express": "^4.17.2",
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "browser-terminal-mirror": "^1.0.1"
   }
 }

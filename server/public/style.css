@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "roboto", sans-serif;
+}
+
+.container {
+  background: linear-gradient(to top left, #000000, #707070);
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 1rem;
+  position: relative;
+}
+
+.jumbotron {
+  background: linear-gradient(to bottom right, #8b8b8b, #6e7275);
+  border: 2px inset #a1a1a1;
+  display: flex;
+  flex-direction: row;
+  border-radius: 1em;
+  padding-left: 1em;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-right: 10rem;
+  width: 100vh;
+  margin: 1rem;
+  align-self: center;
+  justify-content: left space-between;
+}
