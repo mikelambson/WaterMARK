@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "0.0.1-alpha1",
+  "version": "0.0.5-alpha1",
   "description": "Backend Server For WaterMARK",
   "main": "index.js",
   "scripts": {
