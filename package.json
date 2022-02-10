@@ -1,6 +1,6 @@
 {
   "name": "watermark",
-  "version": "0.0.1-alpha1",
+  "version": "0.1.0-alpha1",
   "description": "Water | Meter Access Repository Kit",
   "main": "index.js",
   "scripts": {
