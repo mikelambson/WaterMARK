@@ -6,29 +6,35 @@ import { useTable, useSortBy } from "react-table";
 import { Button } from "@/components/ui/button"
 
 
+interface OrderDetails {
+  irrigatorsName: string;
+  ownersName: string;
+  name: string;
+  approxAf: number;
+  balance: number;
+}
+
 interface Order {
-    id: number;
-    orderTimestamp: string;
-    irrigatorsName: string;
-    ownersName: string;
-    phoneNumber: string | null;
-    phoneNumber2: string | null;
-    phoneNumber3: string | null; // Assuming phoneNumber3 can be null
-    lateral1: string;
-    lateral2: string | null;
-    lateral3: string | null;
-    lateral4: string | null;
-    approxCfs: number;
-    approxHrs: number;
-    orderNumber: number;
-    tcidSn: string;
-    remarks: string | null;
-    approxAf: number;
-    balance: number;
-    district: string;
-    adjust: string;
-    scheduled: boolean;
-  }
+  id: number;
+  orderTimestamp: string;
+  orderNumber: number;
+  tcidSn: string;
+  district: string;
+  status: string;
+  laterals: string[];
+  approxCfs: number;
+  approxHrs: number;
+  phoneNumbers: string[];
+  remarks: string | null;
+  details: OrderDetails;
+  scheduled: boolean;
+}
+
+interface TableColumn {
+  Header: string;
+  accessor: keyof Order | string;
+  Cell?: (row: any) => React.ReactNode;
+}
   
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   
@@ -65,60 +71,43 @@ const Daily = () => {
   };
     
  // Assuming your columns data is something like this:
- const columns: Column<Order>[] = React.useMemo(
+ const columns: TableColumn[] = React.useMemo(
     () => [
       
       {
         Header: "Timestamp",
         accessor: "orderTimestamp",
-        sortable: true,
+        // sortable: true,
       },
       {
         Header: "Order#",
         accessor: "orderNumber",
-        sortable: true,
+        // sortable: true,
       },
       {
         Header: "Serial#",
         accessor: "tcidSn",
-        sortable: true,
+        // sortable: true,
       },
       {
         Header: "Irrigator",
-        accessor: "irrigatorsName",
+        accessor: "details.irrigatorsName",
       },
       {
         Header: "Owner",
-        accessor: "ownersName",
-      },
-      // {
-      //   Header: "Ph1",
-      //   accessor: "phoneNumber",
-      // },
-      // {
-      //   Header: "Ph2",
-      //   accessor: "phoneNumber2",
-      // },
-      // {
-      //   Header: "Ph3",
-      //   accessor: "phoneNumber3",
-      // },
-      {
-        Header: "L1",
-        accessor: "lateral1",
+        accessor: "details.ownersName",
       },
       {
-        Header: "L2",
-        accessor: "lateral2",
+        Header: "Phone",
+        accessor: "phoneNumbers",
       },
+      
       {
-        Header: "L3",
-        accessor: "lateral3",
+        Header: "Laterals",
+        accessor: "laterals",
+        
       },
-      {
-        Header: "L4",
-        accessor: "lateral4",
-      },
+      
       {
         Header: "Order CFS",
         accessor: "approxCfs",
@@ -132,21 +121,13 @@ const Daily = () => {
         Header: "Remarks",
         accessor: "remarks",
       },
-      // {
-      //   Header: "Approx AF",
-      //   accessor: "approxAf",
-      // },
-      // {
-      //   Header: "Balance",
-      //   accessor: "balance",
-      // },
       {
         Header: "District",
         accessor: "district",
       },
       {
         Header: "Status",
-        accessor: "adjust",
+        accessor: "status",
       },
       
     ],
