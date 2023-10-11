@@ -7,6 +7,8 @@
 [![Node Version](http://img.shields.io/badge/node-0.10.x-brightgreen.svg)](https://github.com/nodejs/node)
 ![GitHub repo size](https://img.shields.io/github/repo-size/mikelambson/WaterMARK)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/mikelambson/WaterMARK)
+![node-current](https://img.shields.io/node/v/latest)
+
 
 ___
 #### Information
