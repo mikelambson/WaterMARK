@@ -100,12 +100,13 @@ const Daily = () => {
       {
         Header: "Phone",
         accessor: "phoneNumbers",
+        Cell: ({ row }) => row.original.phoneNumbers.join(" | "), // Join array elements with ', ' separator
       },
       
       {
         Header: "Laterals",
         accessor: "laterals",
-        
+        Cell: ({ row }) => row.original.laterals.join(", "), // Join array elements with ', ' separator
       },
       
       {
