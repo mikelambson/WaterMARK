@@ -44,6 +44,7 @@ const Daily = () => {
   const [queryParams, setQueryParams] = useState("/o");
   const [data, setData] = useState([]);
   const legacyOrdersUrl = `${baseUrl}legacyorders${queryParams}`;
+  const [debouncedUserInput, setDebouncedUserInput] = useState(userInput);
   const fetchData = async () => {
     try {
       const response = await axios.get(legacyOrdersUrl);
@@ -53,6 +54,16 @@ const Daily = () => {
     }
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedUserInput(userInput);
+    }, 300); // Adjust the debounce delay as needed (in milliseconds)
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [userInput]);
+
   const handleSubmit = () => {
     // Update the queryParams state with the user input
     setQueryParams(userInput);
@@ -61,8 +72,9 @@ const Daily = () => {
   };
 
   const handleKeyPress = (e: any) => {
+
     if (e.key === "Enter") {
-      setQueryParams(userInput); // Update the 'query' state when Enter key is pressed
+      setQueryParams(debouncedUserInput); // Update the 'query' state when Enter key is pressed
       fetchData();
     }
   };

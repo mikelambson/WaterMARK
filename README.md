@@ -1,5 +1,5 @@
 # WaterMARK
-### _Water - Meter Access Repository Kit_
+### _Water Measurment Administration & Record Keeping_
 [![Build Status](https://img.shields.io/static/v1?label=build&message=development&color=red)](https://img.shields.io)
 [![GitHub issues](https://img.shields.io/github/issues/mikelambson/WaterMARK)](https://github.com/mikelambson/WaterMARK/issues)
 [![GitHub license](https://img.shields.io/github/license/mikelambson/WaterMARK)](https://github.com/mikelambson/WaterMARK/blob/main/LICENSE)
