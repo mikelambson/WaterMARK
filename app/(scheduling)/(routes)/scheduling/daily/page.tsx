@@ -60,6 +60,13 @@ const Daily = () => {
     fetchData();
   };
 
+  const handleKeyPress = (e: any) => {
+    if (e.key === "Enter") {
+      setQueryParams(userInput); // Update the 'query' state when Enter key is pressed
+      fetchData();
+    }
+  };
+
   // Trigger fetchData function on component mount and whenever queryParams changes
   useEffect(() => {
     fetchData();
@@ -164,6 +171,7 @@ const Daily = () => {
           id="queryParamsInput"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
+          onKeyDown={handleKeyPress} // Trigger handleSubmit when Enter key is pressed
           className={"pl-1 w-96"}
         />
         
