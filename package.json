@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "npm prune",
-    "rebuild": "npm ci"
+    "rebuild": "npm ci",
+    "git": "git add --all && git commit -m \"Update Code\" && git push"
     
   },
   "dependencies": {
