@@ -1,6 +1,6 @@
 // \app\(scheduling)\(routes)\daily\page.tsx
 'use client'
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import axios from "axios";
 import { useTable, useSortBy } from "react-table";
 import { Button } from "@/components/ui/button"
