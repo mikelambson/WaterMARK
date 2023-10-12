@@ -1,9 +1,10 @@
 // \app\(scheduling)\(routes)\daily\page.tsx
 'use client'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from "axios";
 import { useTable, useSortBy } from "react-table";
 import { Button } from "@/components/ui/button"
+import useQueryStore from '@/store/queryStore';
 
 
 interface OrderDetails {
@@ -40,11 +41,9 @@ interface TableColumn {
   
 
 const Daily = () => {
-  const [userInput, setUserInput] = useState("/o");
-  const [queryParams, setQueryParams] = useState("/o");
-  const [data, setData] = useState([]);
+  const { data, setData, userInput, setUserInput, queryParams, setQueryParams }: any = useQueryStore();
   const legacyOrdersUrl = `${baseUrl}legacyorders${queryParams}`;
-  const [debouncedUserInput, setDebouncedUserInput] = useState(userInput);
+  
   const fetchData = async () => {
     try {
       const response = await axios.get(legacyOrdersUrl);
@@ -54,27 +53,18 @@ const Daily = () => {
     }
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedUserInput(userInput);
-    }, 300); // Adjust the debounce delay as needed (in milliseconds)
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [userInput]);
+  const handleSubmit = useCallback(
+    (e: any) => {
+      e.preventDefault();
+      setQueryParams(userInput);
+      fetchData();
+    },
+    [userInput, fetchData]
+  );
 
-  const handleSubmit = () => {
-    // Update the queryParams state with the user input
-    setQueryParams(userInput);
-    // Call fetchData function to fetch data based on updated query parameters
-    fetchData();
-  };
-
-  const handleKeyPress = (e: any) => {
-
-    if (e.key === "Enter") {
-      setQueryParams(debouncedUserInput); // Update the 'query' state when Enter key is pressed
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
       fetchData();
     }
   };
@@ -171,26 +161,29 @@ const Daily = () => {
   );
 
   return (
+    
     <div className={"overflow-auto"}>
       <span className={"ml-2 pt-4 flex gap-6"}>
       <h1 className={"mt-2 text-xl font-bold "}>Order Count | {rows.length}</h1> 
       <Button className={"active:bg-slate-600"}>Schedule These</Button>
-      
-      <div className={"text-xl flex gap-2 items-center"}>
+      </span> 
+      <form onSubmit={handleSubmit}>
+      <div className={"ml-2 text-xl flex gap-2 items-center"}>
         <label htmlFor="queryParamsInput">Query:</label>
         <input
           type="text"
           id="queryParamsInput"
           value={userInput}
+          onKeyDown={handleKeyPress}
           onChange={(e) => setUserInput(e.target.value)}
-          onKeyDown={handleKeyPress} // Trigger handleSubmit when Enter key is pressed
           className={"pl-1 w-96"}
         />
-        
-        <Button variant={"outline"} className={"active:bg-slate-600"} onClick={handleSubmit}>Submit</Button>
+        <Button variant={"outline"} type="submit" className={"active:bg-slate-600"}>
+          Submit
+        </Button>
       </div>
-
-      </span>  
+      </form>
+       
       <table {...getTableProps()} className={"border-collapse border border-gray-400 mt-2 max-w-[98%] scroll-auto ml-2 bg-neutral-300 text-black mb-6"}>
         <thead>
           {headerGroups.map(headerGroup => (
@@ -217,6 +210,7 @@ const Daily = () => {
         </tbody>
       </table>
     </div>
+    
   );
 };
 
