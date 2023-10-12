@@ -19,6 +19,8 @@ ___
 Water Measurment Administration & Record Keeping => WaterMARK  
 WaterMARK is a multi-source meter data aggregation, scheduling, task managemet and water order processing application.
 
+This frontend system is designed to work with the [WaterMARK-backend](https://github.com/mikelambson/watermark-backend) as the primary API and data management tool.
+
 ___
 
 
