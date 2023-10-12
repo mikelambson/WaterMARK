@@ -6,6 +6,10 @@ import { useTable, useSortBy } from "react-table";
 import { Button } from "@/components/ui/button"
 import useQueryStore from '@/store/queryStore';
 
+import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
+
+
 
 interface OrderDetails {
   irrigatorsName: string;
@@ -43,6 +47,11 @@ interface TableColumn {
 const Daily = () => {
   const { data, setData, userInput, setUserInput, queryParams, setQueryParams }: any = useQueryStore();
   const legacyOrdersUrl = `${baseUrl}legacyorders${queryParams}`;
+
+  const { theme } = useTheme();
+  const isDarkMode = theme === "light";
+
+  const tableSetup = "border-collapse border mt-2 max-w-[98%] scroll-auto ml-2 mb-6"
   
   const fetchData = async () => {
     try {
@@ -160,6 +169,7 @@ const Daily = () => {
     useSortBy // Enable sorting functionality
   );
 
+
   return (
     
     <div className={"overflow-auto"}>
@@ -183,13 +193,13 @@ const Daily = () => {
         </Button>
       </div>
       </form>
-       
-      <table {...getTableProps()} className={"border-collapse border border-gray-400 mt-2 max-w-[98%] scroll-auto ml-2 bg-neutral-300 text-black mb-6"}>
+              
+      <table {...getTableProps()} className={cn(`${tableSetup}`, isDarkMode? "bg-neutral-300 border-gray-400 text-black" : "text-neutral-400 border-gray-400 bg-stone-800")}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()} className={"bg-stone-600 border border-gray-400 text-gray-200 text-sm"}>{column.render("Header")}
+                <th {...column.getHeaderProps()} className={cn(`text-sm`, isDarkMode ? "bg-stone-600 border border-gray-600 text-gray-200" : "bg-stone-950 border border-slate-400 text-neutral-400") }>{column.render("Header")}
                 
                 </th>
               ))}
