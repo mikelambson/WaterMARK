@@ -175,7 +175,7 @@ const Daily = () => {
     <div className={"overflow-auto"}>
       <span className={"ml-2 pt-4 flex gap-6"}>
       <h1 className={"mt-2 text-xl font-bold "}>Order Count | {rows.length}</h1> 
-      <Button className={"active:bg-slate-600"}>Schedule These</Button>
+      <Button className={"active:bg-slate-500"}>Schedule These</Button>
       </span> 
       <form onSubmit={handleSubmit}>
       <div className={"ml-2 text-xl flex gap-2 items-center"}>
@@ -194,12 +194,12 @@ const Daily = () => {
       </div>
       </form>
               
-      <table {...getTableProps()} className={cn(`${tableSetup}`, isDarkMode? "bg-neutral-300 border-gray-400 text-black" : "text-neutral-400 border-gray-400 bg-stone-800")}>
+      <table {...getTableProps()} className={cn(`${tableSetup}`, isDarkMode? "bg-neutral-300 border-neutral-400 text-black" : "text-neutral-400 border-slate-800 bg-stone-800")}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()} className={cn(`text-sm`, isDarkMode ? "bg-stone-600 border border-gray-600 text-gray-200" : "bg-stone-950 border border-slate-400 text-neutral-400") }>{column.render("Header")}
+                <th {...column.getHeaderProps()} className={cn(`text-sm`, isDarkMode ? "bg-stone-500 border border-gray-400 text-gray-200" : "bg-stone-950 border border-slate-500 text-neutral-400") }>{column.render("Header")}
                 
                 </th>
               ))}
