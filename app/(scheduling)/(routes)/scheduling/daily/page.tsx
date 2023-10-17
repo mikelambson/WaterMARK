@@ -11,29 +11,29 @@ import { cn } from "@/lib/utils";
 
 
 
-interface OrderDetails {
-  irrigatorsName: string;
-  ownersName: string;
-  name: string;
-  approxAf: number;
-  balance: number;
-}
+// interface OrderDetails {
+//   irrigatorsName: string;
+//   ownersName: string;
+//   name: string;
+//   approxAf: number;
+//   balance: number;
+// }
 
-interface Order {
-  id: number;
-  orderTimestamp: string;
-  orderNumber: number;
-  tcidSn: string;
-  district: string;
-  status: string;
-  laterals: string[];
-  approxCfs: number;
-  approxHrs: number;
-  phoneNumbers: string[];
-  remarks: string | null;
-  details: OrderDetails;
-  scheduled: boolean;
-}
+// interface Order {
+//   id: number;
+//   orderTimestamp: string;
+//   orderNumber: number;
+//   tcidSn: string;
+//   district: string;
+//   status: string;
+//   laterals: string[];
+//   approxCfs: number;
+//   approxHrs: number;
+//   phoneNumbers: string[];
+//   remarks: string | null;
+//   details: OrderDetails;
+//   scheduled: boolean;
+// }
 
 interface TableColumn {
   Header: string;
@@ -46,7 +46,7 @@ interface TableColumn {
 
 const Daily = () => {
   const { data, setData, userInput, setUserInput, queryParams, setQueryParams }: any = useQueryStore();
-  const legacyOrdersUrl = `${baseUrl}legacyorders${queryParams}`;
+  const legacyOrdersUrl = `${baseUrl}orders${queryParams}`;
 
   const { theme } = useTheme();
   const isDarkMode = theme === "light";
