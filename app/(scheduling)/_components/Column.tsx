@@ -10,15 +10,23 @@ type Properties = {
     index: number
 }
 
+const columnNames = {
+    "P": "Unscheduled",
+    "delayed": "Delayed",
+    "scheduled": "Scheduled"
+};
+
 const Column = ({id, columns, index}: Properties) => {
     return ( 
         <Draggable draggableId={id} index={index}>
             {(provided) => (
                 <div
-                className='grid grid-cols-1 md:grid-cols-3 gap-1 max-w-7xl mx-auto'
+                className='border'
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
+                style={{ maxHeight: '60vh'}} // Set max height and enable vertical scrollbar
+                
             >
                 {/* render droppable orders in the column*/}
                 <Droppable droppableId={index.toString()} type="card">
@@ -26,10 +34,10 @@ const Column = ({id, columns, index}: Properties) => {
                         <div
                             {...provided.droppableProps}
                             ref={provided.innerRef}
-                            className={`pb-2 p-2 rounded-2xl shadow-sm w-64 ${snapshot.isDraggingOver ? "bg-green-200" : "bg-white/50"}`
+                            className={`pb-2 p-2 rounded-2xl shadow-sm h-full overflow-y-auto ${snapshot.isDraggingOver ? "bg-green-200" : "bg-white/50"}`
                             }
                         >
-                            <h2>{id}</h2>
+                            <h2 className="pb-3">{columnNames[id]}</h2>
                             <div className="space-y-2">
                                 {columns.map((order: any, index: any) => (
                                     <Draggable

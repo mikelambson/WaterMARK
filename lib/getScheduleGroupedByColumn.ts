@@ -7,24 +7,49 @@ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const getScheduleGroupedByColumn = async () => {
     
-    const response = await axios.get(`${baseUrl}orders?find:status=o,delayed,scheduled,running`);
-
+    const response = await axios.get(`${baseUrl}orders?find:status=p,delayed,scheduled,running`);
     const orders = response.data;
+
+    orders.sort((a: any, b: any) => new Date(a.orderTimestamp).getTime() - new Date(b.orderTimestamp).getTime());
+
 
     const columns = orders.reduce((acc: any, order: any) => {
         const { status} = order;
-        if (!acc.has(status)) {
-            acc.set(status, {
-                id: status,
-                orders: [order]  // Start an array for the given scheduled status
-            });
-        } else {
-            acc.get(status).orders.push(order);  // Add the order to the existing array
-        }
-        return acc; 
+        if (status === "scheduled" || status === "running") {
+                const key: TypedColumn = "scheduled";
+                if (!acc.has(key)) {
+                    acc.set(key, {
+                        id: key,
+                        orders: [order]
+                    });
+                } else {
+                    acc.get(key)?.orders.push(order);
+                }
+            } else if (status === "delayed") {
+                const key: TypedColumn = "delayed";
+                if (!acc.has(key)) {
+                    acc.set(key, {
+                        id: key,
+                        orders: [order]
+                    });
+                } else {
+                    acc.get(key)?.orders.push(order);
+                }
+            } else {
+                const key: TypedColumn = "P";
+                if (!acc.has(key)) {
+                    acc.set(key, {
+                        id: key,
+                        orders: [order]
+                    });
+                } else {
+                    acc.get(key)?.orders.push(order);
+                }
+            }
+            return acc;
     }, new Map<TypedColumn, Column>()); 
          
-     const columnTypes: TypedColumn[] = [ "O", "delayed", "scheduled"];
+     const columnTypes: TypedColumn[] = [ "P", "scheduled", "delayed"];
      for (const columnType of columnTypes) {
         if (!columns.get(columnType)) {
             columns.set(columnType, {
