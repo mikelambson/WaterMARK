@@ -3,6 +3,8 @@
 import { Order, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import OrderCard from "./OrderCard";
+import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
 type Properties = {
     id: TypedColumn,
@@ -17,6 +19,10 @@ const columnNames = {
 };
 
 const Column = ({id, columns, index}: Properties) => {
+
+    const { theme } = useTheme();
+    const isDarkMode = theme === "light";
+
     return ( 
         <Draggable draggableId={id} index={index}>
             {(provided) => (
@@ -37,7 +43,7 @@ const Column = ({id, columns, index}: Properties) => {
                             className={`pb-2 p-2 rounded-sm shadow-sm md:min-h-[70vh] ${snapshot.isDraggingOver ? "bg-green-200" : "bg-white/50"}`
                             }
                         >
-                            <h2 className="pb-3">{columnNames[id]}</h2>
+                            <h2 className={cn("pb-3 font-bold", isDarkMode ? "text-gray-500" : "text-slate-800")}>{columnNames[id]}</h2>
                             <div className="space-y-2">
                                 {columns.map((order: any, index: any) => (
                                     <Draggable
