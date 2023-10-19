@@ -1,6 +1,9 @@
 // typins.d.ts
 
 interface Board {
+    setDistrict(arg0: string): unknown;
+    setPageSize(arg0: number): unknown;
+    setPage(arg0: number): unknown;
     columns: Map<TypedColumn, Column>
 }
 

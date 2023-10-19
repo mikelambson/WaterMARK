@@ -1,14 +1,26 @@
 // @/lib/getScheduleGroupedByColumn.ts
-import { Board, TypedColumn } from "@/typings";
+import { Board, TypedColumn, Order } from "@/typings";
 import axios from "axios";
 import { Column } from "react-table";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+interface ApiFilters {
+    district: string;
+    page: number;
+    pageSize: number;
+  }
 
-const getScheduleGroupedByColumn = async () => {
+  const getScheduleGroupedByColumn = async (filters: ApiFilters) => {
+    const { district, page, pageSize } = filters;
     
-    const response = await axios.get(`${baseUrl}orders?find:status=p,delayed,scheduled,running`);
-    const orders = response.data;
+    let status = "p,delayed,scheduled,running"
+
+    try {
+        const response = await axios.get(
+          `${baseUrl}orders?find:status=${status}&find:district=${district}&page=${page}&pageSize=${pageSize}`
+        );
+    
+        const orders: Order[] = response.data;
 
     orders.sort((a: any, b: any) => new Date(a.orderTimestamp).getTime() - new Date(b.orderTimestamp).getTime());
 
@@ -69,9 +81,22 @@ const getScheduleGroupedByColumn = async () => {
 
     const board: Board = {
         columns: sortedColumns,
+        setDistrict: function (arg0: string): unknown {
+            throw new Error("Function not implemented.");
+        },
+        setPageSize: function (arg0: number): unknown {
+            throw new Error("Function not implemented.");
+        },
+        setPage: function (arg0: number): unknown {
+            throw new Error("Function not implemented.");
+        }
     };
     console.log(columns);
     return board;
+} catch (error) {
+    console.error("Error fetching data:", error);
+    throw error; // Propagate the error to the caller
+  }
 };
  
 export default getScheduleGroupedByColumn;

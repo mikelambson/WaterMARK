@@ -21,11 +21,11 @@ const Column = ({id, columns, index}: Properties) => {
         <Draggable draggableId={id} index={index}>
             {(provided) => (
                 <div
-                className='border'
+                className="overflow-y-auto"
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
-                style={{ maxHeight: '60vh'}} // Set max height and enable vertical scrollbar
+                // style={{ maxHeight: '60vh'}} // Set max height and enable vertical scrollbar
                 
             >
                 {/* render droppable orders in the column*/}
@@ -34,7 +34,7 @@ const Column = ({id, columns, index}: Properties) => {
                         <div
                             {...provided.droppableProps}
                             ref={provided.innerRef}
-                            className={`pb-2 p-2 rounded-2xl shadow-sm h-full overflow-y-auto ${snapshot.isDraggingOver ? "bg-green-200" : "bg-white/50"}`
+                            className={`pb-2 p-2 rounded-sm shadow-sm md:min-h-[70vh] ${snapshot.isDraggingOver ? "bg-green-200" : "bg-white/50"}`
                             }
                         >
                             <h2 className="pb-3">{columnNames[id]}</h2>

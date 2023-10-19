@@ -7,7 +7,7 @@ const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => 
         <>
         <div className={"h-full m-0 pt-[4rem]"}>
         <NavigationSidebar />
-        <main className={"pt-0 pl-20"}>
+        <main className={"pt-0 pl-16"}>
             {children}
         </main>
         </div>
