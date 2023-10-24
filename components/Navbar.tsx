@@ -49,7 +49,7 @@ const Navbar = () => {
       link: "/scheduling",
       allowedRoles: ["Watermaster", "Scheduler", "Admin"],
       name: "Scheduling",
-      children: ["/scheduling", "/scheduling/daily", "/scheduling/schedule-orders", "/scheduling/ditchrider-tasks", "/scheduling/ditchrider-schedule",],
+      children: ["/scheduling", "/scheduling/daily", "/scheduling/schedule-orders", "/scheduling/ditchrider-tasks", "/scheduling/ditchrider-schedule", "/scheduling/settings"],
     },
     {
       id: 3,

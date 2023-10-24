@@ -105,7 +105,7 @@ const ScheduleWater = () => {
                         <RadioGroupItem value="option-three" id="option-three" />
                         <Label htmlFor="option-three">East</Label>
                     </div>
-                    <div className="flex items-center space-x-2" onClick={() => handleDistrictChange('TR')}>
+                    <div className="flex items-center space-x-2" onClick={() => handleDistrictChange('TC')}>
                         <RadioGroupItem value="option-four" id="option-four" />
                         <Label htmlFor="option-four">Truckee</Label>
                     </div>
@@ -113,15 +113,15 @@ const ScheduleWater = () => {
                 <div className='mr-2 grid justify-items-end'>
                     <Select>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select Main Line" />
+                            <SelectValue placeholder="Select Headsheet" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
                             <SelectLabel>Mains</SelectLabel>
-                            <SelectItem value="apple">Apple</SelectItem>
-                            <SelectItem value="banana">Banana</SelectItem>
-                            <SelectItem value="blueberry">Blueberry</SelectItem>
-                            <SelectItem value="grapes">Grapes</SelectItem>
+                            <SelectItem value="apple">West</SelectItem>
+                            <SelectItem value="banana">Central</SelectItem>
+                            <SelectItem value="blueberry">East</SelectItem>
+                            <SelectItem value="grapes">Truckee</SelectItem>
                             <SelectItem value="pineapple">Pineapple</SelectItem>
                             </SelectGroup>
                         </SelectContent>

@@ -8,32 +8,10 @@ import useQueryStore from '@/store/queryStore';
 
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
+import { Order } from '@/typings';
 
 
 
-// interface OrderDetails {
-//   irrigatorsName: string;
-//   ownersName: string;
-//   name: string;
-//   approxAf: number;
-//   balance: number;
-// }
-
-// interface Order {
-//   id: number;
-//   orderTimestamp: string;
-//   orderNumber: number;
-//   tcidSn: string;
-//   district: string;
-//   status: string;
-//   laterals: string[];
-//   approxCfs: number;
-//   approxHrs: number;
-//   phoneNumbers: string[];
-//   remarks: string | null;
-//   details: OrderDetails;
-//   scheduled: boolean;
-// }
 
 interface TableColumn {
   Header: string;
@@ -46,7 +24,7 @@ interface TableColumn {
 
 const Daily = () => {
   const { data, setData, userInput, setUserInput, queryParams, setQueryParams }: any = useQueryStore();
-  const legacyOrdersUrl = `${baseUrl}orders${queryParams}`;
+  const ordersUrl = `${baseUrl}orders${queryParams}`;
 
   const { theme } = useTheme();
   const isDarkMode = theme === "light";
@@ -55,7 +33,7 @@ const Daily = () => {
   
   const fetchData = async () => {
     try {
-      const response = await axios.get(legacyOrdersUrl);
+      const response = await axios.get(ordersUrl);
       setData(response.data); // Assuming the API response is an array of objects
     } catch (error) {
       console.error("Error fetching data:", error);
