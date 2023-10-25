@@ -22,12 +22,16 @@ const Settings = async () => {
 
     return ( 
         <>
-        <Tabs defaultValue="headsheets" className=" w-[98%] mx-auto mt-1">
-            <TabsList className=" w-full">
-                <h1 className=" absolute left-24">Settings</h1>
+        <Tabs defaultValue="home" className=" w-[98%] mx-auto mt-1">
+            <TabsList className=" w-full"> {/* items-center justify-center */}
+                <TabsTrigger value="home">Settings</TabsTrigger>
                 <TabsTrigger value="headsheets">Headsheets</TabsTrigger>
                 <TabsTrigger value="ditchriders">Ditchriders</TabsTrigger>
+                
             </TabsList>
+            <TabsContent value="home">
+              <h1 className='pt-8 font-semibold text-2xl w-2/3 mx-auto'>This is the settings home where the watermaster will set and update certain features for the scheduling and delivery processes.</h1>
+            </TabsContent>
             <TabsContent value="headsheets">
                 <div className='mb-5'>
                 <DataTable columns={columns} data={hsData} />
