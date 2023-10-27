@@ -1,9 +1,7 @@
 "use client"
 import React, { useEffect, useRef, useState } from 'react';
-import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useSchedulingStore } from '@/store/schedulingStore';
-import Column from '@/app/(scheduling)/_components/Column';
-
+import SchedulingBoard from '@/app/(scheduling)/_components/schedule-orders/SchedulingBoard';
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {
@@ -15,14 +13,16 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
+
   
-
-
+const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const ScheduleWater = () => {
     const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize } = useSchedulingStore();
     const [radioSelection, setRadioSelection] = useState("option-one"); // Declare radioSelection using useState hook
-    
+    const [headsheets, setHeadsheets] = useState<string[]>([]);
+    // const [selectedHeadsheet, setSelectedHeadsheet] = useState<string | null>('string');
+
     const schedulingState = {
         board,
         isLoading,
@@ -34,24 +34,28 @@ const ScheduleWater = () => {
         setPageSize,
         getBoard,
     };
-    const initialRender = useRef(true);
+    // const initialRender = useRef(true);
     
     useEffect(() => {
-        // Filter unscheduled orders based on the initial lateral letter
-        // const filteredOrders = board.columns.get("unscheduled").orders.filter(order => {
-        //     // Assuming `order.laterals` contains the lateral information
-        //     // Change 'A' to the initial lateral letter you want to filter by
-        //     return order.laterals.startsWith('A'); // Replace 'A' with the initial lateral letter
-        // });
-        const fetchData = async () => {
-            // Fetch data based on the updated district
-            await getBoard(schedulingState);
+        // Fetch headsheets based on the selected district when it changes
+        const fetchHeadsheets = async () => {
+            try {
+                setHeadsheets(headsheets);
+                const response = await fetch(`${baseUrl}headsheets/${selectedDistrict}`);
+                const data = await response.json();
+                // Extract names from the headsheets and set them in the state
+                const headsheetNames = data.map((headsheets: any) => headsheets.name);
+                setHeadsheets(headsheetNames);
+            } catch (error) {
+                console.error('Error fetching headsheets:', error);
+            }
         };
 
-        // Call fetchData whenever selectedDistrict changes
-        fetchData();
-    }, [getBoard, selectedDistrict]);// Empty dependency array means this effect will only run once after initial render
-
+        // Call fetchHeadsheets whenever selectedDistrict changes
+        if (selectedDistrict) {
+            fetchHeadsheets();
+        }
+    }, [selectedDistrict]);
     
     
     const handleDistrictChange = async (district: string) => {
@@ -63,30 +67,15 @@ const ScheduleWater = () => {
             "EA": "option-three",
             "TR": "option-four",
         };
-    
         // Set the selected district in the state
         setDistrict(district);
-        
         // Set the radio button selection based on the selected district
         const newRadioSelection = optionSelection[district];
         setRadioSelection(newRadioSelection);
-
         getBoard(schedulingState);
-
-        // Fetch data based on the updated district
-
-        
-        
+        // Fetch data based on the updated district    
     };
     
-
-    const handleOnDragEnd = (result: any) => {
-        // Handle drag and drop logic here
-    };
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <section>
@@ -113,47 +102,23 @@ const ScheduleWater = () => {
                 <div className='mr-2 grid justify-items-end'>
                     <Select>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select Headsheet" />
+                            <SelectValue placeholder="Headsheets" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                            <SelectLabel>Mains</SelectLabel>
-                            <SelectItem value="apple">West</SelectItem>
-                            <SelectItem value="banana">Central</SelectItem>
-                            <SelectItem value="blueberry">East</SelectItem>
-                            <SelectItem value="grapes">Truckee</SelectItem>
-                            <SelectItem value="pineapple">Pineapple</SelectItem>
+                            <SelectLabel>Headsheets</SelectLabel>
+                                {headsheets.map((headsheet) => (
+                                    <SelectItem key={headsheet} value={headsheet}>
+                                        {headsheet}
+                                    </SelectItem>
+                                ))}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
                 </div>
             </div>
             <div className='h-[83vh]'>
-            <DragDropContext onDragEnd={handleOnDragEnd}>
-                <Droppable droppableId="id" direction="horizontal" type='column'>
-                    {(provided) => (
-                        <div
-                            className='grid grid-cols-1 md:grid-cols-[2fr,3fr] md:grid-rows-[65vh, 30px] gap-4 max-w-full pr-2 mx-auto '
-                            {...provided.droppableProps}
-                            ref={provided.innerRef}
-                        >
-                            {/* Loop through columns and render them */}
-                            {Array.from(board.columns.entries()).map(([id, column], index) => (
-                                <div key={id}
-                                // className={`col-span-1 overflow-y-auto h-full
-                                className={`col-span-1 h-[65vh] overflow-y-scroll
-                                ${index === 2 ? 'md:col-span-2 md:h-[7.4rem]' : ''}`}>
-                                    <Column
-                                        id={id}
-                                        columns={column.orders}
-                                        index={index}
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
+                <SchedulingBoard />
             </div>
         </section>
     );

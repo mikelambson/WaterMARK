@@ -91,7 +91,6 @@ interface ApiFilters {
             throw new Error("Function not implemented.");
         }
     };
-    console.log(columns);
     return board;
 } catch (error) {
     console.error("Error fetching data:", error);

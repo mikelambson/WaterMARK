@@ -1,4 +1,5 @@
 // ./app/page.tsx
+import Ordercount from "@/components/Ordercount";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,12 +22,11 @@ import {
 
 export default function Home() {
   return (
-    <div className={"pt-24 flex flex-col px-7"}>
-      {/* <div>
-        <SlideDownNotification initialVisible={true} />
-      </div> */}
-      <div className={"w-full flex gap-6 flex-wrap"}>
-        <Card className={"w-full"}>
+    <div className={"pt-24 flex gap-6 px-7 flex-wrap"}>
+      <Ordercount />
+      <div className={"flex flex-grow  gap-6 flex-wrap"}>
+      
+        <Card className={" w-full max-w-5/6"}>
           <CardHeader>
             <CardTitle>Flows</CardTitle>
             <CardDescription>Card Description</CardDescription>
@@ -38,7 +38,7 @@ export default function Home() {
             <p>Card Footer</p>
           </CardFooter>
         </Card>
-
+        
         <Card className={"w-[350px]"}>
           <CardHeader>
             <CardTitle>Create Workorder</CardTitle>
