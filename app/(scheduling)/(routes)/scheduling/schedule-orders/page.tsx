@@ -18,7 +18,7 @@ import {
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const ScheduleWater = () => {
-    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize } = useSchedulingStore();
+    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize, selectedHeadsheet, setSelectedHeadsheet } = useSchedulingStore();
     const [radioSelection, setRadioSelection] = useState("option-one"); // Declare radioSelection using useState hook
     const [headsheets, setHeadsheets] = useState<string[]>([]);
     // const [selectedHeadsheet, setSelectedHeadsheet] = useState<string | null>('string');
@@ -33,6 +33,8 @@ const ScheduleWater = () => {
         setPage,
         setPageSize,
         getBoard,
+        selectedHeadsheet,
+        setSelectedHeadsheet
     };
     // const initialRender = useRef(true);
     
@@ -69,11 +71,17 @@ const ScheduleWater = () => {
         };
         // Set the selected district in the state
         setDistrict(district);
+        setSelectedHeadsheet(null)
         // Set the radio button selection based on the selected district
         const newRadioSelection = optionSelection[district];
         setRadioSelection(newRadioSelection);
         getBoard(schedulingState);
         // Fetch data based on the updated district    
+    };
+
+    const handleHeadsheetChange = (headsheets: string | null) => {
+        // Set the selected headsheet in the state
+        setSelectedHeadsheet(headsheets);
     };
     
 
@@ -102,13 +110,17 @@ const ScheduleWater = () => {
                 <div className='mr-2 grid justify-items-end'>
                     <Select>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Headsheets" />
+                            <SelectValue placeholder="Headsheets">
+                            </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                            <SelectLabel>Headsheets</SelectLabel>
+                              {/* Add a selectable "Headsheets" option */}
+                                <SelectItem key="null" onClick={() => handleHeadsheetChange(null)} value={''}>
+                                    Headsheets
+                                </SelectItem>
                                 {headsheets.map((headsheet) => (
-                                    <SelectItem key={headsheet} value={headsheet}>
+                                    <SelectItem key={headsheet} value={headsheet} onClick={() => handleHeadsheetChange(headsheet)}>
                                         {headsheet}
                                     </SelectItem>
                                 ))}

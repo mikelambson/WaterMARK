@@ -4,6 +4,7 @@ import { Column } from 'react-table';
 import { TypedColumn, Board } from '@/typings';
 import { create } from 'zustand';
 
+
 interface SchedulingState {
     board: Board;
     isLoading: boolean;
@@ -14,6 +15,8 @@ interface SchedulingState {
     setPage: (page: number) => void;
     setPageSize: (pageSize: number) => void;
     getBoard: (state: SchedulingState) => Promise<void>; // Receive state as a parameter
+    selectedHeadsheet: string,
+    setSelectedHeadsheet: (selectedHeadsheet: any) => void;
 }
 
 export const useSchedulingStore = create<SchedulingState>((set) => ({
@@ -51,6 +54,8 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
         const columns = await getScheduleGroupedByColumn(filters);
         set({ board: columns, isLoading: false });
     },
+    selectedHeadsheet: "''", // Add selectedHeadsheet state variable
+    setSelectedHeadsheet: (headsheets: any) => set({ selectedHeadsheet: headsheets }),
 }));
 
 

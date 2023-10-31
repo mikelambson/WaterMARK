@@ -6,7 +6,7 @@ import Column from '@/app/(scheduling)/_components/Column';
 
 const SchedulingBoard = () => {
 
-    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize } = useSchedulingStore();
+    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize, selectedHeadsheet, setSelectedHeadsheet } = useSchedulingStore();
     
     const schedulingState = {
         board,
@@ -18,6 +18,8 @@ const SchedulingBoard = () => {
         setPage,
         setPageSize,
         getBoard,
+        selectedHeadsheet,
+        setSelectedHeadsheet
     };
     
     
