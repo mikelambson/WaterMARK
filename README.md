@@ -1,5 +1,5 @@
 # WaterMARK
-### _Water Measurment Administration & Record Keeping_
+### _Water Measurement Administration & Record Keeping_
 [![Build Status](https://img.shields.io/static/v1?label=build&message=development&color=red)](https://img.shields.io)
 [![GitHub issues](https://img.shields.io/github/issues/mikelambson/WaterMARK)](https://github.com/mikelambson/WaterMARK/issues)
 [![GitHub license](https://img.shields.io/github/license/mikelambson/WaterMARK)](https://github.com/mikelambson/WaterMARK/blob/main/LICENSE)
@@ -16,7 +16,7 @@
 ___
 #### Information
 
-Water Measurment Administration & Record Keeping => WaterMARK  
+Water Measurement Administration & Record Keeping => WaterMARK  
 WaterMARK is a multi-source meter data aggregation, scheduling, task managemet and water order processing application.
 
 This frontend system is designed to work with the [WaterMARK-backend](https://github.com/mikelambson/watermark-backend) as the primary API and data management tool.

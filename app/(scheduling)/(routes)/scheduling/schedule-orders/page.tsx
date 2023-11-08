@@ -71,7 +71,7 @@ const ScheduleWater = () => {
         };
         // Set the selected district in the state
         setDistrict(district);
-        setSelectedHeadsheet(null)
+        setSelectedHeadsheet("")
         // Set the radio button selection based on the selected district
         const newRadioSelection = optionSelection[district];
         setRadioSelection(newRadioSelection);
@@ -110,14 +110,14 @@ const ScheduleWater = () => {
                 <div className='mr-2 grid justify-items-end'>
                     <Select>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Headsheets">
-                            </SelectValue>
+                            <SelectValue placeholder={selectedHeadsheet === "" ? "Headsheets" : selectedHeadsheet} />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
+                                <SelectLabel>Select</SelectLabel>
                               {/* Add a selectable "Headsheets" option */}
                                 <SelectItem key="null" onClick={() => handleHeadsheetChange(null)} value={''}>
-                                    Headsheets
+                                    ALL
                                 </SelectItem>
                                 {headsheets.map((headsheet) => (
                                     <SelectItem key={headsheet} value={headsheet} onClick={() => handleHeadsheetChange(headsheet)}>

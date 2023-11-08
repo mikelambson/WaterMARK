@@ -54,7 +54,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
         const columns = await getScheduleGroupedByColumn(filters);
         set({ board: columns, isLoading: false });
     },
-    selectedHeadsheet: "''", // Add selectedHeadsheet state variable
+    selectedHeadsheet: "", // Add selectedHeadsheet state variable
     setSelectedHeadsheet: (headsheets: any) => set({ selectedHeadsheet: headsheets }),
 }));
 
