@@ -4,9 +4,14 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import React, { useState, useEffect, ReactNode } from "react";
 import axios from "axios";
 import { Skeleton } from "./ui/skeleton";
+import { propagateServerField } from "next/dist/server/lib/render-server";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 let defaultYear = 2023;
+
+interface OrdercountProps {
+  className?: string;
+}
 
 interface Count {
   Year: number;
@@ -25,7 +30,7 @@ interface Count {
   TotalOrders: number;
 }
 
-const Ordercount: React.FC = () => {
+const Ordercount: React.FC<OrdercountProps> = (props) => {
     const [countData, setCountData] = useState<Count | null>(null);
     const [year, setYear] = useState<number>(defaultYear);
   
@@ -45,8 +50,9 @@ const Ordercount: React.FC = () => {
       fetchData();
     }, [year]);
   
+
     return (
-      <div className="w-fit">
+      <div className={props.className  || "w-fit"}>
          
           {countData ? (
             <div>
