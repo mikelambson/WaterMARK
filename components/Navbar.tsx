@@ -63,7 +63,7 @@ const Navbar = () => {
       link: "/analysis",
       allowedRoles: ["Scheduler", "Admin", "Senior Analyst"],
       name: "Analysis",
-      children: ["/analysis"],
+      children: ["/analysis", "/analysis/master", "/analysis/meters", "/analysis/adjustments", "/analysis/settings"],
     },
     {
       id: 5,

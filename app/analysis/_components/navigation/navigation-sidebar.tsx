@@ -1,11 +1,14 @@
-// \app\(deliveries)\_components\navigation\navigation-sidebar.tsx
+// \app\(analysis)\_components\navigation\navigation-sidebar.tsx
 "use client"
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { usePathname } from 'next/navigation';
 import { cn } from "@/lib/utils";
-import { FaTasks, FaUserClock } from "react-icons/fa";
-import { FaGlobe, FaFileImport, FaHouseFloodWaterCircleArrowRight, FaGear, FaRegCalendarDays } from "react-icons/fa6";
+import { FaChartArea, FaBuffer, FaGear } from "react-icons/fa6";
+import { ImMeter2 } from "react-icons/im";
+import { BsWrenchAdjustableCircleFill } from "react-icons/bs";
+
+
 
 
 export const NavigationSidebar = () => {
@@ -28,9 +31,9 @@ export const NavigationSidebar = () => {
  
   const labelTextClass = "text-[10px] drop-shadow";
   const iconStyle = `-mb-[1px] drop-shadow `;
-  // const permission = await deliveriesPermission();
+  // const permission = await analysisPermission();
 
-  // if (!deliveriesPermission) {
+  // if (!analysisPermission) {
   //   return redirect("/")
   // }
   
@@ -38,10 +41,10 @@ export const NavigationSidebar = () => {
   const sideLinks = [
     {
       id: 0, // Use a unique id for the logo section
-      link: "/deliveries", // Use "/" as the link for the logo
+      link: "/analysis", // Use "/" as the link for the logo
       content: (
         <>
-        <FaGlobe size={30} className={iconStyle} />
+        <FaBuffer size={30} className={iconStyle} />
         <span className={labelTextClass}>Dash</span>
         </>
       ),
@@ -49,33 +52,43 @@ export const NavigationSidebar = () => {
     },
     {
       id: 1,
-      link: "/deliveries/schedule",
+      link: "/analysis/master",
       content: (
         <>
-        <FaHouseFloodWaterCircleArrowRight size={30} className={iconStyle} />
-        <span className={labelTextClass}>Schedule</span>
+        <FaChartArea size={25} className={iconStyle} />
+        <span className={labelTextClass}>Master</span>
         </>
       ),
       
     },
     {
       id: 2,
-      link: "/deliveries/tasks",
+      link: "/analysis/meters",
       content: (
         <>
-        <FaTasks size={30} className={iconStyle} />
-            <span className={labelTextClass}>Tasks</span>
+        <ImMeter2 size={30} className={iconStyle} />
+            <span className={labelTextClass}>Meter Data</span>
         </>
       ),
       
     },
     {
       id: 3,
-      link: "/deliveries/ditchrider-schedule",
+      link: "/analysis/adjustments",
       content: (
         <>
-        <FaUserClock size={30} className={iconStyle} />
-        <span className={labelTextClass}>Ditchrider Schedule</span>
+        <BsWrenchAdjustableCircleFill size={30} className={iconStyle} />
+        <span className={labelTextClass}>Order Adjust</span>
+        </>
+      ),
+    },
+    {
+      id: 4,
+      link: "/analysis/settings",
+      content: (
+        <>
+        <FaGear size={30} className={iconStyle} />
+        <span className={labelTextClass}>Settings</span>
         </>
       ),
     },
@@ -88,7 +101,7 @@ export const NavigationSidebar = () => {
       <div className={sidebarStyle}>
       {/* Your Discord-like menu items go here */}
       <div className="mb-6">
-        {sideLinks.map((item) => (
+        {sideLinks.slice(0, -1).map((item) => (
           <Link 
             key={item.id}
             href={item.link}
@@ -101,6 +114,17 @@ export const NavigationSidebar = () => {
           
         ))}
       </div>
+      <div className=" absolute bottom-16 left-[.64rem]">
+          <Link 
+            key={sideLinks[sideLinks.length - 1].id}
+            href={sideLinks[sideLinks.length - 1].link}
+            className={cn(`${sidebarItem}`, pathname === sideLinks[sideLinks.length - 1].link ? 
+            cn(isDarkMode ? "text-amber-700" : "text-orange-300") : 
+            cn(isDarkMode ? "text-zinc-500" : "text-stone-500"))}
+          >
+            {sideLinks[sideLinks.length - 1].content}
+          </Link>
+        </div>
       
     </div>
     </div>

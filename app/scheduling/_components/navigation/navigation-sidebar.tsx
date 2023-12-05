@@ -105,7 +105,7 @@ export const NavigationSidebar = () => {
 
   return ( 
       <nav>
-      <div className="fixed flex h-full w-10">
+      <div className="fixed flex h-full w-14">
       <div className={sidebarStyle}>
       {/* Your Discord-like menu items go here */}
       <div className="mb-6">
