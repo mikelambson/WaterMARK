@@ -9,6 +9,7 @@ import { FaBars, FaTimes, FaRegBell, FaUserCircle } from "react-icons/fa";
 import { ModeToggle } from "./ModeToggle";
 import { useTheme } from "next-themes";
 import { useRole } from "@/components/RoleContext"; // Import useRole
+import { BsDatabaseFillGear } from "react-icons/bs";
 
 const Navbar = () => {
   const { userRole } = useRole(); // Destructure userRole from useRole hook
@@ -39,53 +40,54 @@ const Navbar = () => {
     },
     {
       id: 1,
+      link: "/admin",
+      allowedRoles: ["Staff", "Watermaster","Senior Analyst", "Admin"],
+      name: "Admin",
+      children: ["/admin"],
+    },
+    {
+      id: 2,
       link: "/meters",
       allowedRoles: ["any"], // Define roles that can access this link
       name: "Meters",
       children: ["/meters"],
     },
     {
-      id: 2,
+      id: 3,
       link: "/scheduling",
       allowedRoles: ["Watermaster", "Scheduler", "Admin"],
       name: "Scheduling",
       children: ["/scheduling", "/scheduling/daily", "/scheduling/schedule-orders", "/scheduling/ditchrider-tasks", "/scheduling/ditchrider-schedule", "/scheduling/settings"],
     },
     {
-      id: 3,
+      id: 4,
       link: "/deliveries",
       allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "Admin"],
       name: "Deliveries",
       children: ["/deliveries", "/deliveries/schedule", "/deliveries/tasks", "/deliveries/ditchrider-schedule"],
     },
     {
-      id: 4,
+      id: 5,
       link: "/analysis",
       allowedRoles: ["Scheduler", "Admin", "Senior Analyst"],
       name: "Analysis",
       children: ["/analysis", "/analysis/master", "/analysis/meters", "/analysis/adjustments", "/analysis/settings"],
     },
     {
-      id: 5,
+      id: 6,
       link: "/online-schedule",
       allowedRoles: ["any"],
       name: "Schedule",
       children: ["/online-schedule"],
     },
     {
-      id: 6,
+      id: 7,
       link: "/reports",
       allowedRoles: ["Watermaster", "Analyst", "Admin"],
       name: "Reports",
       children: ["/reports"],
     },
-    {
-      id: 7,
-      link: "/admin",
-      allowedRoles: ["Senior Analyst", "Admin"],
-      name: "Admin",
-      children: ["/admin"],
-    },
+    
   ];
 
   return (
@@ -138,6 +140,13 @@ const Navbar = () => {
       )}
 
       <div className={"flex items-center pr-4 space-x-3"}>
+        {userRole === "Admin" && (
+          <Link href="/system">
+            <div className={`${defaultTextColorClass}`}>
+              <BsDatabaseFillGear size={20} className={`${iconHoverColorClass}`} />
+            </div>
+          </Link>
+        )}
         <ModeToggle />
         <div className={" w-px h-6 bg-gray-400"}></div>
         <Link href="/login">

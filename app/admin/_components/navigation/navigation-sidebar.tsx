@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { usePathname } from 'next/navigation';
 import { cn } from "@/lib/utils";
-import { FaTasks } from "react-icons/fa";
+import { FaSearch, FaTasks } from "react-icons/fa";
 import { FaGlobe, FaHouseFloodWaterCircleArrowRight } from "react-icons/fa6";
 import { ImCalendar } from "react-icons/im";
+import { BsWrenchAdjustableCircleFill } from "react-icons/bs";
 
 
 export const NavigationSidebar = () => {
@@ -39,7 +40,7 @@ export const NavigationSidebar = () => {
   const sideLinks = [
     {
       id: 0, // Use a unique id for the logo section
-      link: "/deliveries", // Use "/" as the link for the logo
+      link: "/admin", // Use "/" as the link for the logo
       content: (
         <>
         <FaGlobe size={30} className={iconStyle} />
@@ -50,33 +51,22 @@ export const NavigationSidebar = () => {
     },
     {
       id: 1,
-      link: "/deliveries/schedule",
+      link: "/admin/lookup",
       content: (
         <>
-        <FaHouseFloodWaterCircleArrowRight size={30} className={iconStyle} />
-        <span className={labelTextClass}>Schedule</span>
+        <FaSearch size={30} className={iconStyle} />
+        <span className={labelTextClass}>Order Lookup</span>
         </>
       ),
       
     },
     {
       id: 2,
-      link: "/deliveries/tasks",
+      link: "/admin/adjustments",
       content: (
         <>
-        <FaTasks size={30} className={iconStyle} />
-            <span className={labelTextClass}>Tasks</span>
-        </>
-      ),
-      
-    },
-    {
-      id: 3,
-      link: "/deliveries/ditchrider-schedule",
-      content: (
-        <>
-        <ImCalendar size={30} className={iconStyle} />
-        <span className={labelTextClass}>Work Schedule</span>
+        <BsWrenchAdjustableCircleFill size={30} className={iconStyle} />
+        <span className={labelTextClass}>Adjust Order</span>
         </>
       ),
     },

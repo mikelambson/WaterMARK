@@ -29,8 +29,8 @@ export const NavigationSidebar = () => {
 
   
  
-  const labelTextClass = "text-[10px] drop-shadow";
-  const iconStyle = `-mb-[1px] drop-shadow `;
+  const labelTextClass = "text-[10px] leading-3 drop-shadow";
+  const iconStyle = `mb-[2px] drop-shadow `;
   // const permission = await analysisPermission();
 
   // if (!analysisPermission) {
@@ -78,7 +78,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <BsWrenchAdjustableCircleFill size={30} className={iconStyle} />
-        <span className={labelTextClass}>Order Adjust</span>
+        <span className={labelTextClass}>Adjust Order</span>
         </>
       ),
     },

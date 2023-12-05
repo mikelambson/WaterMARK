@@ -11,13 +11,15 @@ export default function Login() {
 
   // Define an array of role options
   const roleOptions = [
-    "Anonymous",
     "Admin",
+    "Staff",
     "Watermaster",
     "Scheduler",
     "Ditchrider",
     "Senior Analyst",
     "Analyst",
+    "Anonymous",
+    
     // Add other roles as needed
   ];
 
