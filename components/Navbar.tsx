@@ -56,7 +56,7 @@ const Navbar = () => {
       link: "/deliveries",
       allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "Admin"],
       name: "Deliveries",
-      children: ["/deliveries"],
+      children: ["/deliveries", "/deliveries/schedule", "/deliveries/tasks", "/deliveries/ditchrider-schedule"],
     },
     {
       id: 4,

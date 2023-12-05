@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Headsheets, columns } from "@/app/(scheduling)/_components/settings/hs-columns"
-import { DataTable } from "@/app/(scheduling)/_components/settings/data-table"
+import { Headsheets, columns } from "@/app/scheduling/_components/settings/hs-columns"
+import { DataTable } from "@/app/scheduling/_components/settings/data-table"
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
