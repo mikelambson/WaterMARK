@@ -10,8 +10,10 @@ import { ModeToggle } from "./ModeToggle";
 import { useTheme } from "next-themes";
 import { useRole } from "@/components/RoleContext"; // Import useRole
 import { BsDatabaseFillGear } from "react-icons/bs";
+import { useToast } from "@/components/ui/use-toast"
 
 const Navbar = () => {
+  const { toast } = useToast();
   const { userRole } = useRole(); // Destructure userRole from useRole hook
   const [nav, setNav] = useState(false);
   const { theme } = useTheme();

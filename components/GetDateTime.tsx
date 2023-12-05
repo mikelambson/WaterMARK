@@ -1,3 +1,4 @@
+"use client"
 // Define an interface for DateTimeFormatOptions
 interface MyDateTimeFormatOptions {
     weekday?: 'long' | 'short' | 'narrow';
@@ -9,7 +10,7 @@ interface MyDateTimeFormatOptions {
     hour12?: boolean;
   }
  
-const DateTime = () => {
+export function DateTime() {
     const options: MyDateTimeFormatOptions = {
         weekday: 'long',
         year: 'numeric',
@@ -27,4 +28,3 @@ const DateTime = () => {
 
 }
 
-export default DateTime;
