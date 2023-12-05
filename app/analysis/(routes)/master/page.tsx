@@ -22,7 +22,7 @@ interface TableColumn {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   
 
-const Daily = () => {
+const Master = () => {
   const { data, setData, userInput, setUserInput, queryParams, setQueryParams }: any = useQueryStore();
   const ordersUrl = `${baseUrl}orders${queryParams}`;
 
@@ -202,4 +202,4 @@ const Daily = () => {
   );
 };
 
-export default Daily;
+export default Master;

@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { RoleProvider } from "@/components/RoleContext";
 import { Open_Sans } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
 
 
 const font = Open_Sans({ subsets: ["latin"] });
@@ -33,6 +34,7 @@ export default function RootLayout({
             <main className={"min-h-screen  w-full"}>
             {children}
             </main>
+            <Toaster />
           </RoleProvider>
         </ThemeProvider>
       </body>
