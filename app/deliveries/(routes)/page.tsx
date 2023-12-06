@@ -1,3 +1,4 @@
+//Deliveries Dashboard \app\deliveries\(routes)\page.tsx
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import {
@@ -16,8 +17,8 @@ export default function Deliveries() {
 
       <Tabs defaultValue="section1" className="mt-3 w-full">
       <TabsList>
-        <TabsTrigger value="section1">Section 1</TabsTrigger>
-        <TabsTrigger value="section2">Section 2</TabsTrigger>
+        <TabsTrigger value="section1">Main</TabsTrigger>
+        <TabsTrigger value="section2">Update Flows</TabsTrigger>
       </TabsList>
       <TabsContent value="section1">
         <ScrollArea className="h-full w-full rounded-md border p-4">
@@ -45,7 +46,10 @@ export default function Deliveries() {
         </Accordion>
         </ScrollArea>
       </TabsContent>
-      <TabsContent value="section2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium aut distinctio omnis aliquam recusandae! Quam, nostrum tempore illo hic sequi sapiente quae dolores assumenda cum? Exercitationem nemo eius similique vero?</TabsContent>
+      <TabsContent value="section2">
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium aut distinctio omnis aliquam recusandae! Quam, nostrum tempore illo hic sequi sapiente quae dolores assumenda cum? Exercitationem nemo eius similique vero?</p>
+
+      </TabsContent>
     </Tabs>
 
     </div>
