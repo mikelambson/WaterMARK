@@ -23,7 +23,7 @@ const Scheduling = () => {
   return (
     <div className={"flex flex-col m-2"}>
       <div className={"flex-1"}>
-        <h1 className={"text-3xl font-semibold"}>Scheduling Dashboard</h1> 
+        <h1 className={"text-2xl font-semibold ml-[34vw]"}>Scheduling Dashboard</h1> 
       </div>
 
       <Tabs defaultValue="section1" className="mt-2 w-full">
