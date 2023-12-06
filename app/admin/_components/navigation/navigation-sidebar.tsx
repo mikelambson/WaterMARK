@@ -44,7 +44,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <FaGlobe size={30} className={iconStyle} />
-        <span className={labelTextClass}>Dash</span>
+        <span className={labelTextClass}>Dash Board</span>
         </>
       ),
       
@@ -66,7 +66,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <BsWrenchAdjustableCircleFill size={30} className={iconStyle} />
-        <span className={labelTextClass}>Adjust Order</span>
+        <span className={labelTextClass}>Adjust Orders</span>
         </>
       ),
     },
