@@ -11,7 +11,7 @@ import {
 export default function Deliveries() {
   return (
     <div className="p-1">
-      <h1 className={"text-2xl font-semibold text-yellow-800 md:ml-[34vw] "}>Deliveries Dashboard</h1>
+      <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Deliveries Dashboard</h1>
       <p>This is a ditchrider dashboard which will be designed with quick access to info for some of the key systems and reserviors, tasks, and other operations functions.</p>
       <p>On this page, there should be a place to update some operations measurement points, and should default to district worked.</p>
 

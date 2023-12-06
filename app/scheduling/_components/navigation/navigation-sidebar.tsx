@@ -26,8 +26,8 @@ export const NavigationSidebar = () => {
 
   
  
-  const labelTextClass = "text-[10px] leading-3 drop-shadow";
-  const iconStyle = `mb-[2px] drop-shadow `;
+  const labelTextClass = "text-[10px] leading-3 subpixel-antialiased drop-shadow";
+  const iconStyle = `mb-[2px] subpixel-antialiased drop-shadow `;
   // const permission = await schedulingPermission();
 
   // if (!schedulingPermission) {

@@ -28,7 +28,7 @@ export default function Login() {
       
       <div className={"p-1"}>
         <div>
-          <h1 className={"text-2xl font-semibold text-yellow-800 md:ml-[40vw] "}>Login Page</h1> 
+          <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Login Page</h1> 
         </div>
       </div>
   

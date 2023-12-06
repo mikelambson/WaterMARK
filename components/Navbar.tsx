@@ -5,12 +5,13 @@ import { usePathname } from 'next/navigation';
 import { cn } from "@/lib/utils";
 import Image from "next/image"
 import React, { useState } from "react";
-import { FaBars, FaTimes, FaRegBell, FaUserCircle } from "react-icons/fa";
+import { FaBars, FaTimes, FaBell, FaUserCircle } from "react-icons/fa";
 import { ModeToggle } from "./ModeToggle";
 import { useTheme } from "next-themes";
 import { useRole } from "@/components/RoleContext"; // Import useRole
 import { BsDatabaseFillGear } from "react-icons/bs";
 import { useToast } from "@/components/ui/use-toast"
+
 
 const Navbar = () => {
   const { toast } = useToast();
@@ -94,7 +95,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={` w-full h-16 align-middle ${defaultbg}  text-${defaultTextColorClass} fixed z-50 nav`}
+      className={` w-full h-16 align-middle ${defaultbg} subpixel-antialiased text-${defaultTextColorClass} fixed z-50 nav`}
     ><div className={"h-16 flex mx-auto justify-between items-center px-2 fixed w-[100vw]"}>
       <ul className={"hidden md:flex flex-grow items-center"}>
         {roleBasedLinks.map(({ id, link, allowedRoles, name, content, children }) =>
@@ -102,7 +103,7 @@ const Navbar = () => {
           allowedRoles.includes("any") || allowedRoles.includes(userRole) ? (
             <li
               key={id}
-              className={cn(`nav-links px-3 cursor-pointer capitalize font-medium ${defaultTextColorClass} hover:scale-105 hover:text-amber-300 duration-200 link-underline`, children.includes(pathname) ? 
+              className={cn(`nav-links px-3 cursor-pointer capitalize font-medium subpixel-antialiased ${defaultTextColorClass} hover:scale-105 hover:text-amber-300 duration-200 link-underline`, children.includes(pathname) ? 
               cn(isDarkMode ? "text-amber-400" : "text-orange-300") : {defaultTextColorClass})}
             >
               {id === 0 ? ( // Check if it's the logo section
@@ -117,20 +118,20 @@ const Navbar = () => {
 
       <div
         onClick={() => setNav(!nav)}
-        className={"cursor-pointer pr-4 text-gray-500 md:hidden z-50"}
+        className={"cursor-pointer pr-4 subpixel-antialiased text-gray-500 md:hidden z-50"}
       >
         {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
       </div>
 
       {nav && (
         <ul
-          className={`flex flex-col  items-center absolute top-0 left-0 w-full h-screen ${defaultbg} ${defaultTextColorClass} z-40`}
+          className={`flex flex-col subpixel-antialiased items-center absolute top-0 left-0 w-full h-screen ${defaultbg} ${defaultTextColorClass} subpixel-antialiased z-40`}
         >
           {roleBasedLinks.map(({ id, link, allowedRoles }) =>
             allowedRoles.includes("any") || allowedRoles.includes(userRole) ? (
               <li
                 key={id}
-                className={"px-4 cursor-pointer py-6 text-4xl hover:text-amber-200 duration-200 link-underline"}
+                className={"px-4 cursor-pointer py-6 text-4xl subpixel-antialiased hover:text-amber-200 duration-200 link-underline"}
               >
                 <Link onClick={() => setNav(!nav)} href={link}>
                   {link}
@@ -144,7 +145,7 @@ const Navbar = () => {
       <div className={"flex items-center pr-4 space-x-3"}>
         {userRole === "Admin" && (
           <Link href="/system">
-            <div className={`${defaultTextColorClass}`}>
+            <div className={`${defaultTextColorClass} subpixel-antialiased`}>
               <BsDatabaseFillGear size={20} className={`${iconHoverColorClass}`} />
             </div>
           </Link>
@@ -152,13 +153,13 @@ const Navbar = () => {
         <ModeToggle />
         <div className={" w-px h-6 bg-gray-400"}></div>
         <Link href="/login">
-          <div className={`${defaultTextColorClass}`}>
-            <FaRegBell size={20} className={`${iconHoverColorClass}`} />
+          <div className={`${defaultTextColorClass} subpixel-antialiased`}>
+            <FaBell size={20} className={`${iconHoverColorClass} subpixel-antialiased`} />
           </div>
         </Link>
         <Link href="/login">
           <div className={`${defaultTextColorClass}`}>
-            <FaUserCircle size={30} className={`${iconHoverColorClass}`} />
+            <FaUserCircle size={30} className={`${iconHoverColorClass} subpixel-antialiased`} />
           </div>
         </Link>
       </div>
