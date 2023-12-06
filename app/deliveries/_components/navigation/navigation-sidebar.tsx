@@ -54,7 +54,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <FaHouseFloodWaterCircleArrowRight size={30} className={iconStyle} />
-        <span className={labelTextClass}>Schedule</span>
+        <span className={labelTextClass}>Delivery Schedule</span>
         </>
       ),
       
