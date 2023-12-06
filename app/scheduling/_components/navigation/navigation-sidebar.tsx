@@ -42,7 +42,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <FaGlobe size={30} className={iconStyle} />
-        <span className={labelTextClass}>Dash</span>
+        <span className={labelTextClass}>Dash Board</span>
         </>
       ),
       
@@ -53,7 +53,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <FaFileImport size={25} className={iconStyle} />
-        <span className={labelTextClass}>New Orders</span>
+        <span className={labelTextClass}>Import Orders</span>
         </>
       ),
       
@@ -64,7 +64,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <FaHouseTsunami size={30} className={iconStyle} />
-        <span className={labelTextClass}>Schedule</span>
+        <span className={labelTextClass}>Schedule Water</span>
         </>
       ),
       
@@ -75,7 +75,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <FaTasks size={30} className={iconStyle} />
-            <span className={labelTextClass}>Tasks</span>
+            <span className={labelTextClass}>Manage Tasks</span>
         </>
       ),
       

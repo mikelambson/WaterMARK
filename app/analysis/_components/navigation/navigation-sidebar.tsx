@@ -45,7 +45,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <FaBuffer size={30} className={iconStyle} />
-        <span className={labelTextClass}>Dash</span>
+        <span className={labelTextClass}>Dash Board</span>
         </>
       ),
       
@@ -56,7 +56,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <FaChartArea size={25} className={iconStyle} />
-        <span className={labelTextClass}>Master</span>
+        <span className={labelTextClass}>Order Analysis</span>
         </>
       ),
       

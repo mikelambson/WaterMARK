@@ -43,7 +43,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <FaGlobe size={30} className={iconStyle} />
-        <span className={labelTextClass}>Dash</span>
+        <span className={labelTextClass}>Dash Board</span>
         </>
       ),
       
@@ -65,7 +65,7 @@ export const NavigationSidebar = () => {
       content: (
         <>
         <FaTasks size={30} className={iconStyle} />
-            <span className={labelTextClass}>Tasks</span>
+            <span className={labelTextClass}>Daily Tasks</span>
         </>
       ),
       
