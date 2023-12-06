@@ -150,9 +150,9 @@ const Lookup = () => {
 
   return (
     <div className={"overflow-auto"}>
-      <h1 className={"text-3xl font-semibold"}>Water Order Lookup</h1>
+      <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Water Order Lookup</h1>
 
-      <p className='pt-3'>This lookup form is a placeholder for the final design. Part of the backend code for this component will be used, but the elements of the process and method to find orders will be streamlined and simplified.
+      <p>This lookup form is a placeholder for the final design. Part of the backend code for this component will be used, but the elements of the process and method to find orders will be streamlined and simplified.
       </p>
       
       <form onSubmit={handleSubmit}>

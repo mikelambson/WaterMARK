@@ -150,7 +150,7 @@ const Master = () => {
 
   return (
     <div className={"overflow-auto"}>
-      <h1 className={"text-3xl font-semibold mb-5"}>Master Analysis</h1>
+      <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Master Analysis</h1>
       <span className={"ml-2 pt-4 flex gap-6"}>
       <h1 className={"mt-2 text-xl font-bold "}>Order Count | {rows.length}</h1> 
       <Button className={"active:bg-slate-500"}>Schedule These</Button>

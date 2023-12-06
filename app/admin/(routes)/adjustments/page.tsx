@@ -16,7 +16,7 @@ import { Skeleton } from "@/components/ui/skeleton";
   
     return (
       <div className="p-1">
-        <h1 className={"text-3xl font-semibold mb-1"}>Water Order Adjustments</h1>
+        <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Water Order Adjustments</h1>
         <p className="mb-4">
           This page will provide office staff a central location to begin the water
           adjustments process as well as to look up the status of any particular

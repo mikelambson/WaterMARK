@@ -11,13 +11,13 @@ import {
 export default function DeliverySchedule() {
   return (
   <div className="p-1">
-    <h1 className={"text-3xl font-semibold"}>Delivery Schedule</h1>
+    <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Delivery Schedule</h1>
     <p>This is the where the orders will be started and tracked for deliveries.</p>
     <Tabs defaultValue="section1" className="w-full pr-2">
       <TabsList className="w-full flex flex-wrap">
         <TabsTrigger value="section1">Head 1</TabsTrigger>
         <TabsTrigger value="section2">Head 2</TabsTrigger>
-        <p className="pl-[80%] text-xs text-yellow-600 pointer-events-none">Dynamic section...</p>
+        <p className="absolute pl-[60vw] pt-2 text-xs italic text-card-alternative pointer-events-none">&#123;Dynamic section...&#125;</p>
       </TabsList>
       <TabsContent value="section1">
         <ScrollArea className="h-full w-full rounded-md border p-4">
