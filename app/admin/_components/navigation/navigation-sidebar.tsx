@@ -4,9 +4,8 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { usePathname } from 'next/navigation';
 import { cn } from "@/lib/utils";
-import { FaSearch, FaTasks } from "react-icons/fa";
-import { FaGlobe, FaHouseFloodWaterCircleArrowRight } from "react-icons/fa6";
-import { ImCalendar } from "react-icons/im";
+import { FaSearch } from "react-icons/fa";
+import { FaGlobe } from "react-icons/fa6";
 import { BsWrenchAdjustableCircleFill } from "react-icons/bs";
 
 
