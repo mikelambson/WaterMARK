@@ -46,7 +46,7 @@ const Navbar = () => {
       link: "/admin",
       allowedRoles: ["Staff", "Watermaster","Senior Analyst", "Admin"],
       name: "Admin",
-      children: ["/admin", "/admin/lookup", "/admin/adjustments"],
+      children: ["/admin", "/admin/lookup", "/admin/callout", "/admin/adjustments"],
     },
     {
       id: 2,

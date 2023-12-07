@@ -5,8 +5,10 @@ import { useTheme } from "next-themes";
 import { usePathname } from 'next/navigation';
 import { cn } from "@/lib/utils";
 import { FaSearch } from "react-icons/fa";
-import { FaGlobe } from "react-icons/fa6";
+import { FaGlobe, FaPhoneVolume } from "react-icons/fa6";
 import { BsWrenchAdjustableCircleFill } from "react-icons/bs";
+import { IoIosConstruct } from "react-icons/io";
+import { GrUserWorker } from "react-icons/gr";
 
 
 export const NavigationSidebar = () => {
@@ -61,11 +63,31 @@ export const NavigationSidebar = () => {
     },
     {
       id: 2,
+      link: "/admin/callout",
+      content: (
+        <>
+        <FaPhoneVolume size={30} className={iconStyle} />
+        <span className={labelTextClass}>Callouts</span>
+        </>
+      ),
+    },
+    {
+      id: 3,
       link: "/admin/adjustments",
       content: (
         <>
         <BsWrenchAdjustableCircleFill size={30} className={iconStyle} />
         <span className={labelTextClass}>Adjust Orders</span>
+        </>
+      ),
+    },
+    {
+      id: 4,
+      link: "/admin/workorders",
+      content: (
+        <>
+        <IoIosConstruct size={30} className={iconStyle} />
+        <span className={labelTextClass}>Work Orders</span>
         </>
       ),
     },
