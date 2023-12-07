@@ -1,5 +1,6 @@
 // ./app/page.tsx
 import Ordercount from "@/components/Ordercount";
+import SysInfo from "@/components/home/SysInfo";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,23 +30,14 @@ export default function Home() {
           Water Measurment Administration & Record Keeping
         </h1>
       </div>
-      <div className={"flex gap-6 px-7 flex-wrap"}>      
 
+      <div className={"flex gap-6 px-7 flex-wrap"}>      
         <Ordercount />
-        <div className={"flex flex-grow  gap-6 flex-wrap"}>
-        
-          <Card className={" w-full max-w-5/6"}>
-            <CardHeader>
-              <CardTitle>Flows</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
-            </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
-          </Card>
+
+        <div className={"flex flex-grow  gap-6 flex-wrap"}>       
+          
+          <SysInfo className={" w-full max-w-5/6"} />
+          
           
           <Card className={"w-[350px]"}>
             <CardHeader>
