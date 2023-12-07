@@ -3,7 +3,7 @@
   "version": "0.2.4.5",
   "private": true,
   "scripts": {
-    "initialize": "npm install & typings install",
+    "initialize": "npm install && typings install && npm envmake",
     "envmake": "node createEnv.js",
     "dev": "next dev",
     "build": "next build",
