@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "initialize": "npm install & typings install",
+    "envmake": "node createEnv.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
