@@ -13,6 +13,11 @@ const font = Open_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "WaterMARK",
   description: "Water Measurement Administration & Record Keeping",
+  authors: [
+    { name: "Mike Lambson", 
+      url: "https://github.com/mikelambson/WaterMARK"
+    }
+  ],
   icons: {
     icon: "favicon.ico",
   },
@@ -32,7 +37,7 @@ export default function RootLayout({
           <RoleProvider>
             <Navbar />
             <main className={"min-h-screen  w-full"}>
-            {children}
+              {children}
             </main>
             <Toaster />
           </RoleProvider>
