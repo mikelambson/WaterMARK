@@ -11,6 +11,7 @@ interface MyDateTimeFormatOptions {
   }
  
 export function DateTime() {
+    
     const options: MyDateTimeFormatOptions = {
         weekday: 'long',
         year: 'numeric',
@@ -20,11 +21,9 @@ export function DateTime() {
         minute: 'numeric',
         hour12: true,
     };
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    const currentDateTime = formatter.format(new Date());
 
-        const formatter = new Intl.DateTimeFormat('en-US', options);
-        const currentDateTime = formatter.format(new Date());
-
-        return currentDateTime;
-
-}
+    return currentDateTime;
+};
 
