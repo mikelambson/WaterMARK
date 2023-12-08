@@ -2,7 +2,7 @@
 
 import { Order, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
-import OrderCard from "./OrderCard";
+import OrderCard from "@/app/scheduling/_components/schedule-orders/OrderCard";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 

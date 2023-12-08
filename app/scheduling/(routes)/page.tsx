@@ -16,6 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import SysInfo from "@/components/cards/SysInfo";
 
 
 const Scheduling = () => {
@@ -60,45 +61,19 @@ const Scheduling = () => {
           </div>
           
           <div className="col-start-2 row-start-1 row-span-2 flex flex-col gap-3 pl-3">
+            <SysInfo />
             <Card className={" w-full"}>
               <CardHeader>
-                <CardTitle>Flows</CardTitle>
-                <CardDescription>Card Description</CardDescription>
+                <CardTitle>Forcast</CardTitle>
+                <CardDescription>Forcast description</CardDescription>
               </CardHeader>
               <CardContent>
-                <ScrollArea className="h-40 w-full rounded-md border p-1">
-                  <p>Card Content</p>
-                  <p>Card Content 1</p>
-                  <p>Card Content 2</p>
-                  <p>Card Content 3</p>
-                  <p>Card Content 4</p>
-                  <p>Card Content 5</p>
-                  <p>Card Content 6</p>
-                  <p>Card Content 7</p>
-                  <p>Card Content 8</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis ipsam quasi exercitationem cumque veniam ratione maxime, amet quod vero pariatur obcaecati laborum, ex aspernatur magnam ut qui quas illum nemo!</p>
-                </ScrollArea>
+                <p>Content</p> 
               </CardContent>
               <CardFooter>
-                <p>Card Footer</p>
+                <p>Algorithmic data</p>
               </CardFooter>
             </Card>
-          
-            <div>
-              <Card className={" w-full"}>
-                  <CardHeader>
-                    <CardTitle>Forcast</CardTitle>
-                    <CardDescription>Forcast description</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p>Content</p>
-                    
-                  </CardContent>
-                  <CardFooter>
-                    <p>Algorithmic data</p>
-                  </CardFooter>
-                </Card>
-            </div>
           </div>
         </div>
       </TabsContent>

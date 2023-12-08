@@ -7,6 +7,7 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface SysInfoProps {
     className?: string;
@@ -37,26 +38,28 @@ return (
             <CardDescription className="text-center">Lake Level & Main System Flows</CardDescription>
         </CardHeader>
         <CardContent>
-            <table className="w-full max-w-5xl mx-auto border-collapse border">
-            <thead className="w-full">
-            <tr className="bg-background text-card-alternative w-full h-10 text-lg">
-                <th />
-                <th className=" text-left">Features</th>
-                <th className="text-right">Amount</th>  
-                <th /> 
-            </tr>
-            </thead>
-            <tbody>
-                {data.map((row, index) => (
-                <tr key={index} className="border-b font-semibold">
-                    <td className="w-8" />
-                    <td className="py-2">{row.name}</td>
-                    <td className="text-right">{formatNumber(row.data)}&ensp;{row.type}</td>
-                    <td className="w-8" /> 
-                </tr>
-                ))}
-            </tbody>
-        </table>
+            <ScrollArea className="w-full rounded-md h-40">
+                <table className="w-full max-w-5xl mx-auto rounded-md border-collapse border">
+                    <thead className="w-full">
+                    <tr className="bg-background text-card-alternative w-full h-10 text-lg">
+                        <th />
+                        <th className=" text-left">Features</th>
+                        <th className="text-right">Amount</th>  
+                        <th /> 
+                    </tr>
+                    </thead>
+                    <tbody className="w-full" >
+                        {data.map((row, index) => (
+                        <tr key={index} className="border-b font-semibold">
+                            <td className="w-8" />
+                            <td className="py-2">{row.name}</td>
+                            <td className="text-right">{formatNumber(row.data)}&ensp;{row.type}</td>
+                            <td className="w-8" /> 
+                        </tr>
+                        ))}
+                    </tbody>   
+                </table>
+            </ScrollArea>
         </CardContent>
         <CardFooter>
             <h2 className="text-center">N-Day Forcast: Basic Forcast - Emoji Style</h2>
