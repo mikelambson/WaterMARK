@@ -22,6 +22,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LogOut, User } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+
 
 
 
@@ -166,11 +175,22 @@ const Navbar = () => {
         )}
         <ModeToggle />
         <div className={" w-px h-6 bg-gray-400"}></div>
-        <Link href="/login">
+
+        <Sheet>
+        <SheetTrigger>
           <div className={`${defaultTextColorClass} subpixel-antialiased`}>
             <FaBell size={20} className={`${iconHoverColorClass} subpixel-antialiased`} />
           </div>
-        </Link>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>NOTIFICATIONS</SheetTitle>
+            <SheetDescription>
+              This section will serve to display and manage notifications.
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
 
         <DropdownMenu>
           <DropdownMenuTrigger>
