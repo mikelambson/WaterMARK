@@ -1,9 +1,9 @@
 // /app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import { ThemeProvider } from "@/components/theme-provider";
-import { RoleProvider } from "@/components/RoleContext";
+import Navbar from "@/components/nav/Navbar";
+import { ThemeProvider } from "@/components/nav/theme-provider";
+import { RoleProvider } from "@/components/nav/RoleContext";
 import { Open_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 

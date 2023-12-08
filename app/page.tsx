@@ -1,6 +1,5 @@
 // ./app/page.tsx
-import Ordercount from "@/components/Ordercount";
-import SysInfo from "@/components/home/SysInfo";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,6 +18,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+import SysInfo from "@/components/cards/SysInfo";
+import Ordercount from "@/components/cards/Ordercount";
 // import SlideDownNotification from "@/components/SlideDownNotification";
 
 export default function Home() {

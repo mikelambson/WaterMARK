@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import Ordercount from "@/components/Ordercount";
+import Ordercount from "@/components/cards/Ordercount";
 import {
   Card,
   CardContent,

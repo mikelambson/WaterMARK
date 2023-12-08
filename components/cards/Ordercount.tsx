@@ -1,10 +1,10 @@
 // @/components/Ordercount.tsx
 "use client"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import React, { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { Skeleton } from "./ui/skeleton";
-import { propagateServerField } from "next/dist/server/lib/render-server";
+import { Skeleton } from "../ui/skeleton";
+
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 let defaultYear = 2023;

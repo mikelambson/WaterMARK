@@ -9,7 +9,7 @@ import { FaBars, FaTimes, FaBell, FaUserCircle } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ModeToggle } from "./ModeToggle";
 import { useTheme } from "next-themes";
-import { useRole } from "@/components/RoleContext"; // Import useRole
+import { useRole } from "@/components/nav/RoleContext"; // Import useRole
 import { BsDatabaseFillGear } from "react-icons/bs";
 import { useToast } from "@/components/ui/use-toast"
 import {

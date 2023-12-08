@@ -1,6 +1,6 @@
 //  ./app/login/page.tsx
 "use client";
-import { useRole } from "@/components/RoleContext"; // Import useRole
+import { useRole } from "@/components/nav/RoleContext"; // Import useRole
 
 export default function Login() {
   const { userRole, setUserRole } = useRole(); // Access userRole and setUserRole

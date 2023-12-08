@@ -1,7 +1,7 @@
 "use client"
 import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button";
-import { DateTime } from "@/components/GetDateTime"
+import { DateTime } from "@/components/function/GetDateTime"
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface RenderOrdersProps {

@@ -3,7 +3,7 @@
 import { useToast } from "@/components/ui/use-toast"
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { DateTime } from "@/components/GetDateTime"
+import { DateTime } from "@/components/function/GetDateTime"
 import { Skeleton } from "@/components/ui/skeleton";
 
 
