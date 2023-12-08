@@ -18,7 +18,6 @@ const formatNumber = (number:Number) => {
     return parseFloat(numberString).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-
 const SysInfo: React.FC<SysInfoProps> = ({ className }) => {
 
      // Example data
@@ -50,11 +49,10 @@ return (
             <tbody>
                 {data.map((row, index) => (
                 <tr key={index} className="border-b font-semibold">
-                    <td className="w-8"></td>
+                    <td className="w-8" />
                     <td className="py-2">{row.name}</td>
-                    <td className="text-right">{formatNumber(row.data)} {row.type}</td>
-                    <td className="w-8"></td>
-                    
+                    <td className="text-right">{formatNumber(row.data)}&ensp;{row.type}</td>
+                    <td className="w-8" /> 
                 </tr>
                 ))}
             </tbody>
