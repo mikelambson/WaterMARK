@@ -36,9 +36,9 @@ return (
         <CardContent>
             <table className="w-full border-collapse border">
             <thead className="w-full">
-            <tr className="bg-slate-400 text-slate-900 w-full text-left indent-2">
+            <tr className=" bg-background text-card-alternative w-full text-left indent-2">
                 <th>Features</th>
-                <th className="text-right">Rate</th>
+                <th className="text-right px-8">Rate</th>
                 <th></th>
             </tr>
             </thead>
@@ -47,7 +47,7 @@ return (
                 <tr key={index} className="border-b">
                     <td className="py-2 px-4 border-b">{row.name}</td>
                     <td className="text-right py-2 border-b">{formatNumberWithCommas(row.data)}</td>
-                    <td className="py-2 px-4 border-b">{row.type}</td>
+                    <td className="py-2 px-1 border-b">{row.type}</td>
                 </tr>
                 ))}
             </tbody>

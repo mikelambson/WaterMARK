@@ -6,11 +6,25 @@ import { cn } from "@/lib/utils";
 import Image from "next/image"
 import React, { useState } from "react";
 import { FaBars, FaTimes, FaBell, FaUserCircle } from "react-icons/fa";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ModeToggle } from "./ModeToggle";
 import { useTheme } from "next-themes";
 import { useRole } from "@/components/RoleContext"; // Import useRole
 import { BsDatabaseFillGear } from "react-icons/bs";
 import { useToast } from "@/components/ui/use-toast"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { LogOut, User } from "lucide-react";
+
+
+
 
 
 const Navbar = () => {
@@ -157,11 +171,42 @@ const Navbar = () => {
             <FaBell size={20} className={`${iconHoverColorClass} subpixel-antialiased`} />
           </div>
         </Link>
-        <Link href="/login">
-          <div className={`${defaultTextColorClass}`}>
-            <FaUserCircle size={30} className={`${iconHoverColorClass} subpixel-antialiased`} />
-          </div>
-        </Link>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <div className={`${defaultTextColorClass}`}>
+              <Avatar>
+                <AvatarImage />
+                  <AvatarFallback>
+                    <FaUserCircle size={30} className={`${iconHoverColorClass} subpixel-antialiased`} />
+                  </AvatarFallback>
+              </Avatar>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+          <DropdownMenuLabel>Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <Link href="/login">
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
+          <DropdownMenuItem>Something</DropdownMenuItem>
+          <DropdownMenuItem>More</DropdownMenuItem>
+          <DropdownMenuItem>More Somethings</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <Link href="/">
+            <DropdownMenuItem>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Logout</span>
+              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
+        </DropdownMenuContent>
+        </DropdownMenu>  
+        
       </div>
       </div>
     </div>
