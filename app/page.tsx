@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <div className={" pt-16"}>
       <div className={"p-4"}>
-        <h2 className={"text-lg font-semibold text-yellow-800 md:text-center"}>Welcome to TCID WaterMARK</h2>
-        <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center break-normal"}>
+        <h2 className={" font-serif text-lg font-semibold text-yellow-800 md:text-center"}>Welcome to TCID WaterMARK</h2>
+        <h1 className={" font-serif text-2xl font-semibold text-yellow-800 md:text-center break-normal"}>
           Water Measurment Administration & Record Keeping
         </h1>
       </div>

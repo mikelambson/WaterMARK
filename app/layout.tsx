@@ -4,11 +4,24 @@ import type { Metadata } from "next";
 import Navbar from "@/components/nav/Navbar";
 import { ThemeProvider } from "@/components/nav/theme-provider";
 import { RoleProvider } from "@/components/nav/RoleContext";
-import { Open_Sans } from "next/font/google";
+import { Open_Sans, Work_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 
+const openSans = Open_Sans({ 
+  subsets: ['latin'],
+  display: 'swap',
+  // Add variable to the font
+  variable: '--font-opensans',
+});
 
-const font = Open_Sans({ subsets: ["latin"] });
+const work = Work_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  // Add variable to the font
+  variable: '--font-work',
+});
+
+const font = work;
 
 export const metadata: Metadata = {
   title: "WaterMARK",

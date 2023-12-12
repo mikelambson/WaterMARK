@@ -35,22 +35,22 @@ return (
     <Card className={className}>
         <CardHeader>
             <CardTitle className="text-center">System Information</CardTitle>
-            <CardDescription className="text-center">Lake Level & Main System Flows</CardDescription>
+            <CardDescription className="text-center">Reservior Level & System Flow Data</CardDescription>
         </CardHeader>
-        <CardContent>
-            <ScrollArea className="w-full rounded-md h-40">
+        <CardContent className="h-[64%]">
+            <ScrollArea className="w-full rounded-md h-[100%] border">
                 <table className="w-full max-w-5xl mx-auto rounded-md border-collapse border">
                     <thead className="w-full">
-                    <tr className="bg-background text-card-alternative w-full h-10 text-lg">
+                    <tr className="bg-background text-card-alternative w-full h-10 text-xl font-extrabold">
                         <th />
-                        <th className=" text-left">Features</th>
+                        <th className=" text-left">Feature</th>
                         <th className="text-right">Amount</th>  
                         <th /> 
                     </tr>
                     </thead>
                     <tbody className="w-full" >
                         {data.map((row, index) => (
-                        <tr key={index} className="border-b font-semibold">
+                        <tr key={index} className="border-b font-mono font-semibold">
                             <td className="w-8" />
                             <td className="py-2">{row.name}</td>
                             <td className="text-right">{formatNumber(row.data)}&ensp;{row.type}</td>
@@ -61,8 +61,8 @@ return (
                 </table>
             </ScrollArea>
         </CardContent>
-        <CardFooter>
-            <h2 className="text-center">N-Day Forcast: Basic Forcast - Emoji Style</h2>
+        <CardFooter className="py-1">
+            <h2 className="w-full text-center">N-Day Forcast: Basic Forcast - Emoji Style</h2>
         </CardFooter>
     </Card>
     

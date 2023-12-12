@@ -30,6 +30,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { Notify, NotifyCount } from "@/components/nav/Notifications";
 
 
 
@@ -46,6 +47,7 @@ const Navbar = () => {
   const defaultTextColorClass = isDarkMode ? "text-gray-200" : "text-gray-400";
   const iconHoverColorClass = "hover:text-amber-100";
   const defaultbg = isDarkMode ? "bg-slate-700" : "bg-slate-800";
+  const count = NotifyCount;
 
   const logoSection = (
     <div className={"w-max flex rounded hover:bg-amber-200 hover:bg-opacity-30  scale-100 hover:scale-105 duration-200"}>
@@ -178,8 +180,9 @@ const Navbar = () => {
 
         <Sheet>
         <SheetTrigger>
-          <div className={`${defaultTextColorClass} subpixel-antialiased`}>
+          <div className={`${defaultTextColorClass} subpixel-antialiased relative`}>
             <FaBell size={20} className={`${iconHoverColorClass} subpixel-antialiased`} />
+            <NotifyCount />
           </div>
         </SheetTrigger>
         <SheetContent>
@@ -188,6 +191,7 @@ const Navbar = () => {
             <SheetDescription>
               This section will serve to display and manage notifications.
             </SheetDescription>
+            <Notify />
           </SheetHeader>
         </SheetContent>
       </Sheet>
@@ -197,9 +201,9 @@ const Navbar = () => {
             <div className={`${defaultTextColorClass}`}>
               <Avatar>
                 <AvatarImage />
-                  <AvatarFallback>
-                    <FaUserCircle size={30} className={`${iconHoverColorClass} subpixel-antialiased`} />
-                  </AvatarFallback>
+                <AvatarFallback className="bg-black/5">
+                  <FaUserCircle size={30} className={` ${iconHoverColorClass} subpixel-antialiased`} />
+                </AvatarFallback>
               </Avatar>
             </div>
           </DropdownMenuTrigger>
