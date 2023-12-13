@@ -5,11 +5,16 @@ import { Draggable, Droppable } from "@hello-pangea/dnd";
 import OrderCard from "@/app/scheduling/_components/schedule-orders/OrderCard";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
+import TabbedColumn from "./TabbbedColumn";
+import { Input } from "@/components/ui/input";
+
+
 
 type Properties = {
     id: TypedColumn,
     columns: Order[],
-    index: number
+    index: number,
+    tabnumber: number,
 }
 
 const columnNames = {
@@ -18,7 +23,7 @@ const columnNames = {
     "scheduled": "Scheduled"
 };
 
-const Column = ({id, columns, index}: Properties) => {
+const Column = ({id, columns, index, tabnumber}: Properties) => {
 
     const { theme } = useTheme();
     const isDarkMode = theme === "light";
@@ -43,7 +48,21 @@ const Column = ({id, columns, index}: Properties) => {
                             className={`pb-2 p-2 rounded-sm shadow-sm md:min-h-[70vh] ${snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-white/50"}`
                             }
                         >
-                            <h2 className={cn("pb-3 font-bold", isDarkMode ? "text-gray-500" : "text-slate-800")}>{columnNames[id]}</h2>
+                            {index === 0 ? 
+                                <div className="h-5 flex flex-row gap-2 mb-2">
+                                    <h2 className={cn("pb-3 font-bold", isDarkMode ? "text-gray-500" : "text-slate-800")}>
+                                        {columnNames[id]}:
+                                    </h2>
+                                    <Input type="filter" placeholder="Filter Orders" className="h-5 w-40 bg-background/60" />
+                            </div> : 
+                            index ===1 ? <TabbedColumn tabs={tabnumber} /> : 
+                            <div className="h-5 flex flex-row gap-2 mb-2">
+                                    <h2 className={cn("pb-3 font-bold", isDarkMode ? "text-gray-500" : "text-slate-800")}>
+                                        {columnNames[id]}:
+                                    </h2>
+                                    <Input type="filter" placeholder="Filter Orders" className="h-5 w-40 bg-background/60" />
+                            </div> }
+
                             <div className="space-y-2">
                                 {columns.map((order: any, index: any) => (
                                     <Draggable

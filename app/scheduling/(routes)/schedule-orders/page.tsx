@@ -18,10 +18,10 @@ import {
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const ScheduleWater = () => {
-    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize, selectedHeadsheet, setSelectedHeadsheet } = useSchedulingStore();
+    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize, maxHeads, setHeads, selectedHeadsheet, setSelectedHeadsheet } = useSchedulingStore();
     const [radioSelection, setRadioSelection] = useState("option-one"); // Declare radioSelection using useState hook
     const [headsheets, setHeadsheets] = useState<string[]>([]);
-    // const [selectedHeadsheet, setSelectedHeadsheet] = useState<string | null>('string');
+    let headsheetsArray: any = [];
 
     const schedulingState = {
         board,
@@ -34,7 +34,9 @@ const ScheduleWater = () => {
         setPageSize,
         getBoard,
         selectedHeadsheet,
-        setSelectedHeadsheet
+        setSelectedHeadsheet,
+        maxHeads,
+        setHeads
     };
     // const initialRender = useRef(true);
     
@@ -47,7 +49,9 @@ const ScheduleWater = () => {
                 const data = await response.json();
                 // Extract names from the headsheets and set them in the state
                 const headsheetNames = data.map((headsheets: any) => headsheets.name);
+                headsheetsArray = data;
                 setHeadsheets(headsheetNames);
+                console.log(data)
             } catch (error) {
                 console.error('Error fetching headsheets:', error);
             }
@@ -71,7 +75,7 @@ const ScheduleWater = () => {
         };
         // Set the selected district in the state
         setDistrict(district);
-        setSelectedHeadsheet("")
+        // setSelectedHeadsheet("CE")
         // Set the radio button selection based on the selected district
         const newRadioSelection = optionSelection[district];
         setRadioSelection(newRadioSelection);
@@ -79,16 +83,29 @@ const ScheduleWater = () => {
         // Fetch data based on the updated district    
     };
 
-    const handleHeadsheetChange = (headsheets: string | null) => {
+    const handleHeadsheetChange = (selectedHeadsheet: string | null) => {
         // Set the selected headsheet in the state
-        setSelectedHeadsheet(headsheets);
+        setSelectedHeadsheet(selectedHeadsheet);
+        
+        // If a headsheet is selected, find it in the array and retrieve the corresponding maxHeads
+        if (selectedHeadsheet) {
+            const selectedHeadsheetObj = headsheetsArray.find((headsheets: any) => headsheets.name === selectedHeadsheet);
+            if (selectedHeadsheetObj) {
+                const selectedMaxHeads = selectedHeadsheetObj.maxHeads;
+                setHeads(selectedMaxHeads);
+            }
+        } else {
+            // If "ALL" is selected, set maxHeads to some default value or handle it as needed
+            setHeads(0);
+        }
     };
+    
     
 
     return (
         <section>
             <div className='grid grid-flow-col grid-cols-1 md:grid-cols-3 gap-24 px-4 py-1 w-full'>
-                <h1 className='text-2xl'>Schedule Water</h1> 
+                <h1 className='text-2xl text-yellow-800 font-semibold'>Schedule Water</h1> 
                 <RadioGroup className='flex gap-3' defaultValue={radioSelection}>
                     <div className="flex items-center space-x-2" onClick={() => handleDistrictChange('WE')}>
                         <RadioGroupItem value="option-one" id="option-one" />

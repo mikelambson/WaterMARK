@@ -1,10 +1,10 @@
-// typins.d.ts
+// typings.d.ts
 
 interface Board {
     setDistrict(arg0: string): unknown;
     setPageSize(arg0: number): unknown;
     setPage(arg0: number): unknown;
-    columns: Map<TypedColumn, Column>
+    columns: Map<TypedColumn, Column>;
 }
 
 declare type TypedColumn = "P" | "scheduled" | "delayed";

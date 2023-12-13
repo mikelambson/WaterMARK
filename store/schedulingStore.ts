@@ -11,12 +11,15 @@ interface SchedulingState {
     selectedDistrict: string;
     page: number;
     pageSize: number;
+    maxHeads: number;
     setDistrict: (district: string) => void;
     setPage: (page: number) => void;
     setPageSize: (pageSize: number) => void;
     getBoard: (state: SchedulingState) => Promise<void>; // Receive state as a parameter
-    selectedHeadsheet: string,
+    selectedHeadsheet: string;
+    setHeads: (maxHeads: number) => void;
     setSelectedHeadsheet: (selectedHeadsheet: any) => void;
+    
 }
 
 export const useSchedulingStore = create<SchedulingState>((set) => ({
@@ -38,8 +41,8 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     selectedDistrict: "WE",
     page: 1,
     pageSize: 50,
-
-    setDistrict: (district: string) => set({ selectedDistrict: district }),
+    maxHeads: 0, // Initialize maxHeads
+    setDistrict: (district: string) => set({ selectedDistrict: district}),
     setPage: (page: number) => set({ page }),
     setPageSize: (pageSize: number) => set({ pageSize }),
     
@@ -56,6 +59,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     },
     selectedHeadsheet: "", // Add selectedHeadsheet state variable
     setSelectedHeadsheet: (headsheets: any) => set({ selectedHeadsheet: headsheets }),
+    setHeads: (maxHeads: number) => set({ maxHeads: maxHeads}),
 }));
 
 

@@ -1,12 +1,14 @@
+// Scheduling Board @\app\scheduling\_components\schedule-orders\SchedulingBoard.tsx
 "use client"
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useSchedulingStore } from '@/store/schedulingStore';
 import Column from '@/app/scheduling/_components/schedule-orders/SortedColumn';
+import TabbedColumn from './TabbbedColumn';
 
 const SchedulingBoard = () => {
 
-    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize, selectedHeadsheet, setSelectedHeadsheet } = useSchedulingStore();
+    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize, selectedHeadsheet, maxHeads, setHeads, setSelectedHeadsheet } = useSchedulingStore();
     
     const schedulingState = {
         board,
@@ -19,6 +21,8 @@ const SchedulingBoard = () => {
         setPageSize,
         getBoard,
         selectedHeadsheet,
+        maxHeads,
+        setHeads,
         setSelectedHeadsheet
     };  
     
@@ -47,6 +51,7 @@ const SchedulingBoard = () => {
     return ( 
         <div>
             <DragDropContext onDragEnd={handleOnDragEnd}>
+                {/* Container id1: Tabbed Element */}
                 <Droppable droppableId="id" direction="horizontal" type='column'>
                     {(provided) => (
                         <div
@@ -54,8 +59,8 @@ const SchedulingBoard = () => {
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                         >
-                            {/* Loop through columns and render them */}
-                            {Array.from(board.columns.entries()).map(([id, column], index) => (
+                           {/* Loop through columns and render them */}
+                           {Array.from(board.columns.entries()).map(([id, column], index) => (
                                 <div key={id}
                                 // className={`col-span-1 overflow-y-auto h-full
                                 className={`col-span-1 h-[65vh] overflow-y-scroll
@@ -64,15 +69,17 @@ const SchedulingBoard = () => {
                                         id={id}
                                         columns={column.orders} 
                                         index={index}
-                                    />
+                                        tabnumber={6}
+                                    ></Column>
                                 </div>
                             ))}
                         </div>
                     )}
+
                 </Droppable>
             </DragDropContext>
         </div>
-     );
+    );
 }
  
 export default SchedulingBoard;
