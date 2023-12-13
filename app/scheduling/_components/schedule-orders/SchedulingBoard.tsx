@@ -5,6 +5,7 @@ import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useSchedulingStore } from '@/store/schedulingStore';
 import Column from '@/app/scheduling/_components/schedule-orders/SortedColumn';
 import TabbedColumn from './TabbbedColumn';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const SchedulingBoard = () => {
 
@@ -54,28 +55,28 @@ const SchedulingBoard = () => {
                 {/* Container id1: Tabbed Element */}
                 <Droppable droppableId="id" direction="horizontal" type='column'>
                     {(provided) => (
+                        
                         <div
-                            className='grid grid-cols-1 md:grid-cols-[2fr,3fr] md:grid-rows-[65vh, 30px] gap-4 max-w-full pr-2 mx-auto '
+                            className='grid grid-cols-1 md:grid-cols-[2fr,3fr] md:grid-rows-[60vh, 30px] gap-2 max-w-full pr-2 mx-auto '
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                         >
                            {/* Loop through columns and render them */}
                            {Array.from(board.columns.entries()).map(([id, column], index) => (
-                                <div key={id}
-                                // className={`col-span-1 overflow-y-auto h-full
-                                className={`col-span-1 h-[65vh] overflow-y-scroll
-                                ${index === 2 ? 'md:col-span-2 md:h-[7.4rem]' : ''}`}>
+                                <ScrollArea key={id}
+                                className={`col-span-1 h-[65vh] rounded-md
+                                ${index === 2 ? 'md:col-span-2 md:h-[7rem]' : ''}`}>
                                     <Column
                                         id={id}
                                         columns={column.orders} 
                                         index={index}
                                         tabnumber={6}
                                     ></Column>
-                                </div>
+                                </ScrollArea>
                             ))}
                         </div>
                     )}
-
+                    
                 </Droppable>
             </DragDropContext>
         </div>
