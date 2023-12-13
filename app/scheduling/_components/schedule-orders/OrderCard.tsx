@@ -6,8 +6,9 @@ import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } fro
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import DragIcon from "@/app/scheduling/_components/schedule-orders/DragIcon";
-import { IoIosArrowDropdownCircle } from "react-icons/io";
+import { IoIosArrowDropdownCircle, IoIosArrowDropupCircle, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 type Properties = {
     order: Order;
@@ -37,41 +38,39 @@ const OrderCard = ({
 
     return ( 
         <div
-            className={ cn(" rounded-md drop-shadow-md", isDarkMode ? "bg-gray-300" :"bg-slate-800")}
+            className={ cn(" rounded-md drop-shadow-md", isDarkMode ? "bg-gray-300" :"bg-gray-800")}
             {...draggableProps} {...dragHandleProps} ref={innerRef}
         >
-            <div 
-            className="grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,1fr,1fr] 
+            <div className="grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,1fr,1fr] 
             gap-0 rounded-sm align-text-bottom">
-                
-                <div className="col-start-1 row-start-1 row-span-4 pt-2">
-                    {/* <RxDragHandleVertical className="align-middle" style={{ width: '28px', height: '100%', viewBox: '0 0 20 20' }} /> */}
-                    <DragIcon className="h-full" />
+                <div className={cn("col-start-1 row-start-1 row-span-4 pt-6", isDarkMode ? "text-gray-400" : "text-gray-700")}>
+                    <DragIcon />
                 </div>
-                {/* <div className="col-start-1 row-start-3 align-middle"><PiDotsSixVerticalBold size="28px" className="align-middle" /></div> */}
-
                 <div className="col-span-3 text-bottom row-start-1 col-start-2 font-semibold">{order.laterals}</div>
-                <div className={cn("col-span-3 text-bottom row-start-2 border-b-2 font-semibold", isDarkMode ? "text-lime-900/95" : " text-lime-400/50")}>{order.remarks}</div>
-
-                
+                <div className={cn("col-span-3 text-bottom row-start-2 border-b-2 font-semibold", isDarkMode ? "text-lime-900/95 border-gray-200" : " text-lime-400/50 border-gray-600")}>{order.remarks}</div>
                 <div className="col-start-1 row-start-4"></div>
                 <div className={cn("row-span-2 col-start-2 row-start-3 border-r-2", isDarkMode ? "border-gray-200" : "border-gray-600" )}>{order.orderTimestamp}</div>
                 <div className={cn("col-start-3 row-start-3 border-r-2 pl-1 font-medium", isDarkMode ? "border-gray-200" : "border-gray-600" )}>Order# {id}</div>
                 <div className={cn("col-span-4 row-start-3 pl-1 font-medium", isDarkMode ? "border-gray-200" : "border-gray-600" )}>{order.approxCfs} CFS</div>
                 <div className={cn("col-start-3 row-start-4 border-r-2 pl-1", isDarkMode ? "border-gray-200" : "border-gray-600" )}>{order.district} | {order.status}</div>
-                
                 <div
-                    className={cn("col-start-4 row-start-4 pl-1 font-medium relative", isDarkMode ? "border-gray-200" : "border-gray-600" )}>{order.approxHrs} HRS <IoIosArrowDropdownCircle onClick={toggleDetailsVisibility} className="absolute bottom-1 right-1 cursor-pointer" />
+                    className={cn("col-start-4 row-start-4 pl-1 font-medium relative", isDarkMode ? "border-gray-200" : "border-gray-600" )}>{order.approxHrs} HRS 
+                        <div  onClick={toggleDetailsVisibility} 
+                        className={cn("absolute bottom-1 right-1 hover:text-xl cursor-pointer", isDarkMode ? "hover:text-amber-700": "hover:text-amber-400")}>
+                            {isDetailsVisible ? (<IoIosArrowDropupCircle />) : (<IoIosArrowDropdownCircle />)}
+                        </div>
                 </div>
-                <div className={`col-start-2 col-span-3 row-start-5 border-t-2 ${isDetailsVisible ? '' : 'hidden'}`}>
+                <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden transition-all ${isDetailsVisible ? cn("h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md", isDarkMode ? "border-gray-200" : "border-gray-600") : 'h-0 opacity-0'} duration-300 ease-in-out`}>
+                    <div className={cn("p-1 ", isDarkMode ? "bg-stone-400 font-medium" :"bg-zinc-800")}>
                     Irrigator: {order.details.irrigatorsName}<br />
                     Owner: {order.details.ownersName}<br />
                     Ordered AF: {order.details.approxAf}<br />
                     Balance: {order.details.balance}<br />
+                    </div>
+                    <Button variant={"secondary"} size={"icon"} className="absolute bottom-2 right-2 bg-slate-700/20">
+                        <IoIosArrowForward />
+                    </Button>
                 </div>
-                
-                
-                
             </div>
         </div>
      );
