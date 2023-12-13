@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useSchedulingStore } from '@/store/schedulingStore';
-import Column from '@/app/scheduling/_components/schedule-orders/Column';
+import Column from '@/app/scheduling/_components/schedule-orders/SortedColumn';
 
 const SchedulingBoard = () => {
 
@@ -20,8 +20,7 @@ const SchedulingBoard = () => {
         getBoard,
         selectedHeadsheet,
         setSelectedHeadsheet
-    };
-    
+    };  
     
     useEffect(() => {
         // Filter unscheduled orders based on the initial lateral letter
@@ -34,18 +33,13 @@ const SchedulingBoard = () => {
             // Fetch data based on the updated district
             await getBoard(schedulingState);
         };
-
         // Call fetchData whenever selectedDistrict changes
         fetchData();
     }, [getBoard, selectedDistrict]);// Empty dependency array means this effect will only run once after initial render
 
-    
-    
-
     const handleOnDragEnd = (result: any) => {
         // Handle drag and drop logic here
     };
-
     if (isLoading) {
         return <div>Loading...</div>;
     }
@@ -68,7 +62,7 @@ const SchedulingBoard = () => {
                                 ${index === 2 ? 'md:col-span-2 md:h-[7.4rem]' : ''}`}>
                                     <Column
                                         id={id}
-                                        columns={column.orders}
+                                        columns={column.orders} 
                                         index={index}
                                     />
                                 </div>
