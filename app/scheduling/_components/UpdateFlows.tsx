@@ -35,9 +35,9 @@ const UpdateFlowsWM = () => {
                     <TableHead className="">Source</TableHead>
                     <TableHead className="">Remote Data</TableHead>
                     <TableHead className="">Override</TableHead>
-                    <TableHead className="text-right">Manual Entry</TableHead>
                     <TableHead>Timestamp</TableHead>
-                    <TableHead className="">Input Entry</TableHead>
+                    <TableHead className="text-right">Manual Entry</TableHead>
+                    <TableHead className="min-w-[100px]">Manual Input</TableHead>
                     <TableHead className="w-[100px]">Update</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -52,8 +52,8 @@ const UpdateFlowsWM = () => {
                                 checked={row.override}
                             />
                         </TableCell>
+                        <TableCell>{row.manualTimestamp !== null ? row.manualTimestamp : "--"}</TableCell>
                         <TableCell className="text-right">{formatNumber(row.manualValue)}&ensp;{formatNumber(row.manualValue) !== "" ? row.type : "--"}</TableCell>
-                        <TableCell>{row.manualTimestamp}</TableCell>
                         <TableCell><Input /></TableCell>
                         <TableCell><Button>Update</Button></TableCell>
                         </TableRow>
