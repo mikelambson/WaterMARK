@@ -1,6 +1,5 @@
 // Scheduling Dashboard \app\(scheduling)\(routes)\scheduling\page.tsx
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import Ordercount from "@/components/cards/Ordercount";
 import SysInfo from "@/components/cards/SysInfo";
 import Demand from "../_components/Demand";
@@ -18,8 +17,8 @@ const Scheduling = () => {
       <Tabs defaultValue="section1" className="mt-2 w-full">
         <TabsList className="w-full">
           <TabsTrigger value="section1">Main</TabsTrigger>
-          <TabsTrigger value="forcasting">Forcasting</TabsTrigger>
           <TabsTrigger value="updateflows">Update Flows</TabsTrigger>
+          <TabsTrigger value="forcasting">Forcasting</TabsTrigger>
           <TabsTrigger value="section4">Task Status</TabsTrigger>
           <TabsTrigger value="section5">Watermaster Notes</TabsTrigger>
         </TabsList>
@@ -35,11 +34,11 @@ const Scheduling = () => {
             </div>
           </div>
         </TabsContent>
-        <TabsContent value="forcasting">
-          <Forcasting />
-        </TabsContent>
         <TabsContent value="updateflows">
           <UpdateFlowsWM />
+        </TabsContent>
+        <TabsContent value="forcasting">
+          <Forcasting />
         </TabsContent>
         <TabsContent value="section4">
           <p>Task Status</p>
