@@ -11,7 +11,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useFlowsStore from '@/store/opsFlowsStore';
 import { initializeFlowsStore } from "@/lib/getOpsFlows";
-import { formatNumber } from "@/lib/functions"; 
+import { formatNumber } from "@/lib/basicFunctions"; 
 
 initializeFlowsStore();
 

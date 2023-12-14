@@ -11,7 +11,7 @@ import {
     TableHeader,
     TableRow, } from "@/components/ui/table";
 import useFlowsStore from '@/store/opsFlowsStore';
-import { formatNumber } from "@/lib/functions"; 
+import { formatNumber } from "@/lib/basicFunctions"; 
 
 const UpdateFlowsWM = () => {
     // Access the flows array from the store
