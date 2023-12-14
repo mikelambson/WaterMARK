@@ -104,7 +104,7 @@ const ScheduleWater = () => {
 
     return (
         <section>
-            <div className='grid grid-flow-col grid-cols-1 md:grid-cols-3 gap-24 px-4 py-[1px] w-full'>
+            <div className='grid md:grid-flow-col grid-cols-1 md:grid-cols-3 gap-2 md:max-gap-24 px-4 py-[1px] w-full'>
                 <h1 className='text-2xl text-yellow-800 font-semibold'>Schedule Water</h1> 
                 <RadioGroup className='flex gap-3' defaultValue={radioSelection}>
                     <div className="flex items-center space-x-2" onClick={() => handleDistrictChange('WE')}>
@@ -146,7 +146,7 @@ const ScheduleWater = () => {
                     </Select>
                 </div>
             </div>
-            <div className='h-[82vh]'>
+            <div className='h-full w-full'>
                 <SchedulingBoard />
             </div>
         </section>

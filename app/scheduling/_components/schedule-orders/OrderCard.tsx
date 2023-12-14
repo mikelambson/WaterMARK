@@ -38,10 +38,10 @@ const OrderCard = ({
 
     return ( 
         <div
-            className={ cn(" rounded-md drop-shadow-md", isDarkMode ? "bg-stone-300" :"bg-gray-800")}
+            className={ cn(" rounded-md drop-shadow-md", isDarkMode ? "bg-slate-300" :"bg-gray-800")}
             {...draggableProps} {...dragHandleProps} ref={innerRef}
         >
-            <div className="grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,1fr,1fr] 
+            <div className="grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 
             gap-0 rounded-sm align-text-bottom">
                 <div className={cn("col-start-1 row-start-1 row-span-4 pt-6", isDarkMode ? "text-gray-400" : "text-gray-700")}>
                     <DragIcon />
@@ -61,7 +61,7 @@ const OrderCard = ({
                         </div>
                 </div>
                 <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden transition-all ${isDetailsVisible ? cn("h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md", isDarkMode ? "border-gray-200" : "border-gray-600") : 'h-0 opacity-0'} duration-300 ease-in-out`}>
-                    <div className={cn("p-1 ", isDarkMode ? "bg-gray-300" :"bg-zinc-800")}>
+                    <div className={cn("p-1 ", isDarkMode ? "bg-stone-300" :"bg-stone-800/40")}>
                     Irrigator: {order.details.irrigatorsName}<br />
                     Owner: {order.details.ownersName}<br />
                     Ordered AF: {order.details.approxAf}<br />

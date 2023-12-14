@@ -14,25 +14,26 @@ const TabbedColumn: React.FC<TabbbedColumnProps> = ({ tabs }) => {
     const isDarkMode = theme === "light";
 
     // Implement your tabbed component here using the 'tabs' prop
-    return (
+    return (    
         <div>
-            
-            <Tabs defaultValue="1" className="w-full">
-            
-                <TabsList className="w-full pl-16 relative">
-                <h2 className={cn("absolute left-3 top-2 font-semibold", 
-                  isDarkMode ? "text-slate-600" : "text-gray-400" )}>
-                    Head
-                </h2>
-                {Array.from({ length: tabs }, (_, index) => (
-                    <TabsTrigger key={index + 1} value={`${index + 1}`}>
-                        {index + 1}
-                    </TabsTrigger>
-                ))}
-                </TabsList>
-                <TabsContent value="1">Make changes to your account here.</TabsContent>
-                <TabsContent value="password">Change your password here.</TabsContent>
-            </Tabs>
+        <Tabs defaultValue="1" className="w-full">
+            <TabsList className={cn("w-full pl-16 relative", isDarkMode ? "bg-stone-400" : "bg-zinc-800")}>
+            <h2 className={cn("absolute left-3 top-2 font-semibold", 
+                isDarkMode ? "text-slate-600" : "text-gray-400" )}>
+                Head
+            </h2>
+            {Array.from({ length: tabs }, (_, index) => (
+                <TabsTrigger key={index + 1} value={`${index + 1}`}>
+                    {index + 1}
+                </TabsTrigger>
+            ))}
+            </TabsList>
+            {Array.from({ length: tabs }, (_, index) => (
+                <TabsContent key={index + 1} value={`${index + 1}`}>
+                    <h2 className={cn(" text-center text-2xl font-semibold", isDarkMode ? "text-foreground" : "text-secondary")}>{index + 1}</h2>
+                </TabsContent>
+            ))}    
+        </Tabs>
         </div>
     );
 };

@@ -7,7 +7,7 @@ interface ForcastProps {
 const Forcast: React.FC<ForcastProps> = ({className}) => {
   return ( 
     <Card className={className}>
-      <CardHeader>
+      <CardHeader> 
         <CardTitle>Forcast</CardTitle>
         <CardDescription>Forcast description</CardDescription>
       </CardHeader>
@@ -18,6 +18,12 @@ const Forcast: React.FC<ForcastProps> = ({className}) => {
         <p>Algorithmic data</p>
       </CardFooter>
     </Card>
+  );
+}
+
+const Forcasting: React.FC<ForcastProps> = ({className}) => {
+  return ( 
+    <div>Forcasting</div>
   );
 }
  

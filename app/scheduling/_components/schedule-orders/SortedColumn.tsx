@@ -32,7 +32,7 @@ const Column = ({id, columns, index, tabnumber}: Properties) => {
         <Draggable draggableId={id} index={index}>
             {(provided) => (
                 <div
-                className="overflow-y-auto"
+                className="overflow-y-auto h-full"
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
@@ -45,8 +45,8 @@ const Column = ({id, columns, index, tabnumber}: Properties) => {
                         <div
                             {...provided.droppableProps}
                             ref={provided.innerRef}
-                            className={`pb-2 p-2 rounded-md shadow-md md:min-h-[70vh] ${snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-white/50"}`
-                            }
+                            className={cn("pb-2 p-2 rounded-md shadow-md h-70dvh md:min-h-[70vh]", snapshot.isDraggingOver ? "bg-yellow-200/50" : cn(isDarkMode ? "bg-foreground/10" : "bg-foreground/80"))}
+                            
                         >
                             {index === 0 ? 
                                 <div className="h-5 flex flex-row gap-2 mb-2">
@@ -63,7 +63,8 @@ const Column = ({id, columns, index, tabnumber}: Properties) => {
                                     <Input type="filter" placeholder="Filter Orders" className="h-5 w-40 bg-background/60" />
                             </div> }
 
-                            <div className="space-y-2">
+                            <div className="space-y-2"> 
+                                {/* {index ===1 ? <TabbedColumn tabs={tabnumber} /> : <></>} */}
                                 {columns.map((order: any, index: any) => (
                                     <Draggable
                                         key={order.orderNumber.toString()}
@@ -85,7 +86,7 @@ const Column = ({id, columns, index, tabnumber}: Properties) => {
                                 {provided.placeholder}
                             </div>
                         </div>
-                    )}
+                    )} 
                 </Droppable>
             </div>
             )}

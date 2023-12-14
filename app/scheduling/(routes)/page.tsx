@@ -1,16 +1,12 @@
 // Scheduling Dashboard \app\(scheduling)\(routes)\scheduling\page.tsx
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 import Ordercount from "@/components/cards/Ordercount";
 import SysInfo from "@/components/cards/SysInfo";
 import Demand from "../_components/Demand";
 import Forcast from "../_components/Forcast";
+import Forcasting from "../_components/Forcasting";
+import UpdateFlowsWM from "../_components/UpdateFlows";
 
 const Scheduling = () => {
 
@@ -22,8 +18,8 @@ const Scheduling = () => {
       <Tabs defaultValue="section1" className="mt-2 w-full">
         <TabsList className="w-full">
           <TabsTrigger value="section1">Main</TabsTrigger>
-          <TabsTrigger value="section2">Forcasting</TabsTrigger>
-          <TabsTrigger value="section3">Update Flows</TabsTrigger>
+          <TabsTrigger value="forcasting">Forcasting</TabsTrigger>
+          <TabsTrigger value="updateflows">Update Flows</TabsTrigger>
           <TabsTrigger value="section4">Task Status</TabsTrigger>
           <TabsTrigger value="section5">Watermaster Notes</TabsTrigger>
         </TabsList>
@@ -39,35 +35,11 @@ const Scheduling = () => {
             </div>
           </div>
         </TabsContent>
-        <TabsContent value="section2">
-          <ScrollArea className="h-full w-full rounded-md border p-4">
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>Is it accessible?</AccordionTrigger>
-                <AccordionContent>
-                  Yes. It adheres to the WAI-ARIA design pattern.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>Is it styled?</AccordionTrigger>
-                <AccordionContent>
-                  Yes. It comes with default styles that matches the other
-                  components&apos; aesthetic.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Is it animated?</AccordionTrigger>
-                <AccordionContent>
-                  Yes. It&apos;s animated by default, but you can disable it if you
-                  prefer.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </ScrollArea>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium aut distinctio omnis aliquam recusandae! Quam, nostrum tempore illo hic sequi sapiente quae dolores assumenda cum? Exercitationem nemo eius similique vero?</p>
+        <TabsContent value="forcasting">
+          <Forcasting />
         </TabsContent>
-        <TabsContent value="section3">
-          <p>Update Flows</p>
+        <TabsContent value="updateflows">
+          <UpdateFlowsWM />
         </TabsContent>
         <TabsContent value="section4">
           <p>Task Status</p>

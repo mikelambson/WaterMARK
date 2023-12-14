@@ -57,7 +57,7 @@ const SchedulingBoard = () => {
                     {(provided) => (
                         
                         <div
-                            className='grid grid-cols-1 md:grid-cols-[2fr,3fr] md:grid-rows-[60vh, 30px] gap-2 max-w-full pr-2 mx-auto '
+                            className='w-full md:max-w-full flex flex-col md:grid grid-cols-1 md:grid-cols-[2fr,3fr] md:grid-rows-[60vh, 30px] gap-2  pr-2 mx-auto '
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                         >
