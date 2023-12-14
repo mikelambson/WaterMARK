@@ -46,13 +46,13 @@ const UpdateFlowsWM = () => {
                         <TableRow key={row.id}>
                         <TableCell className="font-medium">{row.name}</TableCell>
                         <TableCell>{row.remoteSource}</TableCell>
-                        <TableCell>{formatNumber(row.remoteValue)}&ensp;{row.type}</TableCell>
+                        <TableCell>{formatNumber(row.remoteValue)}&ensp;{formatNumber(row.remoteValue) !== "" ? row.type : "--"}</TableCell>
                         <TableCell>
                             <Switch 
                                 checked={row.override}
                             />
                         </TableCell>
-                        <TableCell className="text-right">{formatNumber(row.manualValue)}&ensp;{row.type}</TableCell>
+                        <TableCell className="text-right">{formatNumber(row.manualValue)}&ensp;{formatNumber(row.manualValue) !== "" ? row.type : "--"}</TableCell>
                         <TableCell>{row.manualTimestamp}</TableCell>
                         <TableCell><Input /></TableCell>
                         <TableCell><Button>Update</Button></TableCell>

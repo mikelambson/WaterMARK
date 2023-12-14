@@ -30,7 +30,7 @@ return (
             <CardDescription className="text-center">Reservior Level & System Flow Data</CardDescription>
         </CardHeader>
         <CardContent className="h-[64%]">
-            <ScrollArea className="w-full rounded-md h-[100%] border">
+            <ScrollArea className="w-full rounded-md h-[14rem] border">
                 <table className="w-full max-w-5xl mx-auto rounded-md border-collapse border">
                     <thead className="w-full">
                     <tr className="bg-background text-card-alternative w-full h-10 text-xl font-extrabold">
@@ -46,13 +46,11 @@ return (
                                 <td className="w-8" />
                                 <td className="py-2">{row.name}</td>
                                 <td className="text-right">
-                                    {formatNumber(
-                                    row.manualValue !== undefined &&
-                                    (row.manualValue !== null || row.manualValue !== 0 || row.override)
-                                        ? row.manualValue
-                                        : row.remoteValue ?? 0
-                                    )}
-                                    &ensp;{row.type}
+                                {formatNumber(
+                                    (row.remoteValue !== null && row.remoteValue !== 0 && !row.override)
+                                        ? row.remoteValue
+                                        : (row.manualValue ?? 0)
+                                )}&ensp;{row.type}
                                 </td>
                                 <td className="w-8" />
                             </tr>
