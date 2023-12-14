@@ -1,5 +1,7 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch"
 import {  
     Table,
     TableBody,
@@ -8,32 +10,54 @@ import {
     TableHead,
     TableHeader,
     TableRow, } from "@/components/ui/table";
+import useFlowsStore from '@/store/opsFlowsStore';
+import { formatNumber } from "@/lib/functions"; 
 
 const UpdateFlowsWM = () => {
+    // Access the flows array from the store
+    const flows = useFlowsStore((state) => state.flows);
+    // Access the updateFlow function from the store
+//   const updateFlow = useFlowsStore((state) => state.updateFlow);
+
+//   const handleUpdate = (flowId: string, newValue: number) => {
+//     // Call the updateFlow function with the relevant parameters
+//     updateFlow(flowId, newValue);
+//   };
+
+
     return ( 
         <div>
-            Update Flows
             <Table>
                 <TableCaption><Button variant={"secondary"}>Update All</Button></TableCaption>
                 <TableHeader>
                     <TableRow>
                     <TableHead>Name</TableHead>
-                    <TableHead className="w-[150px]">Type</TableHead>
-                    <TableHead className="w-[100px]">Method</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
-                    <TableHead className="w-[200px]">Manual Entry</TableHead>
+                    <TableHead className="">Source</TableHead>
+                    <TableHead className="">Remote Data</TableHead>
+                    <TableHead className="">Override</TableHead>
+                    <TableHead className="text-right">Manual Entry</TableHead>
+                    <TableHead>Timestamp</TableHead>
+                    <TableHead className="">Input Entry</TableHead>
                     <TableHead className="w-[100px]">Update</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow>
-                    <TableCell className="font-medium">Lahonton Reservior Level</TableCell>
-                    <TableCell>Level</TableCell>
-                    <TableCell>Auto</TableCell>
-                    <TableCell className="text-right">207,700 AF</TableCell>
-                    <TableCell><Input /></TableCell>
-                    <TableCell><Button>Update</Button></TableCell>
-                    </TableRow>
+                    {flows.map((row) => (
+                        <TableRow key={row.id}>
+                        <TableCell className="font-medium">{row.name}</TableCell>
+                        <TableCell>{row.remoteSource}</TableCell>
+                        <TableCell>{formatNumber(row.remoteValue)}&ensp;{row.type}</TableCell>
+                        <TableCell>
+                            <Switch 
+                                checked={row.override}
+                            />
+                        </TableCell>
+                        <TableCell className="text-right">{formatNumber(row.manualValue)}&ensp;{row.type}</TableCell>
+                        <TableCell>{row.manualTimestamp}</TableCell>
+                        <TableCell><Input /></TableCell>
+                        <TableCell><Button>Update</Button></TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
             </Table>
         </div>

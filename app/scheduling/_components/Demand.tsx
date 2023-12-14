@@ -16,22 +16,26 @@ const Demand: React.FC<DemandProps> = ({className}) => {
         </CardHeader>
         <CardContent>
         <table className="w-full">
-          <tr className="border-b">
-            <td>Carson</td>
-            <td className="text-right">{carsonDemand}&nbsp;CFS</td>
-          </tr>
-          <tr className="border-b">
-            <td>Truckee</td>
-            <td className="text-right">{truckeeDemand}&nbsp;CFS</td>
-          </tr>
+          <tbody>
+            <tr className="border-b">
+              <td>Carson</td>
+              <td className="text-right">{carsonDemand}&nbsp;CFS</td>
+            </tr>
+            <tr className="border-b">
+              <td>Truckee</td>
+              <td className="text-right">{truckeeDemand}&nbsp;CFS</td>
+            </tr>
+          </tbody>
         </table>
       </CardContent>
       <CardFooter>
         <table className="w-full">
-          <tr>
-            <td>Total Demand</td>
-            <td className="text-right">{carsonDemand + truckeeDemand}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>Total Demand</td>
+              <td className="text-right">{carsonDemand + truckeeDemand}</td>
+            </tr>
+          </tbody>
         </table>
         
       </CardFooter>

@@ -1,0 +1,47 @@
+[
+    {
+      "id": "1",
+      "name": "Lahonton Lake Storage Level",
+      "type": "AF",
+      "remoteSource": "BOR",
+      "remoteValue": 210500,
+      "remoteTimestamp": "2023-01-01T12:00:00Z",
+      "override": false,
+      "manualValue": 207700,
+      "manualTimestamp": "2023-01-01T12:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Lahonton Inflow",
+      "type": "CFS",
+      "remoteSource": "BOR",
+      "remoteValue": 158,
+      "remoteTimestamp": "2023-01-02T14:30:00Z",
+      "override": false,
+      "manualValue": 214,
+      "manualTimestamp": "2023-01-02T14:30:00Z"
+    },
+    {
+    "id": "3",
+    "name": "Lahonton Outflow",
+    "type": "CFS",
+    "remoteSource": "BOR",
+    "remoteValue": 4.9,
+    "remoteTimestamp": "2023-01-02T14:30:00Z",
+    "override": false,
+    "manualValue": 5,
+    "manualTimestamp": "2023-01-02T14:30:00Z"
+    },
+    {
+    "id": "4",
+    "name": "Carson River Below Sagauspe",
+    "type": "CFS",
+    "remoteSource": "BOR",
+    "remoteValue": 11.4,
+    "remoteTimestamp": "2023-01-02T14:30:00Z",
+    "override": false,
+    "manualValue": 12,
+    "manualTimestamp": "2023-01-02T14:30:00Z"
+    }
+    
+  ]

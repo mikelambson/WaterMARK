@@ -32,5 +32,17 @@ interface OrderDetails {
     approxAf: number;
     balance: number;
   }
+
+ interface FlowData {
+    id: string;
+    name: string;
+    type: string;
+    remoteSource: string;
+    remoteValue?: number;
+    remoteTimestamp?: String;
+    override: boolean;
+    manualValue?: number;
+    manualTimestamp?: String;
+  }
   
-  export { Board, TypedColumn, Order, OrderDetails };
+  export { Board, TypedColumn, Order, OrderDetails, FlowData };
