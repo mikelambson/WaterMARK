@@ -24,10 +24,10 @@ const Scheduling = () => {
       case "forcasting":
         setHeaderText("Forcasting");
         break;
-      case "section4":
+      case "taskstatus":
         setHeaderText("Task Status");
         break;
-      case "section5":
+      case "watermasternotes":
         setHeaderText("Watermaster Notes");
         break;
       default:
@@ -51,10 +51,10 @@ const Scheduling = () => {
           <TabsTrigger value="forcasting" onClick={() => handleTabClick("forcasting")}>
             Forcasting
           </TabsTrigger>
-          <TabsTrigger value="section4" onClick={() => handleTabClick("section4")}>
+          <TabsTrigger value="taskstatus" onClick={() => handleTabClick("taskstatus")}>
             Task Status
           </TabsTrigger>
-          <TabsTrigger value="section5" onClick={() => handleTabClick("section5")}>
+          <TabsTrigger value="watermasternotes" onClick={() => handleTabClick("watermasternotes")}>
             Watermaster Notes
           </TabsTrigger>
         </TabsList>
@@ -76,10 +76,10 @@ const Scheduling = () => {
         <TabsContent value="forcasting">
           <Forcasting />
         </TabsContent>
-        <TabsContent value="section4">
+        <TabsContent value="taskstatus">
           <p>Task Status</p>
         </TabsContent>
-        <TabsContent value="section5">
+        <TabsContent value="watermasternotes">
           <p>Watermaster Notes</p>
         </TabsContent>
       </Tabs>
