@@ -4,7 +4,16 @@ interface ForcastProps {
     className?: string;
 }
 
-const Forcast: React.FC<ForcastProps> = ({className}) => {
+const forecastData = [
+  { day: 'Monday', condition: '☀️', temperature: '25°F' },
+  { day: 'Tuesday', condition: '🌦️', temperature: '20°F' },
+  { day: 'Wednesday', condition: '⛈️', temperature: '18°F' },
+  { day: 'Thursday', condition: '🌧️', temperature: '22°F' },
+  { day: 'Friday', condition: '❄️', temperature: '15°F' },
+];
+
+export const Forcast: React.FC<ForcastProps> = ({className}) => {
+
   return ( 
     <Card className={className}>
       <CardHeader> 
@@ -12,7 +21,16 @@ const Forcast: React.FC<ForcastProps> = ({className}) => {
         <CardDescription>Forcast description</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>Content</p> 
+        <div>
+          <h2>5-Day Weather Forecast</h2>
+          <ul>
+            {forecastData.map((day, index) => (
+              <li key={index}>
+                {day.day}: {day.condition} {day.temperature}
+              </li>
+            ))}
+          </ul>
+        </div>
       </CardContent>
       <CardFooter>
         <p>Algorithmic data</p>
@@ -21,5 +39,21 @@ const Forcast: React.FC<ForcastProps> = ({className}) => {
   );
 }
 
+export const SimpleForcast = () => {
+  return ( 
+    <div className="w-full text-center mb-2">
+    
+    <ul className="flex flex-row w-full justify-center gap-3">
+        <h3 className="-mr-3">Today:</h3>
+      {forecastData.map((day, index) => (
+        <li key={index}>
+          {day.condition}{day.temperature}
+        </li>
+      ))}
+    </ul>
+  </div>
+   );
+}
  
-export default Forcast;
+ 
+export default { Forcast, SimpleForcast };

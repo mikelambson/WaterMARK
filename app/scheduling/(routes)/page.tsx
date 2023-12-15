@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Ordercount from "@/components/cards/Ordercount";
 import SysInfo from "@/components/cards/SysInfo";
 import Demand from "../_components/Demand";
-import Forcast from "@/components/cards/Forcast";
+import { Forcast } from "@/components/cards/Forcast";
 import Forcasting from "../_components/Forcasting";
 import UpdateFlowsWM from "../_components/UpdateFlows";
 import { useState } from "react";

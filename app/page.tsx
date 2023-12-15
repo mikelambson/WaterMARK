@@ -11,7 +11,8 @@ import {
 
 import SysInfo from "@/components/cards/SysInfo";
 import Ordercount from "@/components/cards/Ordercount";
-import LakeForcast from "@/components/cards/Forcast";
+import LakeForcast from "@/components/cards/LakeForcast";
+import Demand from "./scheduling/_components/Demand";
 // import SlideDownNotification from "@/components/SlideDownNotification";
 
 export default function Home() {
@@ -28,7 +29,8 @@ export default function Home() {
           <SysInfo className={" w-full"} />
           <LakeForcast className={"w-full"} />
         </div>
-        <div className=" min-w-[10rem] flex-grow w-full md:w-[20%] md:max-w-[24rem]">
+        <div className=" min-w-[10rem] flex flex-col flex-grow gap-4 w-full md:w-[20%] md:max-w-[24rem]">
+          <Demand />
           <Ordercount className="w=full" />
         </div>
       </div>  

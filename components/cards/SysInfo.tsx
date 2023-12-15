@@ -12,6 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import useFlowsStore from '@/store/opsFlowsStore';
 import { initializeFlowsStore } from "@/lib/getOpsFlows";
 import { formatNumber } from "@/lib/basicFunctions"; 
+import { SimpleForcast } from "@/components/cards/Forcast";
 
 initializeFlowsStore();
 
@@ -61,7 +62,7 @@ return (
             </ScrollArea>
         </CardContent>
         <CardFooter className="py-1">
-            <h2 className="w-full text-center">N-Day Forcast: Basic Forcast - Emoji Style</h2>
+            <SimpleForcast />
         </CardFooter>
     </Card>
     
