@@ -143,23 +143,23 @@ const Navbar = () => {
 
       <div
         onClick={() => setNav(!nav)}
-        className={"cursor-pointer pr-4 subpixel-antialiased text-gray-500 md:hidden z-50"}
+        className={`cursor-pointer pr-4 subpixel-antialiased ${defaultTextColorClass} md:hidden z-50`}
       >
-        {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
+        {nav ? <FaTimes size={40} /> : <FaBars size={30} />}
       </div>
 
       {nav && (
         <ul
-          className={`flex flex-col subpixel-antialiased items-center absolute top-0 left-0 w-full h-screen ${defaultbg} ${defaultTextColorClass} subpixel-antialiased z-40`}
+          className={`flex flex-col subpixel-antialiased items-center absolute top-0 left-0 w-full h-[100dvh] justify-around ${defaultbg} ${defaultTextColorClass} font-semibold py-12 gap-12 subpixel-antialiased z-40`}
         >
-          {roleBasedLinks.map(({ id, link, allowedRoles }) =>
+          {roleBasedLinks.map(({ id, link, name, allowedRoles }) =>
             allowedRoles.includes("any") || allowedRoles.includes(userRole) ? (
               <li
                 key={id}
-                className={"px-4 cursor-pointer py-6 text-4xl subpixel-antialiased hover:text-amber-200 duration-200 link-underline"}
+                className={"px-4 cursor-pointer text-4xl subpixel-antialiased hover:text-amber-200 duration-200 link-underline"}
               >
                 <Link onClick={() => setNav(!nav)} href={link}>
-                  {link}
+                  /{name}
                 </Link>
               </li>
             ) : null

@@ -34,7 +34,7 @@ const UpdateFlowsWM = () => {
                     <TableHead className="">Override</TableHead>
                     <TableHead>Timestamp</TableHead>
                     <TableHead className="text-right">Manual Entry</TableHead>
-                    <TableHead className="min-w-[100px]">Manual Input</TableHead>
+                    <TableHead className="min-w-[200px]">Manual Input</TableHead>
                     <TableHead className="w-[100px]">Update</TableHead>
                     </TableRow>
                 </TableHeader>

@@ -5,6 +5,12 @@ export const formatNumber = (number?: number | null): string => {
   }
 
   const numberString = number.toString();
-  // Use toFixed to ensure two digits of precision for all real numbers
-  return parseFloat(numberString).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const hasDecimal = numberString.includes('.');
+
+  // Use toFixed to ensure two digits of precision for numbers with a decimal point
+  const formattedNumber = hasDecimal
+    ? parseFloat(numberString).toFixed(2)
+    : parseFloat(numberString).toString();
+
+  return formattedNumber.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };

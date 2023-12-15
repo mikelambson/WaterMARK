@@ -41,7 +41,7 @@ const Scheduling = () => {
         <h1 className={"text-xl font-semibold text-yellow-800 md:text-center "}>{headerText}</h1> 
       </div>
       <Tabs defaultValue="dashboard" className="mt-2 w-full">
-        <TabsList className="w-full">
+        <TabsList className="w-[80vw] md:w-full">
         <TabsTrigger value="dashboard" onClick={() => handleTabClick("dashboard")}>
             Dashboard
           </TabsTrigger>
@@ -59,15 +59,16 @@ const Scheduling = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="dashboard">
-          <div className={"w-full pt-1 grid grid-cols-[14rem_auto]"}>
+          <div className={"w-full pt-1 flex flex-col gap-3 md:grid md:grid-cols-[14rem_auto]"}>
+            <div className="col-start-2 row-start-1 row-span-2 flex flex-col gap-3 md:min-w-[20rem]">
+              <SysInfo />
+              <Forcast />
+            </div>
             <div className="coll-start-1 row-start-1 flex flex-col gap-3">
               <Demand />
               <Ordercount className={"w-full"} />
             </div>
-            <div className="col-start-2 row-start-1 row-span-2 flex flex-col gap-3 pl-3">
-              <SysInfo />
-              <Forcast />
-            </div>
+            
           </div>
         </TabsContent>
         <TabsContent value="updateflows">
