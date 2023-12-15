@@ -38,7 +38,7 @@ const Scheduling = () => {
   return (
     <div className={"flex flex-col m-2"}>
       <div className={"flex-1"}>
-        <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>{headerText}</h1> 
+        <h1 className={"text-xl font-semibold text-yellow-800 md:text-center "}>{headerText}</h1> 
       </div>
       <Tabs defaultValue="dashboard" className="mt-2 w-full">
         <TabsList className="w-full">
