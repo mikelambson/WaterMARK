@@ -38,10 +38,10 @@ interface OrderDetails {
     name: string;
     type: string;
     remoteSource: string;
-    remoteValue?: number;
-    remoteTimestamp?: String;
+    remoteValue?: float;
+    remoteTimestamp?: Date;
     override: boolean;
-    manualValue?: number;
+    manualValue?: float;
     manualTimestamp?: String;
   }
   

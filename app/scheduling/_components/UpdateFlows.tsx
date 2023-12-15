@@ -18,6 +18,7 @@ import { useToast } from "@/components/ui/use-toast";
 const UpdateFlowsWM = () => {
     // Access the flows array & updateFlow function from the store
     const flows = useFlowsStore((state) => state.flows);
+    const sortedFlows = [...flows].sort((a, b) => Number(a.id) - Number(b.id));
     const updateFlow = useFlowsStore((state) => state.updateFlow);
     // Toast functions
     const { toast } = useToast();
@@ -39,7 +40,7 @@ const UpdateFlowsWM = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {flows.map((row) => (
+                    {sortedFlows.map((row) => (
                         <TableRow key={row.id}>
                             <TableCell className="font-medium">{row.name}</TableCell>
                             <TableCell>{row.remoteSource}</TableCell>

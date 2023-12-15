@@ -18,16 +18,5 @@ export const initializeFlowsStore = async () => {
     throw error; // Propagate the error to the caller
   }
   
-    // fetch('/flowsData.json')
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error(`HTTP error! Status: ${response.status}`);
-    //     }
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     // console.log('Fetched flows data:', data);
-    //     useFlowsStore.getState().setFlows(data);
-    //   })
-    //   .catch((error) => console.error('Error fetching flows data:', error));
 };
+
