@@ -21,10 +21,5 @@ const Forcast: React.FC<ForcastProps> = ({className}) => {
   );
 }
 
-const Forcasting: React.FC<ForcastProps> = ({className}) => {
-  return ( 
-    <div>Forcasting</div>
-  );
-}
  
 export default Forcast;

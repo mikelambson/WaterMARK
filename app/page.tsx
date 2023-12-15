@@ -11,6 +11,7 @@ import {
 
 import SysInfo from "@/components/cards/SysInfo";
 import Ordercount from "@/components/cards/Ordercount";
+import LakeForcast from "@/components/cards/Forcast";
 // import SlideDownNotification from "@/components/SlideDownNotification";
 
 export default function Home() {
@@ -22,25 +23,15 @@ export default function Home() {
           Water Measurment Administration & Record Keeping
         </h1>
       </div>
-
-      <div className={"flex gap-6 px-7 flex-wrap"}>
-        <div className={"flex flex-grow  gap-6 flex-wrap"}>       
-          <SysInfo className={" w-full max-w-5/6"} />
-          <Card>
-            <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Card Content</p>
-            </CardContent>
-            <CardFooter>
-              <p>Card Footer</p>
-            </CardFooter>
-          </Card>
+      <div className={"flex flex-row justify-center gap-4 flex-wrap px-[1%]"}>
+        <div className={"flex flex-col gap-4 min-w-fit w-full md:w-3/4 md:max-w-screen-lg"}>       
+          <SysInfo className={" w-full"} />
+          <LakeForcast className={"w-full"} />
         </div>
-        <Ordercount className="w=full" />
-      </div>
+        <div className=" min-w-[10rem] flex-grow w-full md:w-[20%] md:max-w-[24rem]">
+          <Ordercount className="w=full" />
+        </div>
+      </div>  
     </div>
   );
 }
