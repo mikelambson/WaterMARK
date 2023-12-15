@@ -41,7 +41,7 @@ const Scheduling = () => {
         <h1 className={"text-xl font-semibold text-yellow-800 md:text-center "}>{headerText}</h1> 
       </div>
       <Tabs defaultValue="dashboard" className="mt-2 w-full">
-        <TabsList className="w-[80vw] md:w-full">
+        <TabsList className="w-[81vw] md:w-full">
         <TabsTrigger value="dashboard" onClick={() => handleTabClick("dashboard")}>
             Dashboard
           </TabsTrigger>
