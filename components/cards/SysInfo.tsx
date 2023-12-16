@@ -23,7 +23,7 @@ interface SysInfoProps {
 
 const SysInfo: React.FC<SysInfoProps> = ({ className }) => {
     const { flows } = useFlowsStore();
-    const sortedFlows = [...flows].sort((a, b) => Number(a.id) - Number(b.id));
+    // const sortedFlows = [...flows].sort((a, b) => Number(a.id) - Number(b.id));
     
 return (
     <Card className={className}>
@@ -43,7 +43,7 @@ return (
                     </tr>
                     </thead>
                     <tbody className="w-full" >
-                        {sortedFlows.map((row, index) => (
+                        {flows.map((row, index) => (
                             <tr key={index} className="border-b font-mono font-semibold">
                                 <td className="w-8" />
                                 <td className="py-2">{row.name}</td>

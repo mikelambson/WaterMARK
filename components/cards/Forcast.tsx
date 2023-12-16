@@ -43,8 +43,8 @@ export const SimpleForcast = () => {
   return ( 
     <div className="w-full text-center mb-2">
     
-    <ul className="flex flex-row w-full justify-center text-sm md:text-base gap-3 md:gap-1">
-        <h3 className="-mr-3">Today:</h3>
+    <ul className="flex flex-row w-full justify-center text-xs md:text-base gap-2 md:gap-3">
+        <h3 className="-mr-1 md:-mr-3">Today:</h3>
       {forecastData.map((day, index) => (
         <li key={index}>
           {day.condition}{day.temperature}

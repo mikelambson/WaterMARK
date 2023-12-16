@@ -18,7 +18,7 @@ import { useToast } from "@/components/ui/use-toast";
 const UpdateFlowsWM = () => {
     // Access the flows array & updateFlow function from the store
     const flows = useFlowsStore((state) => state.flows);
-    const sortedFlows = [...flows].sort((a, b) => Number(a.id) - Number(b.id));
+    // const sortedFlows = [...flows].sort((a, b) => Number(a.id) - Number(b.id));
     const updateFlow = useFlowsStore((state) => state.updateFlow);
     // Toast functions
     const { toast } = useToast();
@@ -26,8 +26,8 @@ const UpdateFlowsWM = () => {
     return ( 
         <div>
             <Table>
-                <TableCaption><Button variant={"destructive"} className="active:bg-destructive/30">Update Database</Button></TableCaption>
-                <TableHeader>
+                <TableCaption><h2 className=" cursor-default">Update Database</h2></TableCaption>
+                <TableHeader className="cursor-default">
                     <TableRow>
                     <TableHead>Name</TableHead>
                     <TableHead className="">Source</TableHead>
@@ -40,7 +40,7 @@ const UpdateFlowsWM = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {sortedFlows.map((row) => (
+                    {flows.map((row) => (
                         <TableRow key={row.id}>
                             <TableCell className="font-medium">{row.name}</TableCell>
                             <TableCell>{row.remoteSource}</TableCell>
@@ -61,7 +61,7 @@ const UpdateFlowsWM = () => {
                             <TableCell>{row.manualTimestamp !== null ? row.manualTimestamp : "--"}</TableCell>
                             <TableCell className="text-right">{formatNumber(row.manualValue)}&ensp;{formatNumber(row.manualValue) !== "" ? row.type : "--"}</TableCell>
                             <TableCell>
-                                <Input id={row.id + "manualinput"} placeholder="New Value" 
+                                <Input id={row.id + "manualinput"} placeholder={row.manualValue}
                                 className="border-foreground/50" />
                             </TableCell>
                             <TableCell>
