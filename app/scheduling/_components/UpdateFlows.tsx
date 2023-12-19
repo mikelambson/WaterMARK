@@ -32,10 +32,9 @@ const UpdateFlowsWM = () => {
                     <TableHead>Name</TableHead>
                     <TableHead className="">Source</TableHead>
                     <TableHead className="">Remote Data</TableHead>
-                    <TableHead className="">Override</TableHead>
-                    <TableHead>Timestamp</TableHead>
-                    <TableHead className="text-right">Manual Entry</TableHead>
-                    <TableHead className="min-w-[200px]">Manual Input</TableHead>
+                    <TableHead className="w-[100px]">Override</TableHead>
+                    <TableHead className="text-right">Timestamp</TableHead>
+                    <TableHead className="w-[150px]">Manual Input</TableHead>
                     <TableHead className="w-[100px]">Update</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -58,11 +57,12 @@ const UpdateFlowsWM = () => {
                                     disabled={row.remoteSource === "Manual"}
                                 />
                             </TableCell>
-                            <TableCell>{row.manualTimestamp !== null ? row.manualTimestamp : "--"}</TableCell>
-                            <TableCell className="text-right">{formatNumber(row.manualValue)}&ensp;{formatNumber(row.manualValue) !== "" ? row.type : "--"}</TableCell>
-                            <TableCell>
-                                <Input id={row.id + "manualinput"} placeholder={row.manualValue}
-                                className="border-foreground/50" />
+                            <TableCell className="text-right">
+                                {row.manualTimestamp !== null ? row.manualTimestamp : "--"}
+                            </TableCell>
+                            <TableCell className="inline-flex">
+                                <Input id={row.id + "manualinput"} placeholder={formatNumber(row.manualValue) !== "" ? formatNumber(row.manualValue) : "--"}
+                                className="border-foreground/50 text-right" />&ensp;<span className="my-auto">{row.type}</span>
                             </TableCell>
                             <TableCell>
                                 <Button 
