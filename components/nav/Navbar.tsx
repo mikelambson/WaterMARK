@@ -31,11 +31,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { Notify, NotifyCount } from "@/components/nav/Notifications";
-
-
-
-
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Navbar = () => {
   const { toast } = useToast();
@@ -49,20 +50,16 @@ const Navbar = () => {
   const defaultbg = isDarkMode ? "bg-slate-700" : "bg-slate-800";
   const count = NotifyCount;
 
-  const logoSection = (
-    <div className={"w-max flex rounded hover:bg-amber-200 hover:bg-opacity-30  scale-100 hover:scale-105 duration-200"}>
-      <Image src="/img/logo.png" width={35} height={35} alt="logo" />
-      <span className={"ml-3 self-center text-blue-400"}>Water</span>
-      <span className={"self-center text-orange-300"}>MARK</span>
-    </div>
-  );
+  // const logoSection = (
+    
+  // );
 
   const roleBasedLinks = [
     {
       id: 0, // Use a unique id for the logo section
       link: "/", // Use "/" as the link for the logo
       allowedRoles: ["any"], // Define roles that can access this link
-      content: logoSection, // Include the logoSection in the content
+      // content: logoSection, // Include the logoSection in the content
       name: "Home",
       children: ["/"],
     },
@@ -123,16 +120,31 @@ const Navbar = () => {
       className={` w-full h-16 align-middle ${defaultbg} subpixel-antialiased text-${defaultTextColorClass} fixed z-50 nav`}
     ><div className={"h-16 flex mx-auto justify-between items-center px-2 fixed w-[100vw]"}>
       <ul className={"hidden md:flex flex-grow items-center"}>
-        {roleBasedLinks.map(({ id, link, allowedRoles, name, content, children }) =>
+        {roleBasedLinks.map(({ id, link, allowedRoles, name, children }) =>
           // Check if "any" is in the allowedRoles array or the user's role is included
           allowedRoles.includes("any") || allowedRoles.includes(userRole) ? (
             <li
               key={id}
-              className={cn(`nav-links px-3 cursor-pointer capitalize font-medium subpixel-antialiased ${defaultTextColorClass} hover:scale-105 hover:text-amber-300 duration-200 link-underline`, children.includes(pathname) ? 
-              cn(isDarkMode ? "text-amber-400" : "text-orange-300") : {defaultTextColorClass})}
+              className={cn(`nav-links px-3 cursor-pointer h-full capitalize font-medium subpixel-antialiased ${defaultTextColorClass} hover:scale-110 hover:text-amber-300 duration-200 link-underline`, children.includes(pathname) ? 
+              cn(isDarkMode ? "text-orange-300/90" : "text-orange-300/95") : {defaultTextColorClass})}
             >
               {id === 0 ? ( // Check if it's the logo section
-                <Link href={link}>{content}</Link>
+                <Link href={link}>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className={"group w-max flex scale-100"}>
+                          <Image src="/img/logo.png" width={35} height={35} alt="logo" className={cn("group-hover:opacity-100 duration-200", children.includes(pathname) ? "opacity-95" : "opacity-60")} />
+                          <span className={cn("ml-1 self-center group-hover:text-sky-400 duration-200", children.includes(pathname) ? "text-blue-400/95" : "text-blue-300/50")}>Water</span>
+                          <span className={cn("self-center  group-hover:text-amber-300 duration-200", children.includes(pathname) ? "text-orange-300/90" : "text-orange-200/60")}>MARK</span>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Home</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>  
+                </Link>
               ) : (
                 <Link href={link}>{name}</Link>
               )}

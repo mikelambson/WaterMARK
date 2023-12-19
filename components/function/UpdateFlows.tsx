@@ -15,7 +15,11 @@ import { formatNumber } from "@/lib/basicFunctions";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 
-const UpdateFlowsWM = () => {
+type UpdateFlowsProps = {
+    watermaster?: boolean;
+  };
+
+const UpdateFlows: React.FC<UpdateFlowsProps> = ({watermaster = false}) => {
     // Access the flows array & updateFlow function from the store
     const flows = useFlowsStore((state) => state.flows);
     // const sortedFlows = [...flows].sort((a, b) => Number(a.id) - Number(b.id));
@@ -30,9 +34,9 @@ const UpdateFlowsWM = () => {
                 <TableHeader className="cursor-default">
                     <TableRow>
                     <TableHead>Name</TableHead>
-                    <TableHead className="">Source</TableHead>
+                    {watermaster && (<TableHead className="">Source</TableHead>)}
                     <TableHead className="">Remote Data</TableHead>
-                    <TableHead className="w-[100px]">Override</TableHead>
+                    {watermaster && <TableHead className="w-[100px]">Override</TableHead>}
                     <TableHead className="text-right">Timestamp</TableHead>
                     <TableHead className="w-[150px]">Manual Input</TableHead>
                     <TableHead className="w-[100px]">Update</TableHead>
@@ -42,27 +46,33 @@ const UpdateFlowsWM = () => {
                     {flows.map((row) => (
                         <TableRow key={row.id}>
                             <TableCell className="font-medium">{row.name}</TableCell>
-                            <TableCell>{row.remoteSource}</TableCell>
+                            {watermaster && (
+                                <TableCell>{row.remoteSource}</TableCell>
+                            )}
                             <TableCell>{formatNumber(row.remoteValue)}&ensp;{formatNumber(row.remoteValue) !== "" ? row.type : "--"}</TableCell>
-                            <TableCell>
-                                <Switch 
+                            {watermaster && (
+                                <TableCell>
+                                <Switch
                                     checked={row.override}
                                     onCheckedChange={() => {
-                                        updateFlow(row.id, { override: !row.override });                                     
-                                        toast({
-                                            title: row.name,
-                                            description: `Set Override: ${!row.override}`,
-                                        });
+                                    updateFlow(row.id, { override: !row.override });
+                                    toast({
+                                        title: row.name,
+                                        description: `Set Override: ${!row.override}`,
+                                    });
                                     }}
                                     disabled={row.remoteSource === "Manual"}
                                 />
-                            </TableCell>
+                                </TableCell>
+                            )}
                             <TableCell className="text-right">
                                 {row.manualTimestamp !== null ? row.manualTimestamp : "--"}
                             </TableCell>
                             <TableCell className="inline-flex">
                                 <Input id={row.id + "manualinput"} placeholder={formatNumber(row.manualValue) !== "" ? formatNumber(row.manualValue) : "--"}
-                                className="border-foreground/50 text-right" />&ensp;<span className="my-auto">{row.type}</span>
+                                className="border-foreground/50 text-right min-w-[80px]" />
+                                &ensp;
+                                <span className="my-auto">{row.type}</span>
                             </TableCell>
                             <TableCell>
                                 <Button 
@@ -101,4 +111,4 @@ const UpdateFlowsWM = () => {
      );
 }
  
-export default UpdateFlowsWM;
+export default UpdateFlows;

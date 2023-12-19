@@ -6,7 +6,7 @@ import SysInfo from "@/components/cards/SysInfo";
 import Demand from "../_components/Demand";
 import { Forcast } from "@/components/cards/Forcast";
 import Forcasting from "../_components/Forcasting";
-import UpdateFlowsWM from "../_components/UpdateFlows";
+import UpdateFlows from "@/components/function/UpdateFlows";
 import { useState } from "react";
 
 const Scheduling = () => {
@@ -72,7 +72,7 @@ const Scheduling = () => {
           </div>
         </TabsContent>
         <TabsContent value="updateflows">
-          <UpdateFlowsWM />
+          <UpdateFlows watermaster />
         </TabsContent>
         <TabsContent value="forcasting">
           <Forcasting />

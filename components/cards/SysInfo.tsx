@@ -32,8 +32,8 @@ return (
             <CardDescription className="text-center">Reservior Level & System Flow Data</CardDescription>
         </CardHeader>
         <CardContent className="h-[64%]">
-            <ScrollArea className="w-full rounded-md h-[14rem] border">
-                <table className="w-full max-w-5xl mx-auto rounded-md border-collapse border">
+            <ScrollArea className="w-full max-w-5xl mx-auto rounded-md h-[14rem] border">
+                <table className="w-full rounded-md border-collapse border-b">
                     <thead className="w-full">
                     <tr className="bg-background text-card-alternative w-full h-10 text-xl font-extrabold">
                         <th></th>

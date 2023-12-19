@@ -7,20 +7,21 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import UpdateFlows from "@/components/function/UpdateFlows";
+import SysInfo from "@/components/cards/SysInfo";
 
 export default function Deliveries() {
   return (
     <div className="p-1">
       <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Deliveries Dashboard</h1>
-      <p>This is a ditchrider dashboard which will be designed with quick access to info for some of the key systems and reserviors, tasks, and other operations functions.</p>
-      <p>On this page, there should be a place to update some operations measurement points, and should default to district worked.</p>
 
-      <Tabs defaultValue="section1" className="mt-3 w-full">
-      <TabsList>
-        <TabsTrigger value="section1">Main</TabsTrigger>
-        <TabsTrigger value="section2">Update Flows</TabsTrigger>
+      <Tabs defaultValue="dashboard" className="mt-3 w-full p">
+      <TabsList className="w-[81vw] md:w-full">
+        <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+        <TabsTrigger value="updateflows">Update Flows</TabsTrigger>
       </TabsList>
-      <TabsContent value="section1">
+      <TabsContent value="dashboard">
+        <SysInfo />
         <ScrollArea className="h-full w-full rounded-md border p-4">
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
@@ -46,9 +47,8 @@ export default function Deliveries() {
         </Accordion>
         </ScrollArea>
       </TabsContent>
-      <TabsContent value="section2">
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium aut distinctio omnis aliquam recusandae! Quam, nostrum tempore illo hic sequi sapiente quae dolores assumenda cum? Exercitationem nemo eius similique vero?</p>
-
+      <TabsContent value="updateflows">
+        <UpdateFlows />
       </TabsContent>
     </Tabs>
 

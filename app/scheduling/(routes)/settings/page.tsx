@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Headsheets, columns } from "@/app/scheduling/_components/settings/hs-columns"
 import { DataTable } from "@/app/scheduling/_components/settings/data-table"
+import FlowsSettings from '../../_components/settings/flowsSettings';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -24,10 +25,10 @@ const Settings = async () => {
         <>
         <Tabs defaultValue="home" className=" w-[98%] mx-auto mt-1">
             <TabsList className=" w-full"> {/* items-center justify-center */}
-                <TabsTrigger value="home">Settings</TabsTrigger>
-                <TabsTrigger value="headsheets">Headsheets</TabsTrigger>
-                <TabsTrigger value="ditchriders">Ditchriders</TabsTrigger>
-                
+              <TabsTrigger value="home">Settings</TabsTrigger>
+              <TabsTrigger value="headsheets">Headsheets</TabsTrigger>
+              <TabsTrigger value="ditchriders">Ditchriders</TabsTrigger>
+              <TabsTrigger value="sysinfo">SysInfo</TabsTrigger>
             </TabsList>
             <TabsContent value="home">
               <h1 className='pt-8 font-semibold text-2xl w-2/3 mx-auto'>This is the settings home where the watermaster will set and update certain features for the scheduling and delivery processes.</h1>
@@ -38,6 +39,9 @@ const Settings = async () => {
                 </div>
             </TabsContent>
             <TabsContent value="ditchriders">Change your ditchriders here.</TabsContent>
+            <TabsContent value="sysinfo">
+              <FlowsSettings />
+            </TabsContent>
         </Tabs>
 
         </>
