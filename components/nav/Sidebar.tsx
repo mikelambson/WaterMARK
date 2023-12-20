@@ -27,7 +27,7 @@ export const Sidebar: React.FC<NavigationSidebarProps> = ({sideLinks}) => {
   const sidebarHover = isDarkMode ? 'hover:text-yellow-300' : 'hover:text-yellow-300';
   
   const sidebarStyle = `${sidebarBgColor} px-[1px] text-center border-solid border-r-[.5px] ${sidebarBorder} flex flex-col`;
-  const sidebarItem =  `${sidebarHover} cursor-pointer flex flex-col items-center drop-shadow-md`;
+  const sidebarItem =  `${sidebarHover} duration-200 cursor-pointer flex flex-col items-center drop-shadow-md`;
   
   
   // const permission = await deliveriesPermission();

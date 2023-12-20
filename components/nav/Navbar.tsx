@@ -120,18 +120,18 @@ const Navbar = () => {
           allowedRoles.includes("any") || allowedRoles.includes(userRole) ? (
             <li
               key={id}
-              className={cn(`nav-links h-[3.8rem] inline-flex items-center px-3 cursor-pointer capitalize font-medium subpixel-antialiased ${defaultTextColorClass} hover:text-yellow-300 duration-200 pb-1`, children.includes(pathname) ? 
-              cn(isDarkMode ? "text-amber-300/90 border-b-2 border-b-amber-200/30" : "text-orange-300 border-b-2 border-b-orange-300/20") : {defaultTextColorClass})}
+              className={cn(`nav-links h-[3.8rem] inline-flex items-center px-3 capitalize font-medium subpixel-antialiased ${defaultTextColorClass}  duration-200 pb-1`, children.includes(pathname) ? 
+              cn(isDarkMode ? "text-yellow-400/90 border-b-2 border-b-amber-500/30" : "text-orange-300 border-b-2 border-b-orange-300/30") : {defaultTextColorClass})}
             >
               {id === 0 ? ( // Check if it's the logo section
                 <Link href={link}>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <div className={"group w-max flex scale-100 hover:scale-110 duration-100"}>
+                        <div className={"group w-max flex scale-100 hover:scale-110 duration-200"}>
                           <Image src="/img/logo.png" width={35} height={35} alt="logo" className={cn("group-hover:opacity-100 duration-200", children.includes(pathname) ? "opacity-95" : "opacity-60")} />
                           <span className={cn("ml-1 self-center group-hover:text-sky-400 duration-200", children.includes(pathname) ? "text-blue-400/95" : "text-blue-300/50")}>Water</span>
-                          <span className={cn("self-center  group-hover:text-yellow-300 duration-200", children.includes(pathname) ? cn(isDarkMode ? "text-amber-300/90" :"text-orange-300/90") : "text-orange-200/60")}>MARK</span>
+                          <span className={cn("self-center  group-hover:text-yellow-300 duration-200", children.includes(pathname) ? cn(isDarkMode ? "text-amber-500/90" :"text-orange-300/90") : "text-orange-200/60")}>MARK</span>
                         </div>
                       </TooltipTrigger>
                       <TooltipContent>
@@ -141,7 +141,7 @@ const Navbar = () => {
                   </TooltipProvider>  
                 </Link>
               ) : (
-                <Link className="hover:scale-110 duration-100" href={link}>{name}</Link>
+                <Link className="hover:scale-125 hover:text-amber-500 duration-100 cursor-pointer" href={link}>{name}</Link>
               )}
             </li>
           ) : null
