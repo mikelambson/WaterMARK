@@ -201,8 +201,8 @@ const Navbar = () => {
 
             <Sheet>
             <SheetTrigger>
-              <div className={`${defaultTextColorClass} subpixel-antialiased relative`}>
-                <FaBell size={20} className={`${iconHoverColorClass} subpixel-antialiased`} />
+              <div className={`group ${defaultTextColorClass} ${iconHoverColorClass} subpixel-antialiased relative`}>
+                <FaBell size={20} className={` subpixel-antialiased`} />
                 <NotifyCount />
               </div>
             </SheetTrigger>
