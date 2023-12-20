@@ -48,11 +48,6 @@ const Navbar = () => {
   const defaultTextColorClass = isDarkMode ? "text-gray-200" : "text-gray-400";
   const iconHoverColorClass = "hover:text-amber-100";
   const defaultbg = isDarkMode ? "bg-slate-700" : "bg-slate-800";
-  const count = NotifyCount;
-
-  // const logoSection = (
-    
-  // );
 
   const roleBasedLinks = [
     {
@@ -125,8 +120,8 @@ const Navbar = () => {
           allowedRoles.includes("any") || allowedRoles.includes(userRole) ? (
             <li
               key={id}
-              className={cn(`nav-links px-3 cursor-pointer h-full capitalize font-medium subpixel-antialiased ${defaultTextColorClass} hover:scale-110 hover:text-amber-300 duration-200 link-underline`, children.includes(pathname) ? 
-              cn(isDarkMode ? "text-orange-300/90" : "text-orange-300/95") : {defaultTextColorClass})}
+              className={cn(`nav-links px-3 cursor-pointer h-full capitalize font-medium subpixel-antialiased ${defaultTextColorClass} hover:scale-110 hover:text-yellow-300 duration-200 link-underline`, children.includes(pathname) ? 
+              cn(isDarkMode ? "text-amber-400/90" : "text-orange-300") : {defaultTextColorClass})}
             >
               {id === 0 ? ( // Check if it's the logo section
                 <Link href={link}>
@@ -136,7 +131,7 @@ const Navbar = () => {
                         <div className={"group w-max flex scale-100"}>
                           <Image src="/img/logo.png" width={35} height={35} alt="logo" className={cn("group-hover:opacity-100 duration-200", children.includes(pathname) ? "opacity-95" : "opacity-60")} />
                           <span className={cn("ml-1 self-center group-hover:text-sky-400 duration-200", children.includes(pathname) ? "text-blue-400/95" : "text-blue-300/50")}>Water</span>
-                          <span className={cn("self-center  group-hover:text-amber-300 duration-200", children.includes(pathname) ? "text-orange-300/90" : "text-orange-200/60")}>MARK</span>
+                          <span className={cn("self-center  group-hover:text-yellow-300 duration-200", children.includes(pathname) ? cn(isDarkMode ? "text-amber-400/90" :"text-orange-300/90") : "text-orange-200/60")}>MARK</span>
                         </div>
                       </TooltipTrigger>
                       <TooltipContent>

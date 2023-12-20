@@ -1,17 +1,15 @@
 // /app/deliveries/layout.tsx
-import { NavigationSidebar } from "./_components/navigation/navigation-sidebar";
+import { Sidebar } from "@/components/nav/Sidebar";
+import { sideLinks } from "./_components/navigation/adminLinks";
 
-
-const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => {
+const SchedulingLayout = ({ children }: { children: React.ReactNode} ) => {
     return ( 
-        <>
         <div className={"h-full m-0 pt-[4rem]"}>
-        <NavigationSidebar />
-        <main className={"pt-0 pl-16"}>
-            {children}
-        </main>
+            <Sidebar sideLinks={sideLinks} />
+            <main className={"pt-0 pl-16"}>
+                {children}
+            </main>
         </div>
-        </>
      );
 }
  
