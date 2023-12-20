@@ -8,8 +8,8 @@ const iconStyle = `mb-[2px] subpixel-antialiased`;
 
 export const sideLinks = [
     {
-      id: 0, // Use a unique id for the logo section
-      link: "/admin", // Use "/" as the link for the logo
+      id: 0, 
+      link: "/admin", 
       content: (
         <>
         <FaGlobe size={30} className={iconStyle} />

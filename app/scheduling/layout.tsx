@@ -1,12 +1,13 @@
-// /app/(scheduling)/layout.tsx
-import { NavigationSidebar } from "./_components/navigation/navigation-sidebar";
+// /app/scheduling/layout.tsx
+import { Sidebar } from "@/components/nav/Sidebar";
+import { sideLinks } from "./_components/navigation/schedulingLinks";
 
 
 const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => {
     return ( 
         <>
         <div className={"h-full m-0 pt-[4rem]"}>
-        <NavigationSidebar />
+        <Sidebar sideLinks={sideLinks} />
         <main className={"pt-0 pl-16"}>
             {children}
         </main>

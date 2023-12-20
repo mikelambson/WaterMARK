@@ -1,4 +1,4 @@
-// /app/deliveries/layout.tsx
+// /app/admin/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
 import { sideLinks } from "./_components/navigation/adminLinks";
 
