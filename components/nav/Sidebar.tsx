@@ -43,8 +43,8 @@ export const Sidebar: React.FC<NavigationSidebarProps> = ({sideLinks}) => {
       <div className="mb-5">
         {sideLinks.map((item: any) => (
           <div className={cn("py-2 border-r border-b border-t rounded-r-sm", pathname === item.link ? 
-            cn(isDarkMode ? "border-t-yellow-50/5 border-b-yellow-900/10 border-r-yellow-700/40 bg-gradient-to-l from-yellow-700/30 via-yellow-800/30 to-yellow-900/10" :
-            "border-t-orange-50/5 border-b-orange-950/20 border-r-orange-300/40 bg-gradient-to-l from-orange-300/30 via-orange-500/10 to-orange-950/10") : "border-none")}>
+            cn(isDarkMode ? "border-t-yellow-50/5 border-b-yellow-900/10 border-r-yellow-700/40 bg-gradient-to-l from-yellow-700/30 via-yellow-700/20 to-yellow-700/10" :
+            "border-t-orange-50/5 border-b-orange-950/20 border-r-orange-300/40 bg-gradient-to-l from-orange-300/30 via-orange-300/20 to-orange-300/10") : "border-none")}>
             <Link 
               key={item.id}
               href={item.link}
