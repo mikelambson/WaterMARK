@@ -26,8 +26,8 @@ export const Sidebar: React.FC<NavigationSidebarProps> = ({sideLinks}) => {
   const sidebarBorder = isDarkMode ? 'border-neutral-400' : 'border-neutral-700';
   const sidebarHover = isDarkMode ? 'hover:text-yellow-600' : 'hover:text-amber-300';
   
-  const sidebarStyle = `${sidebarBgColor} pt-4 px-[1px] text-center border-solid border-r-[.5px] ${sidebarBorder} flex flex-col`;
-  const sidebarItem =  `${sidebarHover} cursor-pointer flex flex-col items-center mb-4 drop-shadow-md`;
+  const sidebarStyle = `${sidebarBgColor} px-[1px] text-center border-solid border-r-[.5px] ${sidebarBorder} flex flex-col`;
+  const sidebarItem =  `${sidebarHover} cursor-pointer flex flex-col items-center drop-shadow-md`;
   
   
   // const permission = await deliveriesPermission();
@@ -40,15 +40,16 @@ export const Sidebar: React.FC<NavigationSidebarProps> = ({sideLinks}) => {
       <nav>
       <div className="fixed flex h-full w-14">
       <div className={sidebarStyle}>
-      <div className="mb-6">
+      <div className="mb-5">
         {sideLinks.map((item: any) => (
-          <div className={cn(pathname === item.link ? 
-            cn(isDarkMode ? "border-r border-yellow-700/90" :"border-r border-orange-300/95") : "border-none")}>
+          <div className={cn("py-2 border-r border-b border-t rounded-r-sm", pathname === item.link ? 
+            cn(isDarkMode ? "border-t-yellow-50/5 border-b-yellow-900/10 border-r-yellow-700/40 bg-gradient-to-l from-yellow-700/30 via-yellow-800/30 to-yellow-900/10" :
+            "border-t-orange-50/5 border-b-orange-950/20 border-r-orange-300/40 bg-gradient-to-l from-orange-300/30 via-orange-500/10 to-orange-950/10") : "border-none")}>
             <Link 
               key={item.id}
               href={item.link}
               className={cn(`${sidebarItem}`, pathname === item.link ? 
-              cn(isDarkMode ? "text-yellow-700/90" :"text-orange-300/95") : 
+              cn(isDarkMode ? "text-yellow-900" :"text-orange-300/95") : 
               cn(isDarkMode ? "text-zinc-500" : "text-stone-500"))}
               >
                 {item.content}

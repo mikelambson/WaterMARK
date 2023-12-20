@@ -1,19 +1,9 @@
 // ./app/page.tsx
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import SysInfo from "@/components/cards/SysInfo";
 import Ordercount from "@/components/cards/Ordercount";
 import LakeForcast from "@/components/cards/LakeForcast";
 import Demand from "./scheduling/_components/Demand";
-// import SlideDownNotification from "@/components/SlideDownNotification";
+
 
 export default function Home() {
   return (
