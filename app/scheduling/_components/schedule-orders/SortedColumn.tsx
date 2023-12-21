@@ -25,8 +25,6 @@ const columnNames = {
 
 const Column = ({id, columns, index, tabnumber}: Properties) => {
 
-    const { theme } = useTheme();
-    const isDarkMode = theme === "light";
 
     return ( 
         <Draggable draggableId={id} index={index}>
@@ -45,19 +43,19 @@ const Column = ({id, columns, index, tabnumber}: Properties) => {
                         <div
                             {...provided.droppableProps}
                             ref={provided.innerRef}
-                            className={cn("pb-2 p-2 rounded-md shadow-md h-70dvh md:min-h-[70vh]", snapshot.isDraggingOver ? "bg-yellow-200/50" : cn(isDarkMode ? "bg-foreground/10" : "bg-foreground/80"))}
+                            className={cn("pb-2 p-2 rounded-md shadow-md h-70dvh md:min-h-[70vh]", snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-foreground/10 dark:bg-foreground/80")}
                             
                         >
                             {index === 0 ? 
                                 <div className="h-5 flex flex-row gap-2 mb-2">
-                                    <h2 className={cn("pb-3 font-bold", isDarkMode ? "text-gray-500" : "text-slate-800")}>
+                                    <h2 className={"pb-3 font-bold text-gray-500 dark:text-slate-800"}>
                                         {columnNames[id]}:
                                     </h2>
                                     <Input type="filter" placeholder="Filter Orders" className="h-5 w-40 bg-background/60" />
                             </div> : 
                             index ===1 ? <TabbedColumn tabs={tabnumber} /> : 
                             <div className="h-5 flex flex-row gap-2 mb-2">
-                                    <h2 className={cn("pb-3 font-bold", isDarkMode ? "text-gray-500" : "text-slate-800")}>
+                                    <h2 className={"pb-3 font-bold text-gray-500 dark:text-slate-800"}>
                                         {columnNames[id]}:
                                     </h2>
                                     <Input type="filter" placeholder="Filter Orders" className="h-5 w-40 bg-background/60" />
