@@ -2,9 +2,9 @@
 "use client";
 
 import * as React from "react";
-import { Moon, Sun } from "lucide-react";
+import { PiSunDuotone } from "react-icons/pi";
+import { RxMoon, RxSun } from "react-icons/rx";
 import { useTheme } from "next-themes";
-import { useThemeStore } from '@/store/themeStore';
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,11 +13,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+
+
 export function ModeToggle() {
-  const isDarkMode = useThemeStore((state) => state.isDarkMode);
-  const toggleTheme = useThemeStore((state) => state.toggleTheme);
   const { setTheme } = useTheme();
-  const iconHover = isDarkMode ? "group-hover:text-amber-500" : "group-hover:text-yellow-300 ";
 
   return (
     <DropdownMenu>
@@ -25,10 +24,10 @@ export function ModeToggle() {
         <Button
           variant="outline"
           size="icon"
-          className={`group scale-75 border-none hover:scale-100 hover:bg-background/30`}
+          className={`group scale-75 border-none transition-all hover:scale-90 hover:bg-gray-600/80 dark:bg-background/60 bg-gray-200/95 rounded-2xl`}
         >
-          <Sun className={`h-[1.4rem] w-[1.4rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 ${iconHover}`} />
-          <Moon className={`absolute h-[1.4rem] w-[1.4rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 ${iconHover}`} />
+          <PiSunDuotone className={`h-[1.4rem] w-[1.4rem] rotate-0 scale-125 transition-all dark:-rotate-90 dark:scale-0 group-hover:text-yellow-400`} />
+          <RxMoon className={`absolute h-[1.4rem] w-[1.4rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-125 dark:group-hover:text-yellow-300`} />
           <span className={"sr-only"}>Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>

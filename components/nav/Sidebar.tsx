@@ -24,7 +24,7 @@ export const Sidebar: React.FC<NavigationSidebarProps> = ({sideLinks}) => {
 
   const sidebarBgColor = isDarkMode ? 'bg-stone-400/60' : 'bg-zinc-800';
   const sidebarBorder = isDarkMode ? 'border-neutral-400' : 'border-neutral-700';
-  const sidebarHover = isDarkMode ? 'hover:text-yellow-300' : 'hover:text-yellow-300';
+  const sidebarHover = isDarkMode ? 'hover:text-yellow-400' : 'hover:text-yellow-300';
   
   const sidebarStyle = `${sidebarBgColor} px-[1px] text-center border-solid border-r-[.5px] ${sidebarBorder} flex flex-col`;
   const sidebarItem =  `${sidebarHover} duration-200 cursor-pointer flex flex-col items-center drop-shadow-md`;

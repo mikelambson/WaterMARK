@@ -45,9 +45,9 @@ const Navbar = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "light";
   const pathname = usePathname();
-  const defaultTextColorClass = isDarkMode ? "text-gray-200" : "text-gray-400";
-  const iconHoverColorClass = isDarkMode ? "hover:text-amber-500 hover:scale-125" : "hover:text-yellow-300 hover:scale-125";
-  const defaultbg = isDarkMode ? "bg-slate-700" : "bg-slate-800";
+  const defaultTextColorClass = "text-gray-200 dark:text-gray-400";
+  const iconHoverColorClass = "transition-all hover:text-yellow-400 hover:scale-125 dark:hover:text-yellow-300";
+  const defaultbg = "bg-slate-700 dark:bg-slate-800";
 
   const roleBasedLinks = [
     {
@@ -132,7 +132,7 @@ const Navbar = () => {
               <li
                 key={id}
                 className={cn(`nav-links h-[3.8rem] inline-flex items-center px-3 capitalize font-medium subpixel-antialiased ${defaultTextColorClass}  duration-200 pb-1`, children.includes(pathname) ? 
-                cn(isDarkMode ? "text-yellow-400/90 border-b-2 border-b-amber-500/30" : "text-orange-300 border-b-2 border-b-orange-300/30") : {defaultTextColorClass})}
+                cn(isDarkMode ? "text-orange-300/90 border-b-2 border-b-amber-500/30" : "dark:text-orange-300 dark:border-b-2 dark:border-b-orange-300/30") : {defaultTextColorClass})}
               >
                 {id === 0 ? ( // Check if it's the logo section
                   <Link href={link}>
@@ -141,8 +141,8 @@ const Navbar = () => {
                         <TooltipTrigger asChild>
                           <div className={"group w-max flex scale-100 hover:scale-110 duration-200"}>
                             <Image src="/img/logo.png" width={35} height={35} alt="logo" className={cn("group-hover:opacity-100 duration-200", children.includes(pathname) ? "opacity-95" : "opacity-60")} />
-                            <span className={cn("ml-1 self-center group-hover:text-sky-400 duration-200", children.includes(pathname) ? "text-blue-400/95" : "text-blue-300/50")}>Water</span>
-                            <span className={cn("self-center  group-hover:text-yellow-300 duration-200", children.includes(pathname) ? cn(isDarkMode ? "text-amber-500/90" :"text-orange-300/90") : "text-orange-200/60")}>MARK</span>
+                            <span className={cn("ml-1 self-center group-hover:text-sky-400 duration-200", children.includes(pathname) ? "text-blue-400" : "text-blue-200/50")}>Water</span>
+                            <span className={cn("self-center  group-hover:text-yellow-400/90 dark:group-hover:text-yellow-300 duration-200", children.includes(pathname) ? cn(isDarkMode ? "text-orange-300/90" : "text-orange-300/90") : "text-orange-100/60")}>MARK</span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
@@ -152,7 +152,7 @@ const Navbar = () => {
                     </TooltipProvider>  
                   </Link>
                 ) : (
-                  <Link className={cn("hover:scale-125 duration-100 cursor-pointer", isDarkMode ? "hover:text-amber-500" : "hover:text-yellow-300")} href={link}>{name}</Link>
+                  <Link className={cn("hover:scale-125 duration-100 cursor-pointer", isDarkMode ? "hover:text-yellow-400" : "hover:text-yellow-300")} href={link}>{name}</Link>
                 )}
               </li>
             ) : null
@@ -190,8 +190,8 @@ const Navbar = () => {
             {userRole === "Admin" && (
               <div className={cn("inline-flex h-full items-center", children.includes(pathname) ? cn(isDarkMode ? "border-b-4 border-b-amber-300/30" : "border-b-4 border-b-orange-300/30") : "border-none")}>
               <Link href="/system">
-                <div className={cn(`subpixel-antialiased`, children.includes(pathname) ? cn(isDarkMode ? "text-red-600" : "text-red-600") : `${defaultTextColorClass}`)}>
-                  <BsDatabaseFillGear size={20} className={`${iconHoverColorClass}`} />
+                <div className={cn(`subpixel-antialiased`, children.includes(pathname) ? "text-red-500/90 scale-125 pt-1" : `${defaultTextColorClass}`)}>
+                  <BsDatabaseFillGear size={24} className={`${iconHoverColorClass}`} />
                 </div>
               </Link>
               </div>
@@ -202,7 +202,7 @@ const Navbar = () => {
             <Sheet>
             <SheetTrigger>
               <div className={`group ${defaultTextColorClass} ${iconHoverColorClass} subpixel-antialiased relative`}>
-                <FaBell size={20} className={` subpixel-antialiased`} />
+                <FaBell size={24} className={` subpixel-antialiased`} />
                 <NotifyCount />
               </div>
             </SheetTrigger>
