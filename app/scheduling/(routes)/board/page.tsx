@@ -6,12 +6,10 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Button } from '@/components/ui/button';
 import { useDistrictStore } from '@/store/districtSheetsStore';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command';
+import { Command, CommandGroup, CommandItem } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ChevronsUpDown } from 'lucide-react';
 
-  
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const ScheduleWater = () => {
     const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict } = useSchedulingStore();
@@ -37,42 +35,21 @@ const ScheduleWater = () => {
         getBoard,
         
     };
-    // // const initialRender = useRef(true);
-    
-    // const districtState = {
-    //     districtSelected,
-    //     headsheets,
-    //     selectedSheet,
-    //     setDistrict,
-    //     getHeadsheets,
-    //     setSelectedSheet
-    // }
-    
-   
     
     const handleDistrictChange = async (district: string) => {
-        // Set the selected district in the state
+        const newRadioSelection = district;
         setDistrict(district)
         setSelectedDistrict(district);
         getHeadsheets(district)
-       
-        const newRadioSelection = district;
         setRadioSelection(newRadioSelection);
         getBoard(schedulingState);
-        
-        console.log(headsheets)
-        
     };
-
-    const frameworks = headsheets;
-    
-    
 
     return (
         <section>
-            <div className='grid md:grid-flow-col grid-cols-1 md:grid-cols-3 gap-2 md:max-gap-24 px-4 py-[1px] w-full'>
-                <h1 className='text-2xl text-yellow-800 font-semibold'>Scheduling Board</h1> 
-                <RadioGroup className='flex gap-3' defaultValue={districtSelected}>
+            <div className='w-11/12 grid md:grid-flow-col grid-cols-1 md:grid-cols-3 gap-4 md:max-gap-24 md:mx-auto my-4 md:my-[1px]'>
+                <h1 className='text-center md:text-left text-2xl text-yellow-800 font-semibold'>Scheduling Board</h1> 
+                <RadioGroup className='mx-auto my-auto md:mx-0 inline-flex justify-center gap-5' defaultValue={districtSelected}>
                     <div className="flex items-center space-x-2" onClick={() => {
                             
                             handleDistrictChange('WE');
@@ -102,7 +79,7 @@ const ScheduleWater = () => {
                         <Label htmlFor="TC">Truckee</Label>
                     </div>
                 </RadioGroup>
-                <div className='mr-2 grid justify-items-end'>
+                <div className='pt-1 md:mb-0 grid md:justify-items-end justify-items-center'>
                     
                     {/* <SelectTrigger className="w-[180px] h-6 my-1 border-foreground/50"> */}
                     <Popover open={open} onOpenChange={setOpen}>
@@ -111,7 +88,7 @@ const ScheduleWater = () => {
                             variant="outline"
                             role="combobox"
                             aria-expanded={open}
-                            className="w-[200px] justify-between"
+                            className="w-[200px] h-7 mb-1 justify-between border-foreground/60"
                             >
                             {value
                                 ? headsheets.find((framework) => framework.name === value)?.name
@@ -119,8 +96,8 @@ const ScheduleWater = () => {
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0 z-50">  
-                            <Command className="w-[180px] h-auto my-1 border-foreground/50">
+                        <PopoverContent className="w-[200px] -mt-1 p-0 z-50">  
+                            <Command className="my-1">
                                 <CommandGroup>
                                     {headsheets.map((headsheet) => (
                                         <CommandItem 
