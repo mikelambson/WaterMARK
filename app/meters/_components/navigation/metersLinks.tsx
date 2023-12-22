@@ -4,7 +4,7 @@ import { TbSquareRoundedLetterC, TbSquareRoundedLetterE, TbSquareRoundedLetterT,
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased";
 const iconStyle = `mb-[2px] subpixel-antialiased`;
 
-export const sideLinks = [
+export const metersLinks = [
   {
     id: 0, // Use a unique id for the logo section
     link: "/meters", // Use "/" as the link for the logo

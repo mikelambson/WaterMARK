@@ -5,7 +5,7 @@ import { FaTasks } from "react-icons/fa";
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased";
 const iconStyle = `mb-[2px] subpixel-antialiased`;
 
-export const sideLinks = [
+export const deliveriesLinks = [
   {
     id: 0, // Use a unique id for the logo section
     link: "/deliveries", // Use "/" as the link for the logo

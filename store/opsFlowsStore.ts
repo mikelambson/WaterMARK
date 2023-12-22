@@ -27,7 +27,7 @@ export const useFlowsStore = create<FlowsState>((set) => ({
         id: parseInt(flowId),
         ...updatedFlow,
       });
-      console.log(response)
+      
       // Update the local state with the updated data
       set((state) => ({
         flows: state.flows.map((flow) =>

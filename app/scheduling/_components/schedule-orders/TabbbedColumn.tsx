@@ -1,26 +1,23 @@
-// TabbedColumn.tsx
-import { useTheme } from "next-themes";
+// TabbedColumn @\app\scheduling\_components\schedule-orders\TabbbedColumn.tsx
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { cn } from '@/lib/utils';
+
 
 
 interface TabbbedColumnProps {
     tabs: number;
+    headsheet: String;
 }
 
-const TabbedColumn: React.FC<TabbbedColumnProps> = ({ tabs }) => {
+const TabbedColumn: React.FC<TabbbedColumnProps> = ({ tabs, headsheet }) => {
 
-    const { theme } = useTheme();
-    const isDarkMode = theme === "light";
 
-    // Implement your tabbed component here using the 'tabs' prop
     return (    
         <div>
         <Tabs defaultValue="1" className="w-full">
-            <TabsList className={cn("w-full pl-16 relative", isDarkMode ? "bg-stone-400" : "bg-zinc-800")}>
-            <h2 className={cn("absolute left-3 top-2 font-semibold", 
-                isDarkMode ? "text-slate-600" : "text-gray-400" )}>
-                Head
+            <TabsList className={"inline-flex w-full pl-2 bg-stone-400 dark:bg-zinc-800"}>
+            <h2 className={" font-semibold text-slate-600 dark:text-gray-400 self-center mr-2"}>
+                {headsheet}
             </h2>
             {Array.from({ length: tabs }, (_, index) => (
                 <TabsTrigger key={index + 1} value={`${index + 1}`}>
@@ -30,7 +27,7 @@ const TabbedColumn: React.FC<TabbbedColumnProps> = ({ tabs }) => {
             </TabsList>
             {Array.from({ length: tabs }, (_, index) => (
                 <TabsContent key={index + 1} value={`${index + 1}`}>
-                    <h2 className={cn(" text-center text-2xl font-semibold", isDarkMode ? "text-foreground" : "text-secondary")}>{index + 1}</h2>
+                    <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>{index + 1}</h2>
                 </TabsContent>
             ))}    
         </Tabs>

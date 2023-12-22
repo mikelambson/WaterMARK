@@ -5,7 +5,7 @@ import { TbAdjustmentsCog } from "react-icons/tb";
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased";
 const iconStyle = `mb-[2px] subpixel-antialiased`;
 
-export const sideLinks = [
+export const systemLinks = [
   {
     id: 0, // Use a unique id for the logo section
     link: "/system", // Use "/" as the link for the logo

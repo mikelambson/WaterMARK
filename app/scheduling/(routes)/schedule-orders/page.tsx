@@ -51,7 +51,7 @@ const ScheduleWater = () => {
                 const headsheetNames = data.map((headsheets: any) => headsheets.name);
                 headsheetsArray = data;
                 setHeadsheets(headsheetNames);
-                console.log(data)
+                // console.log(data)
             } catch (error) {
                 console.error('Error fetching headsheets:', error);
             }
@@ -83,7 +83,7 @@ const ScheduleWater = () => {
         // Fetch data based on the updated district    
     };
 
-    const handleHeadsheetChange = (selectedHeadsheet: string | null) => {
+    const handleHeadsheetChange = (selectedHeadsheet: string) => {
         // Set the selected headsheet in the state
         setSelectedHeadsheet(selectedHeadsheet);
         
@@ -111,15 +111,24 @@ const ScheduleWater = () => {
                         <RadioGroupItem value="option-one" id="option-one" />
                         <Label htmlFor="option-one">West</Label>
                     </div>
-                    <div className="flex items-center space-x-2" onClick={() => handleDistrictChange('CE')}>
+                    <div className="flex items-center space-x-2" onClick={() => {
+                        handleDistrictChange('CE');
+                        setSelectedHeadsheet(null)
+                    }}>
                         <RadioGroupItem value="option-two" id="option-two" />
                         <Label htmlFor="option-two">Central</Label>
                     </div>
-                    <div className="flex items-center space-x-2" onClick={() => handleDistrictChange('EA')}>
+                    <div className="flex items-center space-x-2" onClick={() => { 
+                        handleDistrictChange('EA')
+                        setSelectedHeadsheet(null)
+                        }}>
                         <RadioGroupItem value="option-three" id="option-three" />
                         <Label htmlFor="option-three">East</Label>
                     </div>
-                    <div className="flex items-center space-x-2" onClick={() => handleDistrictChange('TC')}>
+                    <div className="flex items-center space-x-2" onClick={() => {
+                        handleDistrictChange('TC')
+                        setSelectedHeadsheet(null)
+                        }}>
                         <RadioGroupItem value="option-four" id="option-four" />
                         <Label htmlFor="option-four">Truckee</Label>
                     </div>
@@ -133,9 +142,9 @@ const ScheduleWater = () => {
                             <SelectGroup>
                                 <SelectLabel>Select</SelectLabel>
                               {/* Add a selectable "Headsheets" option */}
-                                <SelectItem key="null" onClick={() => handleHeadsheetChange(null)} value={''}>
+                                {/* <SelectItem key="null" onClick={() => handleHeadsheetChange('')} value={''}>
                                     ALL
-                                </SelectItem>
+                                </SelectItem> */}
                                 {headsheets.map((headsheet) => (
                                     <SelectItem key={headsheet} value={headsheet} onClick={() => handleHeadsheetChange(headsheet)}>
                                         {headsheet}

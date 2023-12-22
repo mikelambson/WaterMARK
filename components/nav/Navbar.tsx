@@ -51,7 +51,7 @@ const Navbar = () => {
 
   const roleBasedLinks = [
     {
-      id: 0, // Use a unique id for the logo section
+      id: 0o0, // Use a unique id for the logo section
       link: "/", // Use "/" as the link for the logo
       allowedRoles: ["any"], // Define roles that can access this link
       // content: logoSection, // Include the logoSection in the content
@@ -59,49 +59,49 @@ const Navbar = () => {
       children: ["/"],
     },
     {
-      id: 1,
+      id: 11,
       link: "/admin",
       allowedRoles: ["Staff", "Watermaster","Senior Analyst", "Admin"],
       name: "Admin",
       children: ["/admin", "/admin/lookup", "/admin/callout", "/admin/adjustments"],
     },
     {
-      id: 2,
+      id: 22,
       link: "/meters",
       allowedRoles: ["any"], // Define roles that can access this link
       name: "Meters",
       children: ["/meters"],
     },
     {
-      id: 3,
+      id: 33,
       link: "/scheduling",
       allowedRoles: ["Watermaster", "Scheduler", "Admin"],
       name: "Scheduling",
       children: ["/scheduling", "/scheduling/daily", "/scheduling/schedule-orders", "/scheduling/ditchrider-tasks", "/scheduling/ditchrider-schedule", "/scheduling/settings"],
     },
     {
-      id: 4,
+      id: 44,
       link: "/deliveries",
       allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "Admin"],
       name: "Deliveries",
       children: ["/deliveries", "/deliveries/schedule", "/deliveries/tasks", "/deliveries/ditchrider-schedule"],
     },
     {
-      id: 5,
+      id: 55,
       link: "/analysis",
       allowedRoles: ["Scheduler", "Admin", "Senior Analyst"],
       name: "Analysis",
       children: ["/analysis", "/analysis/master", "/analysis/meters", "/analysis/adjustments", "/analysis/settings"],
     },
     {
-      id: 6,
+      id: 66,
       link: "/online-schedule",
       allowedRoles: ["any"],
       name: "Schedule",
       children: ["/online-schedule"],
     },
     {
-      id: 7,
+      id: 77,
       link: "/reports",
       allowedRoles: ["Watermaster", "Analyst", "Admin"],
       name: "Reports",
@@ -112,13 +112,14 @@ const Navbar = () => {
 
   const iconLinks = [
     {
-      id: 0, // Use a unique id for the logo section
+      id: 88, // Use a unique id for the logo section
       link: "/system", // Use "/" as the link for the logo
       allowedRoles: ["Admin"], // Define roles that can access this link
       name: "Home",
       children: ["/system"],
     },
   ];
+
   
   return (
     <div
@@ -126,8 +127,7 @@ const Navbar = () => {
     >
       <div className={"h-16 flex mx-auto justify-between items-center px-2 fixed w-[100vw]"}>
         <ul className={"hidden md:flex flex-grow items-center"}>
-          {roleBasedLinks.map(({ id, link, allowedRoles, name, children }) =>
-            // Check if "any" is in the allowedRoles array or the user's role is included
+          {roleBasedLinks.map(({ id, link, allowedRoles, name, children }) => (
             allowedRoles.includes("any") || allowedRoles.includes(userRole) ? (
               <li
                 key={id}
@@ -156,7 +156,7 @@ const Navbar = () => {
                 )}
               </li>
             ) : null
-          )}
+                ))}
         </ul>
 
         <div

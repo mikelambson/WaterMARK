@@ -42,7 +42,17 @@ interface OrderDetails {
     remoteTimestamp?: Date;
     override: boolean;
     manualValue?: float;
-    manualTimestamp?: String;
+    manualTimestamp?: string;
+  }
+
+  interface HeadsheetsData {
+    id: number;
+    name: string;
+    district: string;
+    maxHeads: number;
+    structureRef?: string;
+    maxFlow?: number;
+    characteristics?: string;
   }
   
-  export { Board, TypedColumn, Order, OrderDetails, FlowData };
+  export { Board, TypedColumn, Order, OrderDetails, FlowData, HeadsheetsData };

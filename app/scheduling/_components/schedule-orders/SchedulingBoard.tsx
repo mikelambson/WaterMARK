@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useSchedulingStore } from '@/store/schedulingStore';
 import Column from '@/app/scheduling/_components/schedule-orders/SortedColumn';
-import TabbedColumn from './TabbbedColumn';
+
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 const SchedulingBoard = () => {
@@ -53,7 +53,7 @@ const SchedulingBoard = () => {
         <div>
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 {/* Container id1: Tabbed Element */}
-                <Droppable droppableId="id" direction="horizontal" type='column'>
+                <Droppable droppableId="id" direction="vertical" type='column'>
                     {(provided) => (
                         
                         <div
@@ -70,7 +70,8 @@ const SchedulingBoard = () => {
                                         id={id}
                                         columns={column.orders} 
                                         index={index}
-                                        tabnumber={6}
+                                        sheetName={selectedHeadsheet}
+                                        tabnumber={5}
                                     ></Column>
                                 </ScrollArea>
                             ))}

@@ -6,7 +6,7 @@ import { IoIosConstruct } from "react-icons/io";
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased";
 const iconStyle = `mb-[2px] subpixel-antialiased`;
 
-export const sideLinks = [
+export const adminLinks = [
     {
       id: 0, 
       link: "/admin", 
