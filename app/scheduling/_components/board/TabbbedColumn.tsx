@@ -24,8 +24,8 @@ const TabbedColumn = () => {
 
     return (    
         <div>
-        <Tabs defaultValue="0" className="w-full h-full">
-            <TabsList className={"mx-auto inline-flex w-[99%] pl-2 bg-stone-400 dark:bg-zinc-800"}>
+        <Tabs defaultValue="1" className="w-full h-full">
+            <TabsList className={"mx-auto inline-flex w-[99%] pl-2 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
             <h2 className={" font-semibold text-slate-600 dark:text-gray-400 self-center mr-2"}>
                 {selectedSheet.name} Head
             </h2>
@@ -35,7 +35,7 @@ const TabbedColumn = () => {
                 </TabsTrigger>
             ))}
             </TabsList>
-                <TabsContent key="0" value="0" className=" h-80">
+                <TabsContent key={selectedSheet.name === "Select" ? "1" : "0"} value={selectedSheet.name === "Select" ? "1" : "0"} className=" h-80">
                     <div className="w-full h-full text-center text-6xl md:text-9xl pt-24">
                     {optionSelection(districtSelected)}
                     </div>

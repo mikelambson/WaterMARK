@@ -90,9 +90,7 @@ const ScheduleWater = () => {
                             aria-expanded={open}
                             className="w-[200px] h-7 mb-1 justify-between border-foreground/60"
                             >
-                            {value
-                                ? headsheets.find((framework) => framework.name === value)?.name
-                                : "Select headsheet..."}
+                            {selectedSheet.name === "Select" ? "Select headsheet..." : selectedSheet.name}
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                         </PopoverTrigger>
@@ -107,6 +105,7 @@ const ScheduleWater = () => {
                                             setSelectedSheet(headsheet)
                                             console.log(headsheet)
                                             setOpen(false)
+                                            setValue(selectedSheet.name)
                                         }}>
                                         {headsheet.name}
                                         </CommandItem>
