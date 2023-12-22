@@ -11,7 +11,7 @@ interface SchedulingState {
     selectedDistrict: string;
     page: number;
     pageSize: number;
-    setDistrict: (district: string) => void;
+    setSelectedDistrict: (district: string) => void;
     setPage: (page: number) => void;
     setPageSize: (pageSize: number) => void;
     getBoard: (state: SchedulingState) => Promise<void>; // Receive state as a parameter
@@ -38,7 +38,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     selectedDistrict: "WE",
     page: 1,
     pageSize: 50,
-    setDistrict: (district: string) => set({ selectedDistrict: district}),
+    setSelectedDistrict: (district: string) => set({ selectedDistrict: district}),
     setPage: (page: number) => set({ page }),
     setPageSize: (pageSize: number) => set({ pageSize }),
     

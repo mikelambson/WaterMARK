@@ -18,7 +18,7 @@ import {
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const ScheduleWater = () => {
-    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize, maxHeads, setHeads, selectedHeadsheet, setSelectedHeadsheet } = useSchedulingStore();
+    const { board, isLoading, setSelectedDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize } = useSchedulingStore();
     const [radioSelection, setRadioSelection] = useState("option-one"); // Declare radioSelection using useState hook
     const [headsheets, setHeadsheets] = useState<string[]>([]);
     let headsheetsArray: any = [];
@@ -29,14 +29,11 @@ const ScheduleWater = () => {
         selectedDistrict,
         page,
         pageSize,
-        setDistrict,
+        setSelectedDistrict,
         setPage,
         setPageSize,
         getBoard,
-        selectedHeadsheet,
-        setSelectedHeadsheet,
-        maxHeads,
-        setHeads
+        
     };
     // const initialRender = useRef(true);
     
@@ -74,7 +71,7 @@ const ScheduleWater = () => {
             "TR": "option-four",
         };
         // Set the selected district in the state
-        setDistrict(district);
+        setSelectedDistrict(district);
         // setSelectedHeadsheet("CE")
         // Set the radio button selection based on the selected district
         const newRadioSelection = optionSelection[district];
@@ -83,22 +80,22 @@ const ScheduleWater = () => {
         // Fetch data based on the updated district    
     };
 
-    const handleHeadsheetChange = (selectedHeadsheet: string) => {
-        // Set the selected headsheet in the state
-        setSelectedHeadsheet(selectedHeadsheet);
+    // const handleHeadsheetChange = (selectedHeadsheet: string) => {
+    //     // Set the selected headsheet in the state
+    //     setSelectedHeadsheet(selectedHeadsheet);
         
-        // If a headsheet is selected, find it in the array and retrieve the corresponding maxHeads
-        if (selectedHeadsheet) {
-            const selectedHeadsheetObj = headsheetsArray.find((headsheets: any) => headsheets.name === selectedHeadsheet);
-            if (selectedHeadsheetObj) {
-                const selectedMaxHeads = selectedHeadsheetObj.maxHeads;
-                setHeads(selectedMaxHeads);
-            }
-        } else {
-            // If "ALL" is selected, set maxHeads to some default value or handle it as needed
-            setHeads(0);
-        }
-    };
+    //     // If a headsheet is selected, find it in the array and retrieve the corresponding maxHeads
+    //     if (selectedHeadsheet) {
+    //         const selectedHeadsheetObj = headsheetsArray.find((headsheets: any) => headsheets.name === selectedHeadsheet);
+    //         if (selectedHeadsheetObj) {
+    //             const selectedMaxHeads = selectedHeadsheetObj.maxHeads;
+    //             setHeads(selectedMaxHeads);
+    //         }
+    //     } else {
+    //         // If "ALL" is selected, set maxHeads to some default value or handle it as needed
+    //         setHeads(0);
+    //     }
+    // };
     
     
 
@@ -113,21 +110,21 @@ const ScheduleWater = () => {
                     </div>
                     <div className="flex items-center space-x-2" onClick={() => {
                         handleDistrictChange('CE');
-                        setSelectedHeadsheet(null)
+                        
                     }}>
                         <RadioGroupItem value="option-two" id="option-two" />
                         <Label htmlFor="option-two">Central</Label>
                     </div>
                     <div className="flex items-center space-x-2" onClick={() => { 
                         handleDistrictChange('EA')
-                        setSelectedHeadsheet(null)
+                        
                         }}>
                         <RadioGroupItem value="option-three" id="option-three" />
                         <Label htmlFor="option-three">East</Label>
                     </div>
                     <div className="flex items-center space-x-2" onClick={() => {
                         handleDistrictChange('TC')
-                        setSelectedHeadsheet(null)
+                        
                         }}>
                         <RadioGroupItem value="option-four" id="option-four" />
                         <Label htmlFor="option-four">Truckee</Label>
@@ -136,7 +133,7 @@ const ScheduleWater = () => {
                 <div className='mr-2 grid justify-items-end'>
                     <Select>
                         <SelectTrigger className="w-[180px] h-6 my-1 border-foreground/50">
-                            <SelectValue placeholder={selectedHeadsheet === "" ? "Headsheets" : selectedHeadsheet} />
+                            <SelectValue placeholder={"Headsheets"} />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
@@ -146,7 +143,7 @@ const ScheduleWater = () => {
                                     ALL
                                 </SelectItem> */}
                                 {headsheets.map((headsheet) => (
-                                    <SelectItem key={headsheet} value={headsheet} onClick={() => handleHeadsheetChange(headsheet)}>
+                                    <SelectItem key={headsheet} value={headsheet} onClick={() => console.log(headsheet)}>
                                         {headsheet}
                                     </SelectItem>
                                 ))}

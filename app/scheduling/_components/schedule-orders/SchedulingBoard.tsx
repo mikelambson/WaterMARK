@@ -9,7 +9,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 const SchedulingBoard = () => {
 
-    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize } = useSchedulingStore();
+    const { board, isLoading, setSelectedDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize } = useSchedulingStore();
     
     const schedulingState = {
         board,
@@ -17,7 +17,7 @@ const SchedulingBoard = () => {
         selectedDistrict,
         page,
         pageSize,
-        setDistrict,
+        setSelectedDistrict,
         setPage,
         setPageSize,
         getBoard,

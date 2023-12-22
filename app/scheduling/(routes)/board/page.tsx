@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSchedulingStore } from '@/store/schedulingStore';
 import SchedulingBoard from '@/app/scheduling/_components/schedule-orders/SchedulingBoard';
 import { Label } from "@/components/ui/label"
@@ -14,30 +14,29 @@ import { ChevronsUpDown } from 'lucide-react';
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const ScheduleWater = () => {
-    const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize } = useSchedulingStore();
+    const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict } = useSchedulingStore();
     const { districtSelected, headsheets, selectedSheet, setDistrict, getHeadsheets, setSelectedSheet } = useDistrictStore();
-    const [open, setOpen] = React.useState(false)
-    const [value, setValue] = React.useState("")
+    const [open, setOpen] = useState(false)
+    const [value, setValue] = useState("")
+    const [radioSelection, setRadioSelection] = useState("WE");
     
     useEffect(() => {
         // Call getHeadsheets when the component mounts
         getHeadsheets(districtSelected);
       }, [getHeadsheets]);
 
-    // const schedulingState = {
-    //     board,
-    //     isLoading,
-    //     // selectedDistrict,
-    //     page,
-    //     pageSize,
-    //     setPage,
-    //     setPageSize,
-    //     getBoard,
-    //     // selectedHeadsheet,
-    //     // setSelectedHeadsheet,
-    //     // maxHeads,
-    //     // setHeads
-    // };
+      const schedulingState = {
+        board,
+        isLoading,
+        selectedDistrict,
+        page,
+        pageSize,
+        setSelectedDistrict,
+        setPage,
+        setPageSize,
+        getBoard,
+        
+    };
     // // const initialRender = useRef(true);
     
     // const districtState = {
@@ -53,9 +52,14 @@ const ScheduleWater = () => {
     
     const handleDistrictChange = async (district: string) => {
         // Set the selected district in the state
-        setDistrict(district);
+        setDistrict(district)
+        setSelectedDistrict(district);
         getHeadsheets(district)
-
+       
+        const newRadioSelection = district;
+        setRadioSelection(newRadioSelection);
+        getBoard(schedulingState);
+        
         console.log(headsheets)
         
     };
@@ -125,7 +129,7 @@ const ScheduleWater = () => {
                                             onSelect={() => {
                                             setSelectedSheet(headsheet)
                                             console.log(headsheet)
-                                        
+                                            setOpen(false)
                                         }}>
                                         {headsheet.name}
                                         </CommandItem>
