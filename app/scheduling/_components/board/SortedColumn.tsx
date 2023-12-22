@@ -2,9 +2,9 @@
 
 import { Order, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
-import OrderCard from "@/app/scheduling/_components/schedule-orders/OrderCard";
+import OrderCard from "@/app/scheduling/_components/board/OrderCard";
 import { cn } from "@/lib/utils";
-import TabbedColumn from "./TabbbedColumn";
+import TabbedColumn from "@/app/scheduling/_components/board/TabbbedColumn";
 import { Input } from "@/components/ui/input";
 
 

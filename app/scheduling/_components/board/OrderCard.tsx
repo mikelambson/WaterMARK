@@ -1,28 +1,34 @@
 // @/app/(scheduling)/_components/OrderCard.tsx
 "use client"
-import { Order, TypedColumn } from "@/typings";
-import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "@hello-pangea/dnd";
-
-import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
-import DragIcon from "@/app/scheduling/_components/schedule-orders/DragIcon";
+import React, { useState } from "react";
 import { IoIosArrowDropdownCircle, IoIosArrowDropupCircle, IoIosArrowForward } from "react-icons/io";
-import { useState } from "react";
+import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "@hello-pangea/dnd";
+import { useTheme } from "next-themes";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import { Order, TypedColumn } from "@/typings";
+import DragIcon from "@/app/scheduling/_components/board/DragIcon";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { 
+    Sheet, 
+    SheetClose, 
+    SheetContent, 
+    SheetDescription, 
+    SheetFooter, 
+    SheetHeader, 
+    SheetTitle, 
+    SheetTrigger } from "@/components/ui/sheet";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
-import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
-
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import React from "react";
+
 
 type Properties = {
     order: Order;

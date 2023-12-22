@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useSchedulingStore } from '@/store/schedulingStore';
-import Column from '@/app/scheduling/_components/schedule-orders/SortedColumn';
+import Column from '@/app/scheduling/_components/board/SortedColumn';
 
 const SchedulingBoard = () => {
 

@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useSchedulingStore } from '@/store/schedulingStore';
-import Column from '@/app/scheduling/_components/schedule-orders/SortedColumn';
+import Column from '@/app/scheduling/_components/board/SortedColumn';
 
 import { ScrollArea } from '@/components/ui/scroll-area';
 

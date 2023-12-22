@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { useSchedulingStore } from '@/store/schedulingStore';
-import SchedulingBoard from '@/app/scheduling/_components/schedule-orders/SchedulingBoard';
+import SchedulingBoard from '@/app/scheduling/_components/board/SchedulingBoard';
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {

@@ -1,11 +1,9 @@
 import { FaFileImport, FaGear, FaGlobe, FaHouseTsunami, FaUserClock } from "react-icons/fa6";
 import { FaTasks } from "react-icons/fa";
 import { GiWaterfall } from "react-icons/gi";
-import { IoCalendar } from "react-icons/io5";
 
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased";
 const iconStyle = "mb-[2px] subpixel-antialiased";
-
 
 export const schedulingLinks = [
   {
@@ -32,7 +30,7 @@ export const schedulingLinks = [
   },
   {
     id: 2,
-    link: "/scheduling/schedule-orders",
+    link: "/scheduling/board",
     content: (
       <>
       <FaHouseTsunami size={30} className={iconStyle} />
