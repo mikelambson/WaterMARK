@@ -9,7 +9,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 const SchedulingBoard = () => {
 
-    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize, selectedHeadsheet, maxHeads, setHeads, setSelectedHeadsheet } = useSchedulingStore();
+    const { board, isLoading, setDistrict, setPage, setPageSize, getBoard, selectedDistrict, page, pageSize } = useSchedulingStore();
     
     const schedulingState = {
         board,
@@ -21,10 +21,7 @@ const SchedulingBoard = () => {
         setPage,
         setPageSize,
         getBoard,
-        selectedHeadsheet,
-        maxHeads,
-        setHeads,
-        setSelectedHeadsheet
+        
     };  
     
     useEffect(() => {
@@ -64,14 +61,13 @@ const SchedulingBoard = () => {
                            {/* Loop through columns and render them */}
                            {Array.from(board.columns.entries()).map(([id, column], index) => (
                                 <ScrollArea key={id}
-                                className={`col-span-1 h-[65vh] rounded-md
+                                className={`col-span-1 h-[65vh] rounded-md 
                                 ${index === 2 ? 'md:col-span-2 md:h-[7rem]' : ''}`}>
                                     <Column
                                         id={id}
                                         columns={column.orders} 
                                         index={index}
-                                        sheetName={selectedHeadsheet}
-                                        tabnumber={5}
+                                        
                                     ></Column>
                                 </ScrollArea>
                             ))}

@@ -1,7 +1,6 @@
 // TabbedColumn @\app\scheduling\_components\schedule-orders\TabbbedColumn.tsx
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
+import { useDistrictStore } from '@/store/districtSheetsStore';
 
 
 interface TabbbedColumnProps {
@@ -9,23 +8,23 @@ interface TabbbedColumnProps {
     headsheet: String;
 }
 
-const TabbedColumn: React.FC<TabbbedColumnProps> = ({ tabs, headsheet }) => {
-
+const TabbedColumn = () => {
+    const { districtSelected, headsheets, selectedSheet, setDistrict, getHeadsheets, setSelectedSheet } = useDistrictStore();
 
     return (    
         <div>
         <Tabs defaultValue="1" className="w-full">
             <TabsList className={"inline-flex w-full pl-2 bg-stone-400 dark:bg-zinc-800"}>
             <h2 className={" font-semibold text-slate-600 dark:text-gray-400 self-center mr-2"}>
-                {headsheet}
+                {selectedSheet.name} Head
             </h2>
-            {Array.from({ length: tabs }, (_, index) => (
+            {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
                 <TabsTrigger key={index + 1} value={`${index + 1}`}>
                     {index + 1}
                 </TabsTrigger>
             ))}
             </TabsList>
-            {Array.from({ length: tabs }, (_, index) => (
+            {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
                 <TabsContent key={index + 1} value={`${index + 1}`}>
                     <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>{index + 1}</h2>
                 </TabsContent>

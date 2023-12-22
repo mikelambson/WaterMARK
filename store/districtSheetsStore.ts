@@ -4,34 +4,55 @@ import axios from 'axios';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export type PartialHeadsheetsData = HeadsheetsData | {};
+export type PartialHeadsheetsData = HeadsheetsData | {
+  id: 0,
+  name: "Sheetname",
+  district: "",
+  maxHeads: 0,
+  maxFlow: 0,
+  structureRef: "",
+  characteristics: ""
+};
 
 interface DistrictState {
-    districtSelected: string;
-    headsheets: HeadsheetsData[];
-    selectedSheet: {};
-    setDistrict: (district: string) => void;
-    getHeadsheets: (district: string) => Promise<void>; 
-    setSelectedSheet: (sheet: PartialHeadsheetsData) => void;
-    // getDistrict: (state: DistrictState) => Promise<void>;
-  }
-
+  districtSelected: string;
+  headsheets: HeadsheetsData[];
+  selectedSheet: PartialHeadsheetsData;
+  setDistrict: (district: string) => void;
+  getHeadsheets: (district: string) => Promise<void>; 
+  setSelectedSheet: (sheet: HeadsheetsData) => void;
+}
 
 export const useDistrictStore = create<DistrictState>((set) => ({
   districtSelected: "WE",
   headsheets: [],
-  selectedSheet: {},
-  setDistrict: (district) => set({districtSelected: district}),
+  selectedSheet: {
+    id: 0o0,
+    name: "",
+    district: "",
+    maxHeads: 0,
+    maxFlow: 0,
+    structureRef: "",
+    characteristics: ""
+  },
+  setDistrict: (district) => set({ districtSelected: district }),
   getHeadsheets: async () => {
     try {
       const response = await axios.get(`${baseUrl}headsheets/${useDistrictStore.getState().districtSelected}`);
       const newSheets = response.data;
       set({ headsheets: newSheets });
-      console.log(newSheets);
+      set({selectedSheet: {
+        id: 0o0,
+        name: "Select",
+        district: "",
+        maxHeads: 0,
+        maxFlow: 0,
+        structureRef: "",
+        characteristics: ""
+      }})
     } catch (error) {
       console.error('Error fetching headsheets:', error);
     }
   },
-  setSelectedSheet: (headsheet) => set({ selectedSheet: headsheet }),
-  
+  setSelectedSheet: (headsheet) => set({ selectedSheet: headsheet}),
 }));

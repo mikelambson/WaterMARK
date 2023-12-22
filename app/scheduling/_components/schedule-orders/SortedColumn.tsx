@@ -13,8 +13,7 @@ type Properties = {
     id: TypedColumn,
     columns: Order[],
     index: number,
-    sheetName: String,
-    tabnumber: number,
+    
 }
 
 const columnNames = {
@@ -23,7 +22,7 @@ const columnNames = {
     "scheduled": "Scheduled"
 };
 
-const Column = ({id, columns, index, sheetName, tabnumber}: Properties) => {
+const Column = ({id, columns, index }: Properties) => {
 
 
     return ( 
@@ -53,7 +52,7 @@ const Column = ({id, columns, index, sheetName, tabnumber}: Properties) => {
                                     </h2>
                                     <Input type="filter" placeholder="Filter Orders" className="h-5 w-40 bg-background/60" />
                             </div> : 
-                            index ===1 ? <TabbedColumn headsheet={sheetName} tabs={tabnumber} /> : 
+                            index ===1 ? <TabbedColumn /> : 
                             <div className="h-5 flex flex-row gap-2 mb-2">
                                     <h2 className={"pb-3 font-bold text-gray-500 dark:text-slate-800"}>
                                         {columnNames[id]}:
