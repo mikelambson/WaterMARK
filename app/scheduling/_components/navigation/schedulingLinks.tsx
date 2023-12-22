@@ -1,6 +1,5 @@
 import { FaFileImport, FaGear, FaGlobe, FaHouseTsunami, FaUserClock } from "react-icons/fa6";
 import { FaTasks } from "react-icons/fa";
-import { GiWaterfall } from "react-icons/gi";
 
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased";
 const iconStyle = "mb-[2px] subpixel-antialiased";
@@ -41,17 +40,6 @@ export const schedulingLinks = [
   },
   {
     id: 3,
-    link: "/scheduling/board",
-    content: (
-      <>
-      <GiWaterfall size={30} className={iconStyle} />
-      <span className={labelTextClass}>Scheduling Board</span>
-      </>
-    ),
-    
-  },
-  {
-    id: 4,
     link: "/scheduling/ditchrider-tasks",
     content: (
       <>
@@ -62,7 +50,7 @@ export const schedulingLinks = [
     
   },
   {
-    id: 5,
+    id: 4,
     link: "/scheduling/ditchrider-schedule",
     content: (
       <>
@@ -72,7 +60,7 @@ export const schedulingLinks = [
     ),
   },
   {
-    id: 6,
+    id: 5,
     link: "/scheduling/settings",
     content: (
       <>
