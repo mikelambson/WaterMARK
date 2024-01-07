@@ -1,5 +1,4 @@
 //scheduling/settings @/app/scheduling/(routes)/settings/page.tsx
-"use client";
 import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -10,29 +9,24 @@ import { DataTable } from "@/app/scheduling/_components/settings/data-table";
 import FlowsSettings from "../../_components/settings/flowsSettings";
 import ApiFetch from "@/lib/apiFetch";
 
-const Settings = () => {
-  const apiFetch = new ApiFetch();
+const apiFetch = new ApiFetch();
 
-  const [hsData, setHsData] = useState<Headsheets[]>([]);
+const errorMessage: Headsheets[] = [
+  {
+    id: "0",
+    name: "error connecting",
+    district: "not availible",
+    maxHeads: 0,
+    structureRef: "",
+    maxFlow: 0,
+    characteristics: { message: "here" },
+  },
+];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const headsheetsData = await apiFetch.fetchData<Headsheets[]>(
-          "headsheets"
-        );
-        setHsData(headsheetsData);
-      } catch (error) {
-        // Handle errors here (e.g., log the error or show a user-friendly message)
-        console.error("Error fetching headsheets data:", error);
-      }
-    };
-
-    fetchData();
-  }, [apiFetch]);
-
-  // const Settings = async () => {
-  //     const hsData = await getHeadsheets();
+const Settings = async () => {
+  const result = await apiFetch.fetchData<Headsheets[]>("/headsheets");
+  const hsData = result.success ? result.data : errorMessage;
+  const finalHsData = hsData || errorMessage;
 
   return (
     <>
@@ -53,13 +47,14 @@ const Settings = () => {
         </TabsContent>
         <TabsContent value="headsheets">
           <div className="mb-5">
-            <DataTable columns={columns} data={hsData} />
+            <DataTable columns={columns} data={finalHsData} />
           </div>
         </TabsContent>
         <TabsContent value="ditchriders">
           Change your ditchriders here.
         </TabsContent>
         <TabsContent value="sysinfo">
+          <h1>Flow Settings</h1>
           <FlowsSettings />
         </TabsContent>
       </Tabs>
