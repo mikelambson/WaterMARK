@@ -2,13 +2,24 @@
 "use server";
 import axios, { AxiosResponse } from "axios";
 
+interface DataTableError {
+  message: string;
+  // You can include additional properties specific to your error structure
+}
+
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+type FetchResult<T> = {
+  success: boolean;
+  data?: T;
+  error?: Error | unknown;
+};
+
 class ApiFetch {
-  private async performRequest<T>(route: string): Promise<T> {
+  private async performRequest<T>(route: string): Promise<AxiosResponse<T>> {
     try {
       const response: AxiosResponse<T> = await axios.get(`${baseUrl}${route}`);
-      return response.data;
+      return response;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error; // Propagate the error to the caller
@@ -34,8 +45,16 @@ class ApiFetch {
     return eventSource;
   }
 
-  public async fetchData<T>(specificRoute: string): Promise<T> {
-    return this.performRequest<T>(specificRoute);
+  public async fetchData<T>(specificRoute: string): Promise<FetchResult<T>> {
+    try {
+      const response: AxiosResponse<T> = await this.performRequest<T>(
+        specificRoute
+      );
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return { success: false, error };
+    }
   }
 
   public connectToSSE<T>(

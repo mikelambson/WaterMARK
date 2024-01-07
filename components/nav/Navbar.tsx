@@ -48,7 +48,7 @@ const Navbar = () => {
   const defaultTextColorClass = "text-gray-200 dark:text-gray-400";
   const iconHoverColorClass =
     "transition-all hover:text-yellow-400 hover:scale-125 dark:hover:text-yellow-300";
-  const defaultbg = "bg-slate-700 dark:bg-slate-800";
+  const defaultbg = "bg-slate-800/95 dark:bg-slate-800";
 
   const roleBasedLinks = [
     {
