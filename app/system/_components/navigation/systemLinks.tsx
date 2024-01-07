@@ -7,37 +7,33 @@ const iconStyle = `mb-[2px] subpixel-antialiased`;
 
 export const systemLinks = [
   {
-    id: 0, // Use a unique id for the logo section
+    id: 800, // Use a unique id for the logo section
     link: "/system", // Use "/" as the link for the logo
     content: (
       <>
-      <BsFillHouseGearFill size={30} className={iconStyle} />
-      <span className={labelTextClass}>System Dash</span>
+        <BsFillHouseGearFill size={30} className={iconStyle} />
+        <span className={labelTextClass}>System Dash</span>
       </>
     ),
-    
   },
   {
-    id: 1,
+    id: 801,
     link: "/system/users",
     content: (
       <>
-      <FaUsersCog size={25} className={iconStyle} />
-      <span className={labelTextClass}>Manage Users</span>
+        <FaUsersCog size={25} className={iconStyle} />
+        <span className={labelTextClass}>Manage Users</span>
       </>
     ),
-    
   },
   {
-    id: 2,
+    id: 802,
     link: "/system/meters",
     content: (
       <>
-      <TbAdjustmentsCog size={30} className={iconStyle} />
-      <span className={labelTextClass}>Manage Meters</span>
+        <TbAdjustmentsCog size={30} className={iconStyle} />
+        <span className={labelTextClass}>Manage Meters</span>
       </>
     ),
-    
   },
-  
 ];

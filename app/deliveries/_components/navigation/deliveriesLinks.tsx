@@ -7,45 +7,42 @@ const iconStyle = `mb-[2px] subpixel-antialiased`;
 
 export const deliveriesLinks = [
   {
-    id: 0, // Use a unique id for the logo section
+    id: 300, // Use a unique id for the logo section
     link: "/deliveries", // Use "/" as the link for the logo
     content: (
       <>
-      <FaGlobe size={30} className={iconStyle} />
-      <span className={labelTextClass}>Dash Board</span>
+        <FaGlobe size={30} className={iconStyle} />
+        <span className={labelTextClass}>Dash Board</span>
       </>
     ),
-    
   },
   {
-    id: 1,
+    id: 301,
     link: "/deliveries/schedule",
     content: (
       <>
-      <FaHouseFloodWaterCircleArrowRight size={30} className={iconStyle} />
-      <span className={labelTextClass}>Delivery Schedule</span>
+        <FaHouseFloodWaterCircleArrowRight size={30} className={iconStyle} />
+        <span className={labelTextClass}>Delivery Schedule</span>
       </>
     ),
-    
   },
   {
-    id: 2,
+    id: 302,
     link: "/deliveries/tasks",
     content: (
       <>
-      <FaTasks size={30} className={iconStyle} />
-          <span className={labelTextClass}>Daily Tasks</span>
+        <FaTasks size={30} className={iconStyle} />
+        <span className={labelTextClass}>Daily Tasks</span>
       </>
     ),
-    
   },
   {
-    id: 3,
+    id: 303,
     link: "/deliveries/ditchrider-schedule",
     content: (
       <>
-      <ImCalendar size={30} className={iconStyle} />
-      <span className={labelTextClass}>Work Schedule</span>
+        <ImCalendar size={30} className={iconStyle} />
+        <span className={labelTextClass}>Work Schedule</span>
       </>
     ),
   },

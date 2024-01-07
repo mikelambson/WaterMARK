@@ -7,55 +7,52 @@ const iconStyle = `mb-[2px] subpixel-antialiased`;
 
 export const analysisLinks = [
   {
-    id: 0, // Use a unique id for the logo section
+    id: 200, // Use a unique id for the logo section
     link: "/analysis", // Use "/" as the link for the logo
     content: (
       <>
-      <FaBuffer size={30} className={iconStyle} />
-      <span className={labelTextClass}>Dash Board</span>
+        <FaBuffer size={30} className={iconStyle} />
+        <span className={labelTextClass}>Dash Board</span>
       </>
     ),
-    
   },
   {
-    id: 1,
+    id: 201,
     link: "/analysis/master",
     content: (
       <>
-      <FaChartArea size={25} className={iconStyle} />
-      <span className={labelTextClass}>Order Analysis</span>
+        <FaChartArea size={25} className={iconStyle} />
+        <span className={labelTextClass}>Order Analysis</span>
       </>
     ),
-    
   },
   {
-    id: 2,
+    id: 202,
     link: "/analysis/meters",
     content: (
       <>
-      <ImMeter2 size={30} className={iconStyle} />
-          <span className={labelTextClass}>Meter Data</span>
+        <ImMeter2 size={30} className={iconStyle} />
+        <span className={labelTextClass}>Meter Data</span>
       </>
     ),
-    
   },
   {
-    id: 3,
+    id: 203,
     link: "/analysis/adjustments",
     content: (
       <>
-      <BsWrenchAdjustableCircleFill size={30} className={iconStyle} />
-      <span className={labelTextClass}>Adjust Order</span>
+        <BsWrenchAdjustableCircleFill size={30} className={iconStyle} />
+        <span className={labelTextClass}>Adjust Order</span>
       </>
     ),
   },
   {
-    id: 4,
+    id: 204,
     link: "/analysis/settings",
     content: (
       <>
-      <FaGear size={30} className={iconStyle} />
-      <span className={labelTextClass}>Settings</span>
+        <FaGear size={30} className={iconStyle} />
+        <span className={labelTextClass}>Settings</span>
       </>
     ),
   },

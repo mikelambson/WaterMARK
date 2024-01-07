@@ -1,17 +1,17 @@
 // \components\Navbar.tsx
 "use client";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import Image from "next/image"
+import Image from "next/image";
 import React, { useState } from "react";
 import { FaBars, FaTimes, FaBell, FaUserCircle } from "react-icons/fa";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModeToggle } from "./ModeToggle";
 import { useTheme } from "next-themes";
 import { useRole } from "@/components/nav/RoleContext"; // Import useRole
 import { BsDatabaseFillGear } from "react-icons/bs";
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +20,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import { LogOut, User } from "lucide-react";
 import {
   Sheet,
@@ -29,7 +29,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 import { Notify, NotifyCount } from "@/components/nav/Notifications";
 import {
   Tooltip,
@@ -46,7 +46,8 @@ const Navbar = () => {
   const isDarkMode = theme === "light";
   const pathname = usePathname();
   const defaultTextColorClass = "text-gray-200 dark:text-gray-400";
-  const iconHoverColorClass = "transition-all hover:text-yellow-400 hover:scale-125 dark:hover:text-yellow-300";
+  const iconHoverColorClass =
+    "transition-all hover:text-yellow-400 hover:scale-125 dark:hover:text-yellow-300";
   const defaultbg = "bg-slate-700 dark:bg-slate-800";
 
   const roleBasedLinks = [
@@ -61,9 +62,14 @@ const Navbar = () => {
     {
       id: 11,
       link: "/admin",
-      allowedRoles: ["Staff", "Watermaster","Senior Analyst", "Admin"],
+      allowedRoles: ["Staff", "Watermaster", "Senior Analyst", "Admin"],
       name: "Admin",
-      children: ["/admin", "/admin/lookup", "/admin/callout", "/admin/adjustments"],
+      children: [
+        "/admin",
+        "/admin/lookup",
+        "/admin/callout",
+        "/admin/adjustments",
+      ],
     },
     {
       id: 22,
@@ -77,21 +83,40 @@ const Navbar = () => {
       link: "/scheduling",
       allowedRoles: ["Watermaster", "Scheduler", "Admin"],
       name: "Scheduling",
-      children: ["/scheduling", "/scheduling/daily", "/scheduling/board", "/scheduling/schedule-orders", "/scheduling/ditchrider-tasks", "/scheduling/ditchrider-schedule", "/scheduling/settings"],
+      children: [
+        "/scheduling",
+        "/scheduling/daily",
+        "/scheduling/board",
+        "/scheduling/schedule-orders",
+        "/scheduling/ditchrider-tasks",
+        "/scheduling/ditchrider-schedule",
+        "/scheduling/settings",
+      ],
     },
     {
       id: 44,
       link: "/deliveries",
       allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "Admin"],
       name: "Deliveries",
-      children: ["/deliveries", "/deliveries/schedule", "/deliveries/tasks", "/deliveries/ditchrider-schedule"],
+      children: [
+        "/deliveries",
+        "/deliveries/schedule",
+        "/deliveries/tasks",
+        "/deliveries/ditchrider-schedule",
+      ],
     },
     {
       id: 55,
       link: "/analysis",
       allowedRoles: ["Scheduler", "Admin", "Senior Analyst"],
       name: "Analysis",
-      children: ["/analysis", "/analysis/master", "/analysis/meters", "/analysis/adjustments", "/analysis/settings"],
+      children: [
+        "/analysis",
+        "/analysis/master",
+        "/analysis/meters",
+        "/analysis/adjustments",
+        "/analysis/settings",
+      ],
     },
     {
       id: 66,
@@ -107,7 +132,6 @@ const Navbar = () => {
       name: "Reports",
       children: ["/reports"],
     },
-    
   ];
 
   const iconLinks = [
@@ -120,43 +144,101 @@ const Navbar = () => {
     },
   ];
 
-  
   return (
     <div
       className={` w-full h-16 align-middle ${defaultbg} subpixel-antialiased text-${defaultTextColorClass} fixed z-50 nav`}
     >
-      <div className={"h-16 flex mx-auto justify-between items-center px-2 fixed w-[100vw]"}>
+      <div
+        className={
+          "h-16 flex mx-auto justify-between items-center px-2 fixed w-[100vw]"
+        }
+      >
         <ul className={"hidden md:flex flex-grow items-center"}>
-          {roleBasedLinks.map(({ id, link, allowedRoles, name, children }) => (
+          {roleBasedLinks.map(({ id, link, allowedRoles, name, children }) =>
             allowedRoles.includes("any") || allowedRoles.includes(userRole) ? (
               <li
                 key={id}
-                className={cn(`nav-links h-[3.8rem] inline-flex items-center px-3 capitalize font-medium subpixel-antialiased ${defaultTextColorClass}  duration-200 pb-1`, children.includes(pathname) ? 
-                cn(isDarkMode ? "text-orange-300/90 border-b-2 border-b-amber-500/30" : "dark:text-orange-300 dark:border-b-2 dark:border-b-orange-300/30") : {defaultTextColorClass})}
+                className={cn(
+                  `nav-links h-[3.8rem] inline-flex items-center px-3 capitalize font-medium subpixel-antialiased ${defaultTextColorClass}  duration-200 pb-1`,
+                  children.includes(pathname)
+                    ? cn(
+                        isDarkMode
+                          ? "text-orange-300/90 border-b-2 border-b-amber-500/30"
+                          : "dark:text-orange-300 dark:border-b-2 dark:border-b-orange-300/30"
+                      )
+                    : { defaultTextColorClass }
+                )}
               >
                 {id === 0 ? ( // Check if it's the logo section
                   <Link href={link}>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className={"group w-max flex scale-100 hover:scale-110 duration-200"}>
-                            <Image src="/img/logo.png" width={35} height={35} alt="logo" className={cn("group-hover:opacity-100 duration-200", children.includes(pathname) ? "opacity-95" : "opacity-60")} />
-                            <span className={cn("ml-1 self-center group-hover:text-sky-400 duration-200", children.includes(pathname) ? "text-blue-400" : "text-blue-200/50")}>Water</span>
-                            <span className={cn("self-center  group-hover:text-yellow-400/90 dark:group-hover:text-yellow-300 duration-200", children.includes(pathname) ? cn(isDarkMode ? "text-orange-300/90" : "text-orange-300/90") : "text-orange-100/60")}>MARK</span>
+                          <div
+                            className={
+                              "group w-max flex scale-100 hover:scale-110 duration-200"
+                            }
+                          >
+                            <Image
+                              src="/img/logo.png"
+                              width={35}
+                              height={35}
+                              alt="logo"
+                              className={cn(
+                                "group-hover:opacity-100 duration-200",
+                                children.includes(pathname)
+                                  ? "opacity-95"
+                                  : "opacity-60"
+                              )}
+                            />
+                            <span
+                              className={cn(
+                                "ml-1 self-center group-hover:text-sky-400 duration-200",
+                                children.includes(pathname)
+                                  ? "text-blue-400"
+                                  : "text-blue-200/50"
+                              )}
+                            >
+                              Water
+                            </span>
+                            <span
+                              className={cn(
+                                "self-center  group-hover:text-yellow-400/90 dark:group-hover:text-yellow-300 duration-200",
+                                children.includes(pathname)
+                                  ? cn(
+                                      isDarkMode
+                                        ? "text-orange-300/90"
+                                        : "text-orange-300/90"
+                                    )
+                                  : "text-orange-100/60"
+                              )}
+                            >
+                              MARK
+                            </span>
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p>Home</p>
                         </TooltipContent>
                       </Tooltip>
-                    </TooltipProvider>  
+                    </TooltipProvider>
                   </Link>
                 ) : (
-                  <Link className={cn("hover:scale-125 duration-100 cursor-pointer", isDarkMode ? "hover:text-yellow-400" : "hover:text-yellow-300")} href={link}>{name}</Link>
+                  <Link
+                    className={cn(
+                      "hover:scale-125 duration-100 cursor-pointer",
+                      isDarkMode
+                        ? "hover:text-yellow-400"
+                        : "hover:text-yellow-300"
+                    )}
+                    href={link}
+                  >
+                    {name}
+                  </Link>
                 )}
               </li>
             ) : null
-                ))}
+          )}
         </ul>
 
         <div
@@ -171,12 +253,15 @@ const Navbar = () => {
             className={`flex flex-col subpixel-antialiased items-center absolute top-0 left-0 w-full h-[100dvh] justify-around ${defaultbg} ${defaultTextColorClass} font-semibold py-12 gap-12 subpixel-antialiased z-40`}
           >
             {roleBasedLinks.map(({ id, link, name, allowedRoles }) =>
-              allowedRoles.includes("any") || allowedRoles.includes(userRole) ? (
+              allowedRoles.includes("any") ||
+              allowedRoles.includes(userRole) ? (
                 <li
                   key={id}
-                  className={"px-4 cursor-pointer text-4xl subpixel-antialiased hover:text-amber-300 duration-200 link-underline"}
+                  className={
+                    "px-4 cursor-pointer text-4xl subpixel-antialiased hover:text-amber-300 duration-200 link-underline"
+                  }
                 >
-                  <Link onClick={() => setNav(!nav)} href={link}>
+                  <Link key={id} onClick={() => setNav(!nav)} href={link}>
                     /{name}
                   </Link>
                 </li>
@@ -185,36 +270,62 @@ const Navbar = () => {
           </ul>
         )}
 
-        {iconLinks.map(({children }) => 
-          <div className={"inline-flex h-16 items-center pr-4 space-x-3"}>
+        {iconLinks.map(({ id, children }) => (
+          <div
+            key={id}
+            className={"inline-flex h-16 items-center pr-4 space-x-3"}
+          >
             {userRole === "Admin" && (
-              <div className={cn("inline-flex h-full items-center", children.includes(pathname) ? cn(isDarkMode ? "border-b-4 border-b-amber-300/30" : "border-b-4 border-b-orange-300/30") : "border-none")}>
-              <Link href="/system">
-                <div className={cn(`subpixel-antialiased`, children.includes(pathname) ? "text-red-500/90 scale-125 pt-1" : `${defaultTextColorClass}`)}>
-                  <BsDatabaseFillGear size={24} className={`${iconHoverColorClass}`} />
-                </div>
-              </Link>
+              <div
+                className={cn(
+                  "inline-flex h-full items-center",
+                  children.includes(pathname)
+                    ? cn(
+                        isDarkMode
+                          ? "border-b-4 border-b-amber-300/30"
+                          : "border-b-4 border-b-orange-300/30"
+                      )
+                    : "border-none"
+                )}
+              >
+                <Link href="/system">
+                  <div
+                    className={cn(
+                      `subpixel-antialiased`,
+                      children.includes(pathname)
+                        ? "text-red-500/90 scale-125 pt-1"
+                        : `${defaultTextColorClass}`
+                    )}
+                  >
+                    <BsDatabaseFillGear
+                      size={24}
+                      className={`${iconHoverColorClass}`}
+                    />
+                  </div>
+                </Link>
               </div>
             )}
             <ModeToggle />
             <div className={" w-px h-6 bg-gray-400"}></div>
 
             <Sheet>
-            <SheetTrigger>
-              <div className={`group ${defaultTextColorClass} ${iconHoverColorClass} subpixel-antialiased relative`}>
-                <FaBell size={24} className={` subpixel-antialiased`} />
-                <NotifyCount />
-              </div>
-            </SheetTrigger>
-            <SheetContent>
-              <SheetHeader>
-                <SheetTitle>NOTIFICATIONS</SheetTitle>
-                <SheetDescription>
-                  This section will serve to display and manage notifications.
-                </SheetDescription>
-                <Notify />
-              </SheetHeader>
-            </SheetContent>
+              <SheetTrigger>
+                <div
+                  className={`group ${defaultTextColorClass} ${iconHoverColorClass} subpixel-antialiased relative`}
+                >
+                  <FaBell size={24} className={` subpixel-antialiased`} />
+                  <NotifyCount />
+                </div>
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>NOTIFICATIONS</SheetTitle>
+                  <SheetDescription>
+                    This section will serve to display and manage notifications.
+                  </SheetDescription>
+                  <Notify />
+                </SheetHeader>
+              </SheetContent>
             </Sheet>
 
             <DropdownMenu>
@@ -223,39 +334,40 @@ const Navbar = () => {
                   <Avatar>
                     <AvatarImage />
                     <AvatarFallback className="bg-black/5">
-                      <FaUserCircle size={30} className={` ${iconHoverColorClass} subpixel-antialiased`} />
+                      <FaUserCircle
+                        size={30}
+                        className={` ${iconHoverColorClass} subpixel-antialiased`}
+                      />
                     </AvatarFallback>
                   </Avatar>
                 </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-              <DropdownMenuLabel>Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <Link href="/login">
-                <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                  <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                </DropdownMenuItem>
-              </Link>
-              <DropdownMenuItem>Something</DropdownMenuItem>
-              <DropdownMenuItem>More</DropdownMenuItem>
-              <DropdownMenuItem>More Somethings</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <Link href="/">
-                <DropdownMenuItem>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Logout</span>
-                  <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                </DropdownMenuItem>
-              </Link>
-            </DropdownMenuContent>
-            </DropdownMenu>  
-            
+                <DropdownMenuLabel>Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <Link href="/login">
+                  <DropdownMenuItem>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </Link>
+                <DropdownMenuItem>Something</DropdownMenuItem>
+                <DropdownMenuItem>More</DropdownMenuItem>
+                <DropdownMenuItem>More Somethings</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <Link href="/">
+                  <DropdownMenuItem>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </Link>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
-        )}
+        ))}
       </div>
-         
     </div>
   );
 };
