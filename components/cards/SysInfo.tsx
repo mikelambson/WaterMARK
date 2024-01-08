@@ -53,7 +53,7 @@ const SysInfo: React.FC<SysInfoProps> = ({ className }) => {
             <tbody className="w-full">
               {isLoading
                 ? Array.from({ length: 5 }).map((_, index) => (
-                    <tr>
+                    <tr key={index}>
                       <td></td>
                       <td>
                         <Skeleton className="w-full h-[2.15rem] rounded-xl" />
