@@ -1,25 +1,32 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Skeleton } from "../ui/skeleton";
 
 interface ForcastProps {
-    className?: string;
+  className?: string;
 }
 
-const LakeForcast: React.FC<ForcastProps> = ({className}) => {
-  return ( 
+const LakeForcast: React.FC<ForcastProps> = ({ className }) => {
+  return (
     <Card className={className}>
-      <CardHeader> 
+      <CardHeader>
         <CardTitle>Lake Forcast</CardTitle>
-        <CardDescription>Forcast description</CardDescription>
+        {/* <CardDescription>Forcast description</CardDescription> */}
       </CardHeader>
       <CardContent>
-        <p>Content</p> 
+        <Skeleton className="w-full h-96" />
       </CardContent>
       <CardFooter>
         <p>Algorithmic data</p>
       </CardFooter>
     </Card>
   );
-}
+};
 
- 
 export default LakeForcast;
