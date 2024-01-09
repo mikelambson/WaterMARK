@@ -293,7 +293,7 @@ const Navbar = () => {
                     className={cn(
                       `subpixel-antialiased`,
                       children.includes(pathname)
-                        ? "text-red-500/90 scale-125 pt-1"
+                        ? "text-red-500 scale-125 pt-1 animate-pulse"
                         : `${defaultTextColorClass}`
                     )}
                   >

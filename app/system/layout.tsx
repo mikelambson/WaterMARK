@@ -8,7 +8,7 @@ const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => 
         <>
         <div className={"h-full m-0 pt-[4rem]"}>
         <Sidebar sideLinks={systemLinks} />
-        <main className={"pt-0 pl-16 bg-orange-300/10 h-[90dvh]"}>
+        <main className={"pt-0 pl-16 bg-orange-300/20 h-[90dvh]"}>
             {children}
         </main>
         </div>

@@ -10,7 +10,7 @@ export const NotifyCount = () => {
   const notifications = useNotificationStore((state:any) => state.notifications);
 
   const countUnread = notifications.filter((notification: { read: any; }) => !notification.read).length;
-  const bgform = countUnread > 0 ? 'bg-red-700' : '';
+  const bgform = countUnread > 0 ? 'bg-red-700 animate-bounce' : '';
   const displayCount = countUnread > 0 ? 'text-white' : 'text-white/0';
 
   return (
