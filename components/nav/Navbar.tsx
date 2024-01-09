@@ -140,7 +140,7 @@ const Navbar = () => {
       link: "/system", // Use "/" as the link for the logo
       allowedRoles: ["Admin"], // Define roles that can access this link
       name: "Home",
-      children: ["/system"],
+      children: ["/system", "/system/users", "/system/meters"],
     },
   ];
 

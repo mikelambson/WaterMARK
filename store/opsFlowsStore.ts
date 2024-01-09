@@ -15,7 +15,7 @@ interface FlowsState {
 
 export const useFlowsStore = create<FlowsState>((set) => ({
   flows: [],
-  isLoading: true,
+  isLoading: false,
   setFlows: (newFlows) => set({ flows: newFlows }),
 
   updateFlow: async (flowId, updatedFlow) => {
@@ -40,7 +40,7 @@ export const useFlowsStore = create<FlowsState>((set) => ({
       }));
     } catch (error) {
       console.error("Error updating flow:", error);
-      set({ isLoading: true });
+      set({ isLoading: false });
     }
   },
 
