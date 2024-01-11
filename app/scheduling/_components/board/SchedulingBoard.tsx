@@ -68,6 +68,7 @@ const SchedulingBoard = () => {
               {/* Loop through columns and render them */}
               {Array.from(board.columns.entries()).map(
                 ([id, column], index) => (
+                  
                   <ScrollArea
                     key={id}
                     className={`col-span-1 h-[65vh] rounded-md 
@@ -81,6 +82,7 @@ const SchedulingBoard = () => {
                       index={index}
                     ></Column>
                   </ScrollArea>
+                  
                 )
               )}
             </div>

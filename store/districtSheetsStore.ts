@@ -18,9 +18,11 @@ interface DistrictState {
   districtSelected: string;
   headsheets: HeadsheetsData[];
   selectedSheet: PartialHeadsheetsData;
+  selectedHead: number;
   setDistrict: (district: string) => void;
   getHeadsheets: (district: string) => Promise<void>; 
   setSelectedSheet: (sheet: HeadsheetsData) => void;
+  setSelectedHead: (head: number) => void;
 }
 
 export const useDistrictStore = create<DistrictState>((set) => ({
@@ -35,6 +37,7 @@ export const useDistrictStore = create<DistrictState>((set) => ({
     structureRef: "",
     characteristics: ""
   },
+  selectedHead: 1,
   setDistrict: (district) => set({ districtSelected: district }),
   getHeadsheets: async () => {
     try {
@@ -55,4 +58,5 @@ export const useDistrictStore = create<DistrictState>((set) => ({
     }
   },
   setSelectedSheet: (headsheet) => set({ selectedSheet: headsheet}),
+  setSelectedHead: (head) => set({selectedHead: head})
 }));

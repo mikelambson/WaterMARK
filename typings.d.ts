@@ -7,7 +7,7 @@ interface Board {
     columns: Map<TypedColumn, Column>;
 }
 
-declare type TypedColumn = "P" | "scheduled" | "delayed";
+declare type TypedColumn = "unscheduled" | "scheduled";
 
 interface Order {
     id: number;

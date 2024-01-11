@@ -37,18 +37,8 @@ interface ApiFilters {
                 } else {
                     acc.get(key)?.orders.push(order);
                 }
-            } else if (status === "delayed") {
-                const key: TypedColumn = "delayed";
-                if (!acc.has(key)) {
-                    acc.set(key, {
-                        id: key,
-                        orders: [order]
-                    });
-                } else {
-                    acc.get(key)?.orders.push(order);
-                }
             } else {
-                const key: TypedColumn = "P";
+                const key: TypedColumn = "unscheduled";
                 if (!acc.has(key)) {
                     acc.set(key, {
                         id: key,
@@ -61,7 +51,7 @@ interface ApiFilters {
             return acc;
     }, new Map<TypedColumn, Column>()); 
          
-     const columnTypes: TypedColumn[] = [ "P", "scheduled", "delayed"];
+     const columnTypes: TypedColumn[] = [ "unscheduled", "scheduled"];
      for (const columnType of columnTypes) {
         if (!columns.get(columnType)) {
             columns.set(columnType, {

@@ -3,6 +3,7 @@ import {
   FaGear,
   FaGlobe,
   FaHouseTsunami,
+  FaScrewdriverWrench,
   FaUserClock,
 } from "react-icons/fa6";
 import { FaTasks } from "react-icons/fa";
@@ -68,6 +69,16 @@ export const schedulingLinks = [
       <>
         <FaGear size={30} className={iconStyle} />
         <span className={labelTextClass}>Settings</span>
+      </>
+    ),
+  },
+  {
+    id: 706,
+    link: "/scheduling/dev",
+    content: (
+      <>
+        <FaScrewdriverWrench size={30} className={iconStyle} />
+        <span className={labelTextClass}>DEV</span>
       </>
     ),
   },

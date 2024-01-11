@@ -17,10 +17,9 @@ type Properties = {
 }
 
 const columnNames = {
-    "P": "Unscheduled",
-    "delayed": "Delayed",
+    "unscheduled": "Unscheduled",
     "scheduled": "Scheduled"
-};
+  };
 
 const Column = ({id, columns, index }: Properties) => {
 
