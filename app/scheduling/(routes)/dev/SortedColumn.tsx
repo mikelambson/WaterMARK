@@ -50,7 +50,7 @@ const Column = ({id, columns, index }: Properties) => {
                             {index === 0 ? 
                                 <UnscheduledColumn id={id} /> : 
                             <ScheduledColumn /> }
-                             <ScrollArea className="h-full rounded-md absolute p-2 -top-[75dvh]">
+                             <ScrollArea className="h-full rounded-md absolute p-2 -top-[74.5dvh]">
                             <div className=" space-y-2">
                                  
                                 {/* {index ===1 ? <TabbedColumn tabs={tabnumber} /> : <></>} */}

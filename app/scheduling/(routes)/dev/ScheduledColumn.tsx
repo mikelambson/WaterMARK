@@ -27,7 +27,7 @@ const ScheduledColumn = () => {
     return (    
         // <ScrollArea className="h-[46dvh]">
         <Tabs defaultValue="1" className="p-2 w-full h-full">
-            <TabsList className={"mx-auto inline-flex justify-between w-[99%] pl-2 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
+            <TabsList className={"mx-auto inline-flex justify-between w-full px-2 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
                 <div className="inline-flex">
                     <h2 className={" font-semibold text-slate-600 dark:text-gray-400 self-center mr-2"}>
                         {selectedSheet.name} Head

@@ -20,8 +20,8 @@ const columnNames = {
 
 const UnscheduledColumn = ({id}:Properties ) => (
   // <ScrollArea className="h-[46dvh]">
-        <Tabs defaultValue="1" className="p-2 h-full">
-            <TabsList className={"mx-auto inline-flex justify-between w-[99%] pl-2 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
+        <Tabs defaultValue="1" className="p-2 w-full h-full">
+            <TabsList className={"mx-auto inline-flex justify-between w-full px-2 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
               <div className="inline-flex">
               <TabsTrigger 
               key={1} 
