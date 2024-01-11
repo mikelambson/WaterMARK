@@ -89,7 +89,7 @@ const UpdateFlows: React.FC<UpdateFlowsProps> = ({watermaster = false}) => {
                                             toast({
                                                 variant: "standard",
                                                 title: "Manual Update",
-                                                description: `${row.name} | Previous: ${oldValue}\nSET TO: ${newValue} ${row.type}`,
+                                                description: `${row.name}\nPrevious: ${oldValue}\n\nSET: ${newValue} ${row.type}`,
                                             })
                                         } else {
                                             // Handle the case when the input is not a valid number
