@@ -2,9 +2,9 @@
 "use client";
 import { useEffect } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
-import { useSchedulingStore } from "@/lib/store/schedulingStore";
-import Column from "./SortedColumns";
-import Columns from "./SortedColumns";
+import { useSchedulingStore } from "@/lib/store/schedulingStoreDev";
+import ScheduledColumn from "./ScheduledTest";
+import UnscheduledTest from "./UnscheduledTest";
 
 
 const SchedulingBoard = () => {
@@ -54,33 +54,50 @@ const SchedulingBoard = () => {
     return <div>Loading...</div>;
   }
 
+//   {console.log(Array.from(board.columns.entries()).map(([id, column], index) => {
+//     return {
+//         id: id,
+//         column: column,
+//         index: index,
+//     };
+//     }))}
+
   return (
     <div>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         {/* Container id1: Tabbed Element */}
-        
         <Droppable droppableId="id" direction="vertical" type="column">
-          {(provided) => (
-            <div
-              aria-label="unscheduled"
-              className="w-full md:max-w-full flex flex-col md:grid grid-cols-1 md:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto "
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {/* Loop through columns and render them */}
-              {Array.from(board.columns.entries()).map(
-                ([id, column], index) => (
-                  
-                  <Columns
-                      id={id}
-                      columns={column.orders}
-                      index={index}
-                  />
-                  
-                )
-              )}
-            </div>
-          )}
+            {(provided) => (
+                <div
+                aria-label="unscheduled"
+                className="w-full md:max-w-full flex flex-col md:grid grid-cols-1 md:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto "
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                >
+                    {Array.from(board.columns.entries()).map(([id, column], index) => {
+                        if (id === 'unscheduled') {
+                            return (
+                            <UnscheduledTest
+                                key={id}
+                                id={id}
+                                columns={column.orders}
+                                index={index}
+                            />
+                            );
+                        } else {
+                            return (
+                                <ScheduledColumn
+                                key={id}
+                                //   id={id}
+                                //   columns={column.orders}
+                                //   index={index}
+                                />
+                            ); 
+                        }
+                    }
+                    )}
+                </div>
+            )} 
         </Droppable>
       </DragDropContext>
     </div>

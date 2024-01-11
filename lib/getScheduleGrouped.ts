@@ -13,14 +13,14 @@ interface ApiFilters {
   const getScheduleGroupedByColumn = async (filters: ApiFilters) => {
     const { district, page, pageSize } = filters;
     
-    let status = "p,delayed"
+    let status = "p,delayed,scheduled,running"
 
     try {
-        const unscheduledOrders = await axios.get(
+        const response = await axios.get(
           `${baseUrl}orders?find:status=${status}&find:district=${district}&page=${page}&pageSize=${pageSize}`
         );
     
-        const orders: Order[] = unscheduledOrders.data;
+        const orders: Order[] = response.data;
 
     orders.sort((a: any, b: any) => new Date(a.orderTimestamp).getTime() - new Date(b.orderTimestamp).getTime());
 
