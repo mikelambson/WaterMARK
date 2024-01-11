@@ -1,5 +1,4 @@
 // TabbedColumn @\app\scheduling\_components\schedule-orders\TabbbedColumn.tsx
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useDistrictStore } from '@/store/districtSheetsStore';
 
@@ -25,7 +24,6 @@ const ScheduledColumn = () => {
       };
 
     return (    
-        // <ScrollArea className="h-[46dvh]">
         <Tabs defaultValue="1" className="p-2 w-full h-full">
             <TabsList className={"mx-auto inline-flex justify-between w-full px-2 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
                 <div className="inline-flex">
@@ -43,13 +41,15 @@ const ScheduledColumn = () => {
                         </div>
                     ))}
                 </div>
-                <div onClick={() => setSelectedHead(10)}>
-                    <TabsTrigger 
-                    key={10} 
-                    value={"10"}>
-                        Drop-Ins
-                    </TabsTrigger>
-                </div>
+                {selectedSheet.name !== "Select" && (
+                    <div onClick={() => setSelectedHead(10)}>
+                        <TabsTrigger 
+                        key={10} 
+                        value={"10"}>
+                            Drop-Ins
+                        </TabsTrigger>
+                    </div>
+                )}
             </TabsList>
                 <TabsContent key={selectedSheet.name === "Select" ? "1" : "0"} value={selectedSheet.name === "Select" ? "1" : "0"} className="h-full">
                     <div className="w-full h-full text-center text-6xl md:text-9xl pt-24 mb-96">
@@ -72,7 +72,6 @@ const ScheduledColumn = () => {
                 </TabsContent>
             
         </Tabs>
-        // </ScrollArea>
     );
 };
 
