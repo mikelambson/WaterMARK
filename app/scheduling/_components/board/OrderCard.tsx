@@ -99,10 +99,18 @@ const OrderCard = ({
                 
                 <SheetContent side="left">
                     <SheetHeader>
-                    <SheetTitle>Edit Order #{order.orderNumber}</SheetTitle>
+                    <SheetTitle className="text-card-alternative">Edit Order #{order.orderNumber}</SheetTitle>
                     <SheetDescription>
-                        Laterals: {order.laterals.join(' | ')} <br />
-                        Remarks: {order.remarks}
+                        <div className="flex flex-col w-full gap-2">
+                            <h2 className="w-full text-foreground">Laterals: {order.laterals.join(' | ')}</h2>
+                            Remarks: {order.remarks} <br />
+                            Irrigator: {order.details.irrigatorsName}<br />
+                            Owner: {order.details.ownersName}<br />
+                            Ordered AF: {order.details.approxAf}<br />
+                            Balance: {order.details.balance}<br />
+                            <h2 className="text-md text-foreground">{order.approxCfs} CFS for {order.approxHrs} HRS </h2>
+                        </div>
+
                     </SheetDescription>
                     </SheetHeader>
                     <div className="grid gap-4 py-4 pr-4">

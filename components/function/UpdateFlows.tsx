@@ -82,12 +82,14 @@ const UpdateFlows: React.FC<UpdateFlowsProps> = ({watermaster = false}) => {
                             
                                         // Check if inputValue is a number and not null
                                         if (inputValue && !isNaN(Number(inputValue.value))) {
+                                            const oldValue = row.manualValue;
                                             const newValue = Number(inputValue.value);
                                             updateFlow(row.id, { manualValue: newValue });
 
                                             toast({
+                                                variant: "standard",
                                                 title: "Manual Update",
-                                                description: `${row.name}`,
+                                                description: `${row.name} | Previous: ${oldValue}\nSET TO: ${newValue} ${row.type}`,
                                             })
                                         } else {
                                             // Handle the case when the input is not a valid number
