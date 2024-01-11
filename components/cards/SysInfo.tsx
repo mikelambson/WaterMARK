@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import useFlowsStore from "@/store/opsFlowsStore";
+import useFlowsStore from "@/lib/store/opsFlowsStore";
 import { initializeFlowsStore } from "@/lib/getOpsFlows";
 import { formatNumber } from "@/lib/basicFunctions";
 import { SimpleForcast } from "@/components/cards/Forcast";

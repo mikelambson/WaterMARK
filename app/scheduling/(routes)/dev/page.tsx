@@ -1,11 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { useSchedulingStore } from '@/store/schedulingStore';
+import { useSchedulingStore } from '@/lib/store/schedulingStore';
 import SchedulingBoard from './SchedulingBoard';
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Button } from '@/components/ui/button';
-import { useDistrictStore } from '@/store/districtSheetsStore';
+import { useDistrictStore } from '@/lib/store/districtSheetsStore';
 import { Command, CommandGroup, CommandItem } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ChevronsUpDown } from 'lucide-react';

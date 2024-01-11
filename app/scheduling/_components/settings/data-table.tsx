@@ -1,6 +1,6 @@
 "use client"
 
-import { useEditableCellsStore } from '@/store/editableCellsStore';
+import { useEditableCellsStore } from '@/lib/store/editableCellsStore';
 import {
   ColumnDef,
   flexRender,

@@ -1,6 +1,6 @@
 // TabbedColumn @\app\scheduling\_components\schedule-orders\TabbbedColumn.tsx
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useDistrictStore } from '@/store/districtSheetsStore';
+import { useDistrictStore } from '@/lib/store/districtSheetsStore';
 
 
 

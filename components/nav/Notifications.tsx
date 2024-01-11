@@ -1,7 +1,7 @@
 // Notifications @\components\nav\Notifications.tsx
 import { useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import useNotificationStore from '@/store/notifications';
+import useNotificationStore from '@/lib/store/notifications';
 import { cn } from '@/lib/utils';
 import { IoMdClose } from 'react-icons/io';
 

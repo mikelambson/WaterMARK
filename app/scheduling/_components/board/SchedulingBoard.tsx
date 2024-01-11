@@ -2,7 +2,7 @@
 "use client";
 import { useEffect } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
-import { useSchedulingStore } from "@/store/schedulingStore";
+import { useSchedulingStore } from "@/lib/store/schedulingStore";
 import Column from "./SortedColumns";
 import Columns from "./SortedColumns";
 

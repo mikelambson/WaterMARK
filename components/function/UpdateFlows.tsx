@@ -10,7 +10,7 @@ import {
     TableHead,
     TableHeader,
     TableRow, } from "@/components/ui/table";
-import useFlowsStore from '@/store/opsFlowsStore';
+import useFlowsStore from '@/lib/store/opsFlowsStore';
 import { formatNumber } from "@/lib/basicFunctions"; 
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";

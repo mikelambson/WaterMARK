@@ -4,7 +4,7 @@ import React, { useEffect, useCallback } from 'react';
 import axios from "axios";
 import { useTable, useSortBy } from "react-table";
 import { Button } from "@/components/ui/button"
-import useQueryStore from '@/store/queryStore';
+import useQueryStore from '@/lib/store/queryStore';
 
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
