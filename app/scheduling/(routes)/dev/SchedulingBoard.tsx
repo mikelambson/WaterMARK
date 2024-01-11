@@ -3,10 +3,9 @@
 import { useEffect } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useSchedulingStore } from "@/store/schedulingStore";
-import Column from "./SortedColumn";
-import UnscheduledColumn from "./UnscheduledColumn";
-import TabbedColumn from "./ScheduledColumn";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import Column from "./SortedColumns";
+import Columns from "./SortedColumns";
+
 
 const SchedulingBoard = () => {
   const {
@@ -72,7 +71,7 @@ const SchedulingBoard = () => {
               {Array.from(board.columns.entries()).map(
                 ([id, column], index) => (
                   
-                  <Column
+                  <Columns
                       id={id}
                       columns={column.orders}
                       index={index}

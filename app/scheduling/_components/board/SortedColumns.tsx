@@ -5,7 +5,6 @@ import { Draggable, Droppable } from "@hello-pangea/dnd";
 import OrderCard from "@/app/scheduling/_components/board/OrderCard";
 import { cn } from "@/lib/utils";
 import ScheduledColumn from "./ScheduledColumn";
-import { Input } from "@/components/ui/input";
 import UnscheduledColumn from "./UnscheduledColumn";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -23,7 +22,7 @@ const columnNames = {
     "scheduled": "Scheduled"
 };
 
-const Column = ({id, columns, index }: Properties) => {
+const Columns = ({id, columns, index }: Properties) => {
 
 
     return ( 
@@ -87,4 +86,4 @@ const Column = ({id, columns, index }: Properties) => {
      );
 }
  
-export default Column;
+export default Columns;

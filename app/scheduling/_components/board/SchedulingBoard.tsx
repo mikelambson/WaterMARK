@@ -3,9 +3,9 @@
 import { useEffect } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useSchedulingStore } from "@/store/schedulingStore";
-import Column from "@/app/scheduling/_components/board/SortedColumn";
+import Column from "./SortedColumns";
+import Columns from "./SortedColumns";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 const SchedulingBoard = () => {
   const {
@@ -58,10 +58,12 @@ const SchedulingBoard = () => {
     <div>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         {/* Container id1: Tabbed Element */}
+        
         <Droppable droppableId="id" direction="vertical" type="column">
           {(provided) => (
             <div
-              className="w-full md:max-w-full flex flex-col md:grid grid-cols-1 md:grid-cols-[2fr,3fr] md:grid-rows-[60vh, 30px] gap-2  pr-2 mx-auto "
+              aria-label="unscheduled"
+              className="w-full md:max-w-full flex flex-col md:grid grid-cols-1 md:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto "
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
@@ -69,19 +71,11 @@ const SchedulingBoard = () => {
               {Array.from(board.columns.entries()).map(
                 ([id, column], index) => (
                   
-                  <ScrollArea
-                    key={id}
-                    className={`col-span-1 h-[65vh] rounded-md 
-                                ${
-                                  index === 2 ? "md:col-span-2 md:h-[7rem]" : ""
-                                }`}
-                  >
-                    <Column
+                  <Columns
                       id={id}
                       columns={column.orders}
                       index={index}
-                    ></Column>
-                  </ScrollArea>
+                  />
                   
                 )
               )}
