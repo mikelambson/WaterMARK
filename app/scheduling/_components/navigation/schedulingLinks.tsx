@@ -10,6 +10,7 @@ import { FaTasks } from "react-icons/fa";
 
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased";
 const iconStyle = "mb-[2px] subpixel-antialiased";
+const lastIcon = "mt-[12vh] mb-[2px] subpixel-antialiased";
 
 export const schedulingLinks = [
   {
@@ -72,14 +73,14 @@ export const schedulingLinks = [
       </>
     ),
   },
-  // {
-  //   id: 706,
-  //   link: "/scheduling/dev",
-  //   content: (
-  //     <>
-  //       <FaScrewdriverWrench size={30} className={iconStyle} />
-  //       <span className={labelTextClass}>DEV</span>
-  //     </>
-  //   ),
-  // },
+  {
+    id: 706,
+    link: "/scheduling/dev",
+    content: (
+      <>
+        <FaScrewdriverWrench size={30} className={lastIcon} />
+        <span className={labelTextClass}>DEV</span>
+      </>
+    ),
+  },
 ];

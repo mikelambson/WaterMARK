@@ -29,12 +29,14 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
     // Step 2: Update Order Mapping
     const filteredOrders = filterValue
     ? columns.filter((order) =>
-        order.laterals.includes(filterValue.toUpperCase())
+        order.laterals.some((lateral) =>
+          lateral.toUpperCase().startsWith(filterValue.toUpperCase())
+        )
       )
     : columns;
     
     return (
-    <div className="relative w-full h-[33rem] bg-foreground/10 dark:bg-foreground/75 rounded-md pt-2 shadow-md">
+    <div className="relative w-full h-[82.5vh] bg-foreground/10 dark:bg-foreground/75 rounded-md pt-2 shadow-md">
     <Tabs defaultValue="unscheduled" className=" w-full h-full flex flex-col justify-center">
         <TabsList className={"w-[96%] mx-auto inline-flex flex-nowrap justify-between px-1 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
             <div className="inline-flex">
@@ -55,7 +57,7 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
                 <Input 
                     type="filter"
                     placeholder={"Filter Line"}
-                    className="pl-5 h-7 w-24 sm:w-32 max-w-32 bg-background/60 self-center uppercase text-[10px] sm:text-sm md:text-md"
+                    className="pl-5 h-7 w-24 sm:w-32 mr-1 bg-background/60 self-center uppercase text-[10px] sm:text-sm md:text-md"
                     value={filterValue}
                     onChange={(e) => setFilterValue(e.target.value)}
                 />
@@ -74,7 +76,7 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
                             {columnNames[id]} Orders
                             </div>
 {/* change Height below ==>  */}
-                            <ScrollArea className="h-[28.5em] px-[0.5rem] rounded-md">
+                            <ScrollArea className="h-[71vh] px-[0.5rem] rounded-md">
                                 <div className="space-y-2">
                                         {filteredOrders.map((order: any, index: any) => (
                                         <Draggable

@@ -58,26 +58,26 @@ const OrderCard = ({
 
     return ( 
         <div
-            className={ cn("mx-[2px] rounded-md drop-shadow-md", isDarkMode ? "bg-slate-500" :"bg-gray-800")}
+            className={ cn("mx-[2px] rounded-md drop-shadow-md", isDarkMode ? "bg-slate-600" :"bg-gray-800")}
             {...draggableProps} {...dragHandleProps} ref={innerRef}
         >
             <Sheet>
             <div onClick={toggleDetailsVisibility} className="grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 
             gap-0 rounded-sm align-text-bottom">
-                <div className={cn("col-start-1 row-start-1 row-span-4 pt-6", isDarkMode ? "text-gray-400" : "text-gray-700")}>
+                <div className={cn("col-start-1 row-start-1 row-span-4 pt-6 text-gray-400 dark:text-gray-700")}>
                     <DragIcon />
                 </div>
-                <div className="col-span-3 text-bottom pt-1 row-start-1 col-start-2 text-sm lg:text-md text-stone-100 dark:text-foreground/80 font-semibold">{order.laterals.join(' ')}</div>
-                <div className={cn("col-span-3 text-bottom row-start-2 border-b-2 font-semibold", isDarkMode ? "text-amber-400/60 border-gray-200" : " text-lime-400/40 border-gray-600")}>{order.remarks}</div>
+                <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{order.laterals.join(' ')}</div>
+                <div className={cn("col-span-3 text-bottom row-start-2 border-b-2 font-semibold truncate text-amber-300/70 dark:text-amber-400/60 border-gray-200/60  dark:border-gray-600")}>{order.remarks}</div>
                 <div className="col-start-1 row-start-4"></div>
-                <div className={cn("row-span-2 col-start-2 row-start-3 border-r-2 text-sm pt-2", isDarkMode ? "border-gray-200" : "border-gray-600" )}>{order.orderTimestamp}</div>
-                <div className={cn("col-start-3 row-start-3 border-r-2 pl-1 font-medium", isDarkMode ? "border-gray-200" : "border-gray-600" )}>Order# {id}</div>
-                <div className={cn("col-span-4 row-start-3 pl-1 font-medium", isDarkMode ? "border-gray-200" : "border-gray-600" )}>{order.approxCfs} CFS</div>
-                <div className={cn("col-start-3 row-start-4 border-r-2 pl-1", isDarkMode ? "border-gray-200" : "border-gray-600" )}>{order.district} | {order.status}</div>
+                <div className={cn("row-span-2 col-start-2 row-start-3 border-r-2 text-sm pt-2 text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600 " )}>{order.orderTimestamp}</div>
+                <div className={cn("col-start-3 row-start-3 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>Order# {id}</div>
+                <div className={cn("col-span-4 row-start-3 pl-1 font-medium text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.approxCfs} CFS</div>
+                <div className={cn("col-start-3 row-start-4 border-r-2 pl-1 text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.district} | {order.status}</div>
                 <div
-                    className={cn("col-start-4 row-start-4 pl-1 font-medium relative", isDarkMode ? "border-gray-200" : "border-gray-600" )}>{order.approxHrs} hrs 
+                    className={cn("col-start-4 row-start-4 pl-1 font-medium relative text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.approxHrs} hrs 
                         <div   
-                        className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-2xl text-stone-100 hover:animate-bounce hover:text-amber-400/60 dark:hover:text-amber-400"}>
+                        className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-2xl text-stone-100 dark:text-gray-400 hover:animate-bounce hover:text-amber-400/60 dark:hover:text-amber-400"}>
                             {isDetailsVisible ? (<IoIosArrowDropupCircle className={"hover:scale-125"} />) : (<IoIosArrowDropdownCircle />)}
                         </div>
                 </div>
