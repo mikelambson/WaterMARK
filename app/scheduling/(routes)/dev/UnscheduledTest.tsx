@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import OrderCard from "@/app/scheduling/_components/board/OrderCard";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 type Properties = {
     id: TypedColumn,
@@ -19,7 +20,20 @@ const columnNames = {
   "scheduled": "Scheduled"
 };
 
-const UnscheduledTest = ({id, columns, index}:Properties) => (
+
+
+const UnscheduledTest = ({ id, columns, index }: Properties) => {
+    // Step 1: Add State for Filter Value
+    const [filterValue, setFilterValue] = useState('');
+    
+    // Step 2: Update Order Mapping
+    const filteredOrders = filterValue
+    ? columns.filter((order) =>
+        order.laterals.includes(filterValue.toUpperCase())
+      )
+    : columns;
+    
+    return (
     <div className="relative w-full h-[33rem] bg-foreground/10 dark:bg-foreground/75 rounded-md pt-2 shadow-md">
     <Tabs defaultValue="unscheduled" className=" w-full h-full flex flex-col justify-center">
         <TabsList className={"w-[96%] mx-auto inline-flex flex-nowrap justify-between px-1 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
@@ -37,8 +51,14 @@ const UnscheduledTest = ({id, columns, index}:Properties) => (
             </TabsTrigger>
             </div>
             <div className="inline-flex">
-            <IoSearch className="self-center -mr-5" /> 
-            <Input type="filter" placeholder={"Filter Line"} className="pl-5 h-7 w-32 bg-background/60 self-center uppercase" />
+                <IoSearch className="self-center -mr-5" /> 
+                <Input 
+                    type="filter"
+                    placeholder={"Filter Line"}
+                    className="pl-5 h-7 w-24 sm:w-32 max-w-32 bg-background/60 self-center uppercase text-[10px] sm:text-sm md:text-md"
+                    value={filterValue}
+                    onChange={(e) => setFilterValue(e.target.value)}
+                />
             </div>
         </TabsList>
         <Droppable droppableId={index.toString()} type="card" >
@@ -56,7 +76,7 @@ const UnscheduledTest = ({id, columns, index}:Properties) => (
 {/* change Height below ==>  */}
                             <ScrollArea className="h-[28.5em] px-[0.5rem] rounded-md">
                                 <div className="space-y-2">
-                                        {columns.map((order: any, index: any) => (
+                                        {filteredOrders.map((order: any, index: any) => (
                                         <Draggable
                                             key={order.orderNumber.toString()}
                                             draggableId={order.orderNumber.toString()}
@@ -89,6 +109,7 @@ const UnscheduledTest = ({id, columns, index}:Properties) => (
         </TabsContent>
     </Tabs>
     </div>
-);
+
+)}
 
 export default UnscheduledTest;

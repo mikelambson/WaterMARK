@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useSchedulingStore } from "@/lib/store/schedulingStore";
-import Column from "./SortedColumns";
 import Columns from "./SortedColumns";
 
 
@@ -33,12 +32,6 @@ const SchedulingBoard = () => {
   };
 
   useEffect(() => {
-    // Filter unscheduled orders based on the initial lateral letter
-    // const filteredOrders = board.columns.get("unscheduled").orders.filter(order => {
-    //     // Assuming `order.laterals` contains the lateral information
-    //     // Change 'A' to the initial lateral letter you want to filter by
-    //     return order.laterals.startsWith('A'); // Replace 'A' with the initial lateral letter
-    // });
     const fetchData = async () => {
       // Fetch data based on the updated district
       await getBoard(schedulingState);
@@ -57,34 +50,33 @@ const SchedulingBoard = () => {
   return (
     <div>
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        {/* Container id1: Tabbed Element */}
-        
-        <Droppable droppableId="id" direction="vertical" type="column">
-          {(provided) => (
-            <div
-              aria-label="unscheduled"
-              className="w-full md:max-w-full flex flex-col md:grid grid-cols-1 md:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto "
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {/* Loop through columns and render them */}
-              {Array.from(board.columns.entries()).map(
-                ([id, column], index) => (
-                  
-                  <Columns
-                      id={id}
-                      columns={column.orders}
-                      index={index}
-                  />
-                  
-                )
-              )}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+            {/* Container id1: Tabbed Element */}
+            <Droppable droppableId="id" direction="vertical" type="column">
+            {(provided) => (
+                <div
+                aria-label="unscheduled"
+                className="w-full md:max-w-full flex flex-col md:grid grid-cols-1 md:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto "
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                >
+                {/* Loop through columns and render them */}
+                {Array.from(board.columns.entries()).map(
+                    ([id, column], index) => (
+                    
+                    <Columns
+                        id={id}
+                        columns={column.orders}
+                        index={index}
+                    />
+                    
+                    )
+                )}
+                </div>
+            )}
+            </Droppable>
+        </DragDropContext>
     </div>
-  );
+    );
 };
 
 export default SchedulingBoard;

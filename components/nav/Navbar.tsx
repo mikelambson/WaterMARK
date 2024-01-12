@@ -153,7 +153,7 @@ const Navbar = () => {
           "h-16 flex mx-auto justify-between items-center px-2 fixed w-[100vw]"
         }
       >
-        <ul className={"hidden md:flex flex-grow items-center"}>
+        <ul className={"hidden lg:flex flex-grow items-center"}>
           {roleBasedLinks.map(({ id, link, allowedRoles, name, children }) =>
             allowedRoles.includes("any") || allowedRoles.includes(userRole) ? (
               <li
@@ -243,7 +243,7 @@ const Navbar = () => {
 
         <div
           onClick={() => setNav(!nav)}
-          className={`cursor-pointer pr-4 subpixel-antialiased ${defaultTextColorClass} md:hidden z-50`}
+          className={`cursor-pointer pr-4 subpixel-antialiased ${defaultTextColorClass} lg:hidden z-50`}
         >
           {nav ? <FaTimes size={40} /> : <FaBars size={30} />}
         </div>

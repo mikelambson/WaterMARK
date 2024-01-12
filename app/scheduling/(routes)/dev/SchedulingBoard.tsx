@@ -32,13 +32,7 @@ const SchedulingBoard = () => {
     getBoard,
   };
 
-  useEffect(() => {
-    // Filter unscheduled orders based on the initial lateral letter
-    // const filteredOrders = board.columns.get("unscheduled").orders.filter(order => {
-    //     // Assuming `order.laterals` contains the lateral information
-    //     // Change 'A' to the initial lateral letter you want to filter by
-    //     return order.laterals.startsWith('A'); // Replace 'A' with the initial lateral letter
-    // });
+  useEffect(() => { 
     const fetchData = async () => {
       // Fetch data based on the updated district
       await getBoard(schedulingState);
@@ -70,24 +64,28 @@ const SchedulingBoard = () => {
             {(provided) => (
                 <div
                 aria-label="unscheduled"
-                className="w-full md:max-w-full flex flex-col md:grid grid-cols-1 md:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto "
+                className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto "
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 >
-                    {Array.from(board.columns.entries()).map(([id, column], index) => {
+                    {Array.from(board.columns.entries()).map(
+                        ([id, column], index) => {
+                         //key=index[0,1]   
                         if (id === 'unscheduled') {
+                            
                             return (
                             <UnscheduledTest
-                                key={id}
+                                key={index}
                                 id={id}
                                 columns={column.orders}
                                 index={index}
                             />
                             );
-                        } else {
-                            return (
+                        } else if (id === 'scheduled') {
+                            
+                            return ( 
                                 <ScheduledColumn
-                                key={id}
+                                key={index}
                                 //   id={id}
                                 //   columns={column.orders}
                                 //   index={index}

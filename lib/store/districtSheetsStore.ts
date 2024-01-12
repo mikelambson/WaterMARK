@@ -14,11 +14,13 @@ export type PartialHeadsheetsData = HeadsheetsData | {
   characteristics: ""
 };
 
+export type HeadData = number | "Select";
+
 interface DistrictState {
   districtSelected: string;
   headsheets: HeadsheetsData[];
   selectedSheet: PartialHeadsheetsData;
-  selectedHead: number;
+  selectedHead: HeadData;
   setDistrict: (district: string) => void;
   getHeadsheets: (district: string) => Promise<void>; 
   setSelectedSheet: (sheet: HeadsheetsData) => void;

@@ -1,11 +1,12 @@
 "use client"
-import React, { useEffect, useState } from 'react';
-import { useSchedulingStore } from '@/lib/store/schedulingStore';
-import SchedulingBoard from './SchedulingBoard';
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
+import { useSchedulingStore } from '@/lib/store/schedulingStoreDev';
 import { useDistrictStore } from '@/lib/store/districtSheetsStore';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import SchedulingBoard from './SchedulingBoard';
+
+import { Label } from "@/components/ui/label"
+import { Button } from '@/components/ui/button';
 import { Command, CommandGroup, CommandItem } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ChevronsUpDown } from 'lucide-react';
@@ -13,13 +14,14 @@ import { ChevronsUpDown } from 'lucide-react';
 
 const ScheduleWater = () => {
     const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict } = useSchedulingStore();
-    const { districtSelected, headsheets, selectedSheet, setDistrict, getHeadsheets, setSelectedSheet } = useDistrictStore();
+    const { districtSelected, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead } = useDistrictStore();
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState("")
-    const [radioSelection, setRadioSelection] = useState("WE");
+    // const [radioSelection, setRadioSelection] = useState("WE");
     
     useEffect(() => {
         // Call getHeadsheets when the component mounts
+        setDistrict("WE")
         getHeadsheets(districtSelected);
       }, [getHeadsheets]);
 
@@ -37,21 +39,19 @@ const ScheduleWater = () => {
     };
     
     const handleDistrictChange = async (district: string) => {
-        const newRadioSelection = district;
         setDistrict(district)
         setSelectedDistrict(district);
-        getHeadsheets(district)
-        setRadioSelection(newRadioSelection);
         getBoard(schedulingState);
+        getHeadsheets(district)
+        setSelectedHead(1)
     };
 
     return (
         <section>
-            <div className='w-11/12 grid md:grid-flow-col grid-cols-1 md:grid-cols-3 gap-4 md:max-gap-24 md:mx-auto my-4 md:my-[1px]'>
-                <h1 className='text-center md:text-left text-2xl text-yellow-800 font-semibold'>Development Board</h1> 
-                <RadioGroup className='mx-auto my-auto md:mx-0 inline-flex justify-center gap-5' defaultValue={districtSelected}>
+            <div className='w-11/12 grid lg:grid-flow-col grid-cols-1 lg:grid-cols-3 gap-4 lg:max-gap-24 lg:mx-auto my-4 lg:my-[1px]'>
+                <h1 className='text-center lg:text-left text-2xl text-yellow-800 font-semibold'>Development Board</h1> 
+                <RadioGroup className='mx-auto my-auto lg:mx-0 inline-flex justify-center gap-5' defaultValue={districtSelected}>
                     <div className="flex items-center space-x-2" onClick={() => {
-                            
                             handleDistrictChange('WE');
                         }}>
                         <RadioGroupItem value="WE" id="WE" />
@@ -79,7 +79,7 @@ const ScheduleWater = () => {
                         <Label htmlFor="TC">Truckee</Label>
                     </div>
                 </RadioGroup>
-                <div className='pt-1 md:mb-0 grid md:justify-items-end justify-items-center'>
+                <div className='pt-1 lg:mb-0 grid lg:justify-items-end justify-items-center'>
                     
                     {/* <SelectTrigger className="w-[180px] h-6 my-1 border-foreground/50"> */}
                     <Popover open={open} onOpenChange={setOpen}>
@@ -97,13 +97,12 @@ const ScheduleWater = () => {
                         <PopoverContent className="w-[200px] -mt-1 p-0 z-50">  
                             <Command className="my-1">
                                 <CommandGroup>
-                                    {headsheets.map((headsheet) => (
+                                    {headsheets.map((headsheet:any) => (
                                         <CommandItem 
                                             key={headsheet.id} 
                                             value={headsheet.name} 
                                             onSelect={() => {
                                             setSelectedSheet(headsheet)
-                                            console.log(headsheet)
                                             setOpen(false)
                                             setValue(selectedSheet.name)
                                         }}>

@@ -4,12 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useDistrictStore } from '@/lib/store/districtSheetsStore';
 
 
-
-interface TabbbedColumnProps {
-    tabs: number;
-    headsheet: String;
-}
-
 const ScheduledColumn = () => {
     const { districtSelected, selectedSheet, selectedHead, setSelectedHead } = useDistrictStore();
 
@@ -34,7 +28,7 @@ const ScheduledColumn = () => {
                     {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
                         <div onClick={() => setSelectedHead(+index + 1)}>
                         <TabsTrigger 
-                        key={index + 1} 
+                        key={20 + selectedSheet.name + index + 1} 
                         value={`${index + 1}`
                         }>
                             {index + 1}
@@ -43,7 +37,7 @@ const ScheduledColumn = () => {
                     ))}
                 </div>
                 {selectedSheet.name !== "Select" && (
-                    <div onClick={() => setSelectedHead(10)}>
+                    <div key={10} onClick={() => setSelectedHead(10)}>
                         <TabsTrigger 
                         key={10} 
                         value={"10"}>
@@ -52,31 +46,29 @@ const ScheduledColumn = () => {
                     </div>
                 )}
             </TabsList>
-                <TabsContent key={selectedSheet.name === "Select" ? "1" : "0"} value={selectedSheet.name === "Select" ? "1" : "0"} className="h-[29rem]">
-                    <div className="w-full h-full flex flex-col justify-center text-center text-6xl md:text-8xl rounded-md bg-black/25 shadow-md">
-                    {optionSelection(districtSelected)}
-                    </div>
-                </TabsContent>
-                {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
-                    
-                    <TabsContent key={index + 1} value={`${index + 1}`} className="h-[29rem]">
-                        <div className="text-center -mt-2 text-sm font-bold italic text-foreground/50 dark:text-secondary/50 tracking-widest">Sheet {selectedSheet.name} | Head {selectedHead} </div>
-                        <ScrollArea className="h-[28.5em] rounded-md bg-black/10">
-                            <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>{selectedHead}</h2>
-                        </ScrollArea>
-                    </TabsContent>
-                    
-                ))}
-                <TabsContent key={10} value={"10"} className="h-[29rem]">
-                    <div className="text-center -mt-2 text-sm font-bold italic text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} Head | Drop-Ins </div>
+
+            <TabsContent key={selectedSheet.name === "Select" ? "1" : "0"} value={selectedSheet.name === "Select" ? "1" : "0"} className="h-[29rem]">
+                <div className="w-full h-full flex flex-col justify-center text-center text-6xl md:text-8xl rounded-md bg-black/25 shadow-md">
+                {optionSelection(districtSelected)}
+                </div>
+            </TabsContent>
+            {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
+                <TabsContent key={+selectedSheet.name + index + 10} value={`${index + 1}`} className="h-[29rem]">
+                    <div className="text-center -mt-2 text-sm font-bold italic text-foreground/50 dark:text-secondary/50 tracking-widest">Sheet {selectedSheet.name} | Head {selectedHead} </div>
                     <ScrollArea className="h-[28.5em] rounded-md bg-black/10">
-                        <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
-                            {selectedHead}
-                        </h2>
-                        
+                        <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>{selectedHead}</h2>
                     </ScrollArea>
-                </TabsContent>
-            
+                </TabsContent>    
+            ))}
+            <TabsContent key={+selectedSheet.name + 10} value={"10"} className="h-[29rem]">
+                <div className="text-center -mt-2 text-sm font-bold italic text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} Head | Drop-Ins </div>
+                <ScrollArea className="h-[28.5em] rounded-md bg-black/10">
+                    <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
+                        {selectedHead}
+                    </h2>
+                    
+                </ScrollArea>
+            </TabsContent>
         </Tabs>
     );
 };
