@@ -5,19 +5,27 @@ import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useSchedulingStore } from "@/lib/store/schedulingStoreDev";
 import ScheduledColumn from "./ScheduledTest";
 import UnscheduledTest from "./UnscheduledTest";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 const SchedulingBoard = () => {
   const {
     board,
     isLoading,
+    selectedDistrict,
+    page,
+    pageSize,
+    headsheets,
+    selectedSheet,
+    selectedHead,
+    setDistrict,
+    getHeadsheets,
+    setSelectedSheet,
+    setSelectedHead,
     setSelectedDistrict,
     setPage,
     setPageSize,
     getBoard,
-    selectedDistrict,
-    page,
-    pageSize,
   } = useSchedulingStore();
 
   const schedulingState = {
@@ -26,6 +34,14 @@ const SchedulingBoard = () => {
     selectedDistrict,
     page,
     pageSize,
+    headsheets,
+    selectedSheet,
+    selectedHead,
+
+    setDistrict,
+    getHeadsheets,
+    setSelectedSheet,
+    setSelectedHead,
     setSelectedDistrict,
     setPage,
     setPageSize,
@@ -45,7 +61,13 @@ const SchedulingBoard = () => {
     // Handle drag and drop logic here
   };
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+        <div className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto " >
+            <Skeleton className="h-[82svh]" />
+            <Skeleton className="h-[82svh]" />
+
+        </div>
+    );
   }
 
 //   {console.log(Array.from(board.columns.entries()).map(([id, column], index) => {
