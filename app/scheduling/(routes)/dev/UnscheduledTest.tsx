@@ -36,7 +36,7 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
     : columns;
     
     return (
-    <div className="relative w-full h-[82.5svh] bg-foreground/10 dark:bg-foreground/75 rounded-md pt-2 shadow-md">
+    <div className="relative w-full h-[calc(1rem + 82.5svh)] bg-foreground/10 dark:bg-foreground/75 rounded-md pt-2 shadow-md">
     <Tabs defaultValue="unscheduled" className=" w-full h-full flex flex-col justify-center">
         <TabsList className={"w-[96%] mx-auto inline-flex flex-nowrap justify-between px-1 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
             <div className="inline-flex">
