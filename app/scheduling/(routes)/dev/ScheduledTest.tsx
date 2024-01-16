@@ -1,8 +1,11 @@
 // TabbedColumn @\app\scheduling\_components\schedule-orders\TabbbedColumn.tsx
+import OrderCard from "@/app/analysis/_components/OrderCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useSchedulingStore } from '@/lib/store/schedulingStoreDev';
+import { cn } from "@/lib/utils";
 import { Order, TypedColumn } from "@/typings";
+import { Draggable, Droppable } from "@hello-pangea/dnd";
 
 type Properties = {
     id: TypedColumn,
@@ -54,33 +57,63 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                     )}
                 </TabsList>
 
-                <TabsContent  value={selectedSheet.name === "Select" ? "1" : "0"} className="h-[75svh]">
+                <TabsContent  value={selectedSheet.name === "Select" ? "1" : "0"} className="h-full">
                     <div className="w-full h-full flex flex-col justify-center text-center text-6xl md:text-8xl rounded-md bg-black/25 shadow-md">
                     {optionSelection(selectedDistrict)}
-                    <p className="text-md">{(selectedSheet.name === "Select" ? "sudo1" : "sudo0")}</p>
+                    {/* <p className="text-md">{(selectedSheet.name === "Select" ? "sudo1" : "sudo0")}</p> */}
                     </div>
                 </TabsContent>
-                {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
-                    <TabsContent  value={`${index + 1}`} className="h-full">
-                        <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} | Head {selectedHead} </div>
-                        <ScrollArea className="h-[72svh] rounded-md bg-black/10">
-                            <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>{selectedHead} <p>
-                            {(selectedSheet.name + "h" + (index + 1) + "content")}</p></h2>
-                        </ScrollArea>
-                    </TabsContent>    
-                ))}
-                <TabsContent  value={"10"} className="h-[29rem]">
-                    <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} Drop-Ins </div>
-                    <ScrollArea className="w-full h-[72vh] rounded-md bg-black/10 px-[0.5rem]">
-                        <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
-                            Drop-Ins
-                            <p>
-                            {(selectedSheet.name + "dropins" + selectedHead + "content")}</p>
-                        </h2>
-                        <p className="text-stone-300/25">{selectedHead} </p>
+                <Droppable droppableId={"1"} type="card" >
+                    {(provided, snapshot) => (
+                        <div
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                            className={cn("h-full rounded-md -mx-2 pb-8 border border-transparent", snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-transparent")}
+                            
+                        >
+                            {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
+                                <TabsContent  value={`${index + 1}`} className="h-full">
+                                    <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} | Head {selectedHead} </div>
+                                    <ScrollArea className="h-[72svh] rounded-md bg-black/10">
+                                        <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary/50"}>
+                                        {(selectedSheet.name + "-h" + (index + 1) + "content")}</h2>
+                                        <div className="space-y-2">
+                                        {columns.map((order: any, index: any) => (
+                                        <Draggable
+                                            key={order.orderNumber.toString()}
+                                            draggableId={order.orderNumber.toString()}
+                                            index={index}
+                                        >
+                                            {(provided) => (
+                                                <OrderCard
+                                                    order={order}
+                                                    index={index}
+                                                    id={order.orderNumber}
+                                                    innerRef={provided.innerRef}
+                                                    draggableProps={provided.draggableProps}
+                                                    dragHandleProps={provided.dragHandleProps}
+                                                />
+                                            )}
+                                        </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                    </ScrollArea>
+                                </TabsContent>    
+                            ))}
                         
+                    
+                <TabsContent  value={"10"} className="h-full">
+                    <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} Drop-Ins </div>
+                    <ScrollArea className="w-full h-[72svh] rounded-md bg-black/10 px-[0.5rem]">
+                        <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
+                            {(selectedSheet.name + "dropins" + selectedHead + "content")}
+                        </h2>
                     </ScrollArea>
                 </TabsContent>
+                </div>
+                )}
+                </Droppable>
             </Tabs>
         </div> 
     );

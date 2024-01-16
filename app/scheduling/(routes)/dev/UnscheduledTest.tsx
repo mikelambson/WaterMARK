@@ -50,13 +50,13 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
         <TabsList className={"w-full inline-flex flex-nowrap justify-between px-1 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
             <div className="inline-flex">
             <TabsTrigger 
-            key={1} 
+            key={("unscheduledtrigger" + 1)} 
             value={"unscheduled"}>
                 {columnNames[id]}
             </TabsTrigger>
             
             <TabsTrigger 
-            key={2} 
+            key={("unscheduledtrigger" + 2)} 
             value={"2"}>
                 Delayed
             </TabsTrigger>
@@ -64,6 +64,7 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
             <div className="inline-flex">
                 <IoSearch className="self-center -mr-5" /> 
                 <Input 
+                    id="unscheduledFilter"
                     type="filter"
                     placeholder={"Filter Line"}
                     className="pl-5 h-7 w-24 sm:w-32 mr-1 bg-background/60 self-center uppercase text-[10px] sm:text-sm md:text-md"
@@ -80,9 +81,9 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
                         className={cn("h-full rounded-md -mx-2 pb-8 border border-transparent", snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-transparent")}
                         
                     >
-                        <TabsContent key={"1"} value={"unscheduled"} className="h-full mt-0 w-full">
+                        <TabsContent key={"unscheduled1content"} value={"unscheduled"} className="h-full mt-1 w-full">
                             <div className="text-center text-sm font-bold text-foreground/50 dark:text-secondary/50">
-                                {/* <Pagination className="mb-1 h-6">
+                                <Pagination className="mb-1 h-6">
                                     <PaginationContent>
                                         <PaginationItem>
                                         <PaginationPrevious href="#" size={"pagination"} />
@@ -97,7 +98,7 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
                                         <PaginationNext href="#" size={"pagination"} />
                                         </PaginationItem>
                                     </PaginationContent>
-                                </Pagination> */}
+                                </Pagination>
                             </div>
 {/* change Height below ==>  */}
                             <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
@@ -127,7 +128,7 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
                     </div>
                 )}
         </Droppable>
-        <TabsContent key={2} value={"2"}>
+        <TabsContent key={"unscheduled2content"} value={"2"}>
             <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
                 Delayed
             </h2>
