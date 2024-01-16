@@ -57,7 +57,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     isLoading: false,
     selectedDistrict: "WE",
     page: 1,
-    pageSize: 500,
+    pageSize: 100,
 
     headsheets: [],
     selectedSheet: {
