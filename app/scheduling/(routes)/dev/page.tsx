@@ -13,8 +13,8 @@ import { ChevronsUpDown } from 'lucide-react';
 
 
 const ScheduleWater = () => {
-    const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict } = useSchedulingStore();
-    const { districtSelected, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead } = useDistrictStore();
+    const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead} = useSchedulingStore();
+    const {   } = useDistrictStore();
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState("")
     // const [radioSelection, setRadioSelection] = useState("WE");
@@ -22,7 +22,7 @@ const ScheduleWater = () => {
     useEffect(() => {
         // Call getHeadsheets when the component mounts
         setDistrict("WE")
-        getHeadsheets(districtSelected);
+        getHeadsheets(selectedDistrict);
       }, [getHeadsheets]);
 
       const schedulingState = {
@@ -34,8 +34,14 @@ const ScheduleWater = () => {
         setSelectedDistrict,
         setPage,
         setPageSize,
+        setDistrict,
+        headsheets,
+        selectedSheet,
+        getHeadsheets,
+        setSelectedSheet,
+        setSelectedHead,
         getBoard,
-        
+        selectedHead  
     };
     
     const handleDistrictChange = async (district: string) => {
@@ -50,7 +56,7 @@ const ScheduleWater = () => {
         <section>
             <div className='w-11/12 grid lg:grid-flow-col grid-cols-1 lg:grid-cols-3 gap-4 lg:max-gap-24 lg:mx-auto my-4 lg:my-[1px]'>
                 <h1 className='text-center lg:text-left text-2xl text-yellow-800 font-semibold'>Development Board</h1> 
-                <RadioGroup className='mx-auto my-auto lg:mx-0 inline-flex justify-center gap-5' defaultValue={districtSelected}>
+                <RadioGroup className='mx-auto my-auto lg:mx-0 inline-flex justify-center gap-5' defaultValue={selectedDistrict}>
                     <div className="flex items-center space-x-2" onClick={() => {
                             handleDistrictChange('WE');
                         }}>

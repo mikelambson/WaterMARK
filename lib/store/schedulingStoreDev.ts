@@ -19,6 +19,8 @@ export type PartialHeadsheetsData = HeadsheetsData | {
   
   export type HeadData = number | "Select";
 
+
+
 interface SchedulingState {
     board: Board;
     isLoading: boolean;

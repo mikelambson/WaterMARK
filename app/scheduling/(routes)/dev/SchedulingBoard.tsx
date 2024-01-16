@@ -108,9 +108,9 @@ const SchedulingBoard = () => {
                             return ( 
                                 <ScheduledColumn
                                 key={index}
-                                //   id={id}
-                                //   columns={column.orders}
-                                //   index={index}
+                                id={id}
+                                  columns={column.orders}
+                                  index={index}
                                 />
                             ); 
                         }
