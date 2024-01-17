@@ -55,7 +55,7 @@ const ScheduleWater = () => {
     return (
         <section>
             <div className='w-11/12 grid lg:grid-flow-col grid-cols-1 lg:grid-cols-3 gap-4 lg:max-gap-24 lg:mx-auto my-4 lg:my-[1px]'>
-                <h1 className='text-center lg:text-left text-2xl text-yellow-800 font-semibold'>Development Board</h1> 
+                <h1 className='text-center lg:text-left text-2xl text-yellow-800 font-semibold'>Scheduling Board</h1> 
                 <RadioGroup className='mx-auto my-auto lg:mx-0 inline-flex justify-center gap-5' defaultValue={selectedDistrict}>
                     <div className="flex items-center space-x-2" onClick={() => {
                             handleDistrictChange('WE');

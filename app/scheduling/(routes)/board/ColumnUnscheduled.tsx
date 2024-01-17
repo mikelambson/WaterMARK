@@ -1,4 +1,4 @@
-// UnscheduledTest.jsx
+// UnscheduledColumn.jsx
 import { Order, TypedColumn } from "@/typings";
 import { IoSearch } from "react-icons/io5";
 import { Input } from '@/components/ui/input';
@@ -31,7 +31,7 @@ const columnNames = {
 
 
 
-const UnscheduledTest = ({ id, columns, index }: Properties) => {
+const UnscheduledColumn = ({ id, columns, index }: Properties) => {
     // Step 1: Add State for Filter Value
     const [filterValue, setFilterValue] = useState('');
     
@@ -139,4 +139,4 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
 
 )}
 
-export default UnscheduledTest;
+export default UnscheduledColumn;
