@@ -1,6 +1,6 @@
 // @/app/(scheduling)/_components/OrderCard.tsx
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { IoIosArrowDropdownCircle, IoIosArrowDropupCircle, IoIosArrowForward } from "react-icons/io";
 import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "@hello-pangea/dnd";
 import { useTheme } from "next-themes";
@@ -47,7 +47,9 @@ const OrderCard = ({
     draggableProps,
     dragHandleProps,
 }: Properties) => {
-
+   
+    const cardRef = useRef<HTMLDivElement | null>(null);
+    
     const { theme } = useTheme();
     const isDarkMode = theme === "light";
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
@@ -56,13 +58,37 @@ const OrderCard = ({
     };
     const [date, setDate] = React.useState<Date>()
 
+    const handleClickOutside = (event: MouseEvent) => {
+        if (
+            cardRef.current &&
+            !((cardRef.current as unknown) as HTMLElement).contains(event.target as Node)
+          ) {
+            setIsDetailsVisible(false);
+          }
+        };
+    
+      // useEffect to add click event listener on mount
+      useEffect(() => {
+        document.addEventListener("click", handleClickOutside);
+    
+        // Cleanup the event listener on unmount
+        return () => {
+          document.removeEventListener("click", handleClickOutside);
+        };
+      }, []);
+
     return ( 
         <div
+            ref={(node) => {
+                cardRef.current = node;
+                innerRef(node);
+            }}
             className={ cn("mx-[2px] rounded-md drop-shadow-md", isDarkMode ? "bg-slate-600" :"bg-gray-800")}
-            {...draggableProps} {...dragHandleProps} ref={innerRef}
+            {...draggableProps} {...dragHandleProps} 
+            // ref={innerRef}
         >
             <Sheet>
-            <div onClick={toggleDetailsVisibility} className="grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 
+            <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 
             gap-0 rounded-sm align-text-bottom">
                 <div className={cn("col-start-1 row-start-1 row-span-4 pt-6 text-gray-400 dark:text-gray-700")}>
                     <DragIcon />
@@ -77,7 +103,7 @@ const OrderCard = ({
                 <div
                     className={cn("col-start-4 row-start-4 pl-1 font-medium relative text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.approxHrs} hrs 
                         <div   
-                        className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-2xl text-stone-100 dark:text-gray-400 hover:animate-bounce hover:text-amber-400/60 dark:hover:text-amber-400"}>
+                        className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-2xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400"}>
                             {isDetailsVisible ? (<IoIosArrowDropupCircle className={"hover:scale-125"} />) : (<IoIosArrowDropdownCircle />)}
                         </div>
                 </div>
@@ -89,7 +115,7 @@ const OrderCard = ({
                     Balance: {order.details.balance}<br />
                     </div>
                     <SheetTrigger asChild>
-                        <Button variant={"secondary"} size={"icon"} className="absolute bottom-2 right-2 bg-slate-700/30 dark:bg-slate-500/50 hover:animate-pulse">
+                        <Button variant={"outline"} size={"icon"} className="absolute bottom-2 right-2 bg-slate-700/30 dark:bg-slate-500/80 group-hover:animate-pulse font-semibold">
                             <IoIosArrowForward />
                         </Button>
                     </SheetTrigger>
