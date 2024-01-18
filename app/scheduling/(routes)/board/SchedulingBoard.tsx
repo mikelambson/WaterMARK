@@ -37,7 +37,6 @@ const SchedulingBoard = () => {
     headsheets,
     selectedSheet,
     selectedHead,
-
     setDistrict,
     getHeadsheets,
     setSelectedSheet,

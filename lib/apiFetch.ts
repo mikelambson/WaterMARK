@@ -1,13 +1,12 @@
 // @/lib/apiFetch.ts
-"use server";
 import axios, { AxiosResponse } from "axios";
+
+const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 interface DataTableError {
   message: string;
   // You can include additional properties specific to your error structure
 }
-
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 type FetchResult<T> = {
   success: boolean;
@@ -66,3 +65,26 @@ class ApiFetch {
 }
 
 export default ApiFetch;
+
+
+/*
+const api = new ApiFetch();
+
+useEffect(() => {
+    const specificRoute = `/ordercount/${year}`
+    useEffect(() => {
+      const specificRoute = `/ordercount/${year}`
+      async function fetchData() {
+      try {
+        const result = await api.fetchData<Count>(specificRoute);
+        if (!result.success) return console.error("Error fetching data:", result.error);
+        const data = result.data;
+        if (data == undefined) return setCountData(null);
+        setCountData(data)
+        } catch (error) {
+        console.error("Data Error:", error);
+      }
+    }
+    fetchData();  
+  }, [year]);
+*/

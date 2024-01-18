@@ -7,11 +7,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
+import ApiFetch from "@/lib/apiFetch";
+import { useState, useEffect } from "react";
 
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+const api = new ApiFetch();
 let defaultYear = 2023;
 
 interface OrdercountProps {
@@ -40,18 +40,19 @@ const Ordercount: React.FC<OrdercountProps> = (props) => {
   const [year, setYear] = useState<number>(defaultYear);
 
   useEffect(() => {
+    const specificRoute = `/ordercount/${year}`
     async function fetchData() {
       try {
-        const response = await axios.get<Count>(`${baseUrl}ordercount/${year}`);
-        setCountData(response.data);
-        // setCountData(null);
-      } catch (error) {
-        // Handle errors gracefully, e.g., show an error message to the user
-        console.error("Error fetching data:", error);
+        const result = await api.fetchData<Count>(specificRoute);
+        if (!result.success) return console.error("Error fetching data:", result.error);
+        const data = result.data;
+        if (data == undefined) return setCountData(null);
+        setCountData(data)
+        } catch (error) {
+        console.error("Data Error:", error);
       }
     }
-
-    fetchData();
+    fetchData();  
   }, [year]);
 
   return (

@@ -16,8 +16,7 @@ const ScheduleWater = () => {
     const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead} = useSchedulingStore();
     const {   } = useDistrictStore();
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState("")
-    // const [radioSelection, setRadioSelection] = useState("WE");
+    
     
     useEffect(() => {
         // Call getHeadsheets when the component mounts
@@ -110,7 +109,7 @@ const ScheduleWater = () => {
                                             onSelect={() => {
                                             setSelectedSheet(headsheet)
                                             setOpen(false)
-                                            setValue(selectedSheet.name)
+                                            // setValue(selectedSheet.name)
                                         }}>
                                         {headsheet.name}
                                         </CommandItem>

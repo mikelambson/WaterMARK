@@ -1,5 +1,5 @@
 // @/store/schedulingStore.ts
-import getScheduleGroupedByColumn from '@/lib/getScheduleDev';
+import getScheduleGroupedByColumn from '@/lib/scheduling/getScheduleDev';
 import { Column } from 'react-table';
 import { HeadsheetsData, TypedColumn, Board } from '@/typings';
 import { create } from 'zustand';

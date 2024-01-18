@@ -28,7 +28,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
       };
 
     return (   
-        <div className="relative w-full min-h-96 h-[84svh] p-2 px-2 overflow-visible bg-foreground/10 dark:bg-foreground/75 rounded-md  shadow-md">
+        <div className="relative w-full min-h-96 h-[84svh] p-2 px-2 bg-foreground/10 dark:bg-foreground/75 rounded-md overflow-hidden shadow-md">
         <Tabs key={("scheduledcolumn" + selectedSheet.name)} defaultValue="1" className="w-full h-full pb-8">
                 <TabsList className={"mx-auto inline-flex justify-between w-full px-2 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
                     <div key={"left"} className="inline-flex">
@@ -57,7 +57,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                     )}
                 </TabsList>
 
-                <TabsContent  value={selectedSheet.name === "Select" ? "1" : "0"} className="h-full">
+                <TabsContent  value={selectedSheet.name === "Select" ? "1" : "0"} className="h-full pb-4">
                     <div className="w-full h-full flex flex-col justify-center text-center text-6xl md:text-8xl rounded-md bg-black/25 shadow-md">
                     {optionSelection(selectedDistrict)}
                     {/* <p className="text-md">{(selectedSheet.name === "Select" ? "sudo1" : "sudo0")}</p> */}

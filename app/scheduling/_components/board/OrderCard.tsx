@@ -28,6 +28,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { TbGridDots } from "react-icons/tb";
 
 
 type Properties = {
@@ -103,7 +104,7 @@ const OrderCard = ({
                 <div
                     className={cn("col-start-4 row-start-4 pl-1 font-medium relative text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.approxHrs} hrs 
                         <div   
-                        className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-2xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400"}>
+                        className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu"}>
                             {isDetailsVisible ? (<IoIosArrowDropupCircle className={"hover:scale-125"} />) : (<IoIosArrowDropdownCircle />)}
                         </div>
                 </div>
@@ -115,8 +116,8 @@ const OrderCard = ({
                     Balance: {order.details.balance}<br />
                     </div>
                     <SheetTrigger asChild>
-                        <Button variant={"outline"} size={"icon"} className="absolute bottom-2 right-2 bg-slate-700/30 dark:bg-slate-500/80 group-hover:animate-pulse font-semibold">
-                            <IoIosArrowForward />
+                        <Button variant={"outline"} size={"icon"} className="absolute bottom-2 right-2 text-xl bg-slate-700/30 dark:bg-slate-500/80 border-neutral-500 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                            <TbGridDots />
                         </Button>
                     </SheetTrigger>
                 </div>
