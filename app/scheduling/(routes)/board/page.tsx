@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { useSchedulingStore } from '@/lib/store/schedulingStoreDev';
+import { useSchedulingStore } from '@/lib/store/schedulingStore';
 import { useDistrictStore } from '@/lib/store/districtSheetsStore';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import SchedulingBoard from './SchedulingBoard';

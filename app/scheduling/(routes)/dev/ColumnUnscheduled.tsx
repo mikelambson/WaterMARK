@@ -1,4 +1,4 @@
-// UnscheduledTest.jsx
+// UnscheduledColumn.jsx
 import { Order, TypedColumn } from "@/typings";
 import { IoSearch } from "react-icons/io5";
 import { Input } from '@/components/ui/input';
@@ -17,6 +17,7 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
+import { useSchedulingStore } from "@/lib/store/schedulingStore";
 
 type Properties = {
     id: TypedColumn,
@@ -30,10 +31,20 @@ const columnNames = {
 };
 
 
+const pageNumbers = Array.from({ length: 6 }, (_, index) => index + 1);
 
-const UnscheduledTest = ({ id, columns, index }: Properties) => {
+
+const UnscheduledColumn = ({ id, columns, index }: Properties) => {
+    const { page, setPage, } = useSchedulingStore();
+
     // Step 1: Add State for Filter Value
     const [filterValue, setFilterValue] = useState('');
+    const [currentPage, setCurrentPage] = useState(1); // Assuming the initial page is 1
+  
+    const handlePageChange = (page:number) => {
+      setCurrentPage(page);
+      setPage(page);
+    };
     
     // Step 2: Update Order Mapping
     const filteredOrders = filterValue
@@ -83,19 +94,43 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
                     >
                         <TabsContent key={"unscheduled1content"} value={"unscheduled"} className="h-full mt-1 w-full">
                             <div className="text-center text-sm font-bold text-foreground/50 dark:text-secondary/50">
-                                <Pagination className="mb-1 h-6">
+                                <Pagination className="mb-1 h-6 transition-colors">
                                     <PaginationContent>
                                         <PaginationItem>
-                                        <PaginationPrevious href="#" size={"pagination"} />
+                                            <PaginationPrevious 
+                                                href={"#"} 
+                                                size={"pagination"} 
+                                                onClick={() => {
+                                                    if (page == 1) return;
+                                                    const previous = page - 1;
+                                                    handlePageChange(previous)}
+                                                }
+                                                // {currentPage === 1 && ruturn "disabled"}
+                
+                                            />
                                         </PaginationItem>
+                                        {pageNumbers.map((pageNumber) => (
+                                            <PaginationItem key={pageNumber}>
+                                                <PaginationLink
+                                                        isActive={pageNumber === currentPage}
+                                                        onClick={() => handlePageChange(pageNumber)} 
+                                                        href={"#"}
+                                                        size={"pagination"}
+                                                >
+                                                {pageNumber}
+                                                </PaginationLink>
+                                            </PaginationItem>
+                                        ))}
                                         <PaginationItem>
-                                        <PaginationLink href="#" size={"pagination"}>1</PaginationLink>
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                        <PaginationEllipsis />
-                                        </PaginationItem>
-                                        <PaginationItem>
-                                        <PaginationNext href="#" size={"pagination"} />
+                                            <PaginationNext 
+                                                href="#" 
+                                                size={"pagination"}
+                                                onClick={() => {
+                                                    if (page == pageNumbers.length) return;
+                                                    const next = page + 1;
+                                                    handlePageChange(next)}
+                                                }
+                                            />
                                         </PaginationItem>
                                     </PaginationContent>
                                 </Pagination>
@@ -139,4 +174,4 @@ const UnscheduledTest = ({ id, columns, index }: Properties) => {
 
 )}
 
-export default UnscheduledTest;
+export default UnscheduledColumn;

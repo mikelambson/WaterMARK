@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useSchedulingStore } from "@/lib/store/schedulingStoreDev";
-import ScheduledColumn from "./ScheduledTest";
-import UnscheduledTest from "./UnscheduledTest";
+import ScheduledColumn from "@/app/scheduling/_components/board/ColumnScheduled";
+import UnscheduledColumn from "@/app/scheduling/_components/board/ColumnUnscheduled";
 import { Skeleton } from "@/components/ui/skeleton";
 
 
@@ -37,7 +37,6 @@ const SchedulingBoard = () => {
     headsheets,
     selectedSheet,
     selectedHead,
-
     setDistrict,
     getHeadsheets,
     setSelectedSheet,
@@ -96,7 +95,7 @@ const SchedulingBoard = () => {
                         if (id === 'unscheduled') {
                             
                             return (
-                            <UnscheduledTest
+                            <UnscheduledColumn
                                 key={index}
                                 id={id}
                                 columns={column.orders}

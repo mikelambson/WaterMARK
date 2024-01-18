@@ -2,7 +2,7 @@
 import OrderCard from "@/app/analysis/_components/OrderCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useSchedulingStore } from '@/lib/store/schedulingStoreDev';
+import { useSchedulingStore } from '@/lib/store/schedulingStore';
 import { cn } from "@/lib/utils";
 import { Order, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";

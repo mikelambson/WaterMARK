@@ -2,7 +2,7 @@
 "use client";
 import { useEffect } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
-import { useSchedulingStore } from "@/lib/store/schedulingStoreDev";
+import { useSchedulingStore } from "@/lib/store/schedulingStore";
 import ScheduledColumn from "@/app/scheduling/_components/board/ColumnScheduled";
 import UnscheduledColumn from "@/app/scheduling/_components/board/ColumnUnscheduled";
 import { Skeleton } from "@/components/ui/skeleton";

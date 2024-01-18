@@ -17,7 +17,7 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
-import { useSchedulingStore } from "@/lib/store/schedulingStoreDev";
+import { useSchedulingStore } from "@/lib/store/schedulingStore";
 
 type Properties = {
     id: TypedColumn,
