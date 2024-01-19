@@ -1,6 +1,5 @@
 // TabbedColumn @\app\scheduling\_components\schedule-orders\TabbbedColumn.tsx
 import { useSchedulingStore } from '@/lib/store/schedulingStore';
-
 import OrderCard from "@/app/analysis/_components/OrderCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -50,6 +49,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                             </TabsTrigger>
                             </div>
                         ))}
+                        
                     </div>
                     {selectedSheet.name !== "Select" && (
                         <div key={"right"} onClick={() => setSelectedHead(10)}>
@@ -83,7 +83,22 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                         <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary/50"}>
                                         {(selectedSheet.name + "-h" + (index + 1) + "content")}</h2>
                                         <div className="space-y-2">
-                                            
+                                        {Array.from(schedule.columns.values()).map((sched, index) => {
+                                            console.log(sched.id)
+                                            return (
+                                            <div key={index}>
+                                            <h2>Schedule ID: {sched.id}</h2>
+                                            <ul>
+                                                {sched.schedules.map((item: any, innerIndex: number) => (
+                                                <li key={innerIndex}>
+                                                    <p>Scheduled Date: {item.scheduledDate}</p>
+                                                    <p>Order ID: {item.orderId}</p>
+                                                    {/* Add more properties as needed */}
+                                                </li>
+                                                ))}
+                                            </ul>
+                                            </div>
+                                        )})}
                                         {columns.map((order: any, index: any) => (
                                         <Draggable
                                             key={order.orderNumber.toString()}

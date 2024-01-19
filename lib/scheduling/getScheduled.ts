@@ -1,5 +1,5 @@
 // @/lib/getScheduleGroupedByTypedSchedule.ts
-import { Board, TypedSchedule, Order, PartialHeadsheetsData, HeadData, Schedule } from "@/typings";
+import { TypedSchedule, PartialHeadsheetsData, HeadData, Schedule } from "@/typings";
 
 import ApiFetch from "@/lib/apiFetch";
 import { toast } from "@/components/ui/use-toast";
@@ -23,7 +23,6 @@ interface ApiFilters {
 const getScheduledByHead = async (filters: ApiFilters) => {
     const { district, headsheet, head } = filters;
     
-    const unscheduledStatus = "p,delayed"
     const scheduledStatus = "scheduled,running"
         
     
@@ -43,7 +42,6 @@ const getScheduledByHead = async (filters: ApiFilters) => {
         const scheduled: Schedule[] = result.data as Schedule[];
         // const scheduledOrders = result.data;
         scheduled.sort((a: any, b: any) => new Date(a.scheduledDate).getTime() - new Date(b.scheduledDate).getTime());
-        console.log("sort", scheduled);
 
         const arrayOfHeads: number[] = Array.from(new Set(scheduled.map(schedule => schedule.scheduledHead)));
 
@@ -77,7 +75,7 @@ const getScheduledByHead = async (filters: ApiFilters) => {
             new Map<number, TypedSchedule>()
         );
 
-        console.log(heads);
+        
         const schColumn: TypedSchedule[] = Array.from(heads.values());
         
         const scheduledcolumn: SchColumn = {
@@ -97,7 +95,7 @@ const getScheduledByHead = async (filters: ApiFilters) => {
           };
           
          
-          
+          console.log(scheduledcolumn);
           // Return the structured object
           return scheduledcolumn;
     
