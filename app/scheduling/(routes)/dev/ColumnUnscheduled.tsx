@@ -1,4 +1,6 @@
 // UnscheduledColumn.jsx
+import { useSchedulingStoreDev } from "@/lib/store/schedulingStoreDev";
+
 import { Order, TypedColumn } from "@/typings";
 import { IoSearch } from "react-icons/io5";
 import { Input } from '@/components/ui/input';
@@ -17,7 +19,7 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
-import { useSchedulingStore } from "@/lib/store/schedulingStore";
+
 
 type Properties = {
     id: TypedColumn,
@@ -35,7 +37,7 @@ const pageNumbers = Array.from({ length: 6 }, (_, index) => index + 1);
 
 
 const UnscheduledColumn = ({ id, columns, index }: Properties) => {
-    const { page, setPage, } = useSchedulingStore();
+    const { page, setPage, } = useSchedulingStoreDev();
 
     // Step 1: Add State for Filter Value
     const [filterValue, setFilterValue] = useState('');

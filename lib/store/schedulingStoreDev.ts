@@ -19,8 +19,6 @@ export type PartialHeadsheetsData = HeadsheetsData | {
   
   export type HeadData = number | "Select";
 
-
-
 interface SchedulingState {
     board: Board;
     isLoading: boolean;
@@ -41,7 +39,7 @@ interface SchedulingState {
       
 }
 
-export const useSchedulingStore = create<SchedulingState>((set) => ({
+export const useSchedulingStoreDev = create<SchedulingState>((set) => ({
     board: {
         columns: new Map<TypedColumn, Column>(),
         setDistrict: function (arg0: string): unknown {
@@ -75,7 +73,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     setDistrict: (district) => set({ selectedDistrict: district }),
     getHeadsheets: async () => {
       try {
-        const response = await axios.get(`${baseUrl}headsheets/${useSchedulingStore.getState().selectedDistrict}`);
+        const response = await axios.get(`${baseUrl}headsheets/${useSchedulingStoreDev.getState().selectedDistrict}`);
         const newSheets = response.data;
         set({ headsheets: newSheets });
         set({selectedSheet: {

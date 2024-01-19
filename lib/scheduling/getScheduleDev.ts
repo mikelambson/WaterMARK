@@ -32,8 +32,8 @@ interface ApiFilters {
 
     const columns = orders.reduce((acc: any, order: any) => {
         const { status} = order;
-        if (status === "scheduled" || status === "running") {
-                const key: TypedColumn = "scheduled";
+        if (status === "unscheduled" || status === "delayed") {
+                const key: TypedColumn = "unscheduled";
                 if (!acc.has(key)) {
                     acc.set(key, {
                         id: key,
@@ -43,7 +43,7 @@ interface ApiFilters {
                     acc.get(key)?.orders.push(order);
                 }
             } else {
-                const key: TypedColumn = "unscheduled";
+                const key: TypedColumn = "delayed";
                 if (!acc.has(key)) {
                     acc.set(key, {
                         id: key,
@@ -56,7 +56,7 @@ interface ApiFilters {
             return acc;
     }, new Map<TypedColumn, Column>()); 
          
-     const columnTypes: TypedColumn[] = [ "unscheduled", "scheduled"];
+     const columnTypes: TypedColumn[] = [ "unscheduled", "delayed"];
      for (const columnType of columnTypes) {
         if (!columns.get(columnType)) {
             columns.set(columnType, {

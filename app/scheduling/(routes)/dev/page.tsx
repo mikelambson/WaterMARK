@@ -1,10 +1,9 @@
 "use client"
+import { useSchedulingStore } from '@/lib/store/schedulingStore';
 import { useEffect, useState } from 'react';
-import { useSchedulingStore } from '@/lib/store/schedulingStoreDev';
-import { useDistrictStore } from '@/lib/store/districtSheetsStore';
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import SchedulingBoard from './SchedulingBoard';
 
+import SchedulingBoard from './SchedulingBoard';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Button } from '@/components/ui/button';
 import { Command, CommandGroup, CommandItem } from '@/components/ui/command';
@@ -13,11 +12,10 @@ import { ChevronsUpDown } from 'lucide-react';
 
 
 const ScheduleWater = () => {
-    const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead} = useSchedulingStore();
-    const {   } = useDistrictStore();
+    const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead, schedule, getSchedule} = useSchedulingStore();
+    // const {   } = useDistrictStore();
     const [open, setOpen] = useState(false)
-    const [value, setValue] = useState("")
-    // const [radioSelection, setRadioSelection] = useState("WE");
+    
     
     useEffect(() => {
         // Call getHeadsheets when the component mounts
@@ -41,7 +39,9 @@ const ScheduleWater = () => {
         setSelectedSheet,
         setSelectedHead,
         getBoard,
-        selectedHead  
+        selectedHead,
+        schedule,
+        getSchedule
     };
     
     const handleDistrictChange = async (district: string) => {
@@ -55,7 +55,7 @@ const ScheduleWater = () => {
     return (
         <section>
             <div className='w-11/12 grid lg:grid-flow-col grid-cols-1 lg:grid-cols-3 gap-4 lg:max-gap-24 lg:mx-auto my-4 lg:my-[1px]'>
-                <h1 className='text-center lg:text-left text-2xl text-yellow-800 font-semibold'>Development Board</h1> 
+                <h1 className='text-center lg:text-left text-2xl text-yellow-800 font-semibold'>Scheduling Board</h1> 
                 <RadioGroup className='mx-auto my-auto lg:mx-0 inline-flex justify-center gap-5' defaultValue={selectedDistrict}>
                     <div className="flex items-center space-x-2" onClick={() => {
                             handleDistrictChange('WE');
@@ -103,16 +103,16 @@ const ScheduleWater = () => {
                         <PopoverContent className="w-[200px] -mt-1 p-0 z-50">  
                             <Command className="my-1">
                                 <CommandGroup>
-                                    {headsheets.map((headsheet:any) => (
+                                    {headsheets.map((sheet:any) => (
                                         <CommandItem 
-                                            key={headsheet.id} 
-                                            value={headsheet.name} 
-                                            onSelect={() => {
-                                            setSelectedSheet(headsheet)
+                                            key={sheet.id} 
+                                            value={sheet.name} 
+                                            onSelect={async () => {
+                                            await setSelectedSheet(sheet)
                                             setOpen(false)
-                                            setValue(selectedSheet.name)
+                                            getSchedule(sheet)
                                         }}>
-                                        {headsheet.name}
+                                        {sheet.name}
                                         </CommandItem>
                                     ))}
                                 </CommandGroup>

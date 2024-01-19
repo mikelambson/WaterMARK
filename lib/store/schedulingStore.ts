@@ -1,24 +1,14 @@
 // @/store/schedulingStore.ts
 import getScheduleGroupedByColumn from '@/lib/scheduling/getScheduleGrouped';
 import { Column } from 'react-table';
-import { HeadsheetsData, TypedColumn, Board } from '@/typings';
+import { HeadsheetsData, TypedColumn, Board, PartialHeadsheetsData, HeadData, TypedSchedule, SchBoard} from '@/typings';
 import { create } from 'zustand';
 import axios from 'axios';
+// import ApiFetch from '@/lib//apiFetch';
+import getScheduledByHead from '@/lib/scheduling/getScheduled';
 
+// const api = new ApiFetch();
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-export type PartialHeadsheetsData = HeadsheetsData | {
-    id: 0,
-    name: "Sheetname",
-    district: "",
-    maxHeads: 0,
-    maxFlow: 0,
-    structureRef: "",
-    characteristics: ""
-  };
-  
-  export type HeadData = number | "Select";
-
 
 
 interface SchedulingState {
@@ -30,6 +20,7 @@ interface SchedulingState {
     headsheets: HeadsheetsData[];
     selectedSheet: PartialHeadsheetsData;
     selectedHead: HeadData;
+    schedule: SchBoard;
     setDistrict: (district: string) => void;
     getHeadsheets: (district: string) => Promise<void>; 
     setSelectedSheet: (sheet: HeadsheetsData) => void;
@@ -38,7 +29,7 @@ interface SchedulingState {
     setPage: (page: number) => void;
     setPageSize: (pageSize: number) => void;
     getBoard: (state: SchedulingState) => Promise<void>; // Receive state as a parameter
-      
+    getSchedule: (head: number) => Promise<void>;
 }
 
 export const useSchedulingStore = create<SchedulingState>((set) => ({
@@ -59,7 +50,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     isLoading: false,
     selectedDistrict: "WE",
     page: 1,
-    pageSize: 100,
+    pageSize: 50,
 
     headsheets: [],
     selectedSheet: {
@@ -72,6 +63,19 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
       characteristics: ""
     },
     selectedHead: 1,
+    schedule: {
+      columns: new Map<TypedSchedule, Column>(),
+      setDistrict: function (arg0: string): unknown {
+        throw new Error('Function not implemented.');
+      },
+      setSelectedSheet: function (arg0: number): unknown {
+        throw new Error('Function not implemented.');
+      },
+      setSelectedHead: function (arg0: number): unknown {
+        throw new Error('Function not implemented.');
+      },
+    },
+
     setDistrict: (district) => set({ selectedDistrict: district }),
     getHeadsheets: async () => {
       try {
@@ -109,6 +113,17 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
         const columns = await getScheduleGroupedByColumn(filters);
         set({ board: columns, isLoading: false });
     },
+    getSchedule: async (head) => {
+      const { selectedDistrict, selectedSheet } = useSchedulingStore.getState();
+
+      const filters = {
+        district: selectedDistrict,
+        headsheet: selectedSheet,
+        head: head,
+      };
+      const scheduledOrders = await getScheduledByHead(filters);
+
+    }
    
 }));
 

@@ -1,13 +1,25 @@
 // typings.d.ts
-
 interface Board {
     setDistrict(arg0: string): unknown;
     setPageSize(arg0: number): unknown;
     setPage(arg0: number): unknown;
     columns: Map<TypedColumn, Column>;
+    // heads: Map<TypedSchedule, Column>;
 }
 
-declare type TypedColumn = "unscheduled" | "scheduled";
+declare type TypedColumn = "unscheduled" | "delayed";
+
+interface SchBoard {
+    setDistrict(arg0: string): unknown;
+    setSelectedSheet(arg0: number): unknown;
+    setSelectedHead(arg0: number): unknown;
+    columns: Map<TypedSchedule, Column>;
+};
+
+interface TypedSchedule {
+    id: number;
+    schedules: Schedule[];
+  }
 
 interface Order {
     id: number;
@@ -22,8 +34,9 @@ interface Order {
     phoneNumbers: string[];
     remarks: string | null;
     details: OrderDetails;
-    scheduled: boolean;
-  }
+    deliveries?: any[]; // Making deliveries optional
+    analysis?: any[]; // Making analysis optional
+}
 
 interface OrderDetails {
     irrigatorsName: string;
@@ -31,9 +44,34 @@ interface OrderDetails {
     name: string;
     approxAf: number;
     balance: number;
-  }
+}
 
- interface FlowData {
+
+interface Schedule {
+    scheduledDate: string;
+    orderId: number;
+    scheduledLineId: number;
+    scheduledHead: number;
+    travelTime: number;
+    dropIn: boolean;
+    instructions: string | null;
+    watermasterNote: string | null;
+    specialRequest: string | null;
+    order: Order;
+    scheduledLine: ScheduledLine;
+}
+
+interface ScheduledLine {
+    id: number;
+    name: string;
+    district: string;
+    maxHeads: number;
+    structureRef: string | null;
+    maxFlow: number | null;
+    characteristics: string | null;
+}
+
+interface FlowData {
     id: string;
     name: string;
     type: string;
@@ -43,9 +81,9 @@ interface OrderDetails {
     override: boolean;
     manualValue?: float;
     manualTimestamp?: string;
-  }
+}
 
-  interface HeadsheetsData {
+interface HeadsheetsData {
     id: number;
     name: string;
     district: string;
@@ -53,6 +91,31 @@ interface OrderDetails {
     structureRef?: string;
     maxFlow?: number;
     characteristics?: string;
-  }
+}
+
+type PartialHeadsheetsData = HeadsheetsData | {
+    id: 0,
+    name: "Sheetname",
+    district: "",
+    maxHeads: 0,
+    maxFlow: 0,
+    structureRef: "",
+    characteristics: ""
+};
+
+type HeadData = number | "Select";
   
-  export { Board, TypedColumn, Order, OrderDetails, FlowData, HeadsheetsData };
+export { 
+    Board, 
+    TypedColumn, 
+    SchBoard,
+    TypedSchedule,
+    Order,
+    OrderDetails,
+    Schedule,
+    ScheduledLine, 
+    FlowData, 
+    HeadsheetsData, 
+    PartialHeadsheetsData, 
+    HeadData 
+};

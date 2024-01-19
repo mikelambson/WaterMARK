@@ -1,11 +1,14 @@
 // Scheduling Board @\app\scheduling\_components\schedule-orders\SchedulingBoard.tsx
 "use client";
+import { useSchedulingStore } from "@/lib/store/schedulingStore";
 import { useEffect } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
-import { useSchedulingStore } from "@/lib/store/schedulingStoreDev";
+import { Skeleton } from "@/components/ui/skeleton";
+
 import ScheduledColumn from "@/app/scheduling/_components/board/ColumnScheduled";
 import UnscheduledColumn from "@/app/scheduling/_components/board/ColumnUnscheduled";
-import { Skeleton } from "@/components/ui/skeleton";
+
+
 
 
 const SchedulingBoard = () => {
@@ -26,6 +29,8 @@ const SchedulingBoard = () => {
     setPage,
     setPageSize,
     getBoard,
+    schedule,
+    getSchedule
   } = useSchedulingStore();
 
   const schedulingState = {
@@ -45,6 +50,8 @@ const SchedulingBoard = () => {
     setPage,
     setPageSize,
     getBoard,
+    schedule,
+    getSchedule
   };
 
   useEffect(() => { 
