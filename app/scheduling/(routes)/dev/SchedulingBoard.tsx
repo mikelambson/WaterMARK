@@ -99,7 +99,7 @@ const SchedulingBoard = () => {
                     {Array.from(board.columns.entries()).map(
                         ([id, column], index) => {
                          //key=index[0,1]   
-                        if (id === 'unscheduled') {
+                        if (id === 'unscheduled'||'delayed') {
                             
                             return (
                             <UnscheduledColumn
@@ -109,7 +109,7 @@ const SchedulingBoard = () => {
                                 index={index}
                             />
                             );
-                        } else if (id === 'scheduled') {
+                        } else {
                             
                             return ( 
                                 <ScheduledColumn

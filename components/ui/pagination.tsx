@@ -4,9 +4,6 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "@/components/ui/button"
 
-
-
-
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
     role="navigation"
@@ -31,8 +28,10 @@ PaginationContent.displayName = "PaginationContent"
 const PaginationItem = React.forwardRef<
   HTMLLIElement,
   React.ComponentProps<"li">
->(({ className, ...props }, ref) => (
-  <li ref={ref} className={cn("", className)} {...props} />
+>(({ className, children, ...props }, ref) => (
+  <li ref={ref} className={cn("", className)} {...props}>
+    {children}
+  </li>
 ))
 PaginationItem.displayName = "PaginationItem"
 
@@ -58,7 +57,10 @@ const PaginationLink = ({
         className
       )}
       {...props}
-    />
+    >
+      {/* Wrap the link content within a valid HTML element, e.g., a span */}
+      <span className="flex flex-row items-center">{props.children}</span>
+    </Link>
   </PaginationItem>
 )
 PaginationLink.displayName = "PaginationLink"

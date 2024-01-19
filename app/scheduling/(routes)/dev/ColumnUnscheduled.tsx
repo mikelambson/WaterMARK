@@ -19,6 +19,7 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
+import PaginationComponent from "./getPage";
 
 
 type Properties = {
@@ -65,7 +66,7 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
             <TabsTrigger 
             key={("unscheduledtrigger" + 1)} 
             value={"unscheduled"}>
-                {columnNames[id]}
+                {/*columnNames[id]*/} Unscheduled
             </TabsTrigger>
             
             <TabsTrigger 
@@ -96,46 +97,13 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                     >
                         <TabsContent key={"unscheduled1content"} value={"unscheduled"} className="h-full mt-1 w-full">
                             <div className="text-center text-sm font-bold text-foreground/50 dark:text-secondary/50">
-                                <Pagination className="mb-1 h-6 transition-colors">
-                                    <PaginationContent>
-                                        <PaginationItem>
-                                            <PaginationPrevious 
-                                                href={"#"} 
-                                                size={"pagination"} 
-                                                onClick={() => {
-                                                    if (page == 1) return;
-                                                    const previous = page - 1;
-                                                    handlePageChange(previous)}
-                                                }
-                                                // {currentPage === 1 && ruturn "disabled"}
-                
-                                            />
-                                        </PaginationItem>
-                                        {pageNumbers.map((pageNumber) => (
-                                            <PaginationItem key={pageNumber}>
-                                                <PaginationLink
-                                                        isActive={pageNumber === currentPage}
-                                                        onClick={() => handlePageChange(pageNumber)} 
-                                                        href={"#"}
-                                                        size={"pagination"}
-                                                >
-                                                {pageNumber}
-                                                </PaginationLink>
-                                            </PaginationItem>
-                                        ))}
-                                        <PaginationItem>
-                                            <PaginationNext 
-                                                href="#" 
-                                                size={"pagination"}
-                                                onClick={() => {
-                                                    if (page == pageNumbers.length) return;
-                                                    const next = page + 1;
-                                                    handlePageChange(next)}
-                                                }
-                                            />
-                                        </PaginationItem>
-                                    </PaginationContent>
-                                </Pagination>
+                                <PaginationComponent 
+                                page={page} 
+                                pageNumbers={pageNumbers} 
+                                currentPage={currentPage} 
+                                handlePageChange={handlePageChange} 
+                                />
+                                
                             </div>
 {/* change Height below ==>  */}
                             <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
