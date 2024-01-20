@@ -76,13 +76,14 @@ const SchedulingBoard = () => {
     );
   }
 
-//   {console.log(Array.from(board.columns.entries()).map(([id, column], index) => {
-//     return {
-//         id: id,
-//         column: column,
-//         index: index,
-//     };
-//     }))}
+
+  // {console.log((schedule.columns).map(([id, column], index) => {
+  //   return {
+  //       id: id,
+  //       column: column,
+  //       index: index,
+  //   };
+  //   }))}
 
   return (
     <div>
@@ -99,7 +100,7 @@ const SchedulingBoard = () => {
                     {Array.from(board.columns.entries()).map(
                         ([id, column], index) => {
                          //key=index[0,1]   
-                        if (id === 'unscheduled'||'delayed') {
+                        if (id === 'unscheduled' && 'delayed') {
                             
                             return (
                             <UnscheduledColumn

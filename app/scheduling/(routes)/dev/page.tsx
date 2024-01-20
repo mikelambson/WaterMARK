@@ -108,9 +108,25 @@ const ScheduleWater = () => {
                                             key={sheet.id} 
                                             value={sheet.name} 
                                             onSelect={async () => {
-                                            await setSelectedSheet(sheet)
                                             setOpen(false)
-                                            getSchedule(sheet)
+                                            await setSelectedSheet(sheet)
+                                            await getSchedule(sheet)
+                                            await console.log(schedule)
+                                            // await console.log(Array.from(schedule.columns.entries()).map(([id, typedSchedule], index) => {
+                                            //     return {
+                                            //         id: id,
+                                            //         schedules: typedSchedule.schedules.map(schedule => {
+                                            //             return {
+                                            //                 // Map the properties as needed
+                                            //                 scheduledDate: schedule.scheduledDate,
+                                            //                 orderId: schedule.orderId,
+                                            //                 head: schedule.scheduledHead,
+                                            //                 // Add other properties as needed
+                                            //             };
+                                            //         }),
+                                            //         index: index,
+                                            //     };
+                                            // }));
                                         }}>
                                         {sheet.name}
                                         </CommandItem>

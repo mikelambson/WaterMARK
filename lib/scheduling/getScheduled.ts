@@ -1,5 +1,5 @@
 // @/lib/getScheduleGroupedByTypedSchedule.ts
-import { TypedSchedule, PartialHeadsheetsData, HeadData, Schedule } from "@/typings";
+import { TypedSchedule, PartialHeadsheetsData, HeadData, Schedule, SchBoard } from "@/typings";
 
 import ApiFetch from "@/lib/apiFetch";
 import { toast } from "@/components/ui/use-toast";
@@ -75,11 +75,26 @@ const getScheduledByHead = async (filters: ApiFilters) => {
             new Map<number, TypedSchedule>()
         );
 
+        const headTypes: number[] = [ 1, 2, 3, 4, 5, 6, 10];
         
-        const schColumn: TypedSchedule[] = Array.from(heads.values());
+        for (const headType of headTypes) {
+          if (!heads.get(headType)) {
+            heads.set(headType, {
+              id: headType,
+              schedules: [],
+            });
+          }
+        }
+
         
-        const scheduledcolumn: SchColumn = {
-            columns: schColumn,
+        const sortedSchedules = new Map(
+          Array.from(heads.entries()).sort((a, b) =>{
+            return headTypes.indexOf(a[0]) - headTypes.indexOf(b[0]);
+          })); 
+        console.log("Sorted", sortedSchedules);
+
+        const scheduledcolumn: SchBoard = {
+            columns: sortedSchedules,
             setDistrict: (district: string) => {
               // Implement the logic for setting the district
               console.log(`Setting district: ${district}`);
@@ -103,32 +118,6 @@ const getScheduledByHead = async (filters: ApiFilters) => {
     console.error("Data Error:", error);
                 
     }
-
-
-         
-//      const columnTypes: TypedSchedule[] = [ "unscheduled", "scheduled"];
-//      for (const columnType of columnTypes) {
-//         if (!columns.get(columnType)) {
-//             columns.set(columnType, {
-//                 id: columnType,
-//                 orders: [],
-//             });
-//         }
-//      };
-    
-//     // Sort columns by columnTypes
-//     const sortedTypedSchedules = new Map<TypedSchedule, TypedSchedule>(
-//         [...columns.entries()].sort((a, b) => {
-//             return columnTypes.indexOf(a[0]) - columnTypes.indexOf(b[0]);
-//         })
-//         );
-
-
-    
-// } catch (error) {
-//     console.error("Error fetching data:", error);
-//     throw error; // Propagate the error to the caller
-//   }
 };
  
 export default getScheduledByHead;

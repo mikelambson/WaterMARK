@@ -13,7 +13,7 @@ interface SchBoard {
     setDistrict(arg0: string): unknown;
     setSelectedSheet(arg0: number): unknown;
     setSelectedHead(arg0: number): unknown;
-    columns: Map<TypedSchedule, Column>;
+    columns: Map<number, TypedSchedule>;
 };
 
 interface TypedSchedule {
