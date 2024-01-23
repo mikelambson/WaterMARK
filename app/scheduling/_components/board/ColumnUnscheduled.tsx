@@ -1,7 +1,7 @@
 // UnscheduledColumn.jsx
-import { useSchedulingStoreDev } from "@/lib/store/schedulingStoreDev";
+import { useSchedulingStore } from "@/lib/store/schedulingStore";
 
-import { Order, TypedColumn } from "@/typings";
+import { Order, Schedule, TypedColumn } from "@/typings";
 import { IoSearch } from "react-icons/io5";
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -23,22 +23,22 @@ import PaginationComponent from "./getPage";
 
 
 type Properties = {
-    id: TypedColumn,
-    columns: Order[],
-    index: number,  
-}
+    id: string; // Adjust type based on your data
+    columns: (Order | Schedule)[]; // Adjust type based on your data
+    index: number;
+  };
 
-const columnNames = {
-  "unscheduled": "Unscheduled",
-  "scheduled": "Scheduled"
-};
+  const columnNames: { [key: string]: string } = {
+    unscheduled: 'Unscheduled',
+    delayed: 'Delayed',
+  };
 
 
 const pageNumbers = Array.from({ length: 6 }, (_, index) => index + 1);
 
 
 const UnscheduledColumn = ({ id, columns, index }: Properties) => {
-    const { page, setPage, } = useSchedulingStoreDev();
+    const { page, setPage, } = useSchedulingStore();
 
     // Step 1: Add State for Filter Value
     const [filterValue, setFilterValue] = useState('');
@@ -51,97 +51,100 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
     
     // Step 2: Update Order Mapping
     const filteredOrders = filterValue
-    ? columns.filter((order) =>
-        order.laterals.some((lateral) =>
-          lateral.toUpperCase().startsWith(filterValue.toUpperCase())
-        )
-      )
+    ? columns.filter((item) => {
+        if ('laterals' in item) {
+          // Check if the item is of type Order
+          return item.laterals.some((lateral: string) =>
+            lateral.toUpperCase().startsWith(filterValue.toUpperCase())
+          );
+        }
+        // Assuming it's of type Schedule
+        return false;
+      })
     : columns;
+
+  // ... (rest of the code)
+
     
     return (
-    <div className="relative w-full min-h-96 h-[84svh] p-2 px-2 overflow-visible bg-foreground/10 dark:bg-foreground/75 rounded-md  shadow-md">
-    <Tabs defaultValue="unscheduled" className="w-full h-full pb-8">
-        <TabsList className={"w-full inline-flex flex-nowrap justify-between px-1 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
-            <div className="inline-flex">
-            <TabsTrigger 
-            key={("unscheduledtrigger" + 1)} 
-            value={"unscheduled"}>
-                {/*columnNames[id]*/} Unscheduled
-            </TabsTrigger>
-            
-            <TabsTrigger 
-            key={("unscheduledtrigger" + 2)} 
-            value={"2"}>
-                Delayed
-            </TabsTrigger>
-            </div>
-            <div className="inline-flex">
-                <IoSearch className="self-center -mr-5" /> 
-                <Input 
-                    id="unscheduledFilter"
-                    type="filter"
-                    placeholder={"Filter Line"}
-                    className="pl-5 h-7 w-24 sm:w-32 mr-1 bg-background/60 self-center uppercase text-[10px] sm:text-sm md:text-md"
-                    value={filterValue}
-                    onChange={(e) => setFilterValue(e.target.value)}
+        <div className="relative w-full min-h-96 h-[84svh] p-2 px-2 overflow-visible bg-foreground/10 dark:bg-foreground/75 rounded-md shadow-md">
+          <Tabs defaultValue="unscheduled" className="w-full h-full pb-8">
+            <TabsList className={'w-full inline-flex flex-nowrap justify-between px-1 bg-stone-400 dark:bg-zinc-800 cursor-default'}>
+              <div className="inline-flex">
+                <TabsTrigger key={`trigger-unscheduled`} value={"unscheduled"}>
+                    {columnNames.unscheduled}
+                </TabsTrigger>
+                <TabsTrigger key={`trigger-delayed`} value={"delayed"}>
+                    {columnNames.delayed}
+                </TabsTrigger>
+    
+                {/* Add additional tabs as needed */}
+              </div>
+              <div className="inline-flex">
+                <IoSearch className="self-center -mr-5" />
+                <Input
+                  id={`filter-${id}`}
+                  type="filter"
+                  placeholder={'Filter Line'}
+                  className="pl-5 h-7 w-24 sm:w-32 mr-1 bg-background/60 self-center uppercase text-[10px] sm:text-sm md:text-md"
+                  value={filterValue}
+                  onChange={(e) => setFilterValue(e.target.value)}
                 />
+              </div>
+            </TabsList>
+            <Droppable droppableId={"0"} type="card">
+          {(provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className={cn("h-full rounded-md -mx-2 pb-8 border border-transparent", snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-transparent")}
+            >
+              <TabsContent key={`unscheduled-content`} value={"unscheduled"} className="h-full mt-1 w-full">
+                <div className="text-center text-sm font-bold text-foreground/50 dark:text-secondary/50">
+                  <PaginationComponent
+                    page={page}
+                    pageNumbers={pageNumbers}
+                    currentPage={currentPage}
+                    handlePageChange={handlePageChange}
+                  />
+                </div>
+                {/* change Height below ==>  */}
+                <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
+                  <div className="space-y-2">
+                    {filteredOrders.map((order: any, index: any) => (
+                      <Draggable
+                        key={order.orderNumber.toString()}
+                        draggableId={order.orderNumber.toString()}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <OrderCard
+                            order={order}
+                            index={index}
+                            id={order.orderNumber}
+                            innerRef={provided.innerRef}
+                            draggableProps={provided.draggableProps}
+                            dragHandleProps={provided.dragHandleProps}
+                          />
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                </ScrollArea>
+              </TabsContent>
             </div>
-        </TabsList>
-        <Droppable droppableId={"0"} type="card" >
-                {(provided, snapshot) => (
-                    <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        className={cn("h-full rounded-md -mx-2 pb-8 border border-transparent", snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-transparent")}
-                        
-                    >
-                        <TabsContent key={"unscheduled1content"} value={"unscheduled"} className="h-full mt-1 w-full">
-                            <div className="text-center text-sm font-bold text-foreground/50 dark:text-secondary/50">
-                                <PaginationComponent 
-                                page={page} 
-                                pageNumbers={pageNumbers} 
-                                currentPage={currentPage} 
-                                handlePageChange={handlePageChange} 
-                                />
-                                
-                            </div>
-{/* change Height below ==>  */}
-                            <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
-                                <div className="space-y-2">
-                                        {filteredOrders.map((order: any, index: any) => (
-                                        <Draggable
-                                            key={order.orderNumber.toString()}
-                                            draggableId={order.orderNumber.toString()}
-                                            index={index}
-                                        >
-                                            {(provided) => (
-                                                <OrderCard
-                                                    order={order}
-                                                    index={index}
-                                                    id={order.orderNumber}
-                                                    innerRef={provided.innerRef}
-                                                    draggableProps={provided.draggableProps}
-                                                    dragHandleProps={provided.dragHandleProps}
-                                                />
-                                            )}
-                                        </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                    </div>
-                            </ScrollArea>
-                        </TabsContent>
-                    </div>
-                )}
+          )}
         </Droppable>
-        <TabsContent key={"unscheduled2content"} value={"2"}>
-            <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
-                Delayed
-            </h2>
-            
+        <TabsContent key={`delayed-content`} value={"delayed"}>
+          <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
+            {columnNames.delayed}
+          </h2>
         </TabsContent>
-    </Tabs>
+      </Tabs>
     </div>
+  );
+};
 
-)}
-
+    
 export default UnscheduledColumn;

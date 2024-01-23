@@ -3,11 +3,16 @@ interface Board {
     setDistrict(arg0: string): unknown;
     setPageSize(arg0: number): unknown;
     setPage(arg0: number): unknown;
-    columns: Map<TypedColumn, Column>;
+    columns: Map<string, TypedUnscheduled>;
     // heads: Map<TypedSchedule, Column>;
 }
 
-declare type TypedColumn = "unscheduled" | "delayed";
+declare type TypedColumn = "unscheduled" | "scheduled"
+
+interface TypedUnscheduled {
+    id: string;
+    orders: Schedule[]; // Replace Schedule with the actual type of your orders
+  };
 
 interface SchBoard {
     setDistrict(arg0: string): unknown;
@@ -107,7 +112,8 @@ type HeadData = number | "Select";
   
 export { 
     Board, 
-    TypedColumn, 
+    TypedColumn,
+    TypedUnscheduled, 
     SchBoard,
     TypedSchedule,
     Order,

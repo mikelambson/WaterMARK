@@ -4,12 +4,12 @@ import OrderCard from "@/app/analysis/_components/OrderCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils";
-import { Order, TypedColumn } from "@/typings";
+import { Order, Schedule, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 
 type Properties = {
     id: TypedColumn,
-    columns: Order[],
+    columns: (Schedule | Order)[],
     index: number,  
 }
 

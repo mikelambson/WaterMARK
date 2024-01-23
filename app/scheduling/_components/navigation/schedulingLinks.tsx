@@ -73,14 +73,14 @@ export const schedulingLinks = [
       </>
     ),
   },
-  {
-    id: 706,
-    link: "/scheduling/dev",
-    content: (
-      <>
-        <FaScrewdriverWrench size={30} className={lastIcon} />
-        <span className={labelTextClass}>DEV</span>
-      </>
-    ),
-  },
+  // {
+  //   id: 706,
+  //   link: "/scheduling/dev",
+  //   content: (
+  //     <>
+  //       <FaScrewdriverWrench size={30} className={lastIcon} />
+  //       <span className={labelTextClass}>DEV</span>
+  //     </>
+  //   ),
+  // },
 ];

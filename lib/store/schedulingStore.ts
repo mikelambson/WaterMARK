@@ -1,7 +1,7 @@
 // @/store/schedulingStore.ts
-import getScheduleGroupedByColumn from '@/lib/scheduling/getScheduleGrouped';
+import getScheduleGroupedByColumn from '@/lib/scheduling/getUnscheduledGrouped';
 import { Column } from 'react-table';
-import { HeadsheetsData, TypedColumn, Board, PartialHeadsheetsData, HeadData, TypedSchedule, SchBoard} from '@/typings';
+import { HeadsheetsData, TypedColumn, Board, PartialHeadsheetsData, HeadData, TypedSchedule, SchBoard, TypedUnscheduled} from '@/typings';
 import { create } from 'zustand';
 import axios from 'axios';
 // import ApiFetch from '@/lib//apiFetch';
@@ -34,7 +34,7 @@ interface SchedulingState {
 
 export const useSchedulingStore = create<SchedulingState>((set) => ({
     board: {
-        columns: new Map<TypedColumn, Column>(),
+        columns: new Map<string, TypedUnscheduled>(),
         setDistrict: function (arg0: string): unknown {
             throw new Error('Function not implemented.');
         },
@@ -50,7 +50,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     isLoading: false,
     selectedDistrict: "WE",
     page: 1,
-    pageSize: 50,
+    pageSize: 100,
 
     headsheets: [],
     selectedSheet: {
@@ -64,7 +64,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     },
     selectedHead: 1,
     schedule: {
-      columns: new Map<TypedSchedule, Column>(),
+      columns: new Map<number, TypedSchedule>(),
       setDistrict: function (arg0: string): unknown {
         throw new Error('Function not implemented.');
       },

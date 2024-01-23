@@ -85,46 +85,39 @@ const SchedulingBoard = () => {
   //   };
   //   }))}
 
+  const unscheduledColumnStatuses = ['unscheduled', 'delayed'];
+  const scheduledColumnStatuses = ['scheduled', 'running'];
+
   return (
     <div>
       <DragDropContext onDragEnd={handleOnDragEnd}>
-        {/* Container id1: Tabbed Element */}
         <Droppable droppableId="id" direction="vertical" type="column">
-            {(provided) => (
-                <div
-                aria-label="unscheduled"
-                className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto "
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                >
-                    {Array.from(board.columns.entries()).map(
-                        ([id, column], index) => {
-                         //key=index[0,1]   
-                        if (id === 'unscheduled' && 'delayed') {
-                            
-                            return (
-                            <UnscheduledColumn
-                                key={index}
-                                id={id}
-                                columns={column.orders}
-                                index={index}
-                            />
-                            );
-                        } else {
-                            
-                            return ( 
-                                <ScheduledColumn
-                                key={index}
-                                id={id}
-                                  columns={column.orders}
-                                  index={index}
-                                />
-                            ); 
-                        }
-                    }
-                    )}
-                </div>
-            )} 
+          {(provided) => (
+            <div
+              aria-label="unscheduled"
+              className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {/* Render Unscheduled and Scheduled Columns within the same set of tabs */}
+              <UnscheduledColumn
+                id="unscheduled"
+                columns={[
+                  ...(board.columns.get('unscheduled')?.orders || []),
+                  ...(board.columns.get('delayed')?.orders || []),
+                ]}
+                index={0}
+              />
+              <ScheduledColumn
+                id="scheduled"
+                columns={[
+                  ...(board.columns.get('scheduled')?.orders || []),
+                  ...(board.columns.get('running')?.orders || []),
+                ]}
+                index={1}
+              />
+            </div>
+          )}
         </Droppable>
       </DragDropContext>
     </div>
