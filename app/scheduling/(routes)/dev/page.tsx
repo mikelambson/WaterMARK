@@ -18,6 +18,7 @@ const ScheduleWater = () => {
     
     
     useEffect(() => {
+    
         // Call getHeadsheets when the component mounts
         setDistrict("WE")
         getHeadsheets(selectedDistrict);

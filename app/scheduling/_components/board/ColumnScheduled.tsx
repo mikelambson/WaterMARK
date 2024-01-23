@@ -1,8 +1,8 @@
 // TabbedColumn @\app\scheduling\_components\schedule-orders\TabbbedColumn.tsx
+import { useSchedulingStore } from '@/lib/store/schedulingStore';
 import OrderCard from "@/app/analysis/_components/OrderCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useSchedulingStore } from '@/lib/store/schedulingStore';
 import { cn } from "@/lib/utils";
 import { Order, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
@@ -14,7 +14,8 @@ type Properties = {
 }
 
 const ScheduledColumn = ({ id, columns, index }: Properties) => {
-    const { selectedDistrict, selectedSheet, selectedHead, setSelectedHead } = useSchedulingStore();
+    const { selectedDistrict, selectedSheet, selectedHead, setSelectedHead, schedule, getSchedule } = useSchedulingStore();
+
 
     const optionSelection = (districtSelected: string): string | undefined => {
         const districtMapping: {[districtkey: string]: string} = {
@@ -36,7 +37,10 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                             {selectedSheet.name} Head
                         </h2>
                         {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
-                            <div key={("generated" + index + index + index)} onClick={() => setSelectedHead(+index + 1)}>
+                            <div key={("generated" + index + index + index)} onClick={() => {
+                                setSelectedHead(index + 1)
+                                getSchedule(index + 1)
+                            }}>
                             <TabsTrigger 
                             key={("trigger" + selectedSheet.name + (index) + selectedSheet + selectedHead)} 
                             value={`${index + 1}`
@@ -45,6 +49,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                             </TabsTrigger>
                             </div>
                         ))}
+                        
                     </div>
                     {selectedSheet.name !== "Select" && (
                         <div key={"right"} onClick={() => setSelectedHead(10)}>
@@ -78,6 +83,22 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                         <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary/50"}>
                                         {(selectedSheet.name + "-h" + (index + 1) + "content")}</h2>
                                         <div className="space-y-2">
+                                        {Array.from(schedule.columns.values()).map((sched, index) => {
+                                            console.log(sched.id)
+                                            return (
+                                            <div key={index}>
+                                            <h2>Schedule ID: {sched.id}</h2>
+                                            <ul>
+                                                {sched.schedules.map((item: any, innerIndex: number) => (
+                                                <li key={innerIndex}>
+                                                    <p>Scheduled Date: {item.scheduledDate}</p>
+                                                    <p>Order ID: {item.orderId}</p>
+                                                    {/* Add more properties as needed */}
+                                                </li>
+                                                ))}
+                                            </ul>
+                                            </div>
+                                        )})}
                                         {columns.map((order: any, index: any) => (
                                         <Draggable
                                             key={order.orderNumber.toString()}
@@ -92,6 +113,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                                     innerRef={provided.innerRef}
                                                     draggableProps={provided.draggableProps}
                                                     dragHandleProps={provided.dragHandleProps}
+                                                    
                                                 />
                                             )}
                                         </Draggable>
