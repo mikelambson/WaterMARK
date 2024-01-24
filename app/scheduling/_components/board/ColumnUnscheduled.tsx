@@ -20,7 +20,7 @@ type Properties = {
   };
 
   const columnNames: { [key: string]: string } = {
-    unscheduled: 'Unscheduled',
+    unscheduled: 'Pending',
     delayed: 'Delayed',
   };
 

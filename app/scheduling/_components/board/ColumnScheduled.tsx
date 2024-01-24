@@ -94,7 +94,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                         >
                             {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
                                 <TabsContent key={(index)} value={`${index + 1}`} className="h-full">
-                                    <div className="text-center mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} | Head {selectedHead} </div>
+                                    <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} | Head {selectedHead} </div>
                                     <ScrollArea className="h-[72svh] rounded-md px-2">
                                         
                                         <div className="space-y-2">
