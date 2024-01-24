@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils";
 import { Order, Schedule, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
+import { useEffect } from 'react';
 
 type Properties = {
     id: TypedColumn,
@@ -15,6 +16,19 @@ type Properties = {
 
 const ScheduledColumn = ({ id, columns, index }: Properties) => {
     const { selectedDistrict, selectedSheet, selectedHead, setSelectedHead, schedule, getSchedule } = useSchedulingStore();
+
+    useEffect(() => { 
+        const fetchSchedule = async () => {
+            if (selectedSheet.name === "Select") {
+              return null;
+            }
+            const head = Number(selectedHead);
+            await getSchedule(head);
+          };
+        // Call fetchData whenever selectedDistrict changes
+        fetchSchedule()
+      }, [getSchedule, selectedDistrict, selectedSheet, selectedHead]); // Empty dependency array means this effect will only run once after initial render
+    
 
 
     const optionSelection = (districtSelected: string): string | undefined => {
@@ -28,7 +42,6 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
         return districtMapping[districtSelected];
       };
 
-      const defaultHead = selectedHead ? selectedHead : 1;
 
 
     return (   
@@ -80,48 +93,44 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                             
                         >
                             {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
-                                <TabsContent  value={`${index + 1}`} className="h-full">
-                                    <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} | Head {selectedHead} </div>
-                                    <ScrollArea className="h-[72svh] rounded-md bg-black/10">
-                                        <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary/50"}>
-                                        {(selectedSheet.name + "-h" + (index + 1) + "content")}</h2>
+                                <TabsContent key={(index)} value={`${index + 1}`} className="h-full">
+                                    <div className="text-center mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} | Head {selectedHead} </div>
+                                    <ScrollArea className="h-[72svh] rounded-md px-2">
+                                        
                                         <div className="space-y-2">
-                                        {Array.from(schedule.columns.values()).map((sched, index) => {
-                                            console.log(sched.id)
-                                            return (
-                                            <div key={index}>
-                                            <h2>Schedule ID: {sched.id}</h2>
-                                            <ul>
-                                                {sched.schedules.map((item: any, innerIndex: number) => (
-                                                <li key={innerIndex}>
-                                                    <p>Scheduled Date: {item.scheduledDate}</p>
-                                                    <p>Order ID: {item.orderId}</p>
-                                                    {/* Add more properties as needed */}
-                                                </li>
-                                                ))}
-                                            </ul>
-                                            </div>
-                                        )})}
-                                        {columns.map((order: any, index: any) => (
-                                        <Draggable
-                                            key={order.orderNumber.toString()}
-                                            draggableId={order.orderNumber.toString()}
-                                            index={index}
-                                        >
-                                            {(provided) => (
-                                                <OrderCard
-                                                    order={order}
-                                                    index={index}
-                                                    id={order.orderNumber}
-                                                    innerRef={provided.innerRef}
-                                                    draggableProps={provided.draggableProps}
-                                                    dragHandleProps={provided.dragHandleProps}
-                                                    
-                                                />
-                                            )}
-                                        </Draggable>
-                                        ))}
-                                        {provided.placeholder}
+                                        {Array.from(schedule.columns.values())
+                                            .filter(sched => sched.id === (index + 1))
+                                            .map((filteredSched, innerIndex) => (
+                                                <div key={innerIndex}>
+                                                    {filteredSched.schedules.map((schedule: any, innerIndex: number) => (
+                                                        <Draggable
+                                                        key={innerIndex}
+                                                        draggableId={schedule.order.orderNumber.toString()}
+                                                        index={innerIndex}
+                                                        >
+                                                            {(provided) => (
+                                                                <div  
+                                                                key={innerIndex}
+                                                                id={schedule.order.orderNumber}
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                                {...provided.dragHandleProps}
+                                                                className="border rounded-md p-2 bg-slate-600 dark:bg-gray-800">
+                                                                    <p>Scheduled Date: {schedule.scheduledDate}</p>
+                                                                    <p>Order ID: {schedule.orderId}</p>
+                                                                    <p>Headsheet {schedule.scheduledLine.name}</p>
+                                                                    <p>Head: {schedule.scheduledHead}</p>
+                                                                    {/* Add more properties as needed */}
+                                                                </div>
+                                                            )}
+                                                        </Draggable>
+                                                    ))}
+                                                    {provided.placeholder}
+                                                </div>
+                                                
+                                            ))}
+                                       
+                                        
                                     </div>
                                     </ScrollArea>
                                 </TabsContent>    

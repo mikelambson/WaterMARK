@@ -1,6 +1,6 @@
 // @/store/schedulingStore.ts
 import getScheduleGroupedByColumn from '@/lib/scheduling/getUnscheduledGrouped';
-import { HeadsheetsData, TypedColumn, Board, PartialHeadsheetsData, HeadData, TypedSchedule, SchBoard, TypedUnscheduled} from '@/typings';
+import { HeadsheetsData, Board, PartialHeadsheetsData, HeadData, TypedSchedule, SchBoard, TypedUnscheduled} from '@/typings';
 import { create } from 'zustand';
 import axios from 'axios';
 // import ApiFetch from '@/lib//apiFetch';
@@ -44,13 +44,10 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
             throw new Error('Function not implemented.');
         }
     },
-    
-    
     isLoading: false,
     selectedDistrict: "WE",
     page: 1,
     pageSize: 100,
-
     headsheets: [],
     selectedSheet: {
       id: 0o0,
@@ -96,12 +93,9 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     },
     setSelectedSheet: (headsheet) => set({ selectedSheet: headsheet}),
     setSelectedHead: (head) => set({selectedHead: head}),
-
     setSelectedDistrict: (district: string) => set({ selectedDistrict: district}),
     setPage: (page: number) => set({ page }),
     setPageSize: (pageSize: number) => set({ pageSize }),
-    
-        
     getBoard: async (state) => {
         set({ isLoading: true});
         const filters = {
@@ -120,9 +114,14 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
         headsheet: selectedSheet,
         head: head,
       };
-      const scheduledOrders = await getScheduledByHead(filters);
-
-    }
+      const scheduledOrders: SchBoard = (await getScheduledByHead(filters)) ?? {
+        setDistrict: () => {},
+        setSelectedSheet: () => {},
+        setSelectedHead: () => {},
+        columns: new Map<number, TypedSchedule>(),
+    };
+      set({schedule: scheduledOrders})
+    },
    
 }));
 
