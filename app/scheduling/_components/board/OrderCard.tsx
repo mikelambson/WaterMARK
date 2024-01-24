@@ -1,7 +1,7 @@
 // @/app/(scheduling)/_components/OrderCard.tsx
 "use client"
 import React, { useState, useEffect, useRef } from "react";
-import { IoIosArrowDropdownCircle, IoIosArrowDropupCircle, IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowDropdownCircle, IoIosArrowDropupCircle } from "react-icons/io";
 import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "@hello-pangea/dnd";
 import { useTheme } from "next-themes";
 import { format } from "date-fns";
@@ -42,7 +42,7 @@ type Properties = {
 
 const OrderCard = ({
     order,
-    index,
+    // index,
     id,
     innerRef,
     draggableProps,
