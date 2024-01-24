@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react';
 import { useSchedulingStore } from '@/lib/store/schedulingStore';
-import { useDistrictStore } from '@/lib/store/districtSheetsStore';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import SchedulingBoard from './SchedulingBoard';
 
@@ -14,7 +13,6 @@ import { ChevronsUpDown } from 'lucide-react';
 
 const ScheduleWater = () => {
     const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead, schedule, getSchedule} = useSchedulingStore();
-    const {   } = useDistrictStore();
     const [open, setOpen] = useState(false)
     
     

@@ -15,6 +15,9 @@ interface PaginationTypes {
 }
         
 const PaginationComponent = ({ page, pageNumbers, currentPage, handlePageChange }: PaginationTypes) => {
+   
+    
+
     return (
         <Pagination className="mb-1 h-6 transition-colors">
             <PaginationContent>

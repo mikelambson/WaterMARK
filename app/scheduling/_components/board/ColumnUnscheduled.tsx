@@ -1,7 +1,7 @@
 // UnscheduledColumn.jsx
 import { useSchedulingStore } from "@/lib/store/schedulingStore";
 
-import { Order, Schedule, TypedColumn } from "@/typings";
+import { Order, Schedule } from "@/typings";
 import { IoSearch } from "react-icons/io5";
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -10,15 +10,6 @@ import { Draggable, Droppable } from "@hello-pangea/dnd";
 import OrderCard from "@/app/scheduling/_components/board/OrderCard";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-  } from "@/components/ui/pagination"
 import PaginationComponent from "./getPage";
 
 
@@ -42,28 +33,53 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
 
     // Step 1: Add State for Filter Value
     const [filterValue, setFilterValue] = useState('');
-    const [currentPage, setCurrentPage] = useState(1); // Assuming the initial page is 1
+    const currentPage = page;
   
     const handlePageChange = (page:number) => {
-      setCurrentPage(page);
       setPage(page);
     };
     
     // Step 2: Update Order Mapping
-    const filteredOrders = filterValue
-    ? columns.filter((item) => {
-        if ('laterals' in item) {
-          // Check if the item is of type Order
-          return item.laterals.some((lateral: string) =>
-            lateral.toUpperCase().startsWith(filterValue.toUpperCase())
-          );
-        }
-        // Assuming it's of type Schedule
-        return false;
-      })
-    : columns;
 
-  // ... (rest of the code)
+     // Separate arrays for "unscheduled" and "delayed" orders
+    const unscheduledOrders: Order[] = [];
+    const delayedOrders: Order[] = [];
+
+    // Loop through columns and categorize orders based on status
+    columns.forEach((item) => {
+        if ('status' in item) {
+            if (item.status === 'P') {
+                unscheduledOrders.push(item);
+            } else if (item.status === 'delayed') {
+                delayedOrders.push(item);
+            }
+        } else if ('status' in item.order) {
+            if (item.order.status === 'P') {
+                unscheduledOrders.push(item.order);
+            } else if (item.order.status === 'delayed') {
+                delayedOrders.push(item.order);
+            }
+        }
+        // Handle other cases if necessary
+    });
+
+    // Step 3: Update Order Filtering
+    // Apply additional filtering based on lateral and create separate filtered arrays
+    const filteredUnscheduledOrders = filterValue
+        ? unscheduledOrders.filter((order) =>
+            order.laterals.some((lateral: string) =>
+            lateral.toUpperCase().startsWith(filterValue.toUpperCase())
+            )
+        )
+        : unscheduledOrders;
+
+    const filteredDelayedOrders = filterValue
+        ? delayedOrders.filter((order) =>
+            order.laterals.some((lateral: string) =>
+            lateral.toUpperCase().startsWith(filterValue.toUpperCase())
+            )
+        )
+        : delayedOrders;
 
     
     return (
@@ -72,12 +88,11 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
             <TabsList className={'w-full inline-flex flex-nowrap justify-between px-1 bg-stone-400 dark:bg-zinc-800 cursor-default'}>
               <div className="inline-flex">
                 <TabsTrigger key={`trigger-unscheduled`} value={"unscheduled"}>
-                    {columnNames.unscheduled}
+                    {`${columnNames.unscheduled} (${filteredUnscheduledOrders.length})`}
                 </TabsTrigger>
                 <TabsTrigger key={`trigger-delayed`} value={"delayed"}>
-                    {columnNames.delayed}
+                    {`${columnNames.delayed} (${filteredDelayedOrders.length})`}
                 </TabsTrigger>
-    
                 {/* Add additional tabs as needed */}
               </div>
               <div className="inline-flex">
@@ -93,58 +108,90 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
               </div>
             </TabsList>
             <Droppable droppableId={"0"} type="card">
-          {(provided, snapshot) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className={cn("h-full rounded-md -mx-2 pb-8 border border-transparent", snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-transparent")}
-            >
-              <TabsContent key={`unscheduled-content`} value={"unscheduled"} className="h-full mt-1 w-full">
+              {(provided, snapshot) => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className={cn("h-full rounded-md -mx-2 pb-8 border border-transparent",
+                    snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-transparent")}
+                >
+                    <TabsContent key={`unscheduled-content`} value={"unscheduled"} className="h-full mt-1 w-full">
                 <div className="text-center text-sm font-bold text-foreground/50 dark:text-secondary/50">
-                  <PaginationComponent
+                    <PaginationComponent
                     page={page}
                     pageNumbers={pageNumbers}
                     currentPage={currentPage}
                     handlePageChange={handlePageChange}
-                  />
+                    />
                 </div>
-                {/* change Height below ==>  */}
+                {/* Change Height below ==>  */}
                 <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
-                  <div className="space-y-2">
-                    {filteredOrders.map((order: any, index: any) => (
-                      <Draggable
+                    <div className="space-y-2">
+                    {filteredUnscheduledOrders.map((order: any, index: any) => (
+                        <Draggable
                         key={order.orderNumber.toString()}
                         draggableId={order.orderNumber.toString()}
                         index={index}
-                      >
+                        >
                         {(provided) => (
-                          <OrderCard
+                            <OrderCard
                             order={order}
                             index={index}
                             id={order.orderNumber}
                             innerRef={provided.innerRef}
                             draggableProps={provided.draggableProps}
                             dragHandleProps={provided.dragHandleProps}
-                          />
+                            />
                         )}
-                      </Draggable>
+                        </Draggable>
                     ))}
-                    {provided.placeholder}
-                  </div>
+                    </div>
                 </ScrollArea>
-              </TabsContent>
-            </div>
-          )}
-        </Droppable>
-        <TabsContent key={`delayed-content`} value={"delayed"}>
-          <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
-            {columnNames.delayed}
-          </h2>
-        </TabsContent>
-      </Tabs>
-    </div>
-  );
-};
+                </TabsContent>
+
+                <TabsContent key={`delayed-content`} value={"delayed"} className="h-full mt-1 w-full">
+                <div className="text-center text-sm font-bold text-foreground/50 dark:text-secondary/50">
+                    <PaginationComponent
+                    page={page}
+                    pageNumbers={pageNumbers}
+                    currentPage={currentPage}
+                    handlePageChange={handlePageChange}
+                    />
+                </div>
+                {/* Change Height below ==>  */}
+                <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
+                    <div className="space-y-2">
+                    {filteredDelayedOrders.map((delayedOrder: any, index: any) => (
+                        <Draggable
+                        key={delayedOrder.orderNumber.toString()}
+                        draggableId={delayedOrder.orderNumber.toString()}
+                        index={index}
+                        >
+                        {(provided) => (
+                            <OrderCard
+                            order={delayedOrder}
+                            index={index}
+                            id={delayedOrder.orderNumber}
+                            innerRef={provided.innerRef}
+                            draggableProps={provided.draggableProps}
+                            dragHandleProps={provided.dragHandleProps}
+                            />
+                        )}
+                        </Draggable>
+                    ))}
+                    </div>
+                </ScrollArea>
+                </TabsContent>
+
+
+
+                </div>
+              )}
+            </Droppable>
+          </Tabs>
+        </div>
+      );
+}      
 
     
 export default UnscheduledColumn;

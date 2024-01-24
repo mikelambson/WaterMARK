@@ -1,6 +1,5 @@
 // @/store/schedulingStore.ts
 import getScheduleGroupedByColumn from '@/lib/scheduling/getUnscheduledGrouped';
-import { Column } from 'react-table';
 import { HeadsheetsData, TypedColumn, Board, PartialHeadsheetsData, HeadData, TypedSchedule, SchBoard, TypedUnscheduled} from '@/typings';
 import { create } from 'zustand';
 import axios from 'axios';

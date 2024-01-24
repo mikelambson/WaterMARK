@@ -61,7 +61,7 @@ const SchedulingBoard = () => {
     };
     // Call fetchData whenever selectedDistrict changes
     fetchData();
-  }, [getBoard, selectedDistrict]); // Empty dependency array means this effect will only run once after initial render
+  }, [getBoard, selectedDistrict, page]); // Empty dependency array means this effect will only run once after initial render
 
   const handleOnDragEnd = (result: any) => {
     // Handle drag and drop logic here
@@ -77,16 +77,6 @@ const SchedulingBoard = () => {
   }
 
 
-  // {console.log((schedule.columns).map(([id, column], index) => {
-  //   return {
-  //       id: id,
-  //       column: column,
-  //       index: index,
-  //   };
-  //   }))}
-
-  const unscheduledColumnStatuses = ['unscheduled', 'delayed'];
-  const scheduledColumnStatuses = ['scheduled', 'running'];
 
   return (
     <div>

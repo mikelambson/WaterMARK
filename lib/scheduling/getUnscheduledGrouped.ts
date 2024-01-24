@@ -1,7 +1,6 @@
 // @/lib/getScheduleGroupedByColumn.ts
 import { Board, TypedUnscheduled, Order } from "@/typings";
 import axios from "axios";
-import { Column } from "react-table";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 interface ApiFilters {
@@ -17,7 +16,7 @@ interface ApiFilters {
 
     try {
         const response = await axios.get(
-          `${baseUrl}orders?find:status=${status}&find:district=${district}`
+          `${baseUrl}orders?find:status=${status}&find:district=${district}&pageSize=${pageSize}&page=${page}`
         );
     
         const orders: Order[] = response.data;
