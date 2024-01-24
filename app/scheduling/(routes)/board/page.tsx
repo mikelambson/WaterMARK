@@ -108,6 +108,7 @@ const ScheduleWater = () => {
                                             value={headsheet.name} 
                                             onSelect={() => {
                                             setSelectedSheet(headsheet)
+                                            setSelectedHead(1)
                                             setOpen(false)
                                             // setValue(selectedSheet.name)
                                         }}>

@@ -28,9 +28,12 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
         return districtMapping[districtSelected];
       };
 
+      const defaultHead = selectedHead ? selectedHead : 1;
+
+
     return (   
         <div className="relative w-full min-h-96 h-[84svh] p-2 px-2 bg-foreground/10 dark:bg-foreground/75 rounded-md overflow-hidden shadow-md">
-        <Tabs key={("scheduledcolumn" + selectedSheet.name)} defaultValue="1" className="w-full h-full pb-8">
+        <Tabs key={("scheduledcolumn" + selectedSheet.name)} defaultValue={String(selectedHead)} className="w-full h-full pb-8">
                 <TabsList className={"mx-auto inline-flex justify-between w-full px-2 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
                     <div key={"left"} className="inline-flex">
                         <h2 key={"label"} className={" font-semibold text-slate-600 dark:text-gray-400 self-center mr-2"}>

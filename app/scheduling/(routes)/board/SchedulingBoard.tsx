@@ -61,7 +61,7 @@ const SchedulingBoard = () => {
     };
     // Call fetchData whenever selectedDistrict changes
     fetchData();
-  }, [getBoard, selectedDistrict, page]); // Empty dependency array means this effect will only run once after initial render
+  }, [getBoard, selectedDistrict, page, selectedHead]); // Empty dependency array means this effect will only run once after initial render
 
   const handleOnDragEnd = (result: any) => {
     // Handle drag and drop logic here
