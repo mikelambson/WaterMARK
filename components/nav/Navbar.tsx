@@ -161,11 +161,8 @@ const Navbar = () => {
                 className={cn(
                   `nav-links h-[3.8rem] inline-flex items-center px-3 capitalize font-medium subpixel-antialiased ${defaultTextColorClass}  duration-200 pb-1`,
                   children.includes(pathname)
-                    ? cn(
-                        isDarkMode
-                          ? "text-orange-300/90 border-b-2 border-b-amber-500/30"
-                          : "dark:text-orange-300 dark:border-b-2 dark:border-b-orange-300/30"
-                      )
+                    ? `text-orange-300 dark:text-orange-300/95 border-b-[2.5px] border-b-orange-100/50
+                     dark:border-b-orange-200/50`
                     : { defaultTextColorClass }
                 )}
               >
@@ -205,11 +202,7 @@ const Navbar = () => {
                               className={cn(
                                 "self-center  group-hover:text-yellow-400/90 dark:group-hover:text-yellow-300 duration-200",
                                 children.includes(pathname)
-                                  ? cn(
-                                      isDarkMode
-                                        ? "text-orange-300/90"
-                                        : "text-orange-300/90"
-                                    )
+                                  ? "text-orange-300"
                                   : "text-orange-100/60"
                               )}
                             >
