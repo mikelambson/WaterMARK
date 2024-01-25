@@ -85,7 +85,7 @@ const OrderCard = ({
                 innerRef(node);
             }}
             className={ cn("mx-[2px] rounded-md drop-shadow-md", order.status === "delayed" 
-            ? "bg-green-900/75 dark:bg-green-950/90" 
+            ? "bg-green-900/60 dark:bg-green-950/75" 
             : "bg-neutral-700/90 dark:bg-zinc-800/90")}
             {...draggableProps} {...dragHandleProps} 
             // ref={innerRef}
@@ -93,7 +93,7 @@ const OrderCard = ({
             <Sheet>
             <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 
             gap-0 rounded-sm align-text-bottom">
-                <div className={cn("col-start-1 row-start-1 row-span-4 pt-6 text-gray-400 dark:text-gray-700")}>
+                <div className={cn("col-start-1 row-start-1 row-span-4 pt-6 text-gray-400/60 dark:text-gray-600/80")}>
                     <DragIcon />
                 </div>
                 <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{order.laterals.join(' ')}</div>
@@ -112,15 +112,15 @@ const OrderCard = ({
                             : (<IoIosArrowDropdownCircle onClick={toggleDetailsVisibility} />)}
                         </div>
                 </div>
-                <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden transition-all ${isDetailsVisible ? cn("h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md", isDarkMode ? "border-gray-200" : "border-gray-600") : 'h-0 opacity-0'} duration-300 ease-in-out`}>
-                    <div className={cn("p-1 ", isDarkMode ? "bg-stone-400/75" :"bg-stone-800/60")}>
+                <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden transition-all ${isDetailsVisible ? cn("h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md border-gray-200 dark:border-gray-600") : 'h-0 opacity-0'} duration-300 ease-in-out`}>
+                    <div className={cn("p-1 bg-stone-400/70 dark:bg-stone-800/60")}>
                     Irrigator: {order.details.irrigatorsName}<br />
                     Owner: {order.details.ownersName}<br />
                     Ordered AF: {order.details.approxAf}<br />
                     Balance: {order.details.balance}<br />
                     </div>
                     <SheetTrigger asChild>
-                        <Button variant={"outline"} size={"icon"} className="absolute bottom-2 right-2 text-xl bg-slate-700/30 dark:bg-slate-500/80 border-neutral-500 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                        <Button variant={"outline"} size={"icon"} className="absolute bottom-2 right-2 text-xl bg-neutral-300/90 dark:bg-slate-500/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
                             <TbGridDots />
                         </Button>
                     </SheetTrigger>

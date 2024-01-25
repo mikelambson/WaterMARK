@@ -110,11 +110,8 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                                         {(provided) => (
                                                         
                                                             <ScheduleCard 
-                                                            // key={innerIndex}
-                                                            id={schedule.order.orderNumber} 
                                                             schedule={schedule} 
                                                             index={index} 
-                                                            
                                                             innerRef={provided.innerRef} 
                                                             draggableProps={provided.draggableProps} 
                                                             dragHandleProps={provided.dragHandleProps} />
