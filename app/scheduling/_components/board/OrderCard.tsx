@@ -84,7 +84,9 @@ const OrderCard = ({
                 cardRef.current = node;
                 innerRef(node);
             }}
-            className={ cn("mx-[2px] rounded-md drop-shadow-md", isDarkMode ? "bg-slate-600" :"bg-gray-800")}
+            className={ cn("mx-[2px] rounded-md drop-shadow-md", order.status === "delayed" 
+            ? "bg-green-900/75 dark:bg-green-950/90" 
+            : "bg-neutral-700/90 dark:bg-zinc-800/90")}
             {...draggableProps} {...dragHandleProps} 
             // ref={innerRef}
         >
@@ -100,16 +102,18 @@ const OrderCard = ({
                 <div className={cn("row-span-2 col-start-2 row-start-3 border-r-2 text-sm pt-2 text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600 " )}>{order.orderTimestamp}</div>
                 <div className={cn("col-start-3 row-start-3 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>Order# {id}</div>
                 <div className={cn("col-span-4 row-start-3 pl-1 font-medium text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.approxCfs} CFS</div>
-                <div className={cn("col-start-3 row-start-4 border-r-2 pl-1 text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.district} | {order.status}</div>
+                <div className={cn("col-start-3 row-start-4 border-r-2 pl-1 text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.district} | {order.status === "P" ? "pending" : order.status}</div>
                 <div
                     className={cn("col-start-4 row-start-4 pl-1 font-medium relative text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.approxHrs} hrs 
-                        <div   
+                        <div 
                         className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu"}>
-                            {isDetailsVisible ? (<IoIosArrowDropupCircle className={"hover:scale-125"} />) : (<IoIosArrowDropdownCircle />)}
+                            {isDetailsVisible 
+                            ? (<IoIosArrowDropupCircle className={"hover:scale-125"} />) 
+                            : (<IoIosArrowDropdownCircle onClick={toggleDetailsVisibility} />)}
                         </div>
                 </div>
                 <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden transition-all ${isDetailsVisible ? cn("h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md", isDarkMode ? "border-gray-200" : "border-gray-600") : 'h-0 opacity-0'} duration-300 ease-in-out`}>
-                    <div className={cn("p-1 ", isDarkMode ? "bg-stone-400" :"bg-stone-800/40")}>
+                    <div className={cn("p-1 ", isDarkMode ? "bg-stone-400/75" :"bg-stone-800/60")}>
                     Irrigator: {order.details.irrigatorsName}<br />
                     Owner: {order.details.ownersName}<br />
                     Ordered AF: {order.details.approxAf}<br />

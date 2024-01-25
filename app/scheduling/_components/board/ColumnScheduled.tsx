@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Order, Schedule, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { useEffect } from 'react';
+import ScheduleCard from './ScheduleCard';
 
 type Properties = {
     id: TypedColumn,
@@ -95,58 +96,47 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                             {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
                                 <TabsContent key={(index)} value={`${index + 1}`} className="h-full">
                                     <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} | Head {selectedHead} </div>
-                                    <ScrollArea className="h-[72svh] rounded-md px-2">
-                                        
-                                        <div className="space-y-2">
+                                    <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
                                         {Array.from(schedule.columns.values())
-                                            .filter(sched => sched.id === (index + 1))
-                                            .map((filteredSched, innerIndex) => (
-                                                <div key={innerIndex}>
-                                                    {filteredSched.schedules.map((schedule: any, innerIndex: number) => (
-                                                        <Draggable
-                                                        key={innerIndex}
-                                                        draggableId={schedule.order.orderNumber.toString()}
-                                                        index={innerIndex}
-                                                        >
-                                                            {(provided) => (
-                                                                <div  
-                                                                key={innerIndex}
-                                                                id={schedule.order.orderNumber}
-                                                                ref={provided.innerRef}
-                                                                {...provided.draggableProps}
-                                                                {...provided.dragHandleProps}
-                                                                className="border rounded-md p-2 bg-slate-600 dark:bg-gray-800">
-                                                                    <p>Scheduled Date: {schedule.scheduledDate}</p>
-                                                                    <p>Order ID: {schedule.orderId}</p>
-                                                                    <p>Headsheet {schedule.scheduledLine.name}</p>
-                                                                    <p>Head: {schedule.scheduledHead}</p>
-                                                                    {/* Add more properties as needed */}
-                                                                </div>
-                                                            )}
-                                                        </Draggable>
-                                                    ))}
-                                                    {provided.placeholder}
-                                                </div>
-                                                
-                                            ))}
-                                       
-                                        
-                                    </div>
+                                        .filter(sched => sched.id === (index + 1))
+                                        .map((filteredSched, innerIndex) => (
+                                            <div key={innerIndex} className='space-y-2'>
+                                                {filteredSched.schedules.map((schedule: any, innerIndex: number) => (
+                                                    <Draggable
+                                                    key={innerIndex}
+                                                    draggableId={schedule.order.orderNumber.toString()}
+                                                    index={innerIndex}
+                                                    >
+                                                        {(provided) => (
+                                                        
+                                                            <ScheduleCard 
+                                                            // key={innerIndex}
+                                                            id={schedule.order.orderNumber} 
+                                                            schedule={schedule} 
+                                                            index={index} 
+                                                            
+                                                            innerRef={provided.innerRef} 
+                                                            draggableProps={provided.draggableProps} 
+                                                            dragHandleProps={provided.dragHandleProps} />
+                                                        )}
+                                                    </Draggable>
+                                                ))}
+                                                {provided.placeholder}
+                                            </div> 
+                                        ))}
                                     </ScrollArea>
                                 </TabsContent>    
-                            ))}
-                        
-                    
-                <TabsContent  value={"10"} className="h-full">
-                    <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} Drop-Ins </div>
-                    <ScrollArea className="w-full h-[72svh] rounded-md bg-black/10 px-[0.5rem]">
-                        <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
-                            {(selectedSheet.name + "dropins" + selectedHead + "content")}
-                        </h2>
-                    </ScrollArea>
-                </TabsContent>
-                </div>
-                )}
+                            ))}    
+                            <TabsContent  value={"10"} className="h-full">
+                                <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} Drop-Ins </div>
+                                <ScrollArea className="w-full h-[72svh] rounded-md bg-black/10 px-[0.5rem]">
+                                    <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
+                                        {(selectedSheet.name + "dropins" + selectedHead + "content")}
+                                    </h2>
+                                </ScrollArea>
+                            </TabsContent>
+                        </div>
+                    )}
                 </Droppable>
             </Tabs>
         </div> 
