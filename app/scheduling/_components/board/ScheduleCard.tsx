@@ -18,9 +18,18 @@ import {
     SheetHeader, 
     SheetTitle, 
     SheetTrigger } from "@/components/ui/sheet";
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+    } from "@/components/ui/drawer"
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-
 import { Calendar as CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -97,54 +106,74 @@ const ScheduleCard = ({
             
         >
             <Sheet>
-            <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 
-            gap-0 rounded-sm align-text-bottom">
-                <div className={cn("col-start-1 row-start-1 row-span-4 pt-6 text-gray-400 dark:text-gray-700")}>
-                    <DragIcon />
-                </div>
-                <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(' ')}</div>
-                <div className={cn(`col-span-3 text-bottom row-start-2 border-b-2 font-semibold truncate 
-                text-sky-300/90 dark:text-sky-400/80 border-gray-200/60  dark:border-gray-600`)}>
-                    Instructions: {schedule.instructions}
-                </div>
-                <div className="col-start-1 row-start-4"></div>
-                <div className={cn("row-span-2 col-start-2 row-start-3 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600 " )}><span className={"text-gray-200/50 dark:text-foreground/50"} >Scheduled:</span>
-                <br />{new Date(schedule.scheduledDate).toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: 'numeric',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        hour12: false,
-                    })}
-                </div>
-                <div className={cn("col-start-3 row-start-3 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>Status: {schedule.order.status}</div>
-                <div className={cn("col-span-4 row-start-3 pl-1 font-medium text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{schedule.order.approxCfs} CFS</div>
-                <div className={cn("col-start-3 row-start-4 border-r-2 pl-1 text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>Travel: {schedule.travelTime} hrs</div>
-                <div
-                    className={cn("col-start-4 row-start-4 pl-1 font-medium relative text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{schedule.order.approxHrs} hrs 
-                        <div   
-                        className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu"}>
-                            {isDetailsVisible ? (<IoIosArrowDropupCircle className={"hover:scale-125"} />) : (<IoIosArrowDropdownCircle />)}
-                        </div>
-                </div>
-                <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden transition-all ${isDetailsVisible ? cn("h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md", isDarkMode ? "border-gray-200" : "border-gray-600") : 'h-0 opacity-0'} duration-300 ease-in-out`}>
-                    <div className={cn("p-1 ", isDarkMode ? "bg-stone-400/75" :"bg-stone-800/60")}>
-                    Order #: {schedule.order.orderNumber}<br />
-                    Irrigator: {schedule.order.details.irrigatorsName}<br />
-                    Owner: {schedule.order.details.ownersName}<br />
-                    Watermaster Note: {schedule.watermasterNote}<br />
-                    Special Request: {schedule.specialRequest}<br />
+                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 
+                gap-0 rounded-sm align-text-bottom">
+                    <div className={cn("col-start-1 row-start-1 row-span-4 pt-6 text-gray-400 dark:text-gray-700")}>
+                        <DragIcon />
                     </div>
-                    <SheetTrigger asChild>
-                        <Button variant={"outline"} size={"icon"} className="absolute bottom-2 right-2 text-xl bg-slate-700/30 dark:bg-slate-500/80 border-neutral-500 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
-                            <TbGridDots />
-                        </Button>
-                    </SheetTrigger>
+                    <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(' ')}</div>
+                    <div className={cn(`col-span-3 text-bottom row-start-2 border-b-2 font-semibold truncate 
+                    text-sky-300/90 dark:text-sky-400/80 border-gray-200/60  dark:border-gray-600`)}>
+                        Instructions: {schedule.instructions}
+                    </div>
+                    <div className="col-start-1 row-start-4"></div>
+                    <div className={cn("row-span-2 col-start-2 row-start-3 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600 " )}><span className={"text-gray-200/50 dark:text-foreground/50"} >Scheduled:</span>
+                    <br />{new Date(schedule.scheduledDate).toLocaleString('en-US', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: false,
+                        })}
+                    </div>
+                    <div className={cn("col-start-3 row-start-3 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>Status: {schedule.order.status}</div>
+                    <div className={cn("col-span-4 row-start-3 pl-1 font-medium text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{schedule.order.approxCfs} CFS</div>
+                    <div className={cn("col-start-3 row-start-4 border-r-2 pl-1 text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>Travel: {schedule.travelTime} hrs</div>
+                    <div
+                        className={cn("col-start-4 row-start-4 pl-1 font-medium relative text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{schedule.order.approxHrs} hrs 
+                            <div   
+                            className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu"}>
+                                {isDetailsVisible ? (<IoIosArrowDropupCircle className={"hover:scale-125"} />) : (<IoIosArrowDropdownCircle />)}
+                            </div>
+                    </div>
+                    <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden transition-all ${isDetailsVisible ? cn("h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md", isDarkMode ? "border-gray-200" : "border-gray-600") : 'h-0 opacity-0'} duration-300 ease-in-out`}>
+                        <div className={cn("p-2 flex flex-col gap-2", isDarkMode ? "bg-stone-400/75" :"bg-stone-800/60")}>
+                            Order #: {schedule.order.orderNumber}<br />
+                            Irrigator: {schedule.order.details.irrigatorsName}<br />
+                            Owner: {schedule.order.details.ownersName}<br />
+                            Watermaster Note: {schedule.watermasterNote}<br />
+                            Special Request: {schedule.specialRequest}<br />
+                            <div className="flex justify-between">
+                            <SheetTrigger asChild>
+                                    <Button variant={"outline"} size={"icon"} className="text-xl bg-slate-700/30 dark:bg-slate-500/80 border-neutral-500 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                                        <TbGridDots />
+                                    </Button>
+                                </SheetTrigger>
+                                <Drawer>
+                                    <DrawerTrigger><Button variant={"outline"} size={"sm"} className="text-xl bg-slate-700/30 dark:bg-slate-500/80 border-neutral-500 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">Delivery</Button></DrawerTrigger>
+                                    <DrawerContent>
+                                        <DrawerHeader>
+                                        <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+                                        <DrawerDescription>This action cannot be undone.</DrawerDescription>
+                                        </DrawerHeader>
+                                        <DrawerFooter>
+                                        <Button>Submit</Button>
+                                        <DrawerClose>
+                                            <Button variant="outline">Cancel</Button>
+                                        </DrawerClose>
+                                        </DrawerFooter>
+                                    </DrawerContent>
+                                </Drawer>
+                            </div>
+                        </div>
+
+                        
+                        
+                    </div>
                 </div>
-            </div>
-            
                 
+            
                 <SheetContent className={"w-11/12 sm:w-[800px]"} side="right">
                     <SheetHeader>
                     <SheetTitle className="text-card-alternative">Edit Schedule #{schedule.order.orderNumber}</SheetTitle>
@@ -204,6 +233,7 @@ const ScheduleCard = ({
                                         "col-span-4 justify-start text-left font-normal",
                                         !date && "text-muted-foreground"
                                     )}
+                                    disabled={schedule.order.status === "running"}
                                     >
                                     <CalendarIcon className="mr-2 h-4 w-4" />
                                     {parsedDate ? format(parsedDate, "PPP") : <span>Pick a date</span>}
@@ -230,14 +260,18 @@ const ScheduleCard = ({
                                 minute: 'numeric',
                                 hour12: false,
                                 })} 
-                                className="col-span-2" 
+                                className="col-span-2"
+                                disabled={schedule.order.status === "running"} 
                             />
                             <Label htmlFor="traveltime" className="text-right">
                             Travel Time
                             </Label>
-                            <Input id="traveltime" defaultValue={`${schedule.travelTime} hrs`} className="col-span-2" />
+                            <Input id="traveltime" 
+                                defaultValue={`${schedule.travelTime} hrs`} 
+                                className="col-span-2" 
+                                disabled={schedule.order.status === "running"}
+                            />
                         </div>
-                        
                     </div>
                     <SheetFooter>
                     <Button variant={"secondary"} type="reset">Reset</Button>

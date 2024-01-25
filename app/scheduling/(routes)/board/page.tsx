@@ -60,28 +60,28 @@ const ScheduleWater = () => {
                             handleDistrictChange('WE');
                         }}>
                         <RadioGroupItem value="WE" id="WE" />
-                        <Label htmlFor="WE">West</Label>
+                        <Label className='cursor-pointer' htmlFor="WE">West</Label>
                     </div>
                     <div className="flex items-center space-x-2" onClick={() => {
                         
                         handleDistrictChange('CE');
                     }}>
                         <RadioGroupItem value="CE" id="CE" />
-                        <Label htmlFor="CE">Central</Label>
+                        <Label className='cursor-pointer' htmlFor="CE">Central</Label>
                     </div>
                     <div className="flex items-center space-x-2" onClick={() => { 
                         handleDistrictChange('EA')
                         
                         }}>
                         <RadioGroupItem value="EA" id="EA" />
-                        <Label htmlFor="EA">East</Label>
+                        <Label className='cursor-pointer' htmlFor="EA">East</Label>
                     </div>
                     <div className="flex items-center space-x-2" onClick={() => {
                         handleDistrictChange('TC')
                         
                         }}>
                         <RadioGroupItem value="TC" id="TC" />
-                        <Label htmlFor="TC">Truckee</Label>
+                        <Label className='cursor-pointer' htmlFor="TC">Truckee</Label>
                     </div>
                 </RadioGroup>
                 <div className='pt-1 lg:mb-0 grid lg:justify-items-end justify-items-center'>
