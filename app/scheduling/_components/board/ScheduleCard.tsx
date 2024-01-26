@@ -110,7 +110,7 @@ const ScheduleCard = ({
                         : "text-neutral-400/80 dark:text-neutral-600/80"}`)}>
                         <DragIcon />
                     </div>
-                    <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(' ')}</div>
+                    <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
                     <div className={cn(`col-span-3 text-bottom row-start-2 border-b-2 font-semibold truncate 
                     text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
                         Instructions: {schedule.instructions}
