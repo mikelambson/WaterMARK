@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { IoIosArrowDropdownCircle, IoIosArrowDropupCircle } from "react-icons/io";
 import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "@hello-pangea/dnd";
-import { format } from "date-fns";
+import { format, parseISO  } from 'date-fns';
 import { cn } from "@/lib/utils";
 import { Schedule } from "@/typings";
 import DragIcon from "@/app/scheduling/_components/board/DragIcon";
@@ -37,8 +37,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { TbGridDots } from "react-icons/tb";
-import { parse } from 'date-fns';
+
 import { FaHandHoldingWater } from "react-icons/fa";
+
 
 
 type Properties = {
@@ -82,9 +83,7 @@ const ScheduleCard = ({
         };
       }, []);
 
-    const newdate = schedule.scheduledDate;
-    const formatted = newdate.replace(", ", "T");
-    const parsedDate = parse(formatted, "MM/dd/yyyy'T'HH:mm:ss", new Date());
+    const parsedDate = parseISO(schedule.scheduledDate);
     const borderColors = schedule.order.status !== "running"
         ? "border-gray-200/60 dark:border-gray-600" 
         : "border-neutral-200/60 dark:border-neutral-600";
@@ -97,7 +96,7 @@ const ScheduleCard = ({
                 innerRef(node);
             }}
             className={ cn("mx-[2px] rounded-md drop-shadow-md", schedule.order.status === "running" 
-            ? "bg-amber-800/80 dark:bg-amber-950/80" 
+            ? "bg-amber-800/75 dark:bg-amber-900/75" 
             : "bg-slate-700/90 dark:bg-gray-800/90")}
             {...(schedule.order.status === "running" ? {} : draggableProps)}
             {...(schedule.order.status === "running" ? {} : dragHandleProps)}
@@ -113,11 +112,11 @@ const ScheduleCard = ({
                     </div>
                     <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(' ')}</div>
                     <div className={cn(`col-span-3 text-bottom row-start-2 border-b-2 font-semibold truncate 
-                    text-sky-300/90 dark:text-sky-400/80 ${borderColors}`)}>
+                    text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
                         Instructions: {schedule.instructions}
                     </div>
                     <div className="col-start-1 row-start-4"></div>
-                    <div className={cn(`row-span-2 col-start-2 row-start-3 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground ${borderColors}`)}><span className={"text-gray-200/50 dark:text-foreground/50"} >Scheduled:</span>
+                    <div className={cn(`row-span-2 col-start-2 row-start-3 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground ${borderColors}`)}><span className={"text-gray-200/60 dark:text-foreground/60"} >Scheduled:</span>
                     <br />{new Date(schedule.scheduledDate).toLocaleString('en-US', {
                             year: 'numeric',
                             month: 'numeric',
@@ -139,7 +138,7 @@ const ScheduleCard = ({
                     </div>
                     <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden transition-all ${isDetailsVisible ? cn(`h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md ${borderColors}`) : 'h-0 opacity-0'} duration-300 ease-in-out`}>
                         <div className={cn(`p-2 flex flex-col gap-2 bg-stone-400/60 dark:bg-stone-800/70`)}>
-                            Order #: {schedule.order.orderNumber}<br />
+                            Order #: {schedule.order.orderNumber} | Remarks: {schedule.order.remarks}<br />
                             Irrigator: {schedule.order.details.irrigatorsName}<br />
                             Owner: {schedule.order.details.ownersName}<br />
                             Watermaster Note: {schedule.watermasterNote}<br />
@@ -157,9 +156,27 @@ const ScheduleCard = ({
                                     </Button></DrawerTrigger>
                                     <DrawerContent>
                                         <DrawerHeader>
-                                        <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                                        <DrawerDescription>This action cannot be undone.</DrawerDescription>
+                                        <DrawerTitle className="flex gap-3 text-xl justify-center">
+                                            <FaHandHoldingWater size={"1.25em"} />
+                                            Manage Deliveries
+                                        </DrawerTitle>
+                                        <DrawerDescription className="flex justify-center">
+                                            Some description...</DrawerDescription>
                                         </DrawerHeader>
+                                            <div className="flex justify-center">
+                                                {schedule.order.deliveries?.map((delivery, index) => (
+                                                    <div key={index} className="w-11/12 space-y-2 border-2 p-2">
+                                                        <div className="flex justify-between">
+                                                            <p>Delivery {index + 1}:</p>
+                                                            
+                                                            <p>Start Time: {delivery.startTime}</p>
+                                                            <p>Stop Time: {delivery.stopTime}</p>
+                                                        </div>
+                                                        <p>Delivery Note: {delivery.deliveryNote}</p>
+                                                        {/* Add more details as needed */}
+                                                    </div>
+                                                ))}
+                                            </div>
                                         <DrawerFooter>
                                         <Button>Submit</Button>
                                         <DrawerClose>

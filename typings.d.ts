@@ -27,7 +27,7 @@ interface TypedSchedule {
   }
 
 interface Order {
-    id: number;
+    id: string;
     orderTimestamp: string;
     orderNumber: number;
     tcidSn: string;
@@ -39,7 +39,7 @@ interface Order {
     phoneNumbers: string[];
     remarks: string | null;
     details: OrderDetails;
-    deliveries?: any[]; // Making deliveries optional
+    deliveries?: OrderDeliveries[]; // Making deliveries optional
     analysis?: any[]; // Making analysis optional
 }
 
@@ -51,19 +51,30 @@ interface OrderDetails {
     balance: number;
 }
 
+interface OrderDeliveries {
+    id: string;
+    startTime: string;
+    stopTime: string;
+    measurment?:  any[];
+    deliveryNote: string;
+}
 
 interface Schedule {
     scheduledDate: string;
-    orderId: number;
     scheduledLineId: number;
     scheduledHead: number;
     travelTime: number;
-    dropIn: boolean;
     instructions: string | null;
     watermasterNote: string | null;
     specialRequest: string | null;
+    cancelled: boolean;
+    cancelReason: string;
+    orderId: number;
     order: Order;
     scheduledLine: ScheduledLine;
+    callout: any[];
+    deliveries: any[];
+    analysis: any[];
 }
 
 interface ScheduledLine {
