@@ -42,7 +42,6 @@ type Properties = {
 
 const OrderCard = ({
     order,
-    // index,
     id,
     innerRef,
     draggableProps,
@@ -87,8 +86,9 @@ const OrderCard = ({
             className={ cn("mx-[2px] rounded-md drop-shadow-md", order.status === "delayed" 
             ? "bg-green-900/60 dark:bg-green-950/75" 
             : "bg-neutral-700/90 dark:bg-zinc-800/90")}
-            {...draggableProps} {...dragHandleProps} 
-            // ref={innerRef}
+            {...draggableProps} 
+            {...dragHandleProps} 
+            
         >
             <Sheet>
             <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 

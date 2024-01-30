@@ -1,11 +1,11 @@
 // UnscheduledColumn.jsx
 import { useSchedulingStore } from "@/lib/store/schedulingStore";
-
 import { Order, Schedule } from "@/typings";
 import { IoSearch } from "react-icons/io5";
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/app/scheduling/_components/board/scroll-area";
+// import { ScrollArea } from "@/components/ui/scroll-area";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import OrderCard from "@/app/scheduling/_components/board/OrderCard";
 import { cn } from "@/lib/utils";
@@ -125,12 +125,16 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                                     />
                                 </div>
                                 {/* Change Height below ==>  */}
-                                <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
+                                <ScrollArea 
+                                    ref={provided.innerRef}
+                                    autoScroll
+                                    {...provided.droppableProps}
+                                    className="min-h-80 h-[98%] w-full px-[0.5rem] rounded-md">
                                     <div className="space-y-2">
                                         {filteredUnscheduledOrders.map((order: any, index: any) => (
                                             <Draggable
                                             key={order.orderNumber.toString()}
-                                            draggableId={order.orderNumber.toString()}
+                                            draggableId={(index + order.orderNumber.toString())}
                                             index={index}
                                             >
                                             {(provided) => (
@@ -145,6 +149,7 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                                             )}
                                             </Draggable>
                                         ))}
+                                        {provided.placeholder}
                                     </div>
                                 </ScrollArea>
                             </TabsContent>
@@ -159,7 +164,7 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                                     />
                                 </div>
                                 {/* Change Height below ==>  */}
-                                <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
+                                <ScrollArea autoScroll className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
                                     <div className="space-y-2">
                                     {filteredDelayedOrders.map((delayedOrder: any, index: any) => (
                                         <Draggable
@@ -179,6 +184,7 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                                         )}
                                         </Draggable>
                                     ))}
+                                    {provided.placeholder}
                                     </div>
                                 </ScrollArea>
                             </TabsContent>

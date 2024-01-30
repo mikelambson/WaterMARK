@@ -87,7 +87,8 @@ const ScheduleCard = ({
     const borderColors = schedule.order.status !== "running"
         ? "border-gray-200/60 dark:border-gray-600" 
         : "border-neutral-200/60 dark:border-neutral-600";
-
+    
+    const capitalizedStatus = schedule.order.status.charAt(0).toUpperCase() + schedule.order.status.slice(1);
    
     return ( 
         <div
@@ -96,7 +97,7 @@ const ScheduleCard = ({
                 innerRef(node);
             }}
             className={ cn("mx-[2px] rounded-md drop-shadow-md", schedule.order.status === "running" 
-            ? "bg-amber-800/75 dark:bg-amber-900/75" 
+            ? "bg-amber-900/75 dark:bg-amber-950/75" 
             : "bg-slate-700/90 dark:bg-gray-800/90")}
             {...(schedule.order.status === "running" ? {} : draggableProps)}
             {...(schedule.order.status === "running" ? {} : dragHandleProps)}
@@ -126,7 +127,10 @@ const ScheduleCard = ({
                             hour12: false,
                         })}
                     </div>
-                    <div className={cn(`col-start-3 row-start-3 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>Status: {schedule.order.status}</div>
+                    <div className={cn(`col-start-3 row-start-3 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>Status: <span className={cn(`
+                        ${schedule.order.status !== "running" 
+                        ? "text-cyan-300/90 dark:text-cyan-200/70"
+                        : "text-emerald-400/90 dark:text-emerald-300/80"}`)}>{capitalizedStatus}</span></div>
                     <div className={cn(`col-span-4 row-start-3 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}` )}>{schedule.order.approxCfs} CFS</div>
                     <div className={cn(`col-start-3 row-start-4 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>Travel: {schedule.travelTime} hrs</div>
                     <div
