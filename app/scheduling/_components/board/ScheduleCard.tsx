@@ -39,6 +39,7 @@ import {
 import { TbGridDots } from "react-icons/tb";
 
 import { FaHandHoldingWater } from "react-icons/fa";
+import { PiDotsThreeDuotone } from "react-icons/pi";
 
 
 
@@ -57,6 +58,7 @@ const ScheduleCard = ({
     dragHandleProps,
 }: Properties) => {
    
+    const iconStyle = `cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1`;
     const cardRef = useRef<HTMLDivElement | null>(null);
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
     const toggleDetailsVisibility = () => {
@@ -133,12 +135,9 @@ const ScheduleCard = ({
                         : "text-emerald-400/90 dark:text-emerald-300/80"}`)}>{capitalizedStatus}</span></div>
                     <div className={cn(`col-span-4 row-start-3 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}` )}>{schedule.order.approxCfs} CFS</div>
                     <div className={cn(`col-start-3 row-start-4 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>Travel: {schedule.travelTime} hrs</div>
-                    <div
-                        className={cn(`col-start-4 row-start-4 pl-1 font-medium relative text-gray-200 dark:text-foreground ${borderColors}`)}>{schedule.order.approxHrs} hrs 
-                            <div   
-                            className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu"}>
-                                {isDetailsVisible ? (<IoIosArrowDropupCircle className={"hover:scale-125"} />) : (<IoIosArrowDropdownCircle />)}
-                            </div>
+                    <div className={cn(`flex justify-between col-start-4 row-start-4 px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
+                        {schedule.order.approxHrs} hrs 
+                        <PiDotsThreeDuotone className={`hover:scale-125 ${iconStyle}`} />
                     </div>
                     <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden transition-all ${isDetailsVisible ? cn(`h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md ${borderColors}`) : 'h-0 opacity-0'} duration-300 ease-in-out`}>
                         <div className={cn(`p-2 flex flex-col gap-2 bg-stone-400/60 dark:bg-stone-800/70`)}>

@@ -1,9 +1,7 @@
 // @/app/(scheduling)/_components/OrderCard.tsx
 "use client"
 import React, { useState, useEffect, useRef } from "react";
-import { IoIosArrowDropdownCircle, IoIosArrowDropupCircle } from "react-icons/io";
 import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "@hello-pangea/dnd";
-import { useTheme } from "next-themes";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Order, TypedColumn } from "@/typings";
@@ -29,6 +27,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { TbGridDots } from "react-icons/tb";
+import { PiDotsThreeDuotone, PiDotsThreeOutlineBold } from "react-icons/pi";
 
 
 type Properties = {
@@ -47,16 +46,14 @@ const OrderCard = ({
     draggableProps,
     dragHandleProps,
 }: Properties) => {
-   
     const cardRef = useRef<HTMLDivElement | null>(null);
-    
-    const { theme } = useTheme();
-    const isDarkMode = theme === "light";
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
     const toggleDetailsVisibility = () => {
         setIsDetailsVisible(!isDetailsVisible);
     };
     const [date, setDate] = React.useState<Date>()
+
+    const iconStyle = `cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1`;
 
     const handleClickOutside = (event: MouseEvent) => {
         if (
@@ -91,8 +88,11 @@ const OrderCard = ({
             
         >
             <Sheet>
-            <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 
-            gap-0 rounded-sm align-text-bottom">
+            <div 
+            onClick={toggleDetailsVisibility} 
+            className="group grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 
+            gap-0 rounded-sm align-text-bottom"
+            >
                 <div className={cn("col-start-1 row-start-1 row-span-4 pt-6 text-gray-400/60 dark:text-gray-600/80")}>
                     <DragIcon />
                 </div>
@@ -103,16 +103,12 @@ const OrderCard = ({
                 <div className={cn("col-start-3 row-start-3 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>Order# {id}</div>
                 <div className={cn("col-span-4 row-start-3 pl-1 font-medium text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.approxCfs} CFS</div>
                 <div className={cn("col-start-3 row-start-4 border-r-2 pl-1 text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.district} | {order.status === "P" ? "pending" : order.status}</div>
-                <div
-                    className={cn("col-start-4 row-start-4 pl-1 font-medium relative text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600" )}>{order.approxHrs} hrs 
-                        <div 
-                        className={"absolute bottom-1 right-1 cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu"}>
-                            {isDetailsVisible 
-                            ? (<IoIosArrowDropupCircle className={"hover:scale-125"} />) 
-                            : (<IoIosArrowDropdownCircle onClick={toggleDetailsVisibility} />)}
-                        </div>
+                <div className={cn(`flex justify-between col-start-4 row-start-4 px-1 font-medium relative 
+                text-gray-200 dark:text-foreground border-gray-200/60 dark:border-gray-600` )}>
+                    {order.approxHrs} hrs 
+                    <PiDotsThreeDuotone className={`hover:scale-125 ${iconStyle}`} />   
                 </div>
-                <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden transition-all ${isDetailsVisible ? cn("h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md border-gray-200 dark:border-gray-600") : 'h-0 opacity-0'} duration-300 ease-in-out`}>
+                <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden ${isDetailsVisible ? cn("h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md border-gray-200 dark:border-gray-600") : 'h-0 opacity-0'}`}>
                     <div className={cn("p-1 bg-stone-400/70 dark:bg-stone-800/60")}>
                     Irrigator: {order.details.irrigatorsName}<br />
                     Owner: {order.details.ownersName}<br />
