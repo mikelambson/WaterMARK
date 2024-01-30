@@ -122,6 +122,7 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                                     pageNumbers={pageNumbers}
                                     currentPage={currentPage}
                                     handlePageChange={handlePageChange}
+                                    key={`unscheduled-pagination`}
                                     />
                                 </div>
                                 {/* Change Height below ==>  */}
@@ -134,7 +135,7 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                                         {filteredUnscheduledOrders.map((order: any, index: any) => (
                                             <Draggable
                                             key={order.orderNumber.toString()}
-                                            draggableId={(index + order.orderNumber.toString())}
+                                            draggableId={(index.toString() + order.orderNumber.toString())}
                                             index={index}
                                             >
                                             {(provided) => (
@@ -156,11 +157,12 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
 
                             <TabsContent key={`delayed-content`} value={"delayed"} className="h-full mt-1 w-full">
                                 <div className="text-center text-sm font-bold text-foreground/50 dark:text-secondary/50">
-                                    <PaginationComponent
+                                <PaginationComponent
                                     page={page}
                                     pageNumbers={pageNumbers}
                                     currentPage={currentPage}
                                     handlePageChange={handlePageChange}
+                                    key={`delayed-content`}
                                     />
                                 </div>
                                 {/* Change Height below ==>  */}

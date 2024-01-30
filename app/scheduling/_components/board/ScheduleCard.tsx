@@ -46,8 +46,8 @@ type Properties = {
     schedule: Schedule;
     index: any;
     innerRef: (element: HTMLElement | null) => void;
-    draggableProps: DraggableProvidedDraggableProps;
-    dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
+    draggableProps?: DraggableProvidedDraggableProps;
+    dragHandleProps?: DraggableProvidedDragHandleProps | null | undefined;
 };
 
 const ScheduleCard = ({
@@ -99,8 +99,8 @@ const ScheduleCard = ({
             className={ cn("mx-[2px] rounded-md drop-shadow-md", schedule.order.status === "running" 
             ? "bg-amber-900/75 dark:bg-amber-950/75" 
             : "bg-slate-700/90 dark:bg-gray-800/90")}
-            {...(schedule.order.status === "running" ? {} : draggableProps)}
-            {...(schedule.order.status === "running" ? {} : dragHandleProps)}
+            {...draggableProps}
+            {...dragHandleProps}
             
         >
             <Sheet>
@@ -155,7 +155,7 @@ const ScheduleCard = ({
                                     </Button>
                                 </SheetTrigger>
                                 <Drawer>
-                                    <DrawerTrigger><Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                                    <DrawerTrigger asChild><Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
                                         Delivery <FaHandHoldingWater className={"ml-1"} />
                                     </Button></DrawerTrigger>
                                     <DrawerContent>
@@ -183,7 +183,7 @@ const ScheduleCard = ({
                                             </div>
                                         <DrawerFooter>
                                         <Button>Submit</Button>
-                                        <DrawerClose>
+                                        <DrawerClose asChild>
                                             <Button variant="outline">Cancel</Button>
                                         </DrawerClose>
                                         </DrawerFooter>

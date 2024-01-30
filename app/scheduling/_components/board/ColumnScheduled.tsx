@@ -96,32 +96,41 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                             {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
                                 <TabsContent key={(index)} value={`${index + 1}`} className="h-full">
                                     <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} | Head {selectedHead} </div>
-                                    <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
-                                        {Array.from(schedule.columns.values())
-                                        .filter(sched => sched.id === (index + 1))
-                                        .map((filteredSched, innerIndex) => (
-                                            <div key={innerIndex} className='space-y-2'>
-                                                {filteredSched.schedules.map((schedule: any, innerIndex: number) => (
-                                                    <Draggable
-                                                    key={innerIndex}
-                                                    draggableId={schedule.order.orderNumber.toString()}
-                                                    index={innerIndex}
-                                                    >
+                                        <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
+                                            {Array.from(schedule.columns.values())
+                                                .filter((sched) => sched.id === index + 1)
+                                                .map((filteredSched, innerIndex) => (
+                                                <div key={innerIndex} className="space-y-2">
+                                                    {filteredSched.schedules.map((schedule: any, innerIndex: number) => (
+                                                    schedule.order.status !== "running" ? (
+                                                        <Draggable
+                                                        key={innerIndex}
+                                                        draggableId={(index.toString() + schedule.order.orderNumber.toString())}
+                                                        index={innerIndex}
+                                                        >
                                                         {(provided) => (
-                                                        
-                                                            <ScheduleCard 
-                                                            schedule={schedule} 
-                                                            index={index} 
-                                                            innerRef={provided.innerRef} 
-                                                            draggableProps={provided.draggableProps} 
-                                                            dragHandleProps={provided.dragHandleProps} />
+                                                            <ScheduleCard
+                                                            schedule={schedule}
+                                                            index={index}
+                                                            innerRef={provided.innerRef}
+                                                            draggableProps={provided.draggableProps}
+                                                            dragHandleProps={provided.dragHandleProps}
+                                                            />
                                                         )}
-                                                    </Draggable>
-                                                ))}
-                                                {provided.placeholder}
-                                            </div> 
-                                        ))}
-                                    </ScrollArea>
+                                                        </Draggable>
+                                                    ) : (
+                                                        <ScheduleCard
+                                                        schedule={schedule}
+                                                        index={index}
+                                                        key={innerIndex}
+                                                        innerRef={() => {}}
+                                                        />
+                                                    )
+                                                    ))}
+                                                    {provided.placeholder}
+                                                </div>
+                                            ))}
+                                        </ScrollArea>
                                 </TabsContent>    
                             ))}    
                             <TabsContent  value={"10"} className="h-full">
