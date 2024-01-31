@@ -13,7 +13,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/mikelambson/WaterMARK)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/mikelambson/WaterMARK)
 
-[![Static Badge](https://img.shields.io/badge/node-v20.10.0-44bf16)](https://ui.shadcn.com/)
+[![Static Badge](https://img.shields.io/badge/node->20.10.0-44bf16)](https://ui.shadcn.com/)
 ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmikelambson%2FWaterMARK%2Fmaster%2Fpackage.json&query=%24.dependencies.next&label=nextjs&color=111111)
 [![Static Badge](https://img.shields.io/badge/state_management-Zustand-%23422136)](https://www.npmjs.com/package/zustand)
 [![Static Badge](https://img.shields.io/badge/components-Shadcn%2FUI-111111)](https://ui.shadcn.com/)
