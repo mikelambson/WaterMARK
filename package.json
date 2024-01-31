@@ -13,9 +13,7 @@
     "rebuild": "npm ci && typings install",
     "git": "npm run clean && git add --all && git commit -m \"Update Code\" && git push",
     "commit": "node -e \"const readlineSync = require('readline-sync'); const commitMessage = readlineSync.question('Enter your commit message: '); require('child_process').execSync(`git commit -m '\"'\"${commitMessage}\"'\"'`, {stdio: 'inherit'});\"",
-    "count": "node count-lines.js",
-    "count-lines-linux": "git ls-files | xargs wc -l",
-    "count-lines-windows": "PowerShell -Command \"Get-Content $(git ls-files) | Measure-Object -Line\""
+    "count": "node count-lines.js"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^16.3.0",
@@ -88,5 +86,5 @@
   "repository": {
     "url": "https://github.com/mikelambson/WaterMARK"
   },
-  "linecount": "9415"
+  "linecount": 9429
 }
