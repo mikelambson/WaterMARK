@@ -28,9 +28,8 @@ import {
 } from "@/components/ui/popover";
 import { TbGridDots } from "react-icons/tb";
 import { PiDotsThreeDuotone } from "react-icons/pi";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import CancelOrder from "@/components/function/CancelOrder";
-
+import { useSchedulingStore } from "@/lib/store/schedulingStore";
 
 type Properties = {
     order: Order;
@@ -41,6 +40,8 @@ type Properties = {
     dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
 };
 
+
+
 const OrderCard = ({
     order,
     id,
@@ -48,13 +49,15 @@ const OrderCard = ({
     draggableProps,
     dragHandleProps,
 }: Properties) => {
+    
     const cardRef = useRef<HTMLDivElement | null>(null);
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
     const toggleDetailsVisibility = () => {
         setIsDetailsVisible(!isDetailsVisible);
     };
     const [date, setDate] = React.useState<Date>()
-
+    const { selectedSheet, selectedHead } = useSchedulingStore();
+       
     const iconStyle = `cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1`;
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -138,47 +141,78 @@ const OrderCard = ({
                     </SheetDescription>
                     </SheetHeader>
                     <div className="grid gap-4 py-4 pr-4">
-                    <div className="grid grid-cols-4 items-center gap-2">
+                    <div className="grid grid-cols-6 items-center gap-2">
                         <Label htmlFor="name" className="text-right">
-                        Travel Time
+                        Line
                         </Label>
-                        <Input id="traveltime" defaultValue="Hours" className="col-span-3" />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="username" className="text-right">
-                        Start Date
+                        <Input id="traveltime" defaultValue={selectedSheet.name} className="col-span-2" disabled />
+                        <Label htmlFor="name" className="text-right">
+                        Head
                         </Label>
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <Button
-                                variant={"outline"}
-                                className={cn(
-                                    "w-[236px] justify-start text-left font-normal",
-                                    !date && "text-muted-foreground"
-                                )}
-                                >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {date ? format(date, "PPP") : <span>Pick a date</span>}
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0">
-                                <Calendar
-                                mode="single"
-                                selected={date}
-                                onSelect={setDate}
-                                initialFocus
-                                />
-                            </PopoverContent>
-                        </Popover>
+                        <Input id="traveltime" defaultValue={selectedHead} className="col-span-2" disabled />
                     </div>
+                    <div className="grid grid-cols-6 items-center gap-4">
+                            <Label htmlFor="startdate" className="text-right">
+                            Start Date
+                            </Label>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "w-[236px] justify-start text-left font-normal",
+                                        !date && "text-muted-foreground"
+                                    )}
+                                    >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {date ? format(date, "PPP") : <span>Pick a date</span>}
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0">
+                                    <Calendar
+                                    mode="single"
+                                    selected={date}
+                                    onSelect={setDate}
+                                    initialFocus
+                                    />
+                                </PopoverContent>
+                            </Popover>
+                        </div>
+
+                        <div className="grid grid-cols-6 items-center gap-2">
+                            <Label htmlFor="starttime" className="text-right">
+                            Start Time
+                            </Label>
+                            <Input id="starttime" defaultValue={new Date().toLocaleString('en-US', {
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                hour12: false,
+                                })} 
+                                className="col-span-2"
+                            />
+                            <Label htmlFor="traveltime" className="text-right">
+                            Travel Time
+                            </Label>
+                            <Input id="traveltime" 
+                                defaultValue={`0 hrs`} 
+                                className="col-span-2" 
+                            />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-2">
+                            <Label htmlFor="watermasterNote" className="col-span-2">
+                            Watermaster Note: 
+                            </Label>
+                            <Input id="watermasterNote" defaultValue={order.schedule.watermasterNote || "Enter Note"} className="col-span-4" />
+                        </div>
                     </div>
                     <SheetFooter>
                         <CancelOrder 
                             orderId={order.id} 
                             orderNumber={order.orderNumber} 
                         />
+                        <Button variant={"secondary"}>Delay Order</Button>
                         <SheetClose asChild>
-                            <Button type="submit">Save changes</Button>
+                            <Button type="submit">Save Changes</Button>
                         </SheetClose>
                     </SheetFooter>
                 </SheetContent>

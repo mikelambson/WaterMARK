@@ -188,14 +188,9 @@ const ScheduleCard = ({
                                     </DrawerContent>
                                 </Drawer>
                             </div>
-                        </div>
-
-                        
-                        
+                        </div>    
                     </div>
                 </div>
-                
-            
                 <SheetContent className={"w-11/12 sm:w-[800px]"} side="right">
                     <SheetHeader>
                     <SheetTitle className="text-card-alternative">Edit Schedule #{schedule.order.orderNumber}</SheetTitle>

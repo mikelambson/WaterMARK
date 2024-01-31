@@ -41,6 +41,7 @@ interface Order {
     details: OrderDetails;
     deliveries?: OrderDeliveries[]; // Making deliveries optional
     analysis?: any[]; // Making analysis optional
+    schedule: Schedule;
 }
 
 interface OrderDetails {
