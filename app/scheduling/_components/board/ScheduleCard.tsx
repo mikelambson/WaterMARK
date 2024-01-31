@@ -1,7 +1,6 @@
 // @/app/(scheduling)/_components/ScheduleCard.tsx
 "use client"
 import React, { useState, useEffect, useRef } from "react";
-import { IoIosArrowDropdownCircle, IoIosArrowDropupCircle } from "react-icons/io";
 import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "@hello-pangea/dnd";
 import { format, parseISO  } from 'date-fns';
 import { cn } from "@/lib/utils";
@@ -56,9 +55,7 @@ const ScheduleCard = ({
     innerRef,
     draggableProps,
     dragHandleProps,
-}: Properties) => {
-   
-    const iconStyle = `cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1`;
+}: Properties) => {    
     const cardRef = useRef<HTMLDivElement | null>(null);
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
     const toggleDetailsVisibility = () => {
@@ -88,7 +85,8 @@ const ScheduleCard = ({
     const parsedDate = parseISO(schedule.scheduledDate);
     const borderColors = schedule.order.status !== "running"
         ? "border-gray-200/60 dark:border-gray-600" 
-        : "border-neutral-200/60 dark:border-neutral-600";
+        : "border-neutral-200/60 dark:border-stone-600";
+    const iconStyle = `cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1`;
     
     const capitalizedStatus = schedule.order.status.charAt(0).toUpperCase() + schedule.order.status.slice(1);
    
@@ -110,7 +108,7 @@ const ScheduleCard = ({
                 gap-0 rounded-sm align-text-bottom">
                     <div className={cn(`col-start-1 row-start-1 row-span-4 pt-6 ${schedule.order.status !== "running" 
                         ? "text-gray-400/80 dark:text-gray-600/80"
-                        : "text-neutral-400/80 dark:text-neutral-600/80"}`)}>
+                        : "text-neutral-400/80 dark:text-stone-600/80"}`)}>
                         <DragIcon />
                     </div>
                     <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
