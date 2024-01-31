@@ -65,26 +65,3 @@ class ApiFetch {
 }
 
 export default ApiFetch;
-
-
-/*
-const api = new ApiFetch();
-
-useEffect(() => {
-    const specificRoute = `/ordercount/${year}`
-    useEffect(() => {
-      const specificRoute = `/ordercount/${year}`
-      async function fetchData() {
-      try {
-        const result = await api.fetchData<Count>(specificRoute);
-        if (!result.success) return console.error("Error fetching data:", result.error);
-        const data = result.data;
-        if (data == undefined) return setCountData(null);
-        setCountData(data)
-        } catch (error) {
-        console.error("Data Error:", error);
-      }
-    }
-    fetchData();  
-  }, [year]);
-*/

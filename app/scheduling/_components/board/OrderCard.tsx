@@ -124,8 +124,6 @@ const OrderCard = ({
                     </SheetTrigger>
                 </div>
             </div>
-            
-                
                 <SheetContent className={"w-11/12 sm:w-[600px]"} side="left">
                     <SheetHeader>
                     <SheetTitle className="text-card-alternative">Edit Order #{order.orderNumber}</SheetTitle>
@@ -175,11 +173,10 @@ const OrderCard = ({
                     </div>
                     </div>
                     <SheetFooter>
-                        
                         <CancelOrder 
-                            orderId={order.id}
+                            orderId={order.id} 
+                            orderNumber={order.orderNumber} 
                         />
-
                         <SheetClose asChild>
                             <Button type="submit">Save changes</Button>
                         </SheetClose>

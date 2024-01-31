@@ -6,10 +6,11 @@ import { Input } from "@/components/ui/input";
 
 interface PropertiesTypes {
     disabled?: boolean;
-    orderId?: String;
+    orderId?: string;
+    orderNumber?: number;
 }
 
-const CancelOrder: React.FC<PropertiesTypes> = ({ disabled = false, orderId }: PropertiesTypes) => {
+const CancelOrder: React.FC<PropertiesTypes> = ({ disabled = false, orderId, orderNumber }: PropertiesTypes) => {
     
     const classchange = disabled ? "bg-destructive/30 text-foreground/50 select-none" : "";
 
@@ -27,7 +28,7 @@ const CancelOrder: React.FC<PropertiesTypes> = ({ disabled = false, orderId }: P
             console.log('Closing sheet...');
         } else {
             // Prevent the close action
-            console.log('Input is empty. Close action prevented.');
+            // console.log('Input is empty. Close action prevented.');
         }
     };
 
@@ -52,18 +53,19 @@ const CancelOrder: React.FC<PropertiesTypes> = ({ disabled = false, orderId }: P
                 <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                    This action cannot be undone. <br />
                     This action will permanently cancel this order from the schedule. <br />
-                    OrderId: {orderId} <br />
-                    <span className="mt-3">
+                    This action cannot be undone. <br />
+                    <br />
+                    <span className=" text-card-alternative font-semibold">OrderId:</span> <span className="font-semibold italic">{orderId}</span><br />
+                    <span className=" text-card-alternative font-semibold">OrderNumber:</span> <span className="font-extrabold">{orderNumber}</span><br />
+                    <br />
                     <span className="pl-3 italic">Cancelation Reason:</span>
                     <Input
-                        placeholder="*required*"
-                        className="mt-0"
+                        placeholder="(required)"
+                        className="mt-1 text-card-alternative"
                         required={isContinuePressed}
                         onChange={handleChange}
                     />
-                    </span>
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>

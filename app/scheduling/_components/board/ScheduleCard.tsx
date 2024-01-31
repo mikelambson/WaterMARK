@@ -299,6 +299,7 @@ const ScheduleCard = ({
                         <CancelOrder 
                             disabled={schedule.order.status === "running" ? true : false}
                             orderId={schedule.orderId}
+                            orderNumber={schedule.order.orderNumber}
                         />
                     <Button variant={"secondary"} type="reset">Reset</Button>
                     <SheetClose asChild>
