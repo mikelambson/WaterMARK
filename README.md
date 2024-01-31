@@ -37,25 +37,23 @@ Example showing dev layout of backend screen:
 
 ___
 
-#### To-do
+## To-do
 
-- OLD TASKS (some may apply):
-  - all- set a couple of the packages used to development
-  - be- install io package
-  - be- create routes.js and isolate route info to that module
-  - be- set up web socket route
-  - fe- create basic chat app for io use understanding
-  - fe- create and use io-client to initiate and validate working socket connection
-  - be- learn the monitoring api & attach monitor to backend log display
-  - fe- learn vega api & create graph interface module
-  - fe- create graph type elements
-  - fe- build layout to encorporate graph elements
-  - be- move dummy data to socket
-  - be- implement crud aspect to files and data
+- get the scheduling module working
+- deliveries module
+- analysis module
+- admin & posting module
+- login and security features
+- integrate vega graph interface for meters and analysis
+- meters module
+- reports module
+- task system
+- notification system
+- integrate data sources
 
 ## License
 
-BSD 3-Clause License
+[BSD 3-Clause License](./LICENSE)
 
 ## Dev Environment
 
