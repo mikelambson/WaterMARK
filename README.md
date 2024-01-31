@@ -8,7 +8,7 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mikelambson/WaterMARK)
 ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmikelambson%2FWaterMARK%2Fmaster%2Fpackage.json&query=%24.linecount&label=total%20lines&color=333222)
 
-[![GitHub license](https://img.shields.io/github/license/mikelambson/WaterMARK)](https://github.com/mikelambson/WaterMARK/blob/main/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/mikelambson/WaterMARK?color=darkgreen)](https://github.com/mikelambson/WaterMARK/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/mikelambson/WaterMARK)](https://github.com/mikelambson/WaterMARK/issues)
 ![GitHub language count](https://img.shields.io/github/languages/count/mikelambson/WaterMARK)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/mikelambson/WaterMARK)
