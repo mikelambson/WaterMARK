@@ -69,7 +69,7 @@ interface Schedule {
     specialRequest: string | null;
     cancelled: boolean;
     cancelReason: string;
-    orderId: number;
+    orderId: string;
     order: Order;
     scheduledLine: ScheduledLine;
     callout: any[];

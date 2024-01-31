@@ -39,6 +39,7 @@ import { TbGridDots } from "react-icons/tb";
 
 import { FaHandHoldingWater } from "react-icons/fa";
 import { PiDotsThreeDuotone } from "react-icons/pi";
+import CancelOrder from "@/components/function/CancelOrder";
 
 
 
@@ -295,6 +296,10 @@ const ScheduleCard = ({
                         </div>
                     </div>
                     <SheetFooter>
+                        <CancelOrder 
+                            disabled={schedule.order.status === "running" ? true : false}
+                            orderId={schedule.orderId}
+                        />
                     <Button variant={"secondary"} type="reset">Reset</Button>
                     <SheetClose asChild>
                         <Button type="submit">Save changes</Button>

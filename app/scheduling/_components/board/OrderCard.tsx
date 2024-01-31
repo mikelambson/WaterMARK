@@ -27,7 +27,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { TbGridDots } from "react-icons/tb";
-import { PiDotsThreeDuotone, PiDotsThreeOutlineBold } from "react-icons/pi";
+import { PiDotsThreeDuotone } from "react-icons/pi";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import CancelOrder from "@/components/function/CancelOrder";
 
 
 type Properties = {
@@ -173,9 +175,14 @@ const OrderCard = ({
                     </div>
                     </div>
                     <SheetFooter>
-                    <SheetClose asChild>
-                        <Button type="submit">Save changes</Button>
-                    </SheetClose>
+                        
+                        <CancelOrder 
+                            orderId={order.id}
+                        />
+
+                        <SheetClose asChild>
+                            <Button type="submit">Save changes</Button>
+                        </SheetClose>
                     </SheetFooter>
                 </SheetContent>
             </Sheet>
