@@ -11,7 +11,6 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/mikelambson/WaterMARK)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/mikelambson/WaterMARK)
 
-
 ![node-current](https://img.shields.io/node/v/latest)
 [![Static Badge](https://img.shields.io/badge/State_Management-Zustand-%23422136)](https://www.npmjs.com/package/zustand)
 [![Static Badge](https://img.shields.io/badge/UI_Components-Shadcn%2FUI-darkgray)](https://ui.shadcn.com/)
