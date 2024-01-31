@@ -6,7 +6,7 @@
 ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmikelambson%2FWaterMARK%2Fmaster%2Fpackage.json&query=%24.version&label=version)
 ![GitHub repo size](https://img.shields.io/github/repo-size/mikelambson/WaterMARK)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mikelambson/WaterMARK)
-![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmikelambson%2FWaterMARK%2Fmaster%2Fpackage.json&query=%24.linecount&label=total%20lines&color=858585)
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmikelambson%2FWaterMARK%2Fmaster%2Fpackage.json&query=%24.linecount&label=total%20lines&color=333222)
 
 [![GitHub license](https://img.shields.io/github/license/mikelambson/WaterMARK)](https://github.com/mikelambson/WaterMARK/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/mikelambson/WaterMARK)](https://github.com/mikelambson/WaterMARK/issues)
