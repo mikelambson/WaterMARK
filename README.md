@@ -50,6 +50,7 @@ ___
 - task system
 - notification system
 - integrate data sources
+- build backend data management modules
 
 ## License
 
