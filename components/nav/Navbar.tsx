@@ -69,6 +69,7 @@ const Navbar = () => {
                 "/admin/lookup",
                 "/admin/callout",
                 "/admin/adjustments",
+                "/admin/post",
             ],
         },
         {
