@@ -5,16 +5,17 @@
 [![Build Status](https://img.shields.io/static/v1?label=build&message=development&color=red)](https://img.shields.io)
 ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmikelambson%2FWaterMARK%2Fmaster%2Fpackage.json&query=%24.version&label=version)
 ![GitHub repo size](https://img.shields.io/github/repo-size/mikelambson/WaterMARK)
-![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmikelambson%2FWaterMARK%2Fmaster%2Fpackage.json&query=%24.linecount&label=line%20count)
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmikelambson%2FWaterMARK%2Fmaster%2Fpackage.json&query=%24.linecount&label=total%20lines&color=858585)
 
 [![GitHub license](https://img.shields.io/github/license/mikelambson/WaterMARK)](https://github.com/mikelambson/WaterMARK/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/mikelambson/WaterMARK)](https://github.com/mikelambson/WaterMARK/issues)
 ![GitHub language count](https://img.shields.io/github/languages/count/mikelambson/WaterMARK)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/mikelambson/WaterMARK)
 
-![node-current](https://img.shields.io/node/v/latest)
-[![Static Badge](https://img.shields.io/badge/State_Management-Zustand-%23422136)](https://www.npmjs.com/package/zustand)
-[![Static Badge](https://img.shields.io/badge/UI_Components-Shadcn%2FUI-darkgray)](https://ui.shadcn.com/)
+[![Static Badge](https://img.shields.io/badge/node-v20.10.0-44bf16)](https://ui.shadcn.com/)
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmikelambson%2FWaterMARK%2Fmaster%2Fpackage.json&query=%24.dependencies.next&label=nextjs&color=111111)
+[![Static Badge](https://img.shields.io/badge/state_management-Zustand-%23422136)](https://www.npmjs.com/package/zustand)
+[![Static Badge](https://img.shields.io/badge/components-Shadcn%2FUI-111111)](https://ui.shadcn.com/)
 
 ___
 
