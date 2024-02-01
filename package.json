@@ -1,6 +1,6 @@
 {
   "name": "watermark",
-  "version": "0.4.5.0",
+  "version": "0.4.5",
   "private": true,
   "scripts": {
     "initialize": "npm install && npm envmake",

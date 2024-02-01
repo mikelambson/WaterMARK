@@ -3,6 +3,7 @@
 ## _Water Measurement Administration & Record Keeping_
 
 [![Build Status](https://img.shields.io/static/v1?label=build&message=development&color=red)](https://img.shields.io)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/mikelambson/WaterMARK)
 ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmikelambson%2FWaterMARK%2Fmaster%2Fpackage.json&query=%24.version&label=version)
 ![GitHub repo size](https://img.shields.io/github/repo-size/mikelambson/WaterMARK)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mikelambson/WaterMARK)
