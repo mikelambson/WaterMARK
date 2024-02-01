@@ -12,6 +12,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 interface SchedulingState {
     board: Board;
+    updateOrderStatus: (orderId: string, newStatus: string) => void;
     isLoading: boolean;
     selectedDistrict: string;
     page: number;
@@ -29,6 +30,7 @@ interface SchedulingState {
     setPageSize: (pageSize: number) => void;
     getBoard: (state: SchedulingState) => Promise<void>; // Receive state as a parameter
     getSchedule: (head: number) => Promise<void>;
+    
 }
 
 export const useSchedulingStore = create<SchedulingState>((set) => ({
@@ -44,6 +46,23 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
             throw new Error('Function not implemented.');
         }
     },
+    updateOrderStatus: (orderId: string, newStatus: string) => {
+      set((state) => {
+          const updatedColumns = new Map<string, TypedUnscheduled>();
+  
+          // Iterate through columns
+          state.board.columns.forEach((typedUnscheduled, status) => {
+              const updatedOrders = typedUnscheduled.orders.map((order) =>
+                  order.id === orderId ? { ...order, status: newStatus } : order
+              );
+              updatedColumns.set(status, { id: status, orders: updatedOrders });
+          });
+  
+          const updatedBoard = { ...state.board, columns: updatedColumns };
+  
+          return { board: updatedBoard };
+      });
+  },
     isLoading: false,
     selectedDistrict: "WE",
     page: 1,

@@ -15,12 +15,16 @@ type FetchResult<T> = {
 };
 
 class ApiFetch {
-  private async performRequest<T>(route: string): Promise<AxiosResponse<T>> {
+  private async performRequest<T>(route: string, method: string, data?: any): Promise<AxiosResponse<T>> {
     try {
-      const response: AxiosResponse<T> = await axios.get(`${baseUrl}${route}`);
+      const response: AxiosResponse<T> = await axios({
+        method,
+        url: `${baseUrl}${route}`,
+        data,
+      });
       return response;
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error performing request:", error);
       throw error; // Propagate the error to the caller
     }
   }
@@ -47,7 +51,8 @@ class ApiFetch {
   public async fetchData<T>(specificRoute: string): Promise<FetchResult<T>> {
     try {
       const response: AxiosResponse<T> = await this.performRequest<T>(
-        specificRoute
+        specificRoute,
+        'get',
       );
       return { success: true, data: response.data };
     } catch (error) {
@@ -61,6 +66,21 @@ class ApiFetch {
     onData: (data: T) => void
   ): EventSource {
     return this.createSSEConnection<T>(sseRoute, onData);
+  }
+
+
+  public async updateData<T>(specificRoute: string, newData: T): Promise<FetchResult<T>> {
+    try {
+      const response: AxiosResponse<T> = await this.performRequest<T>(
+        specificRoute,
+        'put', // Assuming you want to use the HTTP PUT method for updating
+        { data: newData } // Wrap the new data in an object
+      );
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error("Error updating data:", error);
+      return { success: false, error };
+    }
   }
 }
 

@@ -11,7 +11,7 @@ declare type TypedColumn = "unscheduled" | "scheduled"
 
 interface TypedUnscheduled {
     id: string;
-    orders: Schedule[]; // Replace Schedule with the actual type of your orders
+    orders: Order[]; 
   };
 
 interface SchBoard {

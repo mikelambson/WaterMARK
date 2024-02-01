@@ -1,6 +1,6 @@
 // @/app/(scheduling)/_components/OrderCard.tsx
 "use client"
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "@hello-pangea/dnd";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -30,6 +30,7 @@ import { TbGridDots } from "react-icons/tb";
 import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
 import { useSchedulingStore } from "@/lib/store/schedulingStore";
+import DelayOrderButton from "./DelayOrder";
 
 type Properties = {
     order: Order;
@@ -56,7 +57,13 @@ const OrderCard = ({
         setIsDetailsVisible(!isDetailsVisible);
     };
     const [date, setDate] = React.useState<Date>()
-    const { selectedSheet, selectedHead } = useSchedulingStore();
+    const { updateOrderStatus, selectedSheet, selectedHead } = useSchedulingStore();
+
+    const updateStatus = useCallback((orderId: string, newStatus: string) => {
+        // Fetch data based on the updated district
+        updateOrderStatus(orderId, newStatus);
+    }, [updateOrderStatus]);
+
        
     const iconStyle = `cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1`;
 
@@ -210,7 +217,11 @@ const OrderCard = ({
                             orderId={order.id} 
                             orderNumber={order.orderNumber} 
                         />
-                        <Button variant={"secondary"}>Delay Order</Button>
+                        <DelayOrderButton 
+                            orderId={order.id}
+                            currentStatus={order.status}
+                            onUpdate={updateStatus}
+                        />
                         <SheetClose asChild>
                             <Button type="submit">Save Changes</Button>
                         </SheetClose>
