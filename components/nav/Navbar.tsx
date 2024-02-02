@@ -62,7 +62,7 @@ const Navbar = () => {
         {
             id: 11,
             link: "/admin",
-            allowedRoles: ["Staff", "Watermaster", "Senior Analyst", "Admin"],
+            allowedRoles: ["Staff", "Watermaster", "Analyst", "Senior Analyst", "Admin"],
             name: "Admin",
             children: [
                 "/admin",
@@ -82,7 +82,7 @@ const Navbar = () => {
         {
             id: 33,
             link: "/scheduling",
-            allowedRoles: ["Watermaster", "Scheduler", "Admin"],
+            allowedRoles: ["Watermaster", "Scheduler", "Admin", "Senior Analyst"],
             name: "Scheduling",
             children: [
                 "/scheduling",
@@ -97,7 +97,7 @@ const Navbar = () => {
         {
             id: 44,
             link: "/deliveries",
-            allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "Admin"],
+            allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "Admin", "Senior Analyst"],
             name: "Deliveries",
             children: [
                 "/deliveries",
@@ -109,7 +109,7 @@ const Navbar = () => {
         {
             id: 55,
             link: "/analysis",
-            allowedRoles: ["Scheduler", "Admin", "Senior Analyst"],
+            allowedRoles: ["Scheduler", "Admin", "Analyst", "Senior Analyst", "Watermaster"],
             name: "Analysis",
             children: [
                 "/analysis",
@@ -129,7 +129,7 @@ const Navbar = () => {
         {
             id: 77,
             link: "/reports",
-            allowedRoles: ["Watermaster", "Analyst", "Admin"],
+            allowedRoles: ["Watermaster", "Senior Analyst", "Admin"],
             name: "Reports",
             children: ["/reports"],
         },
@@ -327,41 +327,41 @@ const Navbar = () => {
                 </Sheet>
 
                 <DropdownMenu>
-                <DropdownMenuTrigger>
-                    <div className={`${defaultTextColorClass}`}>
-                    <Avatar>
-                        <AvatarImage />
-                        <AvatarFallback className="bg-black/5">
-                        <FaUserCircle
-                            size={30}
-                            className={` ${iconHoverColorClass} subpixel-antialiased`}
-                        />
-                        </AvatarFallback>
-                    </Avatar>
-                    </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel>Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <Link href="/login">
-                    <DropdownMenuItem>
-                        <User className="mr-2 h-4 w-4" />
-                        <span>Profile</span>
-                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                    </Link>
-                    <DropdownMenuItem>Something</DropdownMenuItem>
-                    <DropdownMenuItem>More</DropdownMenuItem>
-                    <DropdownMenuItem>More Somethings</DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <Link href="/">
-                    <DropdownMenuItem>
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Logout</span>
-                        <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                    </Link>
-                </DropdownMenuContent>
+                    <DropdownMenuTrigger>
+                        <div  className={`${defaultTextColorClass}`}>
+                        <Avatar>
+                            <AvatarImage />
+                            <AvatarFallback className="bg-black/5">
+                            <FaUserCircle
+                                size={30}
+                                className={` ${iconHoverColorClass} subpixel-antialiased`}
+                            />
+                            </AvatarFallback>
+                        </Avatar>
+                        </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                        <DropdownMenuLabel>Account</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <Link href="/login">
+                        <DropdownMenuItem>
+                            <User className="mr-2 h-4 w-4" />
+                            <span>Profile</span>
+                            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                        </Link>
+                        <DropdownMenuItem>Something</DropdownMenuItem>
+                        <DropdownMenuItem>More</DropdownMenuItem>
+                        <DropdownMenuItem>More Somethings</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <Link href="/">
+                        <DropdownMenuItem>
+                            <LogOut className="mr-2 h-4 w-4" />
+                            <span>Logout</span>
+                            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                        </Link>
+                    </DropdownMenuContent>
                 </DropdownMenu>
             </div>
             ))}
