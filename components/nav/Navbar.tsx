@@ -49,6 +49,7 @@ const Navbar = () => {
     const iconHoverColorClass =
         "transition-all hover:text-yellow-400 hover:scale-125 dark:hover:text-yellow-300";
     const defaultbg = "bg-slate-800/95 dark:bg-slate-800";
+    const onlineScheduleName = userRole==="Anonymous" ? "Schedule" : "Public";
 
     const roleBasedLinks = [
         {
@@ -123,7 +124,7 @@ const Navbar = () => {
             id: 66,
             link: "/online-schedule",
             allowedRoles: ["any"],
-            name: "Schedule",
+            name: onlineScheduleName,
             children: ["/online-schedule"],
         },
         {
