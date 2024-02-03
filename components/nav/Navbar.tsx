@@ -122,17 +122,17 @@ const Navbar = () => {
         },
         {
             id: 66,
-            link: "/online-schedule",
-            allowedRoles: ["any"],
-            name: onlineScheduleName,
-            children: ["/online-schedule"],
-        },
-        {
-            id: 77,
             link: "/reports",
             allowedRoles: ["Watermaster", "Senior Analyst", "Admin"],
             name: "Reports",
             children: ["/reports"],
+        },
+        {
+            id: 77,
+            link: "/online-schedule",
+            allowedRoles: ["any"],
+            name: onlineScheduleName,
+            children: ["/online-schedule"],
         },
     ];
 
