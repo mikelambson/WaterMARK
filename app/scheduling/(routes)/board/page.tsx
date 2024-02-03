@@ -12,7 +12,7 @@ import { ChevronsUpDown } from 'lucide-react';
 
 
 const ScheduleWater = () => {
-    const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead, schedule, getSchedule} = useSchedulingStore();
+    const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead, schedule, getSchedule, updateOrderStatus} = useSchedulingStore();
     const [open, setOpen] = useState(false)
     
     
@@ -40,8 +40,20 @@ const ScheduleWater = () => {
         getBoard,
         selectedHead,
         schedule,
-        getSchedule
+        getSchedule,
+        updateOrderStatus
     };
+
+    useEffect(() => { 
+    
+        const fetchData = async () => {
+          // Fetch data based on the updated district
+          await getBoard(schedulingState);
+        };
+        // Call fetchData whenever selectedDistrict changes
+        fetchData();
+    
+      }, [getBoard, selectedDistrict, page, selectedHead]);
     
     const handleDistrictChange = async (district: string) => {
         setDistrict(district)

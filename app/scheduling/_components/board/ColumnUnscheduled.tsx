@@ -28,6 +28,7 @@ type Properties = {
 const pageNumbers = Array.from({ length: 6 }, (_, index) => index + 1);
 
 
+
 const UnscheduledColumn = ({ id, columns, index }: Properties) => {
     const { page, setPage, } = useSchedulingStore();
 
@@ -132,11 +133,12 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                                     {...provided.droppableProps}
                                     className="min-h-80 h-[98%] w-full px-[0.5rem] rounded-md">
                                     <div className="space-y-2">
-                                        {filteredUnscheduledOrders.map((order: any, index: any) => (
+                                        {filteredUnscheduledOrders.map((order: Order, index: any) => (
                                             <Draggable
-                                            key={order.orderNumber.toString()}
-                                            draggableId={(index.toString() + order.orderNumber.toString())}
+                                            key={order.id}
+                                            draggableId={order.id}
                                             index={index}
+                                            
                                             >
                                             {(provided) => (
                                                 <OrderCard
@@ -168,10 +170,10 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                                 {/* Change Height below ==>  */}
                                 <ScrollArea autoScroll className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
                                     <div className="space-y-2">
-                                    {filteredDelayedOrders.map((delayedOrder: any, index: any) => (
+                                    {filteredDelayedOrders.map((delayedOrder: Order, index: any) => (
                                         <Draggable
-                                        key={delayedOrder.orderNumber.toString()}
-                                        draggableId={delayedOrder.orderNumber.toString()}
+                                        key={delayedOrder.id}
+                                        draggableId={delayedOrder.id}
                                         index={index}
                                         >
                                         {(provided) => (

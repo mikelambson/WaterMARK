@@ -1,7 +1,6 @@
 // Scheduling Board @\app\scheduling\_components\schedule-orders\SchedulingBoard.tsx
 "use client";
 import { useSchedulingStore } from "@/lib/store/schedulingStore";
-import { useEffect } from "react";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -12,60 +11,48 @@ import UnscheduledColumn from "@/app/scheduling/_components/board/ColumnUnschedu
 
 
 const SchedulingBoard = () => {
-  const {
-    board,
-    isLoading,
-    selectedDistrict,
-    page,
-    pageSize,
-    headsheets,
-    selectedSheet,
-    selectedHead,
-    setDistrict,
-    getHeadsheets,
-    setSelectedSheet,
-    setSelectedHead,
-    setSelectedDistrict,
-    setPage,
-    setPageSize,
-    getBoard,
-    schedule,
-    getSchedule
-  } = useSchedulingStore();
-
-  const schedulingState = {
-    board,
-    isLoading,
-    selectedDistrict,
-    page,
-    pageSize,
-    headsheets,
-    selectedSheet,
-    selectedHead,
-    setDistrict,
-    getHeadsheets,
-    setSelectedSheet,
-    setSelectedHead,
-    setSelectedDistrict,
-    setPage,
-    setPageSize,
-    getBoard,
-    schedule,
-    getSchedule
-  };
-
-  useEffect(() => { 
-    const fetchData = async () => {
-      // Fetch data based on the updated district
-      await getBoard(schedulingState);
-    };
-    // Call fetchData whenever selectedDistrict changes
-    fetchData();
-  }, [getBoard, selectedDistrict, page, selectedHead]); // Empty dependency array means this effect will only run once after initial render
+  const { board, isLoading, selectedDistrict, selectedSheet, selectedHead } = useSchedulingStore();
 
   const handleOnDragEnd = (result: any) => {
-    // Handle drag and drop logic here
+    const { destination, source, draggableId } = result;
+
+    // If the order is not dropped into a valid destination, do nothing
+    if (!destination) return;
+
+    const { index: destinationIndex, droppableId: destinationId } = destination;
+    const { droppableId: sourceId, index: sourceIndex } = source;
+
+    // Retrieve the order that was dragged
+    const draggedOrder = board.columns.get(sourceId)?.orders[sourceIndex];
+
+    // Log the details
+    console.log('Dragged Order ID:', draggableId);
+    console.log('Selected Sheet:', selectedSheet);
+    console.log('Selected Head:', selectedHead);
+
+    // Handle the logic for updating the order status to "running"
+    if (destinationId === 'scheduled' && selectedSheet && selectedHead && draggedOrder) {
+      // Your logic to update the order status to "running"
+      const orderId = draggedOrder.id;
+      const newStatus = 'running';
+
+      console.log('Updating Order Status to "running"...');
+      console.log('Order ID:', orderId);
+      console.log('New Status:', newStatus);
+
+      // You can now update the order status using your API or store methods
+      // Example: updateOrderStatus(orderId, newStatus);
+      // ...
+
+      // After updating the order status, trigger a re-fetch or re-render if needed
+      // Example: refetchData();
+      // ...
+    }
+
+    // Handle other drag and drop logic as needed
+    // ...
   };
+
   if (isLoading) {
     return (
         <div className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto " >
@@ -75,8 +62,6 @@ const SchedulingBoard = () => {
         </div>
     );
   }
-
-
 
   return (
     <div>
