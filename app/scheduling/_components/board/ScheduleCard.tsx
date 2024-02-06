@@ -52,6 +52,7 @@ type Properties = {
 };
 
 const ScheduleCard = ({
+    index,
     schedule,
     innerRef,
     draggableProps,
@@ -105,20 +106,21 @@ const ScheduleCard = ({
             
         >
             <Sheet>
-                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-4 grid-cols-[2rem,1fr,2fr,1fr] 
+                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,2fr,1fr] 
                 gap-0 rounded-sm align-text-bottom">
-                    <div className={cn(`col-start-1 row-start-1 row-span-4 pt-6 ${schedule.order.status !== "running" 
+                    <div className={cn(`col-start-1 row-start-1 row-span-5 pt-9 ${schedule.order.status !== "running" 
                         ? "text-gray-400/80 dark:text-gray-600/80"
                         : "text-neutral-400/80 dark:text-stone-600/80"}`)}>
                         <DragIcon />
                     </div>
                     <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
-                    <div className={cn(`col-span-3 text-bottom row-start-2 border-b-2 font-semibold truncate 
+                    <div className="col-span-3 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">Stop index: {new Date(index).toLocaleString()} | {index}</div>
+                    <div className={cn(`col-span-3 text-bottom row-start-3 border-b-2 font-semibold truncate 
                     text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
                         Instructions: {schedule.instructions}
                     </div>
                     <div className="col-start-1 row-start-4"></div>
-                    <div className={cn(`row-span-2 col-start-2 row-start-3 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground ${borderColors}`)}><span className={"text-gray-200/60 dark:text-foreground/60"} >Scheduled:</span>
+                    <div className={cn(`row-span-2 col-start-2 row-start-4 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground ${borderColors}`)}><span className={"text-gray-200/60 dark:text-foreground/60"} >Scheduled:</span>
                     <br />{new Date(schedule.scheduledDate).toLocaleString('en-US', {
                             year: 'numeric',
                             month: 'numeric',
@@ -128,13 +130,13 @@ const ScheduleCard = ({
                             hour12: false,
                         })}
                     </div>
-                    <div className={cn(`col-start-3 row-start-3 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>Status: <span className={cn(`
+                    <div className={cn(`col-start-3 row-start-4 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>Status: <span className={cn(`
                         ${schedule.order.status !== "running" 
                         ? "text-cyan-300/90 dark:text-cyan-200/70"
                         : "text-emerald-400/90 dark:text-emerald-300/80"}`)}>{capitalizedStatus}</span></div>
-                    <div className={cn(`col-span-4 row-start-3 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}` )}>{schedule.order.approxCfs} CFS</div>
-                    <div className={cn(`col-start-3 row-start-4 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>Travel: {schedule.travelTime} hrs</div>
-                    <div className={cn(`flex justify-between col-start-4 row-start-4 px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
+                    <div className={cn(`col-span-4 row-start-4 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}` )}>{schedule.order.approxCfs} CFS</div>
+                    <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>Travel: {schedule.travelTime} hrs</div>
+                    <div className={cn(`flex justify-between col-start-4 row-start-5 px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
                         {schedule.order.approxHrs} hrs 
                         <PiDotsThreeDuotone className={`hover:scale-125 ${iconStyle}`} />
                     </div>

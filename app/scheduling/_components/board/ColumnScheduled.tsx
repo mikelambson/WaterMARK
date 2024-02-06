@@ -1,6 +1,5 @@
 // TabbedColumn @\app\scheduling\_components\schedule-orders\TabbbedColumn.tsx
 import { useSchedulingStore } from '@/lib/store/schedulingStore';
-import OrderCard from "@/app/analysis/_components/OrderCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils";
@@ -8,12 +7,14 @@ import { Order, Schedule, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { useEffect } from 'react';
 import ScheduleCard from './ScheduleCard';
+import { format, formatISO } from 'date-fns';
 
 type Properties = {
     id: TypedColumn,
     columns: (Schedule | Order)[],
     index: number,  
 }
+
 
 const ScheduledColumn = ({ id, columns, index }: Properties) => {
     const { selectedDistrict, selectedSheet, selectedHead, setSelectedHead, schedule, getSchedule } = useSchedulingStore();
@@ -43,6 +44,13 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
         return districtMapping[districtSelected];
       };
 
+    // Function to add hours to a timestamp
+    const getIndexMS = (timestamp:number, hoursToAdd:number) => {
+        const originalDate = new Date(timestamp);
+        const endDate = new Date(originalDate.getTime() + hoursToAdd * 60 * 60 * 1000);
+
+    return endDate.getTime();
+    };
 
 
     return (   
@@ -105,13 +113,13 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                                     schedule.order.status !== "running" ? (
                                                         <Draggable
                                                         key={innerIndex}
-                                                        draggableId={(index.toString() + schedule.order.orderNumber.toString())}
+                                                        draggableId={schedule.orderId}
                                                         index={innerIndex}
                                                         >
                                                         {(provided) => (
                                                             <ScheduleCard
                                                             schedule={schedule}
-                                                            index={index}
+                                                            index={getIndexMS(schedule.scheduledDate, schedule.order.approxHrs)}
                                                             innerRef={provided.innerRef}
                                                             draggableProps={provided.draggableProps}
                                                             dragHandleProps={provided.dragHandleProps}
@@ -121,7 +129,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                                     ) : (
                                                         <ScheduleCard
                                                         schedule={schedule}
-                                                        index={index}
+                                                        index={getIndexMS(schedule.scheduledDate, schedule.order.approxHrs)}
                                                         key={innerIndex}
                                                         innerRef={() => {}}
                                                         />
