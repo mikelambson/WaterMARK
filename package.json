@@ -78,6 +78,7 @@
     "@types/react": "^18.2.23",
     "@types/react-beautiful-dnd": "^13.1.5",
     "@types/react-table": "^7.7.16",
+    "@types/uuid": "^9.0.8",
     "readline-sync": "^1.4.10"
   },
   "author": {

@@ -4,7 +4,7 @@ import React, { useEffect, useCallback } from 'react';
 import axios from "axios";
 import { useTable, useSortBy } from "react-table";
 import { Button } from "@/components/ui/button"
-import useQueryStore from '@/lib/store/queryStore';
+import useQueryStore from '@/lib/store/analysisStore';
 
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
@@ -47,7 +47,7 @@ const Master = () => {
       setQueryParams(userInput);
       fetchData();
     },
-    [userInput, fetchData]
+    [userInput, fetchData, setQueryParams]
   );
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -56,10 +56,10 @@ const Master = () => {
     }
   };
 
-  // Trigger fetchData function on component mount and whenever queryParams changes
-  useEffect(() => {
-    fetchData();
-  }, [queryParams]);
+  // // Trigger fetchData function on component mount and whenever queryParams changes
+  // useEffect(() => {
+  //   fetchData();
+  // }, [queryParams, fetchData]);
 
   type Column<T> = {
     Header: string;
@@ -153,7 +153,6 @@ const Master = () => {
       <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Master Analysis</h1>
       <span className={"ml-2 pt-4 flex gap-6"}>
       <h1 className={"mt-2 text-xl font-bold "}>Order Count | {rows.length}</h1> 
-      <Button className={"active:bg-slate-500"}>Schedule These</Button>
       </span> 
       <form onSubmit={handleSubmit}>
       <div className={"ml-2 text-xl flex gap-2 items-center"}>

@@ -123,7 +123,8 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
             pageSize: state.pageSize,
           };
         const columns = await getScheduleGroupedByColumn(filters);
-        set({ board: columns, isLoading: false });
+        set({ board: columns});
+        set({isLoading: false})
     },
     getSchedule: async (head) => {
       const { selectedDistrict, selectedSheet } = useSchedulingStore.getState();
