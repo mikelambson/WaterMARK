@@ -35,12 +35,13 @@ const SchedulingBoard = () => {
     // Handle the logic for updating the order status to "running"
     if (Number(destinationId) === 1) {
       // Your logic to update the order status to "running"
-      const orderId = draggableId;
-      const newStatus = 'running';
+      const nextOrder = board.columns.values().next().value.orders[destinationIndex]
+      const nextOrderId = nextOrder?.id;
+      console.log('Next Order ID:', nextOrderId);
+    
 
-      console.log('Updating Order Status to "running"...');
-      console.log('Order ID:', orderId);
-      console.log('New Status:', newStatus);
+
+
 
       // You can now update the order status using your API or store methods
       // Example: updateOrderStatus(orderId, newStatus);
