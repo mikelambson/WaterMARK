@@ -123,6 +123,7 @@ const OrderCard = ({
                 </div>
                 <div className={`col-start-1 col-span-4 row-start-5 relative overflow-hidden ${isDetailsVisible ? cn("h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md border-gray-200 dark:border-gray-600") : 'h-0 opacity-0'}`}>
                     <div className={cn("p-1 bg-stone-400/70 dark:bg-stone-800/60")}>
+                    OrderID: {order.id}<br />
                     Irrigator: {order.details.irrigatorsName}<br />
                     Owner: {order.details.ownersName}<br />
                     Ordered AF: {order.details.approxAf}<br />

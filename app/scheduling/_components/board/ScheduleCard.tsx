@@ -142,6 +142,7 @@ const ScheduleCard = ({
                     </div>
                     <div className={`col-start-1 col-span-4 row-start-6 relative overflow-hidden transition-all ${isDetailsVisible ? cn(`h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md ${borderColors}`) : 'h-0 opacity-0'} duration-300 ease-in-out`}>
                         <div className={cn(`p-2 flex flex-col gap-2 bg-stone-400/60 dark:bg-stone-800/70`)}>
+                            OrderID: {schedule.orderId}<br />
                             Order #: {schedule.order.orderNumber} | Remarks: {schedule.order.remarks}<br />
                             Irrigator: {schedule.order.details.irrigatorsName}<br />
                             Owner: {schedule.order.details.ownersName}<br />

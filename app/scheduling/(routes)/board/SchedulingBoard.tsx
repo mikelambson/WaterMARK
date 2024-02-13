@@ -7,11 +7,27 @@ import { Skeleton } from "@/components/ui/skeleton";
 import ScheduledColumn from "@/app/scheduling/_components/board/ColumnScheduled";
 import UnscheduledColumn from "@/app/scheduling/_components/board/ColumnUnscheduled";
 
-
+const initialData = {
+  columns: {
+    unscheduled: {
+      id: 'unscheduled',
+      title: 'Unscheduled',
+      orders: [],
+    },
+    scheduled: {
+      id: 'scheduled',
+      title: 'Scheduled',
+      orders: [],
+    },
+    // Add other columns as needed
+  },
+};
 
 
 const SchedulingBoard = () => {
   const { board, isLoading, selectedSheet, selectedHead } = useSchedulingStore();
+
+  console.log('Board:', board);
 
   const handleOnDragEnd = (result: any) => {
     const { destination, source, draggableId } = result;
@@ -35,10 +51,17 @@ const SchedulingBoard = () => {
     // Handle the logic for updating the order status to "running"
     if (Number(destinationId) === 1) {
       // Your logic to update the order status to "running"
-      const nextOrder = board.columns.values().next().value.orders[destinationIndex]
-      const nextOrderId = nextOrder?.id;
-      console.log('Next Order ID:', nextOrderId);
-    
+      const orderId = draggableId;
+      const newStatus = 'running';
+
+      console.log('Updating Order Status to "running"...');
+      console.log('Order ID:', orderId);
+      console.log('New Status:', newStatus);
+
+      // array from destinationIndex to end of array
+      const scheduledColumn = board.columns
+      console.log('Scheduled Column Orders:', scheduledColumn);
+      console.log('Board:', initialData.columns.scheduled.orders);
 
 
 

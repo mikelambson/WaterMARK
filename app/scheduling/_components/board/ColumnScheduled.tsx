@@ -7,7 +7,6 @@ import { Order, Schedule, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { useEffect } from 'react';
 import ScheduleCard from './ScheduleCard';
-import { format, formatISO } from 'date-fns';
 
 type Properties = {
     id: TypedColumn,
