@@ -7,7 +7,7 @@ interface Board {
     // heads: Map<TypedSchedule, Column>;
 }
 
-declare type TypedColumn = "unscheduled" | "scheduled"
+declare type TypedColumn = "unscheduled" | "scheduled" | "delayed" | "running";
 
 interface TypedUnscheduled {
     id: string;

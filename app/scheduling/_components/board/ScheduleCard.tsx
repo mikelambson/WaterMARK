@@ -89,8 +89,16 @@ const ScheduleCard = ({
         ? "border-gray-200/60 dark:border-gray-600" 
         : "border-neutral-200/60 dark:border-stone-600";
     const iconStyle = `cursor-pointer transition ease-in-out duration-100 text-xl text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1`;
-    
+
     const capitalizedStatus = schedule.order.status.charAt(0).toUpperCase() + schedule.order.status.slice(1);
+
+    const spreadStatus = schedule.order.remarks && schedule.order.remarks.toLowerCase().includes("spread") 
+    ? "Spread" 
+    : "not spread";
+    const spreadStatusColor = schedule.order.remarks && schedule.order.remarks.toLowerCase().includes("spread")
+    ? "text-lime-500 dark:text-lime-400/90 font-semibold animate-pulse"
+    : "text-gray-200/60 dark:text-foreground/60";
+
    
     return ( 
         <div
@@ -114,7 +122,8 @@ const ScheduleCard = ({
                         <DragIcon />
                     </div>
                     <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
-                    <div className="col-span-3 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">Stop index: {new Date(index).toLocaleString()} | {index}</div>
+                    <div className="col-span-3 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">Stop index: {new Date(index).toLocaleString()} | {index} | <span className={`${spreadStatusColor} transform-gpu`}>{spreadStatus}</span></div>
+                    {/* <div></div> */}
                     <div className={cn(`col-span-3 text-bottom row-start-3 border-b-2 font-semibold truncate 
                     text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
                         Instructions: {schedule.instructions}

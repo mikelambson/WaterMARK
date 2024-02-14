@@ -7,27 +7,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import ScheduledColumn from "@/app/scheduling/_components/board/ColumnScheduled";
 import UnscheduledColumn from "@/app/scheduling/_components/board/ColumnUnscheduled";
 
-const initialData = {
-  columns: {
-    unscheduled: {
-      id: 'unscheduled',
-      title: 'Unscheduled',
-      orders: [],
-    },
-    scheduled: {
-      id: 'scheduled',
-      title: 'Scheduled',
-      orders: [],
-    },
-    // Add other columns as needed
-  },
-};
 
 
 const SchedulingBoard = () => {
   const { board, isLoading, selectedSheet, selectedHead } = useSchedulingStore();
 
-  console.log('Board:', board);
+  // console.log('Board:', board);
 
   const handleOnDragEnd = (result: any) => {
     const { destination, source, draggableId } = result;
@@ -61,7 +46,6 @@ const SchedulingBoard = () => {
       // array from destinationIndex to end of array
       const scheduledColumn = board.columns
       console.log('Scheduled Column Orders:', scheduledColumn);
-      console.log('Board:', initialData.columns.scheduled.orders);
 
 
 
