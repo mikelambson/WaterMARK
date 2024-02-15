@@ -5,6 +5,7 @@ import { create } from 'zustand';
 import axios from 'axios';
 // import ApiFetch from '@/lib//apiFetch';
 import getScheduledByHead from '@/lib/scheduling/getScheduled';
+import { get } from 'http';
 
 // const api = new ApiFetch();
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -30,6 +31,7 @@ interface SchedulingState {
     setPageSize: (pageSize: number) => void;
     getBoard: (state: SchedulingState) => Promise<void>; // Receive state as a parameter
     getSchedule: (head: number) => Promise<void>;
+    getUnscheduled: (district: string, page: number, pageSize: number) => Promise<void>;
     
 }
 
@@ -115,16 +117,20 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     setSelectedDistrict: (district: string) => set({ selectedDistrict: district}),
     setPage: (page: number) => set({ page }),
     setPageSize: (pageSize: number) => set({ pageSize }),
+    getUnscheduled: async (district: string, page: number, pageSize: number) => {
+      set({ isLoading: true });
+      const filters = {
+        district: district,
+        page: page,
+        pageSize: pageSize,
+      };
+      const columns = await getScheduleGroupedByColumn(filters);
+      set({ board: columns });
+      set({ isLoading: false });
+    },
     getBoard: async (state) => {
-        set({ isLoading: true});
-        const filters = {
-            district: state.selectedDistrict,
-            page: state.page,
-            pageSize: state.pageSize,
-          };
-        const columns = await getScheduleGroupedByColumn(filters);
-        set({ board: columns});
-        set({isLoading: false})
+      state.getUnscheduled(state.selectedDistrict, state.page, state.pageSize);
+      // Additional logic can be added here in the future
     },
     getSchedule: async (head) => {
       const { selectedDistrict, selectedSheet } = useSchedulingStore.getState();
@@ -141,8 +147,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
         columns: new Map<number, TypedSchedule>(),
     };
       set({schedule: scheduledOrders})
-    },
-   
-}));
+    }
+})); 
 
 
