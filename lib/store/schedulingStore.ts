@@ -118,7 +118,6 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     setPage: (page: number) => set({ page }),
     setPageSize: (pageSize: number) => set({ pageSize }),
     getUnscheduled: async (district: string, page: number, pageSize: number) => {
-      set({ isLoading: true });
       const filters = {
         district: district,
         page: page,
@@ -126,10 +125,11 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
       };
       const columns = await getScheduleGroupedByColumn(filters);
       set({ board: columns });
-      set({ isLoading: false });
     },
     getBoard: async (state) => {
+      set({ isLoading: true });
       state.getUnscheduled(state.selectedDistrict, state.page, state.pageSize);
+      set({ isLoading: false });
       // Additional logic can be added here in the future
     },
     getSchedule: async (head) => {
