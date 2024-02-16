@@ -4,7 +4,12 @@ interface Board {
     setPageSize(arg0: number): unknown;
     setPage(arg0: number): unknown;
     columns: Map<string, TypedUnscheduled>;
-    // heads: Map<TypedSchedule, Column>;
+    scheduled?: TypedSchedule[]; // New array for scheduled orders
+    unscheduled?: {
+        pending?: TypedUnscheduled[]; // New array for pending orders
+        delayed?: TypedUnscheduled[]; // New array for delayed orders
+    };
+    
 }
 
 declare type TypedColumn = "unscheduled" | "scheduled" | "delayed" | "running";

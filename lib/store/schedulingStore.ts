@@ -37,6 +37,11 @@ interface SchedulingState {
 
 export const useSchedulingStore = create<SchedulingState>((set) => ({
     board: {
+        scheduled: [], // Initialize an empty array for scheduled orders
+        unscheduled: {
+            pending: [], // Initialize an empty array for pending orders
+            delayed: [], // Initialize an empty array for delayed orders
+        },
         columns: new Map<string, TypedUnscheduled>(),
         setDistrict: function (arg0: string): unknown {
             throw new Error('Function not implemented.');
@@ -71,26 +76,26 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     pageSize: 100,
     headsheets: [],
     selectedSheet: {
-      id: 0o0,
-      name: "",
-      district: "",
-      maxHeads: 0,
-      maxFlow: 0,
-      structureRef: "",
-      characteristics: ""
+        id: 0o0,
+        name: "",
+        district: "",
+        maxHeads: 0,
+        maxFlow: 0,
+        structureRef: "",
+        characteristics: ""
     },
     selectedHead: 1,
     schedule: {
-      columns: new Map<number, TypedSchedule>(),
-      setDistrict: function (arg0: string): unknown {
-        throw new Error('Function not implemented.');
-      },
-      setSelectedSheet: function (arg0: number): unknown {
-        throw new Error('Function not implemented.');
-      },
-      setSelectedHead: function (arg0: number): unknown {
-        throw new Error('Function not implemented.');
-      },
+        columns: new Map<number, TypedSchedule>(),
+        setDistrict: function (arg0: string): unknown {
+            throw new Error('Function not implemented.');
+        },
+        setSelectedSheet: function (arg0: number): unknown {
+            throw new Error('Function not implemented.');
+        },
+        setSelectedHead: function (arg0: number): unknown {
+            throw new Error('Function not implemented.');
+        },
     },
 
     setDistrict: (district) => set({ selectedDistrict: district }),
