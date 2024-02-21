@@ -4,10 +4,10 @@ interface Board {
     setPageSize(arg0: number): unknown;
     setPage(arg0: number): unknown;
     columns: Map<string, TypedUnscheduled>;
-    scheduled?: TypedSchedule[]; // New array for scheduled orders
+    scheduled?: TypedSchedule[]; 
     unscheduled?: {
-        pending?: TypedUnscheduled[]; // New array for pending orders
-        delayed?: TypedUnscheduled[]; // New array for delayed orders
+        pending?: TypedUnscheduled[]; 
+        delayed?: TypedUnscheduled[]; 
     };
     
 }

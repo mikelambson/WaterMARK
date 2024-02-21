@@ -9,7 +9,7 @@ const api = new ApiFetch();
 interface ApiFilters {
     district: string;
     headsheet: PartialHeadsheetsData;
-    head: HeadData;
+    head?: HeadData;
 }
 
 const getScheduledByHead = async (filters: ApiFilters) => {
@@ -24,12 +24,6 @@ const getScheduledByHead = async (filters: ApiFilters) => {
             variant: "Incomplete request.",
             description: "Could not connect to the server!",
         });
-      //  console.info({
-      //       datafetch: "Success",
-      //       headsheet: headsheet.name,
-      //       block: head,
-
-      //   });
         const scheduled: Schedule[] = result.data as Schedule[];
         // const scheduledOrders = result.data;
         scheduled.sort((a: any, b: any) => new Date(a.scheduledDate).getTime() - new Date(b.scheduledDate).getTime());
@@ -86,20 +80,12 @@ const getScheduledByHead = async (filters: ApiFilters) => {
         const scheduledcolumn: SchBoard = {
             columns: sortedSchedules,
             setDistrict: (district: string) => {
-                // Implement the logic for setting the district
-                // console.log(`Setting district: ${district}`);
             },
             setSelectedSheet: (sheet: number) => {
-                // Implement the logic for setting the selected sheet
-                // console.log(`Setting selected sheet: ${sheet}`);
             },
             setSelectedHead: (head: number) => {
-                // Implement the logic for setting the selected head
-                // console.log(`Setting selected head: ${head}`);
             },
         };
-          // console.log(scheduledcolumn);
-          // Return the structured object
         return scheduledcolumn;
     
     } catch (error) {
