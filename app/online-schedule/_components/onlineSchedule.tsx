@@ -18,11 +18,13 @@ interface TableProps {
 
 
 const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
+
+    const validData = Array.isArray(scheduleData);
     
     return (
         <Table>
             <TableHeader>
-                <TableRow>
+                <TableRow className='font-semibold text-base'>
                     <TableHead>Scheduled Date</TableHead>
                     <TableHead>Order Number</TableHead>
                     <TableHead>Laterals</TableHead>
@@ -32,7 +34,7 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {Array.isArray(scheduleData) ? (
+                {validData ? (
                     scheduleData.map((data: Schedule, index: number) => { 
                         const parsedDate = parseISO(data.scheduledDate);
                         const formattedDate = format(parsedDate, 'MMM do BBBBB');
@@ -49,7 +51,7 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
                 ) : (
                      // Display a row with information when there is no data
                     <TableRow>
-                        <TableCell colSpan={5} className='text-center font-semibold text-xl py-24'>
+                        <TableCell colSpan={5} className='text-center font-semibold text-2xl py-24'>
                             No Scheduled Orders
                         </TableCell>
                     </TableRow>
