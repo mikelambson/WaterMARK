@@ -19,7 +19,8 @@ interface ApiFilters {
           `${baseUrl}orders?find:status=${status}&find:district=${district}&pageSize=${pageSize}&page=${page}`
         );
     
-        const orders: Order[] = response.data;
+        const orders: Order[] = response.data.orders;
+        
 
     orders.sort((a: any, b: any) => new Date(a.orderTimestamp).getTime() - new Date(b.orderTimestamp).getTime());
 
@@ -69,8 +70,8 @@ interface ApiFilters {
           throw new Error("Function not implemented.");
         },
       };
-  
-      return board;
+      const totalPages: number = response.data.metadata.totalPages;
+      return { board, totalPages };
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error; // Propagate the error to the caller

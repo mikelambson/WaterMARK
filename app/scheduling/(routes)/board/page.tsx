@@ -12,7 +12,7 @@ import { ChevronsUpDown } from 'lucide-react';
 
 
 const ScheduleWater = () => {
-    const { board, isLoading, setPage, setPageSize, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead, schedule, getSchedule, updateOrderStatus, getUnscheduled} = useSchedulingStore();
+    const { board, isLoading, setPage, setPageSize, totalPages, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead, schedule, getSchedule, updateOrderStatus, getUnscheduled} = useSchedulingStore();
     const [open, setOpen] = useState(false)
     
     
@@ -28,6 +28,7 @@ const ScheduleWater = () => {
         selectedDistrict,
         page,
         pageSize,
+        totalPages,
         setSelectedDistrict,
         setPage,
         setPageSize,

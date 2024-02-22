@@ -18,6 +18,7 @@ interface SchedulingState {
     selectedDistrict: string;
     page: number;
     pageSize: number;
+    totalPages: number;
     headsheets: HeadsheetsData[];
     selectedSheet: PartialHeadsheetsData;
     selectedHead: HeadData;
@@ -36,6 +37,7 @@ interface SchedulingState {
 }
 
 export const useSchedulingStore = create<SchedulingState>((set) => ({
+    totalPages: 0,
     board: {
         scheduled: [], // Initialize an empty array for scheduled orders
         unscheduled: {
@@ -105,13 +107,13 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
         const newSheets = response.data;
         set({ headsheets: newSheets });
         set({selectedSheet: {
-          id: 0o0,
-          name: "Select",
-          district: "",
-          maxHeads: 0,
-          maxFlow: 0,
-          structureRef: "",
-          characteristics: ""
+            id: 0o0,
+            name: "Select",
+            district: "",
+            maxHeads: 0,
+            maxFlow: 0,
+            structureRef: "",
+            characteristics: ""
         }})
       } catch (error) {
         console.error('Error fetching headsheets:', error);
@@ -128,8 +130,9 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
         page: page,
         pageSize: pageSize,
       };
-      const columns = await getScheduleGroupedByColumn(filters);
-      set({ board: columns });
+      const {board, totalPages} = await getScheduleGroupedByColumn(filters);
+      set({ board: board, totalPages: totalPages});
+
     },
     getBoard: async (state) => {
       set({ isLoading: true });

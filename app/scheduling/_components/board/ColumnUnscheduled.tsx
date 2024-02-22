@@ -24,20 +24,15 @@ type Properties = {
     delayed: 'Delayed',
   };
 
-
-const pageNumbers = Array.from({ length: 6 }, (_, index) => index + 1);
-
-
-
 const UnscheduledColumn = ({ id, columns, index }: Properties) => {
-    const { page, setPage, } = useSchedulingStore();
-
+    const { page, setPage, totalPages } = useSchedulingStore();
+    const pageNumbers = Array.from({ length: Number(totalPages) }, (_, index) => index + 1);
     // Step 1: Add State for Filter Value
     const [filterValue, setFilterValue] = useState('');
     const currentPage = page;
-  
+
     const handlePageChange = (page:number) => {
-      setPage(page);
+        setPage(page);
     };
     
     // Step 2: Update Order Mapping
