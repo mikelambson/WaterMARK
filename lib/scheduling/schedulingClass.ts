@@ -1,4 +1,4 @@
-import ApiFetch from '../apiFetch';
+import ApiFetch from '@/lib/apiFetch';
 import { TypedSchedule, PartialHeadsheetsData, HeadData, Schedule, SchBoard } from "@/typings";
 
 interface ApiFilters {
