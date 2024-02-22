@@ -10,6 +10,7 @@ import {
     TableCell,
     TableCaption,
   } from '@/components/ui/table';
+import { cn } from '@/lib/utils';
 
 
 interface TableProps {
@@ -22,9 +23,9 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
     const validData = Array.isArray(scheduleData) && scheduleData.length > 0;
     
     return (
-        <Table>
+        <Table className='border'>
             <TableHeader>
-                <TableRow className='font-semibold text-base'>
+                <TableRow className='font-semibold text-xs sm:text-sm md:text-base bg-tab-background text-card-alternative'>
                     <TableHead>Scheduled Date</TableHead>
                     <TableHead>Order Number</TableHead>
                     <TableHead>Laterals</TableHead>
@@ -38,8 +39,18 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
                     scheduleData.map((data: Schedule, index: number) => { 
                         const parsedDate = parseISO(data.scheduledDate);
                         const formattedDate = format(parsedDate, 'MMM do BBBBB');
+                        const isEvenRow = index % 2 === 1;
                         return (
-                        <TableRow key={index}>
+                        <TableRow key={index} className={
+                            data.order.status === 'running' 
+                            ? isEvenRow
+                            ? "bg-blue-900/40 dark:bg-cyan-950/95" 
+                            :"bg-blue-900/30 dark:bg-cyan-950/70" 
+                            : isEvenRow
+                            ? "bg-foreground/5"
+                            : ""
+                            }
+                        >
                             <TableCell>{formattedDate}</TableCell>
                             <TableCell>{data.order.orderNumber}</TableCell>
                             <TableCell>{data.order.laterals}</TableCell>
@@ -51,13 +62,13 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
                 ) : (
                      // Display a row with information when there is no data
                     <TableRow>
-                        <TableCell colSpan={5} className='text-center font-semibold text-2xl py-24'>
+                        <TableCell colSpan={5} className='text-center font-semibold text-2xl py-[25svh]'>
                             No Scheduled Orders
                         </TableCell>
                     </TableRow>
                 )}
             </TableBody>
-            <TableFooter>
+            <TableFooter className='bg-tab-background text-muted-foreground'>
                 <TableRow>
                     <TableCell colSpan={5}>Footer Content</TableCell>
                 </TableRow>

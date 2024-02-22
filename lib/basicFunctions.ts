@@ -1,6 +1,7 @@
 // Basic functions that are used throughout the application
 import useFlowsStore from '@/lib/store/opsFlowsStore';
 import axios from "axios";
+import { parseISO } from 'date-fns';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -39,6 +40,17 @@ export const getScheduled = async (district?: string) => {
   try {
     const response = await axios.get(address);
     const data = response.data;
+    // Sort the data based on the specified criteria
+    data.sort((a: any, b: any) => {
+      if (a.order.status === 'running' && b.order.status !== 'running') {
+        return -1; // a comes first
+      } else if (a.order.status !== 'running' && b.order.status === 'running') {
+        return 1; // b comes first
+      } else {
+        // Both have the same status or no 'running' status, sort by scheduledDate
+        return parseISO(a.scheduledDate).getTime() - parseISO(b.scheduledDate).getTime();
+      }
+    });
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);
