@@ -31,8 +31,6 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
                     {/* Add more table headers as needed */}
                 </TableRow>
             </TableHeader>
-            
-
             <TableBody>
                 {Array.isArray(scheduleData) ? (
                     scheduleData.map((data: Schedule, index: number) => { 
@@ -49,7 +47,12 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
                         </TableRow>
                     )})
                 ) : (
-                    []
+                     // Display a row with information when there is no data
+                    <TableRow>
+                        <TableCell colSpan={5} className='text-center font-semibold text-xl py-24'>
+                            No Scheduled Orders
+                        </TableCell>
+                    </TableRow>
                 )}
             </TableBody>
             <TableFooter>
