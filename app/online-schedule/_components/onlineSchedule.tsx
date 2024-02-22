@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 
 
 interface TableProps {
-    scheduleData: Schedule;
+    scheduleData: Schedule[];
 }
 
 
@@ -39,7 +39,7 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
                     scheduleData.map((data: Schedule, index: number) => { 
                         const parsedDate = parseISO(data.scheduledDate);
                         const formattedDate = format(parsedDate, 'MMM do BBBBB');
-                        const isEvenRow = index % 2 === 0;
+                        const isEvenRow = index % 2 === 1;
                         return (
                         <TableRow key={index} className={
                             data.order.status === 'running' 
@@ -60,21 +60,21 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
                             <TableCell>{data.order.laterals}</TableCell>
                             <TableCell>{data.scheduledLine.name}</TableCell>
                             <TableCell>{data.scheduledHead}</TableCell>
-                            {/* Render more table cells based on your schedule data structure */}
+                            {/* Add more table cells as needed */}
                         </TableRow>
                     )})
                 ) : (
                      // Display a row with information when there is no data
                     <TableRow>
                         <TableCell colSpan={5} className='text-center font-semibold text-2xl py-[25svh]'>
-                            No Scheduled Orders
+                            No Scheduled Orders Found
                         </TableCell>
                     </TableRow>
                 )}
             </TableBody>
             <TableFooter className='bg-tab-background text-muted-foreground'>
                 <TableRow>
-                    <TableCell colSpan={5}>Footer Content</TableCell>
+                    <TableCell colSpan={5}>Total Count: {scheduleData.length}</TableCell>
                 </TableRow>
             </TableFooter>
             <TableCaption>Table Caption</TableCaption>
