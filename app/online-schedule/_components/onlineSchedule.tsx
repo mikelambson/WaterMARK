@@ -10,16 +10,32 @@ import {
     TableCell,
     TableCaption,
   } from '@/components/ui/table';
-import { cn } from '@/lib/utils';
+
 
 
 interface TableProps {
     scheduleData: Schedule[];
+    district?: string;
 }
 
+const getDistrictName = (districtCode: string): string => {
+    switch (districtCode) {
+        case "WE":
+            return "West District";
+        case "CE":
+            return "Central District";
+        case "EA":
+            return "East District";
+        case "TC":
+            return "Truckee District";
+        default:
+            return "All Districts";
+    }
+  };
 
-const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
 
+const OnlineSchedule: React.FC<TableProps> = ({ scheduleData, district }) => {
+    const districtName = district ? getDistrictName(district) : "All Districts";
     const validData = Array.isArray(scheduleData) && scheduleData.length > 0;
     
     return (
@@ -74,7 +90,7 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
             </TableBody>
             <TableFooter className='bg-tab-background text-muted-foreground'>
                 <TableRow>
-                    <TableCell colSpan={5}>Total Count: {scheduleData.length}</TableCell>
+                    <TableCell colSpan={5}>{districtName} Total Count: {scheduleData.length} orders</TableCell>
                 </TableRow>
             </TableFooter>
             <TableCaption>Table Caption</TableCaption>

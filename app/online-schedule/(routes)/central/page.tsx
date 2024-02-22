@@ -3,11 +3,12 @@ import { getScheduled } from "@/lib/basicFunctions";
 
 
 export default async function Schedule() { // Make the function async
-  const schedule = await getScheduled("CE"); // Add the type annotation and use the 'await' keyword to wait for the promise to resolve
-  return (
-    <div className="p-2">
-      <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Central Online Schedule</h1>
-      <OnlineSchedule scheduleData={schedule} />
-    </div>
-  );
+    const district = "CE";
+    const schedule = await getScheduled(district); // Add the type annotation and use the 'await' keyword to wait for the promise to resolve
+    return (
+        <div className="p-2">
+            <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Central Online Schedule</h1>
+            <OnlineSchedule scheduleData={schedule} district={district} />
+        </div>
+    );
 }
