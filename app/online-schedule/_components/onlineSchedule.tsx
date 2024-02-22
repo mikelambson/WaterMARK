@@ -19,7 +19,7 @@ interface TableProps {
 
 const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
 
-    const validData = Array.isArray(scheduleData);
+    const validData = Array.isArray(scheduleData) && scheduleData.length > 0;
     
     return (
         <Table>

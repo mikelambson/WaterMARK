@@ -132,7 +132,7 @@ const Navbar = () => {
             link: "/online-schedule",
             allowedRoles: ["any"],
             name: onlineScheduleName,
-            children: ["/online-schedule"],
+            children: ["/online-schedule", "/online-schedule/west", "/online-schedule/central", "/online-schedule/east", "/online-schedule/truckee"],
         },
     ];
 
