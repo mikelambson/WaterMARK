@@ -39,19 +39,23 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
                     scheduleData.map((data: Schedule, index: number) => { 
                         const parsedDate = parseISO(data.scheduledDate);
                         const formattedDate = format(parsedDate, 'MMM do BBBBB');
-                        const isEvenRow = index % 2 === 1;
+                        const isEvenRow = index % 2 === 0;
                         return (
                         <TableRow key={index} className={
                             data.order.status === 'running' 
                             ? isEvenRow
-                            ? "bg-blue-900/40 dark:bg-cyan-950/95" 
-                            :"bg-blue-900/30 dark:bg-cyan-950/70" 
+                            ? "bg-blue-900/30 dark:bg-cyan-950/50" 
+                            :"bg-blue-700/20 dark:bg-cyan-950/70" 
                             : isEvenRow
                             ? "bg-foreground/5"
                             : ""
                             }
                         >
-                            <TableCell>{formattedDate}</TableCell>
+                            <TableCell className='font-semibold'>
+                                {data.order.status === 'running' 
+                                ? "Running" 
+                                : formattedDate}
+                            </TableCell>
                             <TableCell>{data.order.orderNumber}</TableCell>
                             <TableCell>{data.order.laterals}</TableCell>
                             <TableCell>{data.scheduledLine.name}</TableCell>
