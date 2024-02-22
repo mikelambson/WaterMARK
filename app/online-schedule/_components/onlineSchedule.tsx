@@ -1,4 +1,5 @@
-import { Schedule, Schedule as ScheduleData  } from "@/typings";
+import { format, parseISO } from 'date-fns'
+import { Schedule } from "@/typings";
 import {
     Table,
     TableHeader,
@@ -17,6 +18,7 @@ interface TableProps {
 
 
 const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
+    
     return (
         <Table>
             <TableHeader>
@@ -24,6 +26,8 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
                     <TableHead>Scheduled Date</TableHead>
                     <TableHead>Order Number</TableHead>
                     <TableHead>Laterals</TableHead>
+                    <TableHead>Headsheet</TableHead>
+                    <TableHead>Head</TableHead>
                     {/* Add more table headers as needed */}
                 </TableRow>
             </TableHeader>
@@ -31,21 +35,26 @@ const OnlineSchedule: React.FC<TableProps> = ({ scheduleData }) => {
 
             <TableBody>
                 {Array.isArray(scheduleData) ? (
-                    scheduleData.map((data: ScheduleData, index: number) => (
+                    scheduleData.map((data: Schedule, index: number) => { 
+                        const parsedDate = parseISO(data.scheduledDate);
+                        const formattedDate = format(parsedDate, 'MMM do BBBBB');
+                        return (
                         <TableRow key={index}>
-                            <TableCell>{data.scheduledDate}</TableCell>
+                            <TableCell>{formattedDate}</TableCell>
                             <TableCell>{data.order.orderNumber}</TableCell>
                             <TableCell>{data.order.laterals}</TableCell>
+                            <TableCell>{data.scheduledLine.name}</TableCell>
+                            <TableCell>{data.scheduledHead}</TableCell>
                             {/* Render more table cells based on your schedule data structure */}
                         </TableRow>
-                    ))
+                    )})
                 ) : (
                     []
                 )}
             </TableBody>
             <TableFooter>
                 <TableRow>
-                    <TableCell colSpan={3}>Footer Content</TableCell>
+                    <TableCell colSpan={5}>Footer Content</TableCell>
                 </TableRow>
             </TableFooter>
             <TableCaption>Table Caption</TableCaption>
