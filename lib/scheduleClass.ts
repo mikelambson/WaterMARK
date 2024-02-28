@@ -26,7 +26,7 @@ import {
     }
 
 
-class apiFetcher {
+export class scheduleFetcher {
     private api: ApiFetch;
     private selectedDistrict: string;
 
@@ -35,14 +35,14 @@ class apiFetcher {
       this.api = new ApiFetch();
     }
 
-    async fetchHeadsheets(): Promise<void> {
+    async fetchHeadsheets(store: any): Promise<void> {
         // Fetch headsheets from the API and store them in Board.headsheets[]
         // Board.headsheets = await this.apiFetch.get('https://api.example.com/headsheets');
         try {
           const response = await this.api.fetchData(`headsheets/${this.selectedDistrict}`);
           const newSheets: HeadsheetsData[] = response.data as HeadsheetsData[]; // Explicitly type newSheets as HeadsheetsData[]
-          useSchedulingStore.setState({ headsheets: newSheets });
-          useSchedulingStore.setState({
+          store.setState({ headsheets: newSheets });
+          store.setState({
             selectedSheet: {
               id: 0o0,
               name: "Select",

@@ -1,53 +1,95 @@
 // Delivery Schedule \app\deliveries\(routes)\schedule\page.tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+"use client"
+import Deliveries from "@/app/deliveries/_components/ScheduledDeliveries";
+import { useState } from "react";
+import useDeliveriesStore from "@/lib/store/deliveriesStore";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { ChevronsUpDown } from "lucide-react";
+import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
+
+
 
 export default function DeliverySchedule() {
+  const { selectedSheet, headsheets, setSelectedSheet, setSelectedHead } = useDeliveriesStore();
+  const [open, setOpen] = useState(false)
+  const defaultDistrict = "CE";
+
   return (
   <div className="p-1">
-    <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Delivery Schedule</h1>
-    <p>This is the where the orders will be started and tracked for deliveries.</p>
-    <Tabs defaultValue="section1" className="w-full pr-2">
-      <TabsList className="w-full flex flex-wrap">
-        <TabsTrigger value="section1">Head 1</TabsTrigger>
-        <TabsTrigger value="section2">Head 2</TabsTrigger>
-        <p className="absolute pl-[60vw] pt-2 text-xs italic text-card-alternative pointer-events-none">&#123;Dynamic section...&#125;</p>
-      </TabsList>
-      <TabsContent value="section1">
-        <ScrollArea className="h-full w-full rounded-md border p-4">
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-1">
-            <AccordionTrigger>Is it accessible?</AccordionTrigger>
-            <AccordionContent>
-              Yes. It adheres to the WAI-ARIA design pattern.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-2">
-            <AccordionTrigger>Is it styled?</AccordionTrigger>
-            <AccordionContent>
-              Yes. It comes with default styles that matches the other
-              components&apos; aesthetic.
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-3">
-            <AccordionTrigger>Is it animated?</AccordionTrigger>
-            <AccordionContent>
-              Yes. It&apos;s animated by default, but you can disable it if you
-              prefer.
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-        </ScrollArea>
-      </TabsContent>
-      <TabsContent value="section2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium aut distinctio omnis aliquam recusandae! Quam, nostrum tempore illo hic sequi sapiente quae dolores assumenda cum? Exercitationem nemo eius similique vero?</TabsContent>
-    </Tabs>
+     <div className='w-11/12 grid lg:grid-flow-col grid-cols-1 lg:grid-cols-3 gap-4 lg:max-gap-24 lg:mx-auto my-4 lg:my-[1px]'>
+                <h1 className='text-center lg:text-left text-2xl text-yellow-800 font-semibold'>Delivery Schedule</h1> 
+                <RadioGroup className='mx-auto my-auto lg:mx-0 inline-flex justify-center gap-5' defaultValue={defaultDistrict}>
+                    <div className="flex items-center space-x-2" onClick={() => {
+                            // handleDistrictChange('WE');
+                        }}>
+                        <RadioGroupItem value="WE" id="WE" />
+                        <Label className='cursor-pointer' htmlFor="WE">West</Label>
+                    </div>
+                    <div className="flex items-center space-x-2" onClick={() => {
+                        
+                        // handleDistrictChange('CE');
+                    }}>
+                        <RadioGroupItem value="CE" id="CE" />
+                        <Label className='cursor-pointer' htmlFor="CE">Central</Label>
+                    </div>
+                    <div className="flex items-center space-x-2" onClick={() => { 
+                        // handleDistrictChange('EA')
+                        
+                        }}>
+                        <RadioGroupItem value="EA" id="EA" />
+                        <Label className='cursor-pointer' htmlFor="EA">East</Label>
+                    </div>
+                    <div className="flex items-center space-x-2" onClick={() => {
+                        // handleDistrictChange('TC')
+                        
+                        }}>
+                        <RadioGroupItem value="TC" id="TC" />
+                        <Label className='cursor-pointer' htmlFor="TC">Truckee</Label>
+                    </div>
+                </RadioGroup>
+                <div className='pt-1 lg:mb-0 grid lg:justify-items-end justify-items-center'>
+                    
+                    {/* <SelectTrigger className="w-[180px] h-6 my-1 border-foreground/50"> */}
+                    <Popover open={open} onOpenChange={setOpen}>
+                        <PopoverTrigger asChild>
+                            <Button
+                            variant="outline"
+                            role="combobox"
+                            aria-expanded={open}
+                            className="w-[200px] h-7 mb-1 justify-between border-foreground/60"
+                            >
+                            {selectedSheet.name === "Select" ? "Select headsheet..." : selectedSheet.name}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[200px] -mt-1 p-0 z-50">  
+                            <Command className="my-1">
+                                <CommandGroup>
+                                    {headsheets.map((headsheet:any) => (
+                                        <CommandItem 
+                                            key={headsheet.id} 
+                                            value={headsheet.name} 
+                                            onSelect={() => {
+                                            setSelectedSheet(headsheet)
+                                            setSelectedHead(1)
+                                            setOpen(false)
+                                            // setValue(selectedSheet.name)
+                                        }}>
+                                        {headsheet.name}
+                                        </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </Command>
+                        </PopoverContent>   
+                     </Popover>
+                            
+                </div>
+            </div>
     
+    <Deliveries columns={[]} index={0} id={null} />
     
   </div>
   );
