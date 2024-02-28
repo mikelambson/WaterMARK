@@ -4,13 +4,13 @@ interface Board {
     setPageSize(arg0: number): unknown;
     setPage(arg0: number): unknown;
     columns: Map<string, TypedUnscheduled>;
-    scheduled?: TypedSchedule[]; 
-    unscheduled?: {
-        pending?: TypedUnscheduled[]; 
-        delayed?: TypedUnscheduled[]; 
-    };
-    
+    unscheduled?: Map<string, ColumnUnscheduled>; 
+    scheduled?: Map<string, ColumnScheduled>;
+       
 }
+
+declare type ColumnUnscheduled = "pending" | "delayed";
+declare type ColumnScheduled = "scheduled" | "running";
 
 declare type TypedColumn = "unscheduled" | "scheduled" | "delayed" | "running";
 
@@ -128,7 +128,9 @@ type PartialHeadsheetsData = HeadsheetsData | {
 type HeadData = number | "Select";
   
 export { 
-    Board, 
+    Board,
+    ColumnUnscheduled,
+    ColumnScheduled,
     TypedColumn,
     TypedUnscheduled, 
     SchBoard,

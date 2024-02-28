@@ -1,6 +1,6 @@
 // @/store/schedulingStore.ts
 import getScheduleGroupedByColumn from '@/lib/scheduling/getUnscheduledGrouped';
-import { HeadsheetsData, Board, PartialHeadsheetsData, HeadData, TypedSchedule, SchBoard, TypedUnscheduled} from '@/typings';
+import { HeadsheetsData, Board, PartialHeadsheetsData, HeadData, TypedSchedule, SchBoard, TypedUnscheduled, ColumnUnscheduled, ColumnScheduled} from '@/typings';
 import { create } from 'zustand';
 import axios from 'axios';
 // import ApiFetch from '@/lib//apiFetch';
@@ -39,11 +39,8 @@ interface SchedulingState {
 export const useSchedulingStore = create<SchedulingState>((set) => ({
     totalPages: 0,
     board: {
-        scheduled: [], // Initialize an empty array for scheduled orders
-        unscheduled: {
-            pending: [], // Initialize an empty array for pending orders
-            delayed: [], // Initialize an empty array for delayed orders
-        },
+        unscheduled: new Map<string, ColumnUnscheduled>(),
+        scheduled: new Map<string, ColumnScheduled>(),
         columns: new Map<string, TypedUnscheduled>(),
         setDistrict: function (arg0: string): unknown {
             throw new Error('Function not implemented.');

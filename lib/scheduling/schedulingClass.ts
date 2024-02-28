@@ -1,5 +1,13 @@
 import ApiFetch from '@/lib/apiFetch';
-import { TypedSchedule, PartialHeadsheetsData, HeadData, Schedule, SchBoard } from "@/typings";
+import { 
+    TypedUnscheduled, 
+    TypedSchedule, 
+    PartialHeadsheetsData, 
+    HeadData, 
+    Board,
+    Schedule, 
+    SchBoard, 
+    Order } from "@/typings";
 
 interface ApiFilters {
     district: string;
@@ -7,23 +15,97 @@ interface ApiFilters {
     head?: HeadData;
 }
 
-const api = new ApiFetch();
+interface UschFilters {
+    district: string;
+    page: number;
+    pageSize: number;
+  }
+
 
 class ApiFetcher {
-    private apiFetch: ApiFetch;
+    private api: ApiFetch;
 
     constructor() {
-        this.apiFetch = new ApiFetch();
+        this.api = new ApiFetch();
     }
 
     async fetchHeadsheets(): Promise<void> {
         // Fetch headsheets from the API and store them in Board.headsheets[]
         // Board.headsheets = await this.apiFetch.get('https://api.example.com/headsheets');
+
+        
     }
 
-    async fetchPendingOrders(): Promise<void> {
+    async fetchPendingOrders(filters: UschFilters): Promise<{ board: Board, totalPages: number }> {
         // Fetch pending orders from the API and store them in Board.unscheduled.pending[]
         // Board.unscheduled.pending = await this.apiFetch.get('https://api.example.com/pending-orders');
+
+        const { district, page, pageSize } = filters;
+    
+        let status = "p,delayed"
+    
+        try {
+            const response = await this.api.fetchData(
+                `orders?find:status=${status}&find:district=${district}&pageSize=${pageSize}&page=${page}`
+            );
+
+            const orders: Order[] = (response.data as any).orders;
+
+            orders.sort((a: any, b: any) => new Date(a.orderTimestamp).getTime() - new Date(b.orderTimestamp).getTime());
+    
+    
+        const columns = orders.reduce((acc: Map<string, TypedUnscheduled>, order: any) => {
+            const { status } = order;
+            const key: string = status === "unscheduled" || status === "delayed" ? "unscheduled" : "delayed";
+      
+            if (!acc.has(key)) {
+              acc.set(key, {
+                id: key,
+                orders: [order],
+              });
+            } else {
+              acc.get(key)?.orders.push(order);
+            }
+      
+            return acc;
+          }, new Map<string, TypedUnscheduled>());
+      
+          const columnTypes: string[] = ["unscheduled", "delayed"];
+          for (const columnType of columnTypes) {
+            if (!columns.get(columnType)) {
+              columns.set(columnType, {
+                id: columnType,
+                orders: [],
+              });
+            }
+          }
+      
+          // Sort columns by columnTypes
+          const sortedColumns = new Map<string, TypedUnscheduled>(
+            [...columns.entries()].sort((a, b) => {
+              return columnTypes.indexOf(a[0]) - columnTypes.indexOf(b[0]);
+            })
+          );
+      
+        const board: Board = {
+            columns: sortedColumns,
+            setDistrict: function (arg0: string): unknown {
+              throw new Error("Function not implemented.");
+            },
+            setPageSize: function (arg0: number): unknown {
+              throw new Error("Function not implemented.");
+            },
+            setPage: function (arg0: number): unknown {
+              throw new Error("Function not implemented.");
+            },
+          };
+          const totalPages: number = (response.data as any).metadata.totalPages;
+          return { board, totalPages };
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          throw error; // Propagate the error to the caller
+        }
+
     }
 
     async get(url: string): Promise<any> {
@@ -48,7 +130,7 @@ class ApiFetcher {
         
             // if (headsheet.name !== "Select") return;
             const scheduledRoute = `/schedule?find:district=${district}&find:status=${scheduledStatus}&find:line=${headsheet.name}&find:head=${head}`
-            const result = headsheet.name == ("Select" || '') ? { success: false } : await api.fetchData(scheduledRoute);
+            const result = headsheet.name == ("Select" || '') ? { success: false } : await this.api.fetchData(scheduledRoute);
             if (!result.success) return console.warn({
                 variant: "Incomplete request.",
                 description: "Could not connect to the server!",
