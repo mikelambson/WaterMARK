@@ -1,6 +1,6 @@
 // @/store/schedulingStore.ts
 import getScheduleGroupedByColumn from '@/lib/scheduling/getUnscheduledGrouped';
-import { HeadsheetsData, Board, PartialHeadsheetsData, HeadData, TypedSchedule, SchBoard, TypedUnscheduled, ColumnUnscheduled, ColumnScheduled} from '@/typings';
+import { HeadsheetsData, Board, PartialHeadsheetsData, HeadData, TypedScheduled, SchBoard, TypedUnscheduled, ColumnUnscheduled, ColumnScheduled} from '@/typings';
 import { create } from 'zustand';
 import axios from 'axios';
 // import ApiFetch from '@/lib//apiFetch';
@@ -37,10 +37,16 @@ interface SchedulingState {
 }
 
 export const useSchedulingStore = create<SchedulingState>((set) => ({
-    totalPages: 0,
-    board: {
-        unscheduled: new Map<string, ColumnUnscheduled>(),
-        scheduled: new Map<string, ColumnScheduled>(),
+        totalPages: 0,
+        board: {
+        unscheduled: {
+            pending: new Map<string, TypedUnscheduled>(),
+            delayed: new Map<string, TypedUnscheduled>(),
+        },
+        scheduled: {
+            running: new Map<string, TypedScheduled>(),
+            scheduled: new Map<string, TypedScheduled>(),
+        },
         columns: new Map<string, TypedUnscheduled>(),
         setDistrict: function (arg0: string): unknown {
             throw new Error('Function not implemented.');
@@ -54,19 +60,22 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     },
     updateOrderStatus: (orderId: string, newStatus: string) => {
       set((state) => {
-          const updatedColumns = new Map<string, TypedUnscheduled>();
-  
+        const updatedColumns = new Map<string, TypedUnscheduled>();
+
+        // Null check for state.board.columns
+        if (state.board.columns) {
           // Iterate through columns
           state.board.columns.forEach((typedUnscheduled, status) => {
-              const updatedOrders = typedUnscheduled.orders.map((order) =>
-                  order.id === orderId ? { ...order, status: newStatus } : order
-              );
-              updatedColumns.set(status, { id: status, orders: updatedOrders });
+            const updatedOrders = typedUnscheduled.orders.map((order) =>
+              order.id === orderId ? { ...order, status: newStatus } : order
+            );
+            updatedColumns.set(status, { id: status, orders: updatedOrders });
           });
-  
-          const updatedBoard = { ...state.board, columns: updatedColumns };
-  
-          return { board: updatedBoard };
+        }
+
+        const updatedBoard = { ...state.board, columns: updatedColumns };
+
+        return { board: updatedBoard };
       });
   },
     isLoading: false,
@@ -85,7 +94,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
     },
     selectedHead: 1,
     schedule: {
-        columns: new Map<number, TypedSchedule>(),
+        columns: new Map<number, TypedScheduled>(),
         setDistrict: function (arg0: string): unknown {
             throw new Error('Function not implemented.');
         },
@@ -149,7 +158,7 @@ export const useSchedulingStore = create<SchedulingState>((set) => ({
         setDistrict: () => {},
         setSelectedSheet: () => {},
         setSelectedHead: () => {},
-        columns: new Map<number, TypedSchedule>(),
+        columns: new Map<number, TypedScheduled>(),
     };
       set({schedule: scheduledOrders})
     }

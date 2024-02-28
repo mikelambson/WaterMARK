@@ -59,7 +59,6 @@ interface ApiFilters {
       );
   
       const board: Board = {
-        columns: sortedColumns,
         setDistrict: function (arg0: string): unknown {
           throw new Error("Function not implemented.");
         },
@@ -69,6 +68,8 @@ interface ApiFilters {
         setPage: function (arg0: number): unknown {
           throw new Error("Function not implemented.");
         },
+        columns: sortedColumns,
+        
       };
       const totalPages: number = response.data.metadata.totalPages;
       return { board, totalPages };

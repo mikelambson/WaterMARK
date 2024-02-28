@@ -3,9 +3,15 @@ interface Board {
     setDistrict(arg0: string): unknown;
     setPageSize(arg0: number): unknown;
     setPage(arg0: number): unknown;
-    columns: Map<string, TypedUnscheduled>;
-    unscheduled?: Map<string, ColumnUnscheduled>; 
-    scheduled?: Map<string, ColumnScheduled>;
+    columns?: Map<string, TypedUnscheduled>;
+    unscheduled?: {
+        pending?: Map<string, TypedUnscheduled>;
+        delayed?: Map<string, TypedUnscheduled>;
+    };
+    scheduled?: {
+        running?: Map<string, TypedScheduled>;
+        scheduled?: Map<string, TypedScheduled>;
+    };
        
 }
 
@@ -23,10 +29,10 @@ interface SchBoard {
     setDistrict(arg0: string): unknown;
     setSelectedSheet(arg0: number): unknown;
     setSelectedHead(arg0: number): unknown;
-    columns: Map<number, TypedSchedule>;
+    columns: Map<number, TypedScheduled>;
 };
 
-interface TypedSchedule {
+interface TypedScheduled {
     id: number;
     schedules: Schedule[];
   }
@@ -134,7 +140,7 @@ export {
     TypedColumn,
     TypedUnscheduled, 
     SchBoard,
-    TypedSchedule,
+    TypedScheduled,
     Order,
     OrderDetails,
     Schedule,

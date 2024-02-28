@@ -1,48 +1,70 @@
 import ApiFetch from '@/lib/apiFetch';
-import { 
-    TypedUnscheduled, 
-    TypedSchedule, 
+import {  
+    TypedScheduled, 
     PartialHeadsheetsData, 
     HeadData, 
     Board,
     Schedule, 
     SchBoard, 
-    Order } from "@/typings";
+    Order, 
+    HeadsheetsData,
+    TypedUnscheduled} from "@/typings";
+    import { useSchedulingStore } from '@/lib/store/schedulingStore';
 
-interface ApiFilters {
-    district: string;
-    headsheet: PartialHeadsheetsData;
-    head?: HeadData;
-}
+    // const { board, isLoading, setPage, setPageSize, totalPages, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead, schedule, getSchedule, updateOrderStatus, getUnscheduled} = useSchedulingStore();
 
-interface UschFilters {
-    district: string;
-    page: number;
-    pageSize: number;
-  }
+    interface ApiFilters {
+      district: string;
+      headsheet: PartialHeadsheetsData;
+      head?: HeadData;
+    }
+
+    interface UschFilters {
+      district: string;
+      page: number;
+      pageSize: number;
+    }
 
 
-class ApiFetcher {
+class apiFetcher {
     private api: ApiFetch;
+    private selectedDistrict: string;
 
     constructor() {
-        this.api = new ApiFetch();
+      this.selectedDistrict = useSchedulingStore.getState().selectedDistrict;
+      this.api = new ApiFetch();
     }
 
     async fetchHeadsheets(): Promise<void> {
         // Fetch headsheets from the API and store them in Board.headsheets[]
         // Board.headsheets = await this.apiFetch.get('https://api.example.com/headsheets');
-
-        
+        try {
+          const response = await this.api.fetchData(`headsheets/${this.selectedDistrict}`);
+          const newSheets: HeadsheetsData[] = response.data as HeadsheetsData[]; // Explicitly type newSheets as HeadsheetsData[]
+          useSchedulingStore.setState({ headsheets: newSheets });
+          useSchedulingStore.setState({
+            selectedSheet: {
+              id: 0o0,
+              name: "Select",
+              district: "",
+              maxHeads: 0,
+              maxFlow: 0,
+              structureRef: "",
+              characteristics: "",
+            },
+          });
+        } catch (error) {
+          console.error('Error fetching headsheets:', error);
+        }  
     }
 
-    async fetchPendingOrders(filters: UschFilters): Promise<{ board: Board, totalPages: number }> {
+    async fetchPendingOrders(filters: UschFilters): Promise<any> {
         // Fetch pending orders from the API and store them in Board.unscheduled.pending[]
         // Board.unscheduled.pending = await this.apiFetch.get('https://api.example.com/pending-orders');
 
         const { district, page, pageSize } = filters;
     
-        let status = "p,delayed"
+        const status = "p"
     
         try {
             const response = await this.api.fetchData(
@@ -81,14 +103,19 @@ class ApiFetcher {
           }
       
           // Sort columns by columnTypes
-          const sortedColumns = new Map<string, TypedUnscheduled>(
-            [...columns.entries()].sort((a, b) => {
-              return columnTypes.indexOf(a[0]) - columnTypes.indexOf(b[0]);
-            })
-          );
-      
-        const board: Board = {
-            columns: sortedColumns,
+            const sortedColumns = new Map<string, TypedUnscheduled>(
+              ([...columns.entries()] as [string, TypedUnscheduled][])
+                .sort((a, b) => {
+                  return columnTypes.indexOf(a[0]) - columnTypes.indexOf(b[0]);
+                })
+            );
+        
+          const board: Board = {
+            unscheduled: {
+              pending: sortedColumns,
+              delayed: new Map<string, TypedUnscheduled>(),
+            }, // Initialize unscheduled property with an empty object
+            
             setDistrict: function (arg0: string): unknown {
               throw new Error("Function not implemented.");
             },
@@ -98,7 +125,9 @@ class ApiFetcher {
             setPage: function (arg0: number): unknown {
               throw new Error("Function not implemented.");
             },
+            columns: undefined
           };
+          
           const totalPages: number = (response.data as any).metadata.totalPages;
           return { board, totalPages };
         } catch (error) {
@@ -141,8 +170,8 @@ class ApiFetcher {
     
             const arrayOfHeads: number[] = Array.from(new Set(scheduled.map(schedule => schedule.scheduledHead)));
     
-            const heads: Map<number, TypedSchedule> = scheduled.reduce(
-                (acc: Map<number, TypedSchedule>, schedule: Schedule) => {
+            const heads: Map<number, TypedScheduled> = scheduled.reduce(
+                (acc: Map<number, TypedScheduled>, schedule: Schedule) => {
                   const head = schedule.scheduledHead;
               
                   if (arrayOfHeads.includes(head)) {
@@ -168,7 +197,7 @@ class ApiFetcher {
               
                   return acc;
                 },
-                new Map<number, TypedSchedule>()
+                new Map<number, TypedScheduled>()
             );
     
             const headTypes: number[] = [ 1, 2, 3, 4, 5, 6, 10];
