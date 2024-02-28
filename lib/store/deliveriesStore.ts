@@ -13,12 +13,16 @@ type DeliveriesState = {
     isLoading: boolean;
     error: string | null;
 
+    open: boolean;
+    setOpen: (open: boolean) => void;
 
+    userDefaultDistrict: string;
     selectedDistrict: string;
     headsheets: HeadsheetsData[];
     selectedSheet: PartialHeadsheetsData;
     selectedHead: HeadData;
     schedule: SchBoard;
+    setDistrict: (district: string) => void;
     getHeadsheets: (district: string) => Promise<void>; 
     setSelectedSheet: (sheet: HeadsheetsData) => void;
     setSelectedHead: (head: number) => void;
@@ -35,7 +39,9 @@ const useDeliveriesStore = create<DeliveriesState>((set) => ({
     deliveries: [],
     isLoading: false,
     error: null,
-
+    open: false,
+    setOpen: (open) => set({ open }),
+    userDefaultDistrict: "",
     selectedDistrict: "",
     headsheets: [],
     selectedSheet: {
@@ -54,25 +60,40 @@ const useDeliveriesStore = create<DeliveriesState>((set) => ({
         setSelectedHead: () => {},
         columns: new Map<number, TypedScheduled>(),
     },
+
+    setDistrict: (district) => set({ selectedDistrict: district }),
     getHeadsheets: async (district) => {
-        try {
-            const response = await fetch(`/api/headsheets/${district}`);
-            const newSheets = await response.json();
-            set({ headsheets: newSheets });
-            set({
-                selectedSheet: {
-                    id: 0,
-                    name: "Select",
-                    district: "",
-                    maxHeads: 0,
-                    maxFlow: 0,
-                    structureRef: "",
-                    characteristics: "",
-                },
-            });
-        } catch (error) {
-            console.error('Error fetching headsheets:', error);
-        }
+        const newSheets = await fetchSchedule.fetchHeadsheets(district);
+        set({ headsheets: newSheets });
+        set({
+            selectedSheet: {
+                id: 0,
+                name: "Select",
+                district: "",
+                maxHeads: 0,
+                maxFlow: 0,
+                structureRef: "",
+                characteristics: "",
+            },
+        });
+        // try {
+        //     const response = await fetch(`/api/headsheets/${district}`);
+        //     const newSheets = await response.json();
+        //     set({ headsheets: newSheets });
+        //     set({
+        //         selectedSheet: {
+        //             id: 0,
+        //             name: "Select",
+        //             district: "",
+        //             maxHeads: 0,
+        //             maxFlow: 0,
+        //             structureRef: "",
+        //             characteristics: "",
+        //         },
+        //     });
+        // } catch (error) {
+        //     console.error('Error fetching headsheets:', error);
+        // }
     },
     setSelectedSheet: (headsheet) => set({ selectedSheet: headsheet }),
     setSelectedHead: (head) => set({ selectedHead: head }),

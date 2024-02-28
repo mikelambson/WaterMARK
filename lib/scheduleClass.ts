@@ -35,26 +35,16 @@ export class scheduleFetcher {
       this.api = new ApiFetch();
     }
 
-    async fetchHeadsheets(store: any): Promise<void> {
+    async fetchHeadsheets(district: string): Promise<HeadsheetsData[]> {
         // Fetch headsheets from the API and store them in Board.headsheets[]
         // Board.headsheets = await this.apiFetch.get('https://api.example.com/headsheets');
         try {
-          const response = await this.api.fetchData(`headsheets/${this.selectedDistrict}`);
+          const response = await this.api.fetchData(`headsheets/${district}`);
           const newSheets: HeadsheetsData[] = response.data as HeadsheetsData[]; // Explicitly type newSheets as HeadsheetsData[]
-          store.setState({ headsheets: newSheets });
-          store.setState({
-            selectedSheet: {
-              id: 0o0,
-              name: "Select",
-              district: "",
-              maxHeads: 0,
-              maxFlow: 0,
-              structureRef: "",
-              characteristics: "",
-            },
-          });
+          return newSheets;
         } catch (error) {
           console.error('Error fetching headsheets:', error);
+          return [];
         }  
     }
 
