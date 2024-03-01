@@ -47,16 +47,14 @@ type Properties = {
     schedule: Schedule;
     index: any;
     innerRef: (element: HTMLElement | null) => void;
-    draggableProps?: DraggableProvidedDraggableProps;
-    dragHandleProps?: DraggableProvidedDragHandleProps | null | undefined;
+    
 };
 
 const ScheduleCard = ({
     index,
     schedule,
     innerRef,
-    draggableProps,
-    dragHandleProps,
+    
 }: Properties) => {    
     const cardRef = useRef<HTMLDivElement | null>(null);
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
@@ -109,8 +107,7 @@ const ScheduleCard = ({
             className={ cn("mx-[2px] rounded-md drop-shadow-md", schedule.order.status === "running" 
             ? "bg-amber-900/75 dark:bg-amber-950/75" 
             : "bg-slate-700/90 dark:bg-gray-800/90")}
-            {...draggableProps}
-            {...dragHandleProps}
+            
             
         >
             <Sheet>

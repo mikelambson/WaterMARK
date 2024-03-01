@@ -111,6 +111,7 @@ const useDeliveriesStore = create<DeliveriesState>((set) => ({
             setSelectedHead: () => {},
             columns: new Map<number, TypedScheduled>(),
         };
+        console.log(scheduledOrders.columns);
         set({ schedule: scheduledOrders });
     },
 

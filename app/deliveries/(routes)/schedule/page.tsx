@@ -10,9 +10,10 @@ import { Button } from "@/components/ui/button";
 import { ChevronsUpDown } from "lucide-react";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import { set } from "date-fns";
+import { Schedule, TypedScheduled } from "@/typings";
 
 export default function DeliverySchedule() {
-    const { userDefaultDistrict, selectedSheet, headsheets, setSelectedSheet, setSelectedHead, selectedDistrict, open, setOpen, setDistrict, getHeadsheets } = useDeliveriesStore();
+    const { userDefaultDistrict, selectedSheet, headsheets, setSelectedSheet, selectedHead, setSelectedHead, selectedDistrict, open, setOpen, setDistrict, getHeadsheets, getSchedule, schedule } = useDeliveriesStore();
 
     const defaultDistrict = selectedDistrict 
         ? selectedDistrict 
@@ -25,11 +26,21 @@ export default function DeliverySchedule() {
         getHeadsheets(defaultDistrict)
     }, [defaultDistrict, setDistrict])
 
+    useEffect(() => {
+        if (selectedSheet.name === "Select") {
+            return;
+        }
+        getSchedule(Number(selectedHead));
+        console.log(schedule.columns)
+    }, [getSchedule, selectedSheet, selectedHead]);
+
     const handleDistrictChange = async (district: string) => {
         setDistrict(district)
         getHeadsheets(district)
         setSelectedHead(1)
     };
+
+    const convertedColumns = Array.from(schedule.columns.values()) as unknown as Schedule[];
 
     return (
     <div className="p-1">
@@ -103,7 +114,12 @@ export default function DeliverySchedule() {
                     </div>
                 </div>
         
-        <Deliveries columns={[]} index={0} id={null} />
+        
+        <Deliveries 
+            columns={convertedColumns} 
+            index={0} 
+            id={selectedSheet.id} 
+        />
         
     </div>
     );

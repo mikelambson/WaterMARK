@@ -148,13 +148,15 @@ export class scheduleFetcher {
         // Fetch scheduled orders from the API and store them in Board.scheduled[]
         
             // if (headsheet.name !== "Select") return;
-            const scheduledRoute = `/schedule?find:district=${district}&find:status=${scheduledStatus}&find:line=${headsheet.name}&find:head=${head}`
+            const scheduledRoute = `/schedule?find:district=${district}&find:status=${scheduledStatus}&find:line=${headsheet.name}`
             const result = headsheet.name == ("Select" || '') ? { success: false } : await this.api.fetchData(scheduledRoute);
             if (!result.success) return console.warn({
                 variant: "Incomplete request.",
                 description: "Could not connect to the server!",
             });
+            
             const scheduled: Schedule[] = result.data as Schedule[];
+            
             // const scheduledOrders = result.data;
             scheduled.sort((a: any, b: any) => new Date(a.scheduledDate).getTime() - new Date(b.scheduledDate).getTime());
     
@@ -206,7 +208,6 @@ export class scheduleFetcher {
               Array.from(heads.entries()).sort((a, b) =>{
                 return headTypes.indexOf(a[0]) - headTypes.indexOf(b[0]);
             })); 
-    
             const scheduledcolumn: SchBoard = {
                 columns: sortedSchedules,
                 setDistrict: (district: string) => {

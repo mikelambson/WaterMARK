@@ -1,6 +1,6 @@
 // TabbedColumn @\app\scheduling\_components\schedule-orders\TabbbedColumn.tsx
 "use client"
-import { useSchedulingStore } from '@/lib/store/schedulingStore';
+import useDeliveriesStore from "@/lib/store/deliveriesStore";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ type Properties = {
 
 
 const Deliveries = ({ id, columns, index }: Properties) => {
-    const { selectedDistrict, selectedSheet, selectedHead, setSelectedHead, schedule, getSchedule } = useSchedulingStore();
+    const { selectedDistrict, selectedSheet, selectedHead, setSelectedHead, schedule, getSchedule } = useDeliveriesStore();
 
     useEffect(() => { 
         const fetchSchedule = async () => {
@@ -92,17 +92,15 @@ const Deliveries = ({ id, columns, index }: Properties) => {
                     {/* <p className="text-md">{(selectedSheet.name === "Select" ? "sudo1" : "sudo0")}</p> */}
                     </div>
                 </TabsContent>
-                <div>
-                    {/* {(
+                <>
+                     {(
                         
                     ) => (
                         <div
                             
-                            ref={provided.innerRef}
-                            className={cn(
-                                "h-full rounded-md -mx-2 pb-8 border border-transparent",
-                                snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-transparent"
-                            )}
+                            key={("content" + selectedSheet.name + selectedHead)}
+                            className={"h-full rounded-md -mx-2 pb-8 border border-transparent"
+                            }
                         >
                             {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
                                 <TabsContent key={index} value={`${index + 1}`} className="h-full">
@@ -118,21 +116,20 @@ const Deliveries = ({ id, columns, index }: Properties) => {
                                                         schedule.order.status !== "running" ? (
                                                             <div
                                                                 key={innerIndex}
-                                                                draggableId={schedule.orderId}
-                                                                index={innerIndex}
+                                                                
+                                                                // index={innerIndex}
                                                             >
-                                                                {(provided: React.DraggableProvided) => (
+                                                                
                                                                     <ScheduleCard
                                                                         schedule={schedule}
                                                                         index={getIndexMS(
                                                                             schedule.scheduledDate,
                                                                             schedule.order.approxHrs
                                                                         )}
-                                                                        innerRef={provided.innerRef}
-                                                                        draggableProps={}
-                                                                        dragHandleProps={provided.dragHandleProps}
+                                                                        innerRef={() => {}}
+                                                                        
                                                                     />
-                                                                )}
+                                                                
                                                             </div>
                                                         ) : (
                                                             <ScheduleCard
@@ -146,7 +143,7 @@ const Deliveries = ({ id, columns, index }: Properties) => {
                                                             />
                                                         )
                                                     )}
-                                                    {provided.placeholder}
+                                                    
                                                 </div>
                                             ))}
                                     </ScrollArea>
@@ -163,8 +160,8 @@ const Deliveries = ({ id, columns, index }: Properties) => {
                                 </ScrollArea>
                             </TabsContent>
                         </div>
-                    )} */}
-                </div>
+                    )} 
+                </>
             </Tabs>
         </div> 
     );
