@@ -31,7 +31,6 @@ export default function DeliverySchedule() {
             return;
         }
         getSchedule(Number(selectedHead));
-        console.log(schedule.columns)
     }, [getSchedule, selectedSheet, selectedHead]);
 
     const handleDistrictChange = async (district: string) => {

@@ -1,9 +1,9 @@
-// TabbedColumn @\app\scheduling\_components\schedule-orders\TabbbedColumn.tsx
+// TabbedColumn @\app\deliveries\_components\ScheduledDeliveries.tsx
 "use client"
 import useDeliveriesStore from "@/lib/store/deliveriesStore";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 import { Order, Schedule, TypedColumn, TypedScheduled } from "@/typings";
 import { useEffect } from 'react';
 import ScheduleCard from './ScheduleCard';
@@ -92,76 +92,59 @@ const Deliveries = ({ id, columns, index }: Properties) => {
                     {/* <p className="text-md">{(selectedSheet.name === "Select" ? "sudo1" : "sudo0")}</p> */}
                     </div>
                 </TabsContent>
-                <>
-                     {(
-                        
-                    ) => (
-                        <div
+                <div   
+                    key={("content" + selectedSheet.name + selectedHead)}
+                    className={"h-full rounded-md -mx-2 pb-8 border border-transparent"
+                    }
+                >
+                    {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
+                        <TabsContent key={index} value={`${index + 1}`} className="h-full">
+                            <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">
+                                {selectedSheet.name} | Head {selectedHead}
+                            </div>
+                            <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
                             
-                            key={("content" + selectedSheet.name + selectedHead)}
-                            className={"h-full rounded-md -mx-2 pb-8 border border-transparent"
-                            }
-                        >
-                            {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
-                                <TabsContent key={index} value={`${index + 1}`} className="h-full">
-                                    <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">
-                                        {selectedSheet.name} | Head {selectedHead}
+                            {Array.from(schedule.columns.values())
+                            .filter((sched) => sched.id === index + 1)
+                            .map((filteredSched, innerIndex) => (
+                                <div key={innerIndex} className="space-y-2">
+                                {filteredSched.schedules.map((schedule: any, innerIndex: number) => (
+                                    <div key={innerIndex}>
+                                    {schedule.order.status !== "running" ? (
+                                        <ScheduleCard
+                                        schedule={schedule}
+                                        index={getIndexMS(schedule.scheduledDate, schedule.order.approxHrs)}
+                                        innerRef={() => {}}
+                                        />
+                                    ) : (
+                                        <ScheduleCard
+                                        schedule={schedule}
+                                        index={getIndexMS(schedule.scheduledDate, schedule.order.approxHrs)}
+                                        key={innerIndex}
+                                        innerRef={() => {}}
+                                        />
+                                    )}
                                     </div>
-                                    <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
-                                        {Array.from(schedule.columns.values())
-                                            .filter((sched) => sched.id === index + 1)
-                                            .map((filteredSched, innerIndex) => (
-                                                <div key={innerIndex} className="space-y-2">
-                                                    {filteredSched.schedules.map((schedule: any, innerIndex: number) =>
-                                                        schedule.order.status !== "running" ? (
-                                                            <div
-                                                                key={innerIndex}
-                                                                
-                                                                // index={innerIndex}
-                                                            >
-                                                                
-                                                                    <ScheduleCard
-                                                                        schedule={schedule}
-                                                                        index={getIndexMS(
-                                                                            schedule.scheduledDate,
-                                                                            schedule.order.approxHrs
-                                                                        )}
-                                                                        innerRef={() => {}}
-                                                                        
-                                                                    />
-                                                                
-                                                            </div>
-                                                        ) : (
-                                                            <ScheduleCard
-                                                                schedule={schedule}
-                                                                index={getIndexMS(
-                                                                    schedule.scheduledDate,
-                                                                    schedule.order.approxHrs
-                                                                )}
-                                                                key={innerIndex}
-                                                                innerRef={() => {}}
-                                                            />
-                                                        )
-                                                    )}
-                                                    
-                                                </div>
-                                            ))}
-                                    </ScrollArea>
-                                </TabsContent>
-                            ))}
-                            <TabsContent value={"10"} className="h-full">
-                                <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">
-                                    {selectedSheet.name} Drop-Ins
+                                ))}
                                 </div>
-                                <ScrollArea className="w-full h-[72svh] rounded-md bg-black/10 px-[0.5rem]">
-                                    <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
-                                        {selectedSheet.name + "dropins" + selectedHead + "content"}
-                                    </h2>
-                                </ScrollArea>
-                            </TabsContent>
+                            ))}
+
+                            </ScrollArea>
+                        </TabsContent>
+                    ))}
+                    <TabsContent value={"10"} className="h-full">
+                        <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">
+                            {selectedSheet.name} Drop-Ins
                         </div>
-                    )} 
-                </>
+                        <ScrollArea className="w-full h-[72svh] rounded-md bg-black/10 px-[0.5rem]">
+                            <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>
+                                {selectedSheet.name + "dropins" + selectedHead + "content"}
+                            </h2>
+                        </ScrollArea>
+                    </TabsContent>
+                </div>
+                    
+                
             </Tabs>
         </div> 
     );

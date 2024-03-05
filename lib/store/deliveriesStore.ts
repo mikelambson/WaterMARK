@@ -76,24 +76,6 @@ const useDeliveriesStore = create<DeliveriesState>((set) => ({
                 characteristics: "",
             },
         });
-        // try {
-        //     const response = await fetch(`/api/headsheets/${district}`);
-        //     const newSheets = await response.json();
-        //     set({ headsheets: newSheets });
-        //     set({
-        //         selectedSheet: {
-        //             id: 0,
-        //             name: "Select",
-        //             district: "",
-        //             maxHeads: 0,
-        //             maxFlow: 0,
-        //             structureRef: "",
-        //             characteristics: "",
-        //         },
-        //     });
-        // } catch (error) {
-        //     console.error('Error fetching headsheets:', error);
-        // }
     },
     setSelectedSheet: (headsheet) => set({ selectedSheet: headsheet }),
     setSelectedHead: (head) => set({ selectedHead: head }),
@@ -111,7 +93,6 @@ const useDeliveriesStore = create<DeliveriesState>((set) => ({
             setSelectedHead: () => {},
             columns: new Map<number, TypedScheduled>(),
         };
-        console.log(scheduledOrders.columns);
         set({ schedule: scheduledOrders });
     },
 
