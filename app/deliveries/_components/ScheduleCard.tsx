@@ -146,10 +146,10 @@ const ScheduleCard = ({
                         <DragIcon />
                     </div>
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
-                    <div className={`text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] ${usageColor} truncate font-semibold`}>Usage {currentAFCalc} AF</div>
+                    <div className={`text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold ${schedule.order.status === "scheduled" ? "text-transparent" : usageColor}`}>Usage {currentAFCalc} AF</div>
 
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">Stop index: {new Date().toLocaleString()} | {new Date(startTime).toLocaleString()} | <span className={`${spreadStatusColor} transform-gpu`}> {spreadStatus}</span></div>
-                    <div className="text-bottom pt-1 pr-1 row-start-2 col-start-4 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate"><span className={`${spreadStatusColor} transform-gpu`}> Hours:{hoursDifference}</span></div>
+                    <div className={`text-bottom pt-1 pr-1 row-start-2 col-start-4 text-sm lg:text-md ${schedule.order.status === "scheduled" ? "text-transparent" : "text-emerald-50 dark:text-gray-300/95"} truncate`}> Hours:{hoursDifference}</div>
                     
                     <div className={cn(`col-span-3 text-bottom row-start-3 border-b-2 font-semibold truncate 
                     text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
