@@ -50,7 +50,7 @@ interface Order {
     phoneNumbers: string[];
     remarks: string | null;
     details: OrderDetails;
-    deliveries?: OrderDeliveries[]; // Making deliveries optional
+    // deliveries?: OrderDeliveries[]; // Making deliveries optional
     analysis?: any[]; // Making analysis optional
     schedule: Schedule;
 }
@@ -85,7 +85,7 @@ interface Schedule {
     order: Order;
     scheduledLine: ScheduledLine;
     callout: any[];
-    deliveries: any[];
+    deliveries: OrderDeliveries[];
     analysis: any[];
 }
 

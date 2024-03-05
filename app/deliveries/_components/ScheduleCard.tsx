@@ -1,7 +1,6 @@
 // @/app/(scheduling)/_components/ScheduleCard.tsx
 "use client"
 import React, { useState, useEffect, useRef } from "react";
-import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "@hello-pangea/dnd";
 import { format, parseISO  } from 'date-fns';
 import { cn } from "@/lib/utils";
 import { Schedule } from "@/typings";
@@ -58,6 +57,7 @@ const ScheduleCard = ({
 }: Properties) => {    
     const cardRef = useRef<HTMLDivElement | null>(null);
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+    const [currentAFCalc, setCurrentAFCalc] = useState(0);
     const toggleDetailsVisibility = () => {
         setIsDetailsVisible(!isDetailsVisible);
     };
@@ -97,7 +97,36 @@ const ScheduleCard = ({
     ? "text-lime-500 dark:text-lime-400/90 font-semibold animate-pulse"
     : "text-gray-200/60 dark:text-foreground/60";
 
-   
+    const deliveriesArray = schedule.deliveries;
+    const calcCurrentTime = new Date().getTime();
+    const startedAt = deliveriesArray.length > 0 ? new Date(deliveriesArray[0].startTime) : calcCurrentTime;
+    const startTime = new Date(startedAt).getTime();
+    const hoursDifference = Math.ceil(((calcCurrentTime - startTime) / (1000 * 60 * 60)) * 100) / 100;
+    const usageColor = currentAFCalc > schedule.order.details.approxAf ? "text-red-400/90 dark:text-red-600/95" : "text-blue-400/90 dark:text-blue-300/80"; 
+    
+    useEffect(() => {
+        
+        const startedAt = deliveriesArray.length > 0 ? new Date(deliveriesArray[0].startTime) : calcCurrentTime; 
+        const approxCfs = schedule.order.approxCfs;
+
+        const updateCalculation = () => {
+            if (schedule.order.status !== "running") return;
+            if (deliveriesArray.length === 0) return;
+            const currentTime = new Date().getTime();
+            const startTime = new Date(startedAt).getTime(); 
+            const elapsedTimeInSeconds = Math.ceil(((currentTime - startTime) / (1000 * 60 * 60)) * 100) / 100;
+            const newAFCalc = Math.round(approxCfs * elapsedTimeInSeconds * 0.0825 * 100) / 100;
+            setCurrentAFCalc(newAFCalc);
+        };
+
+        // Update the calculation every second
+        const intervalId = setInterval(updateCalculation, 1000);
+    
+        // Clear the interval when the component is unmounted
+        return () => clearInterval(intervalId);
+      }, [schedule]);
+    
+
     return ( 
         <div
             ref={(node) => {
@@ -105,10 +134,8 @@ const ScheduleCard = ({
                 innerRef(node);
             }}
             className={ cn("mx-[2px] rounded-md drop-shadow-md", schedule.order.status === "running" 
-            ? "bg-amber-900/75 dark:bg-amber-950/75" 
+            ? "bg-emerald-900/75 dark:bg-emerald-950/75" 
             : "bg-slate-700/90 dark:bg-gray-800/90")}
-            
-            
         >
             <Sheet>
                 <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,2fr,1fr] 
@@ -118,23 +145,29 @@ const ScheduleCard = ({
                         : "text-neutral-400/80 dark:text-stone-600/80"}`)}>
                         <DragIcon />
                     </div>
-                    <div className="col-span-3 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
-                    <div className="col-span-3 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">Stop index: {new Date(index).toLocaleString()} | {index} | <span className={`${spreadStatusColor} transform-gpu`}>{spreadStatus}</span></div>
-                    {/* <div></div> */}
+                    <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
+                    <div className={`text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] ${usageColor} truncate font-semibold`}>Usage {currentAFCalc} AF</div>
+
+                    <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">Stop index: {new Date().toLocaleString()} | {new Date(startTime).toLocaleString()} | <span className={`${spreadStatusColor} transform-gpu`}> {spreadStatus}</span></div>
+                    <div className="text-bottom pt-1 pr-1 row-start-2 col-start-4 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate"><span className={`${spreadStatusColor} transform-gpu`}> Hours:{hoursDifference}</span></div>
+                    
                     <div className={cn(`col-span-3 text-bottom row-start-3 border-b-2 font-semibold truncate 
                     text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
                         Instructions: {schedule.instructions}
                     </div>
                     <div className="col-start-1 row-start-4"></div>
-                    <div className={cn(`row-span-2 col-start-2 row-start-4 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground ${borderColors}`)}><span className={"text-gray-200/60 dark:text-foreground/60"} >Scheduled:</span>
-                    <br />{new Date(schedule.scheduledDate).toLocaleString('en-US', {
+                    <div className={cn(`row-span-2 col-start-2 row-start-4 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground ${borderColors}`)}><span className={"text-gray-200/60 dark:text-foreground/60"} >{schedule.order.status === "running" ? "Started At:" : "Scheduled:"}</span>
+                    <br />{schedule.order.status === "running" ? 
+                        new Date(index).toLocaleString('en-US', {
                             year: 'numeric',
                             month: 'numeric',
                             day: 'numeric',
                             hour: 'numeric',
                             minute: 'numeric',
                             hour12: false,
-                        })}
+                        }) :
+                        new Date(index).toLocaleString()    
+                    }
                     </div>
                     <div className={cn(`col-start-3 row-start-4 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>Status: <span className={cn(`
                         ${schedule.order.status !== "running" 
@@ -154,11 +187,18 @@ const ScheduleCard = ({
                             Owner: {schedule.order.details.ownersName}<br />
                             Watermaster Note: {schedule.watermasterNote}<br />
                             Special Request: {schedule.specialRequest}<br />
+                            Deliveries: {deliveriesArray?.map((delivery, index) => (
+                                <div key={index} className="px-8 flex justify-between">
+                                    <p>Delivery {index + 1}:</p>
+                                    <p>Start Time: {delivery.startTime}</p>
+                                    <p>Stop Time: {delivery.stopTime}</p>
+                                </div>
+                            ))}<br />
                             <div className="flex justify-between">
                             <SheetTrigger asChild>
                                     <Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
                                         <TbGridDots className={"mr-1"} />
-                                        Schedule
+                                        Details
                                     </Button>
                                 </SheetTrigger>
                                 <Drawer>
@@ -175,7 +215,7 @@ const ScheduleCard = ({
                                             Some description...</DrawerDescription>
                                         </DrawerHeader>
                                             <div className="flex justify-center">
-                                                {schedule.order.deliveries?.map((delivery, index) => (
+                                                {schedule.deliveries?.map((delivery, index) => (
                                                     <div key={index} className="w-11/12 space-y-2 border-2 p-2">
                                                         <div className="flex justify-between">
                                                             <p>Delivery {index + 1}:</p>
@@ -317,3 +357,7 @@ const ScheduleCard = ({
 }
  
 export default ScheduleCard;
+
+function Number(startTime: Date) {
+    throw new Error("Function not implemented.");
+}
