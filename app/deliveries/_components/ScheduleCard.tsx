@@ -92,17 +92,18 @@ const ScheduleCard = ({
 
     const spreadStatus = schedule.order.remarks && schedule.order.remarks.toLowerCase().includes("spread") 
     ? "Spread" 
-    : "not spread";
+    : "";
     const spreadStatusColor = schedule.order.remarks && schedule.order.remarks.toLowerCase().includes("spread")
-    ? "text-lime-500 dark:text-lime-400/90 font-semibold"
+    ? "text-lime-200 dark:text-lime-100/90 font-semibold"
     : "text-gray-200/60 dark:text-foreground/60";
 
     const deliveriesArray = schedule.deliveries;
     const calcCurrentTime = new Date().getTime();
     const startedAt = deliveriesArray.length > 0 ? new Date(deliveriesArray[0].startTime) : calcCurrentTime;
     const startTime = new Date(startedAt).getTime();
-    const hoursDifference = Math.ceil(((calcCurrentTime - startTime) / (1000 * 60 * 60)) * 100) / 100;
-    const usageColor = currentAFCalc > schedule.order.details.approxAf ? "text-destructive drop-shadow-md dark:text-rose-400/80" : "text-blue-300/90 dark:text-blue-400/80"; 
+    const hoursCalc = ((calcCurrentTime - startTime) / (1000 * 60 * 60));
+    const hoursDifference = +(Math.round(hoursCalc * 100 ) / 100 );
+    const usageColor = currentAFCalc > schedule.order.details.approxAf ? "text-red-300 drop-shadow-md dark:text-rose-300/80" : "text-blue-300/90 dark:text-blue-400/80"; 
     
     useEffect(() => {
         
@@ -114,8 +115,10 @@ const ScheduleCard = ({
             if (deliveriesArray.length === 0) return;
             const currentTime = new Date().getTime();
             const startTime = new Date(startedAt).getTime(); 
-            const elapsedTimeInSeconds = Math.ceil(((currentTime - startTime) / (1000 * 60 * 60)) * 100) / 100;
-            const newAFCalc = Math.round(approxCfs * elapsedTimeInSeconds * 0.0825 * 100) / 100;
+            const elapsedTime = +(Math.round(((currentTime - startTime) / (1000 * 60 * 60)) * 100 ) / 100);
+            const initialAFCalc = (approxCfs * elapsedTime * 0.0825);
+            const newAFCalc = parseFloat((Math.round(initialAFCalc * 100) / 100).toFixed(2));
+            
             setCurrentAFCalc(newAFCalc);
         };
 
@@ -158,28 +161,43 @@ const ScheduleCard = ({
                         <div className={`flex justify-end text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2`}>
                             <Button 
                                 variant={"secondary"} 
-                                className={`absolute top-1 right-1 bg-green-950 active:bg-black/50 border dark:border-foreground/50 text-background dark:text-foreground`}>
+                                className={`absolute top-4 right-4 bg-green-950 active:bg-black/50 border dark:border-foreground/50 text-background dark:text-foreground`}>
                                 Start Run
                             </Button>
                         </div>
                         ) : (
-                        <div className={"flex justify-between text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2"}>
-                            <span>
+                        <div className={"flex justify-between text-emerald-50 dark:text-gray-300/95 text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2"}>
+                            <p>
                                 Usage:
-                                <span className={`pl-1 animate-pulse transform-gpu ${usageColor}`}>
+                                <span className={`pl-1 drop-shadow-md animate-pulse transform-gpu ${usageColor}`}>
                                     {currentAFCalc} AF 
                                 </span>
-                            </span>
+                            </p>
                             <Button 
                                 variant={"destructive"}
-                                className={"absolute top-1 right-1 row-span-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
+                                className={"absolute top-4 right-4 row-span-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
                                 End Run
                             </Button>
                         </div>
                     )}
 
-                    <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">Stop index: {new Date().toLocaleString()} | {new Date(startTime).toLocaleString()} | <span className={`${spreadStatusColor} transform-gpu`}> {spreadStatus}</span></div>
-                    <div className={`text-bottom pt-1 pr-1 row-start-2 col-start-4 text-sm lg:text-md ${schedule.order.status === "scheduled" ? "text-transparent" : "text-emerald-50 dark:text-gray-300/95"} truncate`}> Hours: {hoursDifference}</div>
+                    <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">
+                        Stop index: {new Date().toLocaleString()} | {new Date(startTime).toLocaleString()} 
+                        <span className={`${spreadStatusColor} transform-gpu before:content-['|'] before:mx-1 before:text-emerald-50 before:dark:text-gray-300/95`}> 
+                            {spreadStatus}
+                        </span>
+                    </div>
+                    <div 
+                        className={
+                            `text-bottom pt-1 pr-1 row-start-2 col-start-4 text-sm lg:text-md 
+                            ${schedule.order.status === "scheduled" 
+                            ? "text-transparent" 
+                            : "text-emerald-50 dark:text-gray-300/95 after:content-['hrs'] after:ml-1 after:text-emerald-50/80 dark:after:text-gray-300/75"
+                            }`
+                        }
+                    >
+                        {hoursDifference}
+                    </div>
                     
                     <div className={cn(`col-span-3 text-bottom row-start-3 border-b-2 font-semibold truncate 
                     text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
@@ -202,7 +220,7 @@ const ScheduleCard = ({
                     <div className={cn(`col-start-3 row-start-4 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>Status: <span className={cn(`
                         ${schedule.order.status !== "running" 
                         ? "text-cyan-300/90 dark:text-cyan-200/70"
-                        : "text-emerald-400/90 dark:text-emerald-300/80"}`)}>{capitalizedStatus}</span></div>
+                        : "text-green-500 drop-shadow-md animate-pulse transform-gpu"}`)}>{capitalizedStatus}</span></div>
                     <div className={cn(`col-span-4 row-start-4 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}` )}>{schedule.order.approxCfs} CFS</div>
                     <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>Travel: {schedule.travelTime} hrs</div>
                     <div className={cn(`flex justify-between col-start-4 row-start-5 px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
@@ -210,64 +228,76 @@ const ScheduleCard = ({
                         <PiDotsThreeDuotone className={`hover:scale-125 ${iconStyle}`} />
                     </div>
                     <div className={`col-start-1 col-span-4 row-start-6 relative overflow-hidden transition-all ${isDetailsVisible ? cn(`h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md ${borderColors}`) : 'h-0 opacity-0'} duration-300 ease-in-out`}>
-                        <div className={cn(`p-2 flex flex-col gap-2 bg-stone-400/60 dark:bg-stone-800/70`)}>
-                            OrderID: {schedule.orderId}<br />
-                            Order #: {schedule.order.orderNumber} | Remarks: {schedule.order.remarks}<br />
-                            Irrigator: {schedule.order.details.irrigatorsName}<br />
-                            Owner: {schedule.order.details.ownersName}<br />
-                            Watermaster Note: {schedule.watermasterNote}<br />
-                            Special Request: {schedule.specialRequest}<br />
-                            Deliveries: {deliveriesArray?.map((delivery, index) => (
-                                <div key={index} className="mx-2 grid border-y border-foreground rounded-md pb-1 bg-black/25">
-                                    <div className="py-1 mb-1 flex flex-col justify-center align-middle text-center bg-black/25">
-                                        <p className="text-sm">
-                                            -- DELIVERY {index + 1} --
-                                        </p>
-                                    </div>
-                                    <div className="px-2">
-                                        <div className="flex justify-between">
-                                            <p>
-                                                <span className="text-sm mr-1">Start Time:</span>
-                                                {new Date(delivery.startTime).toLocaleTimeString('en-US', {
-                                                    year: 'numeric',
-                                                    month: 'numeric',
-                                                    day: 'numeric',
-                                                    hour: 'numeric',
-                                                    minute: 'numeric',
-                                                    hour12: false,
-                                                })}
+                        <div className={cn(`p-2 flex flex-col bg-stone-400/60 dark:bg-stone-800/70`)}>
+                            <p className="text-foreground/50">
+                                OrderID: {schedule.orderId}
+                            </p>
+                            <p className="before:content-['Remarks:'] before:mr-1 before:text-foreground/50">
+                                {schedule.order.remarks}
+                            </p>
+                            <p className="before:content-['Irrigator:'] before:mr-1 before:text-foreground/50">
+                                {schedule.order.details.irrigatorsName}
+                            </p>
+                            <p className="before:content-['Owner:'] before:mr-1 before:text-foreground/50">
+                                {schedule.order.details.ownersName}
+                            </p>
+                            <p className="before:content-['Scheduled_AF:'] before:mr-1 before:text-foreground/50">
+                                {schedule.order.details.approxAf}
+                            </p>
+                            <div className={deliveriesArray.length !== 0 ? "mt-1" : "before:content-['Deliveries:'] before:mr-1 before:text-foreground/50"}>
+                                {deliveriesArray.length !== 0 ? "" : "Start a delivery to add details..."}
+                                {deliveriesArray?.map((delivery, index) => (
+                                    <div key={index} className="mx-2 grid border-y border-foreground rounded-md pb-1 bg-black/25">
+                                        <div className="py-1 mb-1 flex flex-col justify-center align-middle text-center bg-black/25">
+                                            <p className="text-sm">
+                                                -- DELIVERY {index + 1} --
                                             </p>
-                                            <p>
-                                                <span className="text-sm mr-1">
-                                                    Stop Time:
-                                                </span>
-                                                {delivery.stopTime 
-                                                    ? new Date(delivery.stopTime).toLocaleString('en-US', {
+                                        </div>
+                                        <div className="px-2">
+                                            <div className="flex justify-between">
+                                                <p>
+                                                    <span className="text-sm mr-1">Start Time:</span>
+                                                    {new Date(delivery.startTime).toLocaleTimeString('en-US', {
                                                         year: 'numeric',
                                                         month: 'numeric',
                                                         day: 'numeric',
                                                         hour: 'numeric',
                                                         minute: 'numeric',
                                                         hour12: false,
-                                                    }) 
-                                                : "--"}
-                                            </p>
-                                            <p>
+                                                    })}
+                                                </p>
+                                                <p>
+                                                    <span className="text-sm mr-1">
+                                                        Stop Time:
+                                                    </span>
+                                                    {delivery.stopTime 
+                                                        ? new Date(delivery.stopTime).toLocaleString('en-US', {
+                                                            year: 'numeric',
+                                                            month: 'numeric',
+                                                            day: 'numeric',
+                                                            hour: 'numeric',
+                                                            minute: 'numeric',
+                                                            hour12: false,
+                                                        }) 
+                                                    : "--"}
+                                                </p>
+                                                <p>
+                                                    <span className="text-sm mr-1">
+                                                        CFS:
+                                                    </span>    
+                                                    {schedule.order.approxCfs}</p><br />
+                                            </div>
+                                            <p className="">
                                                 <span className="text-sm mr-1">
-                                                    CFS:
-                                                </span>    
-                                                {schedule.order.approxCfs}</p><br />
+                                                    Delivery Note:
+                                                </span>
+                                                {delivery.deliveryNote}
+                                            </p>
                                         </div>
-                                        <p className="">
-                                            <span className="text-sm mr-1">
-                                                Delivery Note:
-                                            </span>
-                                            {delivery.deliveryNote}
-                                        </p>
                                     </div>
-                                </div>
-                            ))}<br />
-                            <div className="flex justify-between">
+                                ))}
+                            </div>
+                            <div className="mt-2 flex justify-between">
                             <SheetTrigger asChild>
                                     <Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
                                         <TbGridDots className={"mr-1"} />
