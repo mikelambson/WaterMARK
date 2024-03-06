@@ -143,12 +143,13 @@ const ScheduleCard = ({
                 <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,2fr,1fr] 
                 gap-0 rounded-sm align-text-bottom">
                     <div className={cn(`col-start-1 row-start-1 row-span-5 flex justify-center items-center ${schedule.order.status !== "running" 
-                        ? "text-gray-400/80 dark:text-gray-500"
-                        : "text-neutral-400/80 dark:text-stone-500"}`)}
+                        ? "text-gray-400 dark:text-gray-500"
+                        : "text-neutral-400 dark:text-stone-500"}`)}
                         style={{ writingMode: 'vertical-rl', textOrientation: 'upright', letterSpacing: '-0.2em' }}>
-                        <span className={`border-y pb-[0.2em] ${schedule.order.status !== "running" 
-                        ? "border-gray-400/80 dark:border-gray-500"
-                        : "border-neutral-400/80 dark:border-stone-500"}`}>
+                        <span className={`border-y pt-[0.5em] pb-[0.525em] bg-black/20 dark:bg-black/30 rounded-sm
+                            ${schedule.order.status !== "running" 
+                            ? "border-gray-400 dark:border-gray-500"
+                            : "border-neutral-400 dark:border-stone-500"}`}>
                             {schedule.order.orderNumber}
                         </span>
                     </div>
