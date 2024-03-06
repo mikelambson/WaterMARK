@@ -142,10 +142,14 @@ const ScheduleCard = ({
             <Sheet>
                 <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,2fr,1fr] 
                 gap-0 rounded-sm align-text-bottom">
-                    <div className={cn(`col-start-1 row-start-1 row-span-5 pt-9 ${schedule.order.status !== "running" 
-                        ? "text-gray-400/80 dark:text-gray-600/80"
-                        : "text-neutral-400/80 dark:text-stone-600/80"}`)}>
-                        <DragIcon />
+                    <div className={cn(`col-start-1 row-start-1 row-span-5 flex justify-center items-center ${schedule.order.status !== "running" 
+                        ? "text-gray-400/80 dark:text-gray-500"
+                        : "text-neutral-400/80 dark:text-stone-500"}`)}
+                        style={{ writingMode: 'vertical-rl', textOrientation: 'upright', letterSpacing: '-0.2em' }}>
+                        {schedule.order.orderNumber}
+                        <span className="font-bold text-lg">
+                            &#175;
+                        </span>
                     </div>
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
                     {schedule.order.status === "scheduled" ? (
