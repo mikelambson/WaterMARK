@@ -42,7 +42,7 @@ export default function DeliverySchedule() {
     const convertedColumns = Array.from(schedule.columns.values()) as unknown as Schedule[];
 
     return (
-    <div className="py-1 px-0">
+    <div className="p-1">
         <div className='w-11/12 grid lg:grid-flow-col grid-cols-1 lg:grid-cols-3 gap-4 lg:max-gap-24 lg:mx-auto my-4 lg:my-[1px]'>
                     <h1 className='text-center lg:text-left text-2xl text-yellow-800 font-semibold'>Delivery Schedule</h1> 
                     <RadioGroup className='mx-auto my-auto lg:mx-0 inline-flex justify-center gap-5' defaultValue={defaultDistrict}>

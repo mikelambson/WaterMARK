@@ -53,9 +53,9 @@ const Deliveries = ({ id, columns, index }: Properties) => {
 
 
     return (   
-        <div className="relative w-[99%] min-h-96 h-[84svh] p-2 px-2 bg-foreground/10 dark:bg-foreground/75 rounded-md overflow-hidden shadow-md">
+        <div className="relative w-full min-h-96 h-[84svh] p-2 px-2 bg-foreground/10 dark:bg-foreground/75 rounded-md overflow-hidden shadow-md">
         <Tabs key={("scheduledcolumn" + selectedSheet.name)} defaultValue={"1"} className="w-full h-full pb-8">
-                <TabsList className={"mx-auto inline-flex justify-between w-full px-2 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
+                <TabsList className={"mx-auto inline-flex w-full px-2 bg-stone-400 dark:bg-zinc-800 cursor-default"}>
                     <div key={"left"} className="inline-flex">
                         <h2 key={"label"} className={" font-semibold text-slate-600 dark:text-gray-400 self-center mr-2"}>
                             {selectedSheet.name} {selectedSheet.id === 0 ? "Headsheet" : "Head"}
@@ -66,6 +66,7 @@ const Deliveries = ({ id, columns, index }: Properties) => {
                                 getSchedule(index + 1)
                             }}>
                             <TabsTrigger 
+                            className="active:border active:border-white/50 "
                             key={("trigger" + selectedSheet.name + (index) + selectedSheet + selectedHead)} 
                             value={`${index + 1}`
                             }>
@@ -78,9 +79,10 @@ const Deliveries = ({ id, columns, index }: Properties) => {
                     {selectedSheet.name !== "Select" && (
                         <div key={"right"} onClick={() => setSelectedHead(10)}>
                             <TabsTrigger 
+                            className="active:dark:bg-stone-500 active:border active:border-white/50  px-2 py-1 rounded-md"
                             key={("trigger" + selectedSheet.name + "dropins" + selectedSheet + selectedHead)} 
                             value={"10"}>
-                                Drop-Ins
+                                Drop-In
                             </TabsTrigger>
                         </div>
                     )}
@@ -134,7 +136,7 @@ const Deliveries = ({ id, columns, index }: Properties) => {
                     ))}
                     <TabsContent value={"10"} className="h-full">
                         <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">
-                            {selectedSheet.name} Drop-Ins
+                            {selectedSheet.name} Drop-In
                         </div>
                         <ScrollArea className="w-full h-[72svh] rounded-md bg-black/10 px-[0.5rem]">
                             <h2 className={" text-center text-2xl font-semibold text-foreground dark:text-secondary"}>

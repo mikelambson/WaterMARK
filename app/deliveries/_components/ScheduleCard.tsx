@@ -94,7 +94,7 @@ const ScheduleCard = ({
     ? "Spread" 
     : "not spread";
     const spreadStatusColor = schedule.order.remarks && schedule.order.remarks.toLowerCase().includes("spread")
-    ? "text-lime-500 dark:text-lime-400/90 font-semibold animate-pulse"
+    ? "text-lime-500 dark:text-lime-400/90 font-semibold"
     : "text-gray-200/60 dark:text-foreground/60";
 
     const deliveriesArray = schedule.deliveries;
