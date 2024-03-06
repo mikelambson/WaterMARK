@@ -146,9 +146,10 @@ const ScheduleCard = ({
                         ? "text-gray-400/80 dark:text-gray-500"
                         : "text-neutral-400/80 dark:text-stone-500"}`)}
                         style={{ writingMode: 'vertical-rl', textOrientation: 'upright', letterSpacing: '-0.2em' }}>
-                        {schedule.order.orderNumber}
-                        <span className="font-bold text-lg">
-                            &#175;
+                        <span className={`border-y pb-[0.2em] ${schedule.order.status !== "running" 
+                        ? "border-gray-400/80 dark:border-gray-500"
+                        : "border-neutral-400/80 dark:border-stone-500"}`}>
+                            {schedule.order.orderNumber}
                         </span>
                     </div>
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
