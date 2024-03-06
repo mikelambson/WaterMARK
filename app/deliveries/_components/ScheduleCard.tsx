@@ -148,7 +148,22 @@ const ScheduleCard = ({
                         <DragIcon />
                     </div>
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
-                    <div className={`text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold transform-gpu ${schedule.order.status === "scheduled" ? "text-transparent" : `${usageColor} animate-pulse`}`}>Usage {currentAFCalc} AF</div>
+                    {schedule.order.status === "scheduled" ? (
+                        <div className={`flex justify-end group-none text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2`}>
+                            <Button className="group-none">
+                                Start Run
+                            </Button>
+                        </div>
+                        ) : (
+                        <div className={`flex justify-between group-none text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold transform-gpu ${usageColor} row-span-2`}>
+                            <span className="animate-pulse">
+                                Usage {currentAFCalc} AF 
+                            </span>
+                            <Button className="row-span-2 animate-none">
+                                End Run
+                            </Button>
+                        </div>
+                    )}
 
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">Stop index: {new Date().toLocaleString()} | {new Date(startTime).toLocaleString()} | <span className={`${spreadStatusColor} transform-gpu`}> {spreadStatus}</span></div>
                     <div className={`text-bottom pt-1 pr-1 row-start-2 col-start-4 text-sm lg:text-md ${schedule.order.status === "scheduled" ? "text-transparent" : "text-emerald-50 dark:text-gray-300/95"} truncate`}> Hours:{hoursDifference}</div>
