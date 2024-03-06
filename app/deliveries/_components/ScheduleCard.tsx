@@ -102,7 +102,7 @@ const ScheduleCard = ({
     const startedAt = deliveriesArray.length > 0 ? new Date(deliveriesArray[0].startTime) : calcCurrentTime;
     const startTime = new Date(startedAt).getTime();
     const hoursDifference = Math.ceil(((calcCurrentTime - startTime) / (1000 * 60 * 60)) * 100) / 100;
-    const usageColor = currentAFCalc > schedule.order.details.approxAf ? "text-rose-300/90 dark:text-rose-400/80" : "text-blue-300/90 dark:text-blue-400/80"; 
+    const usageColor = currentAFCalc > schedule.order.details.approxAf ? "text-destructive drop-shadow-md dark:text-rose-400/80" : "text-blue-300/90 dark:text-blue-400/80"; 
     
     useEffect(() => {
         
@@ -156,23 +156,30 @@ const ScheduleCard = ({
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
                     {schedule.order.status === "scheduled" ? (
                         <div className={`flex justify-end group-none text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2`}>
-                            <Button className="group-none">
+                            <Button 
+                                variant={"secondary"} 
+                                className={`group-none bg-green-950 active:bg-black/50 border dark:border-foreground/50 text-background dark:text-foreground`}>
                                 Start Run
                             </Button>
                         </div>
                         ) : (
-                        <div className={`flex justify-between group-none text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold transform-gpu ${usageColor} row-span-2`}>
-                            <span className="animate-pulse">
-                                Usage {currentAFCalc} AF 
+                        <div className={"flex justify-between group-none text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2"}>
+                            <span>
+                                Usage:
+                                <span className={`pl-1 animate-pulse transform-gpu ${usageColor}`}>
+                                    {currentAFCalc} AF 
+                                </span>
                             </span>
-                            <Button className="row-span-2 animate-none">
+                            <Button 
+                                variant={"destructive"}
+                                className={"row-span-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
                                 End Run
                             </Button>
                         </div>
                     )}
 
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">Stop index: {new Date().toLocaleString()} | {new Date(startTime).toLocaleString()} | <span className={`${spreadStatusColor} transform-gpu`}> {spreadStatus}</span></div>
-                    <div className={`text-bottom pt-1 pr-1 row-start-2 col-start-4 text-sm lg:text-md ${schedule.order.status === "scheduled" ? "text-transparent" : "text-emerald-50 dark:text-gray-300/95"} truncate`}> Hours:{hoursDifference}</div>
+                    <div className={`text-bottom pt-1 pr-1 row-start-2 col-start-4 text-sm lg:text-md ${schedule.order.status === "scheduled" ? "text-transparent" : "text-emerald-50 dark:text-gray-300/95"} truncate`}> Hours: {hoursDifference}</div>
                     
                     <div className={cn(`col-span-3 text-bottom row-start-3 border-b-2 font-semibold truncate 
                     text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
