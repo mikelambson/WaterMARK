@@ -155,15 +155,15 @@ const ScheduleCard = ({
                     </div>
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
                     {schedule.order.status === "scheduled" ? (
-                        <div className={`flex justify-end group-none text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2`}>
+                        <div className={`flex justify-end text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2`}>
                             <Button 
                                 variant={"secondary"} 
-                                className={`group-none bg-green-950 active:bg-black/50 border dark:border-foreground/50 text-background dark:text-foreground`}>
+                                className={`absolute top-1 right-1 bg-green-950 active:bg-black/50 border dark:border-foreground/50 text-background dark:text-foreground`}>
                                 Start Run
                             </Button>
                         </div>
                         ) : (
-                        <div className={"flex justify-between group-none text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2"}>
+                        <div className={"flex justify-between text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2"}>
                             <span>
                                 Usage:
                                 <span className={`pl-1 animate-pulse transform-gpu ${usageColor}`}>
@@ -172,7 +172,7 @@ const ScheduleCard = ({
                             </span>
                             <Button 
                                 variant={"destructive"}
-                                className={"row-span-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
+                                className={"absolute top-1 right-1 row-span-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
                                 End Run
                             </Button>
                         </div>
@@ -218,10 +218,53 @@ const ScheduleCard = ({
                             Watermaster Note: {schedule.watermasterNote}<br />
                             Special Request: {schedule.specialRequest}<br />
                             Deliveries: {deliveriesArray?.map((delivery, index) => (
-                                <div key={index} className="px-8 flex justify-between">
-                                    <p>Delivery {index + 1}:</p>
-                                    <p>Start Time: {delivery.startTime}</p>
-                                    <p>Stop Time: {delivery.stopTime}</p>
+                                <div key={index} className="mx-2 grid border-y border-foreground rounded-md pb-1 bg-black/25">
+                                    <div className="py-1 mb-1 flex flex-col justify-center align-middle text-center bg-black/25">
+                                        <p className="text-sm">
+                                            -- DELIVERY {index + 1} --
+                                        </p>
+                                    </div>
+                                    <div className="px-2">
+                                        <div className="flex justify-between">
+                                            <p>
+                                                <span className="text-sm mr-1">Start Time:</span>
+                                                {new Date(delivery.startTime).toLocaleTimeString('en-US', {
+                                                    year: 'numeric',
+                                                    month: 'numeric',
+                                                    day: 'numeric',
+                                                    hour: 'numeric',
+                                                    minute: 'numeric',
+                                                    hour12: false,
+                                                })}
+                                            </p>
+                                            <p>
+                                                <span className="text-sm mr-1">
+                                                    Stop Time:
+                                                </span>
+                                                {delivery.stopTime 
+                                                    ? new Date(delivery.stopTime).toLocaleString('en-US', {
+                                                        year: 'numeric',
+                                                        month: 'numeric',
+                                                        day: 'numeric',
+                                                        hour: 'numeric',
+                                                        minute: 'numeric',
+                                                        hour12: false,
+                                                    }) 
+                                                : "--"}
+                                            </p>
+                                            <p>
+                                                <span className="text-sm mr-1">
+                                                    CFS:
+                                                </span>    
+                                                {schedule.order.approxCfs}</p><br />
+                                        </div>
+                                        <p className="">
+                                            <span className="text-sm mr-1">
+                                                Delivery Note:
+                                            </span>
+                                            {delivery.deliveryNote}
+                                        </p>
+                                    </div>
                                 </div>
                             ))}<br />
                             <div className="flex justify-between">
