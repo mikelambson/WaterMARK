@@ -178,7 +178,7 @@ const ScheduleCard = ({
                                             Some description...</DrawerDescription>
                                         </DrawerHeader>
                                             <div className="flex justify-center">
-                                                {schedule.order.deliveries?.map((delivery, index) => (
+                                                {schedule.deliveries?.map((delivery, index) => (
                                                     <div key={index} className="w-11/12 space-y-2 border-2 p-2">
                                                         <div className="flex justify-between">
                                                             <p>Delivery {index + 1}:</p>

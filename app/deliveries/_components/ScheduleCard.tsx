@@ -102,7 +102,7 @@ const ScheduleCard = ({
     const startedAt = deliveriesArray.length > 0 ? new Date(deliveriesArray[0].startTime) : calcCurrentTime;
     const startTime = new Date(startedAt).getTime();
     const hoursDifference = Math.ceil(((calcCurrentTime - startTime) / (1000 * 60 * 60)) * 100) / 100;
-    const usageColor = currentAFCalc > schedule.order.details.approxAf ? "text-red-400/90 dark:text-red-600/95" : "text-blue-400/90 dark:text-blue-300/80"; 
+    const usageColor = currentAFCalc > schedule.order.details.approxAf ? "text-rose-300/90 dark:text-rose-400/80" : "text-blue-300/90 dark:text-blue-400/80"; 
     
     useEffect(() => {
         
@@ -134,7 +134,9 @@ const ScheduleCard = ({
                 innerRef(node);
             }}
             className={ cn("mx-[2px] rounded-md drop-shadow-md", schedule.order.status === "running" 
-            ? "bg-emerald-900/75 dark:bg-emerald-950/75" 
+            ? currentAFCalc > schedule.order.details.approxAf 
+                ? "bg-amber-900/75 dark:bg-amber-950/75" 
+                : "bg-emerald-900/75 dark:bg-emerald-950/75" 
             : "bg-slate-700/90 dark:bg-gray-800/90")}
         >
             <Sheet>
@@ -146,7 +148,7 @@ const ScheduleCard = ({
                         <DragIcon />
                     </div>
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
-                    <div className={`text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold ${schedule.order.status === "scheduled" ? "text-transparent" : usageColor}`}>Usage {currentAFCalc} AF</div>
+                    <div className={`text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold transform-gpu ${schedule.order.status === "scheduled" ? "text-transparent" : `${usageColor} animate-pulse`}`}>Usage {currentAFCalc} AF</div>
 
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">Stop index: {new Date().toLocaleString()} | {new Date(startTime).toLocaleString()} | <span className={`${spreadStatusColor} transform-gpu`}> {spreadStatus}</span></div>
                     <div className={`text-bottom pt-1 pr-1 row-start-2 col-start-4 text-sm lg:text-md ${schedule.order.status === "scheduled" ? "text-transparent" : "text-emerald-50 dark:text-gray-300/95"} truncate`}> Hours:{hoursDifference}</div>
