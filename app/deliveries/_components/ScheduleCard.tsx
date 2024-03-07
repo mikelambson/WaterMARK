@@ -180,15 +180,16 @@ const ScheduleCard = ({
                         </div>
                         ) : (
                         <div className={"flex justify-between text-emerald-50 dark:text-gray-300/95 text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2"}>
-                            <p className="drop-shadow-md">
-                                <span className={cn(`mr-1`, schedule.order.status === "running" 
+                            <p className="relative drop-shadow-md">
+                                <span className={cn("absolute left-0", schedule.order.status === "running" 
+                                    ?? currentAFCalc > schedule.order.details.approxAf 
                                     ? "animate-ping transform-gpu" 
-                                    : "")}>
-                                    Usage:
+                                    : "animate-pulse transform-gpu")}>
+                                    _________
                                 </span>
-                                <span className={currentAFCalc > schedule.order.details.approxAf 
+                                <span className={cn("absolute top-0 left-0", currentAFCalc > schedule.order.details.approxAf 
                                     ? "text-red-400 drop-shadow-md dark:text-red-500" 
-                                    : "text-blue-300/90 dark:text-blue-400/80"}>
+                                    : "text-blue-300/90 dark:text-blue-400/80")}>
                                     {currentAFCalc} 
                                     <span className="pl-1">
                                         AF
