@@ -142,14 +142,6 @@ const ScheduleCard = ({
         return () => clearInterval(intervalId);
       }, [schedule]);
     
-    // const formatPhoneNumber = (phoneNumber: any) => {
-    // // Assuming phone numbers are always 10 digits
-    // const areaCode = phoneNumber.slice(0, 3);
-    // const firstPart = phoneNumber.slice(3, 6);
-    // const secondPart = phoneNumber.slice(6);
-    
-    // return `(${areaCode}) ${firstPart}-${secondPart}`;
-    // };
       
     return ( 
         <div
@@ -190,12 +182,12 @@ const ScheduleCard = ({
                         <div className={"flex justify-between text-emerald-50 dark:text-gray-300/95 text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2"}>
                             <p className="drop-shadow-md">
                                 <span className={cn(`mr-1`, schedule.order.status === "running" 
-                                    ? "animate-pulse transform-gpu" 
+                                    ? "animate-ping transform-gpu" 
                                     : "")}>
                                     Usage:
                                 </span>
                                 <span className={currentAFCalc > schedule.order.details.approxAf 
-                                    ? "text-red-300 drop-shadow-md dark:text-rose-300/80" 
+                                    ? "text-red-400 drop-shadow-md dark:text-red-500" 
                                     : "text-blue-300/90 dark:text-blue-400/80"}>
                                     {currentAFCalc} 
                                     <span className="pl-1">
@@ -247,10 +239,20 @@ const ScheduleCard = ({
                         new Date(index).toLocaleString()    
                     }
                     </div>
-                    <div className={cn(`col-start-3 row-start-4 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>Status: <span className={cn(`
-                        ${schedule.order.status !== "running" 
-                        ? "text-cyan-300/90 dark:text-cyan-200/70"
-                        : "text-green-500 drop-shadow-md animate-pulse transform-gpu"}`)}>{capitalizedStatus}</span></div>
+                    <div className={cn(`col-start-3 row-start-4 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
+                        Status:
+                        <span className={cn("mx-1 drop-shadow-md", 
+                            schedule.order.status !== "running" 
+                            ? "text-cyan-300/90 dark:text-cyan-200/70"
+                            : currentAFCalc > schedule.order.details.approxAf 
+                                ? "text-red-400  dark:text-red-500 animate-pulse transform-gpu" 
+                                : "text-green-500 animate-pulse transform-gpu"
+                        )}>
+                            {currentAFCalc > schedule.order.details.approxAf 
+                                ? "Over Delivered" : capitalizedStatus}
+                        </span>
+                        {(parseFloat((currentAFCalc / schedule.order.details.approxAf).toFixed(2)) * 100)}%
+                        </div>
                     <div className={cn(`col-span-4 row-start-4 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}` )}>{schedule.order.approxCfs} CFS</div>
                     <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>Travel: {schedule.travelTime} hrs</div>
                     <div className={cn(`flex justify-between col-start-4 row-start-5 px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
@@ -268,8 +270,8 @@ const ScheduleCard = ({
                             <p className="before:content-['Total_AF:'] after:content-['AF_Scheduled'] before:mr-1 before:text-foreground/50 after:ml-1 after:text-foreground/50">
                                 {currentAFCalc} / {schedule.order.details.approxAf}
                             </p>
-                            <div className={deliveriesArray.length !== 0 ? "grid my-1 gap-1" : "before:content-['Deliveries:'] before:mr-1 before:text-foreground/50"}>
-                                {deliveriesArray.length !== 0 ? "" : "Start a delivery to add details..."}
+                            <div className={deliveriesArray.length !== 0 ? "grid my-1 gap-2" : "before:content-['Deliveries:'] before:mr-1 before:text-foreground/50"}>
+                                {deliveriesArray.length === 0 ?? "Start the delivery to add details..."}
                                 {deliveriesArray?.map((delivery, index) => (
                                     <div key={index} className="mx-2 grid border-y border-foreground rounded-md pb-1 bg-black/25">
                                         <div className="py-1 mb-1 flex flex-col justify-center align-middle text-center bg-black/25">
