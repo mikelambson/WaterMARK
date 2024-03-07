@@ -111,11 +111,11 @@ const ScheduleCard = ({
         const stop = deliveriesArray[index].stopTime 
             ? new Date(deliveriesArray[index].stopTime).getTime() 
             : new Date().getTime();
-        const hrs = +Math.round((stop - start) / (1000 * 60 * 60) * 100) / 100;
+        const hrs = ((stop - start) / (1000 * 60 * 60));
         const cfs = schedule.order.approxCfs;
-        const afcalc = Math.round((hrs * cfs * 0.0825) * 100 ) / 100;  
-        const roundedAF = parseFloat(afcalc.toFixed(2))
-        return roundedAF;
+        const afcalc = hrs * cfs * 0.0825;  
+        return parseFloat(afcalc.toFixed(2))
+        
     }
     
     useEffect(() => {
@@ -129,11 +129,11 @@ const ScheduleCard = ({
             // Calculate the total delivery AF for all items in the array and round each value to two decimal places
             const newAFCalc = indexes.reduce((totalAF, index) => {
                 const deliveryAFValue = deliveryAF(index) ?? 0;
-                const roundedDeliveryAF = parseFloat(deliveryAFValue.toFixed(2));
+                const roundedDeliveryAF = deliveryAFValue;
                 return totalAF + roundedDeliveryAF;
             }, 0);
             
-            setCurrentAFCalc(newAFCalc);
+            setCurrentAFCalc(parseFloat(newAFCalc.toFixed(2)));
         };
 
         // Update the calculation every second
@@ -175,7 +175,7 @@ const ScheduleCard = ({
                         <div className={`flex justify-end text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2`}>
                             <Button 
                                 variant={"secondary"} 
-                                className={`absolute top-4 right-4 bg-green-950 active:bg-black/50 border dark:border-foreground/50 text-background dark:text-foreground`}>
+                                className={`absolute top-5 right-4 bg-green-950 active:bg-black/50 border dark:border-foreground/50 text-background dark:text-foreground`}>
                                 Start Run
                             </Button>
                         </div>
@@ -198,7 +198,7 @@ const ScheduleCard = ({
                             </p>
                             <Button 
                                 variant={"destructive"}
-                                className={"absolute top-4 right-4 row-span-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
+                                className={"absolute top-7 right-4 row-span-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
                                 End Run
                             </Button>
                         </div>
@@ -250,12 +250,15 @@ const ScheduleCard = ({
                         {schedule.order.approxHrs} hrs 
                         <PiDotsThreeDuotone className={`hover:scale-125 ${iconStyle}`} />
                     </div>
+
+{/* //////////////////////////////////////// Hidden Details //////////////////////////////////////// */}
+
                     <div className={`col-start-1 col-span-4 row-start-6 relative overflow-hidden transition-all ${isDetailsVisible ? cn(`h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md ${borderColors}`) : 'h-0 opacity-0'} duration-300 ease-in-out`}>
                         <div className={cn(`p-2 flex flex-col bg-stone-400/60 dark:bg-stone-800/70`)}>
                             <p className="text-foreground/50">
                                 OrderID: {schedule.orderId}
                             </p>
-                            <p className="before:content-['Total_AF:'] after:content-['AF_Scheduled:'] before:mr-1 before:text-foreground/50 after:ml-1 after:text-foreground/50">
+                            <p className="before:content-['Total_AF:'] after:content-['AF_Scheduled'] before:mr-1 before:text-foreground/50 after:ml-1 after:text-foreground/50">
                                 {currentAFCalc} / {schedule.order.details.approxAf}
                             </p>
                             <div className={deliveriesArray.length !== 0 ? "grid my-1 gap-1" : "before:content-['Deliveries:'] before:mr-1 before:text-foreground/50"}>
@@ -325,6 +328,9 @@ const ScheduleCard = ({
                                         Details
                                     </Button>
                                 </SheetTrigger>
+
+{/* ///////////////////////////// Drawer Section /////////////////////////// */}
+
                                 <Drawer>
                                     <DrawerTrigger asChild><Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
                                         Delivery <FaHandHoldingWater className={"ml-1"} />
@@ -364,6 +370,9 @@ const ScheduleCard = ({
                         </div>    
                     </div>
                 </div>
+
+{/* //////////////////////////////////////// Side Sheet Details //////////////////////////////////////// */}
+
                 <SheetContent className={"w-11/12 sm:w-[800px]"} side="right">
                     <SheetHeader>
                     <SheetTitle className="text-card-alternative">Schedule #{schedule.order.orderNumber} Details</SheetTitle>
