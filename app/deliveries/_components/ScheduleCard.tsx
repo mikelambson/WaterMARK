@@ -105,6 +105,20 @@ const ScheduleCard = ({
     const hoursDifference = +(Math.round(hoursCalc * 100 ) / 100 );
     const usageColor = currentAFCalc > schedule.order.details.approxAf ? "text-red-300 drop-shadow-md dark:text-rose-300/80" : "text-blue-300/90 dark:text-blue-400/80"; 
     
+    const deliveryAF = (index: number) => {
+        if (deliveriesArray.length === 0) return;
+        if (!deliveriesArray[index]) return;
+        const start = new Date(deliveriesArray[index].startTime).getTime();
+        const stop = deliveriesArray[index].stopTime 
+            ? new Date(deliveriesArray[index].stopTime).getTime() 
+            : new Date().getTime();
+        const hrs = (stop - start) / (1000 * 60 * 60);
+        const cfs = schedule.order.approxCfs;
+        const afcalc = (hrs * cfs * 0.0825);  
+        const roundedAF = +(Math.round(afcalc * 100) / 100).toFixed(2);
+        return roundedAF;
+    }
+    
     useEffect(() => {
         
         const startedAt = deliveriesArray.length > 0 ? new Date(deliveriesArray[0].startTime) : calcCurrentTime; 
@@ -113,11 +127,13 @@ const ScheduleCard = ({
         const updateCalculation = () => {
             if (schedule.order.status !== "running") return;
             if (deliveriesArray.length === 0) return;
-            const currentTime = new Date().getTime();
-            const startTime = new Date(startedAt).getTime(); 
-            const elapsedTime = +(Math.round(((currentTime - startTime) / (1000 * 60 * 60)) * 100 ) / 100);
-            const initialAFCalc = (approxCfs * elapsedTime * 0.0825);
-            const newAFCalc = parseFloat((Math.round(initialAFCalc * 100) / 100).toFixed(2));
+            // Build an array of indexes [0, 1, ..., n-1]
+            const indexes = Array.from({ length: deliveriesArray.length }, (_, index) => index);
+
+            // Calculate the total delivery AF for all items in the array
+            const newAFCalc = indexes.reduce((totalAF, index) => {
+                return totalAF + (deliveryAF(index) ?? 0);
+            }, 0);
             
             setCurrentAFCalc(newAFCalc);
         };
@@ -345,7 +361,7 @@ const ScheduleCard = ({
                 </div>
                 <SheetContent className={"w-11/12 sm:w-[800px]"} side="right">
                     <SheetHeader>
-                    <SheetTitle className="text-card-alternative">Edit Schedule #{schedule.order.orderNumber}</SheetTitle>
+                    <SheetTitle className="text-card-alternative">Schedule #{schedule.order.orderNumber} Details</SheetTitle>
                     <SheetDescription className="flex flex-col w-full gap-2">
                         Laterals: {schedule.order.laterals.join(' | ')} <br />
                         Remarks: {schedule.order.remarks} <br />
@@ -375,13 +391,32 @@ const ScheduleCard = ({
                             <Label htmlFor="instructions" className="col-span-2">
                             Instructions: 
                             </Label>
-                            <Input id="instructions" defaultValue={schedule.instructions || "Enter Instructions"} className="row-start-2 col-span-4 text-left" />
+                            <div className="row-start-2 col-span-4 text-left">{schedule.instructions}</div>
+                            {/* <Input id="instructions" defaultValue={schedule.instructions || "Enter Instructions"} className="row-start-2 col-span-4 text-left" /> */}
                         </div>
                         <div className="grid grid-cols-4 items-center gap-2">
-                            <Label htmlFor="watermasterNote" className="col-span-2">
-                            Watermaster Note: 
+                            <Label htmlFor="deliverynotes" className="col-span-2">
+                                Delivery Notes:
                             </Label>
-                            <Input id="watermasterNote" defaultValue={schedule.watermasterNote || "Enter Note"} className="col-span-4" />
+                            <div className="col-span-4">
+                                {schedule.deliveries.map((delivery, index) => (
+                                    <div key={index} className="grid text-sm">
+                                        <div className="flex justify-between">
+                                            <p>{index + 1}:</p>
+                                            <p>{hoursDifference} hrs</p>
+                                            <p className="after:content-['cfs'] after:ml-1">
+                                                {delivery.measurment ? delivery.measurment : schedule.order.approxCfs}
+                                            </p>
+                                            <p className="after:content-['af'] after:ml-1">
+                                                {deliveryAF(index)}
+                                            </p>
+                                        </div>
+                                        <p>{delivery.deliveryNote}</p>
+                                    </div>
+                                    
+                                ))}
+                            </div>
+                            
                         </div>
                         <div className="grid grid-cols-4 items-center gap-2">
                             <Label htmlFor="specialRequest" className="col-span-2">
