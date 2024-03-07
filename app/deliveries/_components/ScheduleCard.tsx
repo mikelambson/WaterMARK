@@ -98,7 +98,7 @@ const ScheduleCard = ({
 
     const deliveriesArray = schedule.deliveries;
     
-    const hourCalc = (index: number) => {
+    const hoursCalc = (index: number) => {
         if (deliveriesArray.length === 0) return;
     
         if (index === 99) {
@@ -178,7 +178,7 @@ const ScheduleCard = ({
             : "bg-slate-700/90 dark:bg-gray-800/90")}
         >
             <Sheet>
-                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,2fr,1fr] 
+                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,2fr,3fr,2fr] 
                 gap-0 rounded-sm align-text-bottom">
                     <div className={cn(`col-start-1 row-start-1 row-span-5 flex justify-center items-center ${schedule.order.status !== "running" 
                         ? "text-gray-400 dark:text-gray-500"
@@ -201,7 +201,7 @@ const ScheduleCard = ({
                             </Button>
                         </div>
                         ) : (
-                        <div className={"flex justify-between text-emerald-50 dark:text-gray-300/95 text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2"}>
+                        <div className={"flex justify-between text-emerald-50 dark:text-gray-300/95 text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold"}>
                             <p className="relative drop-shadow-md">
                                 <span className={cn("absolute left-0", schedule.order.status === "running" 
                                     ?? currentAFCalc > schedule.order.details.approxAf 
@@ -220,32 +220,42 @@ const ScheduleCard = ({
                             </p>
                             <Button 
                                 variant={"destructive"}
-                                className={"absolute top-7 right-4 row-span-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
+                                className={"absolute top-14 right-2 sm:top-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
                                 End Run
                             </Button>
                         </div>
                     )}
 
-                    <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">
-                    {schedule.order.details.irrigatorsName ? schedule.order.details.irrigatorsName : schedule.order.details.ownersName} | {schedule.order.phoneNumbers.map(formatPhoneNumber).join(' | ')}
-                    <span className={`${spreadStatusColor} transform-gpu before:content-['|'] before:mx-1 before:text-emerald-50 before:dark:text-gray-300/95`}>
-                        {spreadStatus}
-                    </span>
+                    <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 flex flex-wrap text-sm lg:text-md text-emerald-50 dark:text-gray-300/95">
+                        <p className="mr-1 after:content-['|'] after:ml-1">
+                            {schedule.order.details.irrigatorsName
+                                ? schedule.order.details.irrigatorsName
+                                : schedule.order.details.ownersName}
+                        </p>
+                        
+                            {schedule.order.phoneNumbers.map((phoneNumber, index) => (
+                                <p key={index} className="mr-1 after:content-['|'] after:ml-1">
+                                    {formatPhoneNumber(phoneNumber)}
+                                </p>
+                            ))}
+                        
+                        <span className={`${spreadStatusColor}`}>
+                            {spreadStatus}
+                        </span>
                     </div>
                     <div 
                         className={
-                            `text-bottom pt-1 pr-1 row-start-2 col-start-4 text-sm lg:text-md 
+                            `absolute top-7 right-8 sm:relative sm:right-0 sm:top-2 pr-1 row-start-2 col-start-4 text-sm lg:text-md 
                             ${schedule.order.status === "scheduled" 
                             ? "text-transparent" 
                             : "text-emerald-50 dark:text-gray-300/95 after:content-['hrs'] after:ml-1 after:text-emerald-50/80 dark:after:text-gray-300/75"
                             }`
                         }
                     >
-                        {hourCalc(99)}
+                        {hoursCalc(99)}
                     </div>
                     
-                    <div className={cn(`col-span-3 text-bottom row-start-3 border-b-2 font-semibold truncate 
-                    text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
+                    <div className={cn(`col-span-3 text-bottom row-start-3 border-b-2 font-semibold flex flex-wrap  text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
                         Instructions: {schedule.instructions}
                     </div>
                     <div className="col-start-1 row-start-4"></div>
@@ -276,12 +286,19 @@ const ScheduleCard = ({
                         </span>
                         {Math.round((currentAFCalc / schedule.order.details.approxAf) * 100)}%
                         </div>
-                    <div className={cn(`col-span-4 row-start-4 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}` )}>{schedule.order.approxCfs} CFS</div>
-                    <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>Travel: {schedule.travelTime} hrs</div>
-                    <div className={cn(`flex justify-between col-start-4 row-start-5 px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
-                        {schedule.order.approxHrs} hrs 
-                        <PiDotsThreeDuotone className={`hover:scale-125 ${iconStyle}`} />
+                    
+                    <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>
+                        Travel: {schedule.travelTime} hrs
                     </div>
+
+                    <div className={cn(`relative col-span-4 row-start-4 row-span-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}` )}>
+                        {schedule.order.approxCfs} CFS
+                        <div className={cn(`flex justify-between px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
+                        {schedule.order.approxHrs} hrs 
+                        <PiDotsThreeDuotone className={`absolute bottom-2 right-2 sm:relative hover:scale-125 ${iconStyle}`} />
+                    </div>
+                    </div>
+                    
 
 {/* //////////////////////////////////////// Hidden Details //////////////////////////////////////// */}
 
@@ -303,7 +320,7 @@ const ScheduleCard = ({
                                             </p>
                                         </div>
                                         <div className="px-2">
-                                            <div className="flex justify-between">
+                                            <div className="flex flex-col justify-between md:flex-row">
                                                 <p>
                                                     <span className="text-sm mr-1">Start Time:</span>
                                                     {new Date(delivery.startTime).toLocaleTimeString('en-US', {
@@ -330,16 +347,13 @@ const ScheduleCard = ({
                                                         }) 
                                                     : "Running..."}
                                                 </p>
-                                                <p>
-                                                    <span className="text-sm mr-1">
-                                                        CFS:
-                                                    </span>    
+                                                <p className="after:content-['HRS'] after:ml-1 after:text-sm">
+                                                    {hoursCalc(index)}
+                                                </p>
+                                                <p className="after:content-['CFS'] after:ml-1 after:text-sm">  
                                                     {schedule.order.approxCfs}
                                                 </p>
-                                                <p>
-                                                    <span className="text-sm mr-1">
-                                                        AF:
-                                                    </span>
+                                                <p className="after:content-['AF'] after:ml-1 after:text-sm">
                                                     {deliveryAF(index)}
                                                 </p>
                                             </div>
@@ -449,7 +463,7 @@ const ScheduleCard = ({
                                     <div key={index} className="grid text-sm">
                                         <div className="flex justify-between">
                                             <p>{index + 1}:</p>
-                                            <p>{hourCalc(index)} hrs</p>
+                                            <p>{hoursCalc(index)} hrs</p>
                                             <p className="after:content-['cfs'] after:ml-1">
                                                 {delivery.measurment ? delivery.measurment : schedule.order.approxCfs}
                                             </p>

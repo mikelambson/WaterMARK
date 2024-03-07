@@ -104,7 +104,7 @@ const Deliveries = ({ id, columns, index }: Properties) => {
                             <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">
                                 {selectedSheet.name} | Head {selectedHead}
                             </div>
-                            <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
+                            <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md pb-12 sm:pb-2">
                             
                             {Array.from(schedule.columns.values())
                             .filter((sched) => sched.id === index + 1)
