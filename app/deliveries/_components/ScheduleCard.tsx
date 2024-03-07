@@ -103,7 +103,6 @@ const ScheduleCard = ({
     const startTime = new Date(startedAt).getTime();
     const hoursCalc = ((calcCurrentTime - startTime) / (1000 * 60 * 60));
     const hoursDifference = +(Math.round(hoursCalc * 100 ) / 100 );
-    const usageColor = currentAFCalc > schedule.order.details.approxAf ? "text-red-300 drop-shadow-md dark:text-rose-300/80" : "text-blue-300/90 dark:text-blue-400/80"; 
     
     const deliveryAF = (index: number) => {
         if (deliveriesArray.length === 0) return;
@@ -112,27 +111,26 @@ const ScheduleCard = ({
         const stop = deliveriesArray[index].stopTime 
             ? new Date(deliveriesArray[index].stopTime).getTime() 
             : new Date().getTime();
-        const hrs = (stop - start) / (1000 * 60 * 60);
+        const hrs = +Math.round((stop - start) / (1000 * 60 * 60) * 100) / 100;
         const cfs = schedule.order.approxCfs;
-        const afcalc = (hrs * cfs * 0.0825);  
-        const roundedAF = +(Math.round(afcalc * 100) / 100).toFixed(2);
+        const afcalc = Math.round((hrs * cfs * 0.0825) * 100 ) / 100;  
+        const roundedAF = parseFloat(afcalc.toFixed(2))
         return roundedAF;
     }
     
     useEffect(() => {
-        
-        const startedAt = deliveriesArray.length > 0 ? new Date(deliveriesArray[0].startTime) : calcCurrentTime; 
-        const approxCfs = schedule.order.approxCfs;
-
         const updateCalculation = () => {
             if (schedule.order.status !== "running") return;
             if (deliveriesArray.length === 0) return;
+
             // Build an array of indexes [0, 1, ..., n-1]
             const indexes = Array.from({ length: deliveriesArray.length }, (_, index) => index);
-
-            // Calculate the total delivery AF for all items in the array
+            
+            // Calculate the total delivery AF for all items in the array and round each value to two decimal places
             const newAFCalc = indexes.reduce((totalAF, index) => {
-                return totalAF + (deliveryAF(index) ?? 0);
+                const deliveryAFValue = deliveryAF(index) ?? 0;
+                const roundedDeliveryAF = parseFloat(deliveryAFValue.toFixed(2));
+                return totalAF + roundedDeliveryAF;
             }, 0);
             
             setCurrentAFCalc(newAFCalc);
@@ -183,10 +181,19 @@ const ScheduleCard = ({
                         </div>
                         ) : (
                         <div className={"flex justify-between text-emerald-50 dark:text-gray-300/95 text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2"}>
-                            <p>
-                                Usage:
-                                <span className={`pl-1 drop-shadow-md animate-pulse transform-gpu ${usageColor}`}>
-                                    {currentAFCalc} AF 
+                            <p className="drop-shadow-md">
+                                <span className={cn(`mr-1`, schedule.order.status === "running" 
+                                    ? "animate-pulse transform-gpu" 
+                                    : "")}>
+                                    Usage:
+                                </span>
+                                <span className={currentAFCalc > schedule.order.details.approxAf 
+                                    ? "text-red-300 drop-shadow-md dark:text-rose-300/80" 
+                                    : "text-blue-300/90 dark:text-blue-400/80"}>
+                                    {currentAFCalc} 
+                                    <span className="pl-1">
+                                        AF
+                                    </span> 
                                 </span>
                             </p>
                             <Button 
@@ -198,7 +205,7 @@ const ScheduleCard = ({
                     )}
 
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">
-                        Stop index: {new Date().toLocaleString()} | {new Date(startTime).toLocaleString()} 
+                        {schedule.order.details.irrigatorsName ? schedule.order.details.irrigatorsName : schedule.order.details.ownersName} | {schedule.order.phoneNumbers.join(' | ')}
                         <span className={`${spreadStatusColor} transform-gpu before:content-['|'] before:mx-1 before:text-emerald-50 before:dark:text-gray-300/95`}> 
                             {spreadStatus}
                         </span>
@@ -248,19 +255,10 @@ const ScheduleCard = ({
                             <p className="text-foreground/50">
                                 OrderID: {schedule.orderId}
                             </p>
-                            <p className="before:content-['Remarks:'] before:mr-1 before:text-foreground/50">
-                                {schedule.order.remarks}
+                            <p className="before:content-['Total_AF:'] after:content-['AF_Scheduled:'] before:mr-1 before:text-foreground/50 after:ml-1 after:text-foreground/50">
+                                {currentAFCalc} / {schedule.order.details.approxAf}
                             </p>
-                            <p className="before:content-['Irrigator:'] before:mr-1 before:text-foreground/50">
-                                {schedule.order.details.irrigatorsName}
-                            </p>
-                            <p className="before:content-['Owner:'] before:mr-1 before:text-foreground/50">
-                                {schedule.order.details.ownersName}
-                            </p>
-                            <p className="before:content-['Scheduled_AF:'] before:mr-1 before:text-foreground/50">
-                                {schedule.order.details.approxAf}
-                            </p>
-                            <div className={deliveriesArray.length !== 0 ? "mt-1" : "before:content-['Deliveries:'] before:mr-1 before:text-foreground/50"}>
+                            <div className={deliveriesArray.length !== 0 ? "grid my-1 gap-1" : "before:content-['Deliveries:'] before:mr-1 before:text-foreground/50"}>
                                 {deliveriesArray.length !== 0 ? "" : "Start a delivery to add details..."}
                                 {deliveriesArray?.map((delivery, index) => (
                                     <div key={index} className="mx-2 grid border-y border-foreground rounded-md pb-1 bg-black/25">
@@ -295,13 +293,20 @@ const ScheduleCard = ({
                                                             minute: 'numeric',
                                                             hour12: false,
                                                         }) 
-                                                    : "--"}
+                                                    : "Running..."}
                                                 </p>
                                                 <p>
                                                     <span className="text-sm mr-1">
                                                         CFS:
                                                     </span>    
-                                                    {schedule.order.approxCfs}</p><br />
+                                                    {schedule.order.approxCfs}
+                                                </p>
+                                                <p>
+                                                    <span className="text-sm mr-1">
+                                                        AF:
+                                                    </span>
+                                                    {deliveryAF(index)}
+                                                </p>
                                             </div>
                                             <p className="">
                                                 <span className="text-sm mr-1">
