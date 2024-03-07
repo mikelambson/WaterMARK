@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { format, parseISO  } from 'date-fns';
 import { cn } from "@/lib/utils";
 import { Schedule } from "@/typings";
-import DragIcon from "@/app/scheduling/_components/board/DragIcon";
 import { Button } from "@/components/ui/button";
 import { 
     Sheet, 
@@ -35,7 +34,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { TbGridDots } from "react-icons/tb";
-
+import { formatPhoneNumber } from "@/lib/utils";
 import { FaHandHoldingWater } from "react-icons/fa";
 import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
@@ -143,7 +142,15 @@ const ScheduleCard = ({
         return () => clearInterval(intervalId);
       }, [schedule]);
     
-
+    // const formatPhoneNumber = (phoneNumber: any) => {
+    // // Assuming phone numbers are always 10 digits
+    // const areaCode = phoneNumber.slice(0, 3);
+    // const firstPart = phoneNumber.slice(3, 6);
+    // const secondPart = phoneNumber.slice(6);
+    
+    // return `(${areaCode}) ${firstPart}-${secondPart}`;
+    // };
+      
     return ( 
         <div
             ref={(node) => {
@@ -205,10 +212,10 @@ const ScheduleCard = ({
                     )}
 
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 text-sm lg:text-md text-emerald-50 dark:text-gray-300/95 truncate">
-                        {schedule.order.details.irrigatorsName ? schedule.order.details.irrigatorsName : schedule.order.details.ownersName} | {schedule.order.phoneNumbers.join(' | ')}
-                        <span className={`${spreadStatusColor} transform-gpu before:content-['|'] before:mx-1 before:text-emerald-50 before:dark:text-gray-300/95`}> 
-                            {spreadStatus}
-                        </span>
+                    {schedule.order.details.irrigatorsName ? schedule.order.details.irrigatorsName : schedule.order.details.ownersName} | {schedule.order.phoneNumbers.map(formatPhoneNumber).join(' | ')}
+                    <span className={`${spreadStatusColor} transform-gpu before:content-['|'] before:mx-1 before:text-emerald-50 before:dark:text-gray-300/95`}>
+                        {spreadStatus}
+                    </span>
                     </div>
                     <div 
                         className={
