@@ -97,11 +97,33 @@ const ScheduleCard = ({
     : "text-gray-200/60 dark:text-foreground/60";
 
     const deliveriesArray = schedule.deliveries;
-    const calcCurrentTime = new Date().getTime();
-    const startedAt = deliveriesArray.length > 0 ? new Date(deliveriesArray[0].startTime) : calcCurrentTime;
-    const startTime = new Date(startedAt).getTime();
-    const hoursCalc = ((calcCurrentTime - startTime) / (1000 * 60 * 60));
-    const hoursDifference = +(Math.round(hoursCalc * 100 ) / 100 );
+    
+    const hourCalc = (index: number) => {
+        if (deliveriesArray.length === 0) return;
+    
+        if (index === 99) {
+            const indexes = Array.from({ length: deliveriesArray.length }, (_, idx) => idx);
+            const newHrsCalc = indexes.reduce((totalHrs, idx) => {
+                const start = new Date(deliveriesArray[idx].startTime).getTime();
+                const stop = deliveriesArray[idx].stopTime
+                    ? new Date(deliveriesArray[idx].stopTime).getTime()
+                    : new Date().getTime();
+                const hrs = (stop - start) / (1000 * 60 * 60);
+                return totalHrs + hrs;
+            }, 0);
+    
+            return +(Math.round(newHrsCalc * 100) / 100);
+        }
+    
+        const start = new Date(deliveriesArray[index].startTime).getTime();
+        const stop = deliveriesArray[index].stopTime
+            ? new Date(deliveriesArray[index].stopTime).getTime()
+            : new Date().getTime();
+        const hrs = (stop - start) / (1000 * 60 * 60);
+    
+        return +(Math.round(hrs * 100) / 100);
+    };
+    
     
     const deliveryAF = (index: number) => {
         if (deliveriesArray.length === 0) return;
@@ -219,7 +241,7 @@ const ScheduleCard = ({
                             }`
                         }
                     >
-                        {hoursDifference}
+                        {hourCalc(99)}
                     </div>
                     
                     <div className={cn(`col-span-3 text-bottom row-start-3 border-b-2 font-semibold truncate 
@@ -252,7 +274,7 @@ const ScheduleCard = ({
                             {currentAFCalc > schedule.order.details.approxAf 
                                 ? "Over Delivered" : capitalizedStatus}
                         </span>
-                        {(parseFloat((currentAFCalc / schedule.order.details.approxAf).toFixed(2)) * 100)}%
+                        {Math.round((currentAFCalc / schedule.order.details.approxAf) * 100)}%
                         </div>
                     <div className={cn(`col-span-4 row-start-4 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}` )}>{schedule.order.approxCfs} CFS</div>
                     <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>Travel: {schedule.travelTime} hrs</div>
@@ -427,7 +449,7 @@ const ScheduleCard = ({
                                     <div key={index} className="grid text-sm">
                                         <div className="flex justify-between">
                                             <p>{index + 1}:</p>
-                                            <p>{hoursDifference} hrs</p>
+                                            <p>{hourCalc(index)} hrs</p>
                                             <p className="after:content-['cfs'] after:ml-1">
                                                 {delivery.measurment ? delivery.measurment : schedule.order.approxCfs}
                                             </p>
