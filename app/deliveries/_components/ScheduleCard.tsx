@@ -178,7 +178,7 @@ const ScheduleCard = ({
             : "bg-slate-700/90 dark:bg-gray-800/90")}
         >
             <Sheet>
-                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,2fr,3fr,2fr] 
+                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,1fr,2fr] sm:grid-cols-[2rem,2fr,3fr,2fr] 
                 gap-0 rounded-sm align-text-bottom">
                     <div className={cn(`col-start-1 row-start-1 row-span-5 flex justify-center items-center ${schedule.order.status !== "running" 
                         ? "text-gray-400 dark:text-gray-500"
@@ -245,7 +245,7 @@ const ScheduleCard = ({
                     </div>
                     <div 
                         className={
-                            `absolute top-7 right-8 sm:relative sm:right-0 sm:top-2 pr-1 row-start-2 col-start-4 text-sm lg:text-md 
+                            `absolute top-7 right-10 sm:relative sm:right-0 sm:top-2 pr-1 row-start-2 col-start-4 text-sm lg:text-md 
                             ${schedule.order.status === "scheduled" 
                             ? "text-transparent" 
                             : "text-emerald-50 dark:text-gray-300/95 after:content-['hrs'] after:ml-1 after:text-emerald-50/80 dark:after:text-gray-300/75"
@@ -255,7 +255,7 @@ const ScheduleCard = ({
                         {hoursCalc(99)}
                     </div>
                     
-                    <div className={cn(`col-span-3 text-bottom row-start-3 border-b-2 font-semibold flex flex-wrap  text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
+                    <div className={cn(`col-span-4 sm:col-span-3 text-bottom row-start-3 border-b-2 text-sm sm:text-md font-semibold flex flex-wrap text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
                         Instructions: {schedule.instructions}
                     </div>
                     <div className="col-start-1 row-start-4"></div>
