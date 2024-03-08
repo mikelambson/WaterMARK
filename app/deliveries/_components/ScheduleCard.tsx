@@ -178,7 +178,7 @@ const ScheduleCard = ({
             : "bg-slate-700/90 dark:bg-gray-800/90")}
         >
             <Sheet>
-                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,1fr,2fr] sm:grid-cols-[2rem,2fr,3fr,2fr] 
+                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,1fr,2fr] md:grid-cols-[2.25rem,2fr,3fr,2fr] lg:grid-cols-[2.75rem,2fr,3fr,2fr]
                 gap-0 rounded-sm align-text-bottom">
                     <div className={cn(`col-start-1 row-start-1 row-span-5 flex justify-center items-center ${schedule.order.status !== "running" 
                         ? "text-gray-400 dark:text-gray-500"
