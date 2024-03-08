@@ -260,7 +260,7 @@ const ScheduleCard = ({
                     </div>
                     <div className="col-start-1 row-start-4"></div>
                     <div className={cn(`row-span-2 col-start-2 row-start-4 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground ${borderColors}`)}><span className={"text-gray-200/60 dark:text-foreground/60"} >{schedule.order.status === "running" ? "Started At:" : "Scheduled:"}</span>
-                    <br />{schedule.order.status === "running" ? 
+                    <br />{schedule.order.status !== "running" ? 
                         new Date(index).toLocaleString('en-US', {
                             year: 'numeric',
                             month: 'numeric',
@@ -269,7 +269,14 @@ const ScheduleCard = ({
                             minute: 'numeric',
                             hour12: false,
                         }) :
-                        new Date(index).toLocaleString()    
+                        new Date(deliveriesArray[0]?.startTime).toLocaleString('en-US', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: false,
+                        })    
                     }
                     </div>
                     <div className={cn(`col-start-3 row-start-4 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
