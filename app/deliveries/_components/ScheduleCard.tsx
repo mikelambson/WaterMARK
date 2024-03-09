@@ -38,6 +38,7 @@ import { formatPhoneNumber } from "@/lib/utils";
 import { FaHandHoldingWater } from "react-icons/fa";
 import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 
 
@@ -394,22 +395,39 @@ const ScheduleCard = ({
                                             <FaHandHoldingWater size={"1.25em"} />
                                             Manage Deliveries
                                         </DrawerTitle>
-                                        <DrawerDescription className="flex justify-center">
+                                        <DrawerDescription className="flex justify-center ">
                                             Some description...</DrawerDescription>
                                         </DrawerHeader>
-                                            <div className="flex justify-center">
-                                                {schedule.deliveries?.map((delivery, index) => (
-                                                    <div key={index} className="w-11/12 space-y-2 border-2 p-2">
-                                                        <div className="flex justify-between">
-                                                            <p>Delivery {index + 1}:</p>
-                                                            
-                                                            <p>Start Time: {delivery.startTime}</p>
-                                                            <p>Stop Time: {delivery.stopTime}</p>
+                                            <div className="flex flex-col w-full px-2 h-full gap-2 mx-auto justify-center align-middle">
+                                                <ScrollArea className="flex flex-col max-h-[40svh] border-b-2">
+                                                    {schedule.deliveries?.map((delivery, index) => (
+                                                        <div key={index} className="mx-auto mb-2 w-full space-y-2 border-2 p-2 rounded-md">
+                                                            <div className="flex justify-between">
+                                                                <p>Delivery {index + 1}:</p>
+                                                                
+                                                                <p>Start Time: {delivery.startTime}</p>
+                                                                <p>Stop Time: {delivery.stopTime}</p>
+                                                            </div>
+                                                            <p className="flex">
+                                                                <span className=" w-36">Delivery Note:</span>
+                                                                <Input defaultValue={delivery.deliveryNote ? delivery.deliveryNote : "Enter Note..."} />
+                                                            </p>
+                                                            {/* Add more details as needed */}
                                                         </div>
-                                                        <p>Delivery Note: {delivery.deliveryNote}</p>
-                                                        {/* Add more details as needed */}
-                                                    </div>
-                                                ))}
+                                                    ))}
+                                                    <div className="flex flex-col gap-2 justify-center">
+                                                        <Button variant={"outline"}>Add Delivery</Button>
+                                                        <Button variant={"outline"}>Add Delivery</Button>
+                                                        <Button variant={"outline"}>Add Delivery</Button>
+                                                    
+                                                    </div> 
+                                                </ScrollArea>
+
+                                                <div className="flex flex-col gap-2 justify-center">
+                                                    
+                                                    <Button variant={"outline"}>Add Delivery</Button>
+                                                    
+                                                </div>       
                                             </div>
                                         <DrawerFooter>
                                         <Button>Submit</Button>
