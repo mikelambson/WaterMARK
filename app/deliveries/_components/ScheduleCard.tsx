@@ -405,34 +405,45 @@ const ScheduleCard = ({
                                                             <div className="flex justify-between">
                                                                 <p>Delivery {index + 1}:</p>
                                                                 
-                                                                <p>Start Time: {delivery.startTime}</p>
-                                                                <p>Stop Time: {delivery.stopTime}</p>
+                                                                <p>Start Time: {   
+                                                                    new Date(delivery.startTime).toLocaleTimeString('en-US', {
+                                                                    year: 'numeric',
+                                                                    month: 'numeric',
+                                                                    day: 'numeric',
+                                                                    hour: 'numeric',
+                                                                    minute: 'numeric',
+                                                                    hour12: false,
+                                                                })}
+                                                                </p>
+                                                                <p>Stop Time: {
+                                                                    delivery.stopTime 
+                                                                    ? new Date(delivery.stopTime).toLocaleString('en-US', {
+                                                                        year: 'numeric',
+                                                                        month: 'numeric',
+                                                                        day: 'numeric',
+                                                                        hour: 'numeric',
+                                                                        minute: 'numeric',
+                                                                        hour12: false,
+                                                                    }) 
+                                                                : "Running..."}
+                                                    </p>
                                                             </div>
                                                             <p className="flex">
                                                                 <span className=" w-36">Delivery Note:</span>
-                                                                <Input defaultValue={delivery.deliveryNote ? delivery.deliveryNote : "Enter Note..."} />
+                                                                <span>{delivery.deliveryNote ? delivery.deliveryNote : "No note found..."} </span>
                                                             </p>
                                                             {/* Add more details as needed */}
                                                         </div>
                                                     ))}
-                                                    <div className="flex flex-col gap-2 justify-center">
-                                                        <Button variant={"outline"}>Add Delivery</Button>
-                                                        <Button variant={"outline"}>Add Delivery</Button>
-                                                        <Button variant={"outline"}>Add Delivery</Button>
                                                     
-                                                    </div> 
                                                 </ScrollArea>
 
-                                                <div className="flex flex-col gap-2 justify-center">
-                                                    
-                                                    <Button variant={"outline"}>Add Delivery</Button>
-                                                    
-                                                </div>       
+                                                      
                                             </div>
                                         <DrawerFooter>
-                                        <Button>Submit</Button>
+                                        <Button>Add Delivery</Button>
                                         <DrawerClose asChild>
-                                            <Button variant="outline">Cancel</Button>
+                                            <Button variant="outline">Exit</Button>
                                         </DrawerClose>
                                         </DrawerFooter>
                                     </DrawerContent>
