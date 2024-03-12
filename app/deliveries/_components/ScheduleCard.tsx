@@ -394,45 +394,70 @@ const ScheduleCard = ({
                                         <DrawerTitle className="flex gap-3 text-xl justify-center">
                                             <FaHandHoldingWater size={"1.25em"} />
                                             Manage Deliveries
-                                        </DrawerTitle>
-                                        <DrawerDescription className="flex justify-center ">
-                                            Some description...</DrawerDescription>
+                                            <Button variant={"secondary"} size={"sm"}>Add Delivery</Button>
+                                        </DrawerTitle>                                        
                                         </DrawerHeader>
                                             <div className="flex flex-col w-full px-2 h-full gap-2 mx-auto justify-center align-middle">
-                                                <ScrollArea className="flex flex-col max-h-[40svh] border-b-2">
+                                                <ScrollArea className="flex flex-col max-h-[45svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md px-4">
+                                                    {schedule.deliveries?.length === 0 
+                                                    ? <div className="h-48 flex justify-center items-center">
+                                                        <p className="text-2xl">No Deliveries Recorded</p>
+                                                        
+                                                    </div> 
+                                                    : <div className="h-2" />}
                                                     {schedule.deliveries?.map((delivery, index) => (
-                                                        <div key={index} className="mx-auto mb-2 w-full space-y-2 border-2 p-2 rounded-md">
-                                                            <div className="flex justify-between">
-                                                                <p>Delivery {index + 1}:</p>
-                                                                
-                                                                <p>Start Time: {   
-                                                                    new Date(delivery.startTime).toLocaleTimeString('en-US', {
-                                                                    year: 'numeric',
-                                                                    month: 'numeric',
-                                                                    day: 'numeric',
-                                                                    hour: 'numeric',
-                                                                    minute: 'numeric',
-                                                                    hour12: false,
-                                                                })}
-                                                                </p>
-                                                                <p>Stop Time: {
-                                                                    delivery.stopTime 
-                                                                    ? new Date(delivery.stopTime).toLocaleString('en-US', {
+                                                        <div key={index} className="flex w-full mx-auto mb-2 space-y-2 border-2 border-foreground/50 p-2 rounded-md bg-card">
+                                                            <div 
+                                                                className="text-xl font-bold my-8 align-middle text-center bg-foreground/50 py-2 rounded-md mr-2 text-orange-200/80 border dark:text-orange-300/60 border-t-slate-900 border-l-slate-900 border-b-slate-200 border-r-slate-200" style={{ writingMode: 'vertical-rl', textOrientation: 'upright', letterSpacing: '-0.2em' }} >
+                                                                {index + 1}
+                                                            </div>
+                                                            <div className="w-full grid grid-flow-row gap-2">
+                                                                    
+                                                                <div>
+                                                                    <p>
+                                                                        Start Time: {   
+                                                                        new Date(delivery.startTime).toLocaleTimeString('en-US', {
                                                                         year: 'numeric',
                                                                         month: 'numeric',
                                                                         day: 'numeric',
                                                                         hour: 'numeric',
                                                                         minute: 'numeric',
                                                                         hour12: false,
-                                                                    }) 
-                                                                : "Running..."}
-                                                    </p>
+                                                                        })}
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                <p>
+                                                                    Stop Time: 
+                                                                </p>
+                                                                <Input  
+                                                                    className=" bg-background rounded-md"
+                                                                    defaultValue={delivery.stopTime ? new Date(delivery.stopTime).toLocaleTimeString('en-US', {
+                                                                    year: 'numeric',
+                                                                    month: 'numeric',
+                                                                    day: 'numeric',
+                                                                    hour: 'numeric',
+                                                                    minute: 'numeric',
+                                                                    hour12: false,
+                                                                }) : "Running..."} />
+                                                                </div>
+
+                                                                <div className="">
+                                                                    <div className="">Measurement:</div>
+                                                                    <Button variant={"secondary"}>
+                                                                        Update Measurements
+                                                                    </Button>
+                                                                    
+                                                                </div>
+                                                            
+                                                                <div className=" ">
+                                                                    <span className=" w-36">Delivery Note:</span>
+                                                                    <Input 
+                                                                        className=" bg-background rounded-md"
+                                                                        defaultValue={delivery.deliveryNote ? delivery.deliveryNote : "No note found..."} />
+                                                                </div>
+                                                                {/* Add more details as needed */}
                                                             </div>
-                                                            <p className="flex">
-                                                                <span className=" w-36">Delivery Note:</span>
-                                                                <span>{delivery.deliveryNote ? delivery.deliveryNote : "No note found..."} </span>
-                                                            </p>
-                                                            {/* Add more details as needed */}
                                                         </div>
                                                     ))}
                                                     
@@ -441,10 +466,11 @@ const ScheduleCard = ({
                                                       
                                             </div>
                                         <DrawerFooter>
-                                        <Button>Add Delivery</Button>
-                                        <DrawerClose asChild>
-                                            <Button variant="outline">Exit</Button>
-                                        </DrawerClose>
+                                           
+                                            <Button>Save</Button>
+                                            <DrawerClose asChild>
+                                                <Button variant="outline">Exit</Button>
+                                            </DrawerClose>
                                         </DrawerFooter>
                                     </DrawerContent>
                                 </Drawer>
