@@ -8,10 +8,11 @@ import {
 
 interface DateTimePickerProps {
     className?: string;
+    inputClassName?: string;
     gap?: number;
 }
 
-const DateTimePicker: React.FC<DateTimePickerProps> = ({className, gap}) => {
+export const TimePicker: React.FC<DateTimePickerProps> = ({className, inputClassName, gap}) => {
     // Add your component logic here
 
     return (
@@ -26,13 +27,13 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({className, gap}) => {
                         <>
                         <InputOTPGroup>
                             {slots.slice(0, 2).map((slot, index) => (
-                            <InputOTPSlot className={className} key={index} {...slot} />
+                            <InputOTPSlot className={inputClassName} key={index} {...slot} />
                             ))}
                         </InputOTPGroup>
                         <span className="text-2xl">:</span>
                         <InputOTPGroup>
                             {slots.slice(2).map((slot, index) => (
-                            <InputOTPSlot className={className} key={index} {...slot} />
+                            <InputOTPSlot className={inputClassName} key={index} {...slot} />
                             ))}
                         </InputOTPGroup>
                         </>
@@ -43,4 +44,4 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({className, gap}) => {
     );
 };
 
-export default DateTimePicker;
+export default TimePicker;

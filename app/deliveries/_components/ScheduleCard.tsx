@@ -39,7 +39,7 @@ import { FaHandHoldingWater } from "react-icons/fa";
 import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import DateTimePicker from "./DateTimePicker";
+import TimePicker from "./DateTimePicker";
 
 
 
@@ -428,8 +428,9 @@ const ScheduleCard = ({
                                                                     Date: <span className=" text-card-alternative mr-2">Date Picker</span>
                                                                     
                                                                         
-                                                                        <DateTimePicker 
+                                                                        <TimePicker 
                                                                         className="border-stone-400"
+                                                                        inputClassName="border-stone-400"
                                                                         gap={2} />
                                                                     
 
