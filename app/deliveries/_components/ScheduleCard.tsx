@@ -39,6 +39,7 @@ import { FaHandHoldingWater } from "react-icons/fa";
 import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import DateTimePicker from "./DateTimePicker";
 
 
 
@@ -412,7 +413,6 @@ const ScheduleCard = ({
                                                                 {index + 1}
                                                             </div>
                                                             <div className="w-full grid grid-flow-row gap-2">
-                                                                    
                                                                 <div>
                                                                     <p>
                                                                         Start Time: {   
@@ -425,6 +425,12 @@ const ScheduleCard = ({
                                                                         hour12: false,
                                                                         })}
                                                                     </p>
+                                                                    Date: <span className=" text-card-alternative mr-2">Date Picker</span>
+                                                                    <div className="flex items-center"> 
+                                                                        <p className="">Time:</p> 
+                                                                        <DateTimePicker className="inline-flex ml-2" />
+                                                                    </div>
+
                                                                 </div>
                                                                 <div>
                                                                 <p>
@@ -447,7 +453,6 @@ const ScheduleCard = ({
                                                                     <Button variant={"secondary"}>
                                                                         Update Measurements
                                                                     </Button>
-                                                                    
                                                                 </div>
                                                             
                                                                 <div className=" ">
