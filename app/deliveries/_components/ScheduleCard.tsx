@@ -426,10 +426,12 @@ const ScheduleCard = ({
                                                                         })}
                                                                     </p>
                                                                     Date: <span className=" text-card-alternative mr-2">Date Picker</span>
-                                                                    <div className="flex items-center"> 
-                                                                        <p className="">Time:</p> 
-                                                                        <DateTimePicker className="inline-flex ml-2" />
-                                                                    </div>
+                                                                    
+                                                                        
+                                                                        <DateTimePicker 
+                                                                        className="border-stone-400"
+                                                                        gap={2} />
+                                                                    
 
                                                                 </div>
                                                                 <div>
