@@ -387,16 +387,28 @@ const ScheduleCard = ({
 {/* ///////////////////////////// Drawer Section /////////////////////////// */}
 
                                 <Drawer>
-                                    <DrawerTrigger asChild><Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
-                                        Delivery <FaHandHoldingWater className={"ml-1"} />
-                                    </Button></DrawerTrigger>
+                                    <DrawerTrigger asChild>
+                                        <Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                                            Delivery 
+                                            <FaHandHoldingWater className={"ml-1"} />
+                                        </Button>
+                                    </DrawerTrigger>
                                     <DrawerContent>
                                         <DrawerHeader>
                                         <DrawerTitle className="flex gap-3 text-xl justify-center">
                                             <FaHandHoldingWater size={"1.25em"} />
                                             Manage Deliveries
                                             <Button variant={"secondary"} size={"sm"}>Add Delivery</Button>
-                                        </DrawerTitle>                                        
+                                        </DrawerTitle>  
+                                        <DrawerDescription className="flex justify-center gap-4 -my-1">
+                                            <p className="text-sm">
+                                                Order Number: {schedule.order.orderNumber}
+                                            </p>
+                                            <p className="text-sm">
+                                                OrderID: {schedule.orderId}
+                                            </p>
+                                            
+                                        </DrawerDescription>                                      
                                         </DrawerHeader>
                                             <div className="flex flex-col w-full px-2 h-full gap-2 mx-auto justify-center align-middle">
                                                 <ScrollArea className="flex flex-col max-h-[45svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md px-4">
