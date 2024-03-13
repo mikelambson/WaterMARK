@@ -411,7 +411,7 @@ const ScheduleCard = ({
                                         </DrawerDescription>                                      
                                         </DrawerHeader>
                                             <div className="flex flex-col w-full px-2 h-full gap-2 mx-auto justify-center align-middle">
-                                                <ScrollArea className="flex flex-col max-h-[60svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md px-4">
+                                                <ScrollArea className="flex flex-col max-h-[65svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md px-4">
                                                     {schedule.deliveries?.length === 0 
                                                     ? <div className="h-48 flex justify-center items-center">
                                                         <p className="text-2xl">No Deliveries Recorded</p>
