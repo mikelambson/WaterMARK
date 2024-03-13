@@ -40,6 +40,8 @@ import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DatePicker, TimePicker } from "./DateTimePicker";
+import UpdateMeasurements from "./UpdateMeasurements";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
 
 
@@ -485,9 +487,15 @@ const ScheduleCard = ({
 
                                                                 <div className="flex items-center gap-2">
                                                                     <p className="">Measurement:</p>
+                                                                    <Dialog>
+                                                                    <DialogTrigger asChild>
+                                                                    
                                                                     <Button variant={"secondary"} size={"sm"}>
                                                                         Update Measurements
                                                                     </Button>
+                                                                    </DialogTrigger>
+                                                                    <UpdateMeasurements />
+                                                                    </Dialog>
                                                                 </div>
                                                             
                                                                 <div className=" ">
