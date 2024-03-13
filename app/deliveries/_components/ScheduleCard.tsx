@@ -402,7 +402,10 @@ const ScheduleCard = ({
                                         </DrawerTitle>  
                                         <DrawerDescription className="flex justify-center gap-4 -my-1">
                                             <span className="text-sm">
-                                                Order Number: {schedule.order.orderNumber}
+                                                Order Number:
+                                                <span className="ml-1 text-card-alternative font-semibold">
+                                                    {schedule.order.orderNumber}
+                                                </span>
                                             </span>
                                             <span className="text-sm">
                                                 OrderID: {schedule.orderId}
