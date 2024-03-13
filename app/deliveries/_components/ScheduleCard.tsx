@@ -39,7 +39,7 @@ import { FaHandHoldingWater } from "react-icons/fa";
 import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import TimePicker from "./DateTimePicker";
+import { DatePicker, TimePicker } from "./DateTimePicker";
 
 
 
@@ -411,7 +411,7 @@ const ScheduleCard = ({
                                         </DrawerDescription>                                      
                                         </DrawerHeader>
                                             <div className="flex flex-col w-full px-2 h-full gap-2 mx-auto justify-center align-middle">
-                                                <ScrollArea className="flex flex-col max-h-[45svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md px-4">
+                                                <ScrollArea className="flex flex-col max-h-[60svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md px-4">
                                                     {schedule.deliveries?.length === 0 
                                                     ? <div className="h-48 flex justify-center items-center">
                                                         <p className="text-2xl">No Deliveries Recorded</p>
@@ -439,11 +439,8 @@ const ScheduleCard = ({
                                                                             })}
                                                                         </span>
                                                                     </div>
-                                                                    <div className="flex flex-wrap items-center gap-2">
-                                                                        Date: 
-                                                                        <span className=" text-card-alternative">
-                                                                            Date Picker
-                                                                        </span>
+                                                                    <div className="flex flex-wrap items-center gap-2 ml-4">
+                                                                        <DatePicker />
                                                                         <TimePicker 
                                                                         className="border-stone-400"
                                                                         inputClassName="border-stone-400"
@@ -451,7 +448,7 @@ const ScheduleCard = ({
                                                                         <Button variant={"secondary"} size={"sm"}>Update</Button>
                                                                     </div>
                                                                 </div>
-                                                                <div>
+                                                                <div className="mt-2 border-y-2 py-2">
                                                                     <div className="flex flex-wrap items-center gap-2">
                                                                         Stop Time: 
                                                                         <span className="text-card-alternative text-lg">
@@ -468,11 +465,8 @@ const ScheduleCard = ({
                                                                         </span>
                                                                     </div>
                                                                     
-                                                                    <div className="flex flex-wrap items-center gap-2">
-                                                                        Date: 
-                                                                        <span className=" text-card-alternative">
-                                                                            Date Picker
-                                                                        </span>
+                                                                    <div className="ml-4 flex flex-wrap items-center gap-2">
+                                                                        <DatePicker />
                                                                         <TimePicker 
                                                                         className="border-stone-400"
                                                                         inputClassName="border-stone-400"
@@ -481,9 +475,9 @@ const ScheduleCard = ({
                                                                     </div>
                                                                 </div>
 
-                                                                <div className="">
-                                                                    <div className="">Measurement:</div>
-                                                                    <Button variant={"secondary"}>
+                                                                <div className="flex items-center gap-2">
+                                                                    <p className="">Measurement:</p>
+                                                                    <Button variant={"secondary"} size={"sm"}>
                                                                         Update Measurements
                                                                     </Button>
                                                                 </div>
