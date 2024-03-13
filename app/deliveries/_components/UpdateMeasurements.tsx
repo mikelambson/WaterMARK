@@ -10,11 +10,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { KeyboardEventHandler } from "react"; // Import the KeyboardEventHandler type
 
+                    // ...
+
+                    
 
 
 const UpdateMeasurements: React.FC = () => {
 
+    const handleNumberEntry: KeyboardEventHandler<HTMLInputElement> = (event) => { // Update the type of handleNumberEntry
+        const key = event.key;
+        // Allow digits, backspace, delete, tab, and a single decimal point
+        if (
+            key !== "." && // Decimal point
+            key !== "Backspace" &&
+            key !== "Delete" &&
+            key !== "Tab" &&
+            (key < "0" || key > "9") // Digits
+        ) {
+            event.preventDefault();
+        }
+    };
 
     return (
         <DialogContent className="max-w-[65%] h-[85%] dark:border-gray-600">
@@ -73,11 +90,11 @@ const UpdateMeasurements: React.FC = () => {
                     <p className="text-center text-lg">Over The Boards</p>
                     <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                         <Label htmlFor="otbU">Upstream:</Label>
-                        <Input id="otbU" defaultValue={"2.00"} />
+                        <Input id="otbU" defaultValue={"2.00"} onKeyDown={handleNumberEntry} />
                         <Label htmlFor="otbB">Boards:</Label>
-                        <Input id="otbB" defaultValue={"3.00"} />
+                        <Input id="otbB" defaultValue={"3.00"} pattern="^\d+(\.\d{1,2})?$" />
                         <Label htmlFor="otbL">Length:</Label>
-                        <Input id="otbL" defaultValue={"4.00"} />
+                        <Input id="otbL" defaultValue={"4.00"} pattern="^\d+(\.\d{1,2})?$" />
                     </div>
                     <div className="mt-2 text-center text-lg">
                         <Button className="mt-2" onClick={() => {
@@ -90,6 +107,7 @@ const UpdateMeasurements: React.FC = () => {
                         }}>Submit</Button>
                         <p id="otbcalc" className="text-lg" />
                     </div>
+                    
                     <div>
                     Q=3.33LH^1.5 <br />
                     Q=3.33*L*(B-U)^1.5 <br />
