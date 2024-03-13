@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 
 
 
@@ -16,13 +17,16 @@ const UpdateMeasurements: React.FC = () => {
 
 
     return (
-        <DialogContent className="w-[60rem] h-[90%]">
+        <DialogContent className="max-w-[95%] h-[95%]">
             <Tabs defaultValue="est" className="w-full h-full">
                 <DialogHeader>
                     <DialogTitle className="text-center text-card-alternative text-xl">
                         Update Measurements
                     </DialogTitle>
                     <DialogDescription className="flex justify-center">
+                        Select the type of measurement you would like to update.
+                    </DialogDescription>
+                    <div className="flex justify-center">
                         <TabsList>
                             <TabsTrigger value="est">Est</TabsTrigger>
                             <TabsTrigger value="poly">Polystick</TabsTrigger>
@@ -31,7 +35,7 @@ const UpdateMeasurements: React.FC = () => {
                             <TabsTrigger value="jet">Jet Flow</TabsTrigger>
                             
                         </TabsList>
-                    </DialogDescription>
+                    </div>
                 </DialogHeader>
                 <TabsContent value="est">
                     <p className="text-center text-lg">Estimation</p>
@@ -43,11 +47,23 @@ const UpdateMeasurements: React.FC = () => {
                 </TabsContent>
                 <TabsContent value="poly">
                     <p className="text-center text-lg">Polystick</p>
+                    <div className="grid grid-cols-2 gap-2 max-w-96 mx-auto pt-3">
                     <Label htmlFor="polyread">Polystick Reading:</Label>
-                    <Input id="polyread" defaultValue={"0.00"} />
-
                     <Label htmlFor="polywidth">Width:</Label>
+                    <Input id="polyread" defaultValue={"0.00"} />
                     <Input id="polywidth" defaultValue={"0.00"} />
+                    </div>
+
+                    <div className="mt-2 text-center text-lg">
+                        <Button className="mt-2" onClick={() => {
+                            const polyread = document.getElementById("polyread") as HTMLInputElement;
+                            const polywidth = document.getElementById("polywidth") as HTMLInputElement;
+                            const polycalc = document.getElementById("polycalc") as HTMLParagraphElement;
+                            const result = Math.round((parseFloat(polyread.value) * parseFloat(polywidth.value)) * 100 ) / 100;
+                            polycalc.innerHTML = `The CFS is: ${result}`;
+                        }}>Submit</Button>
+                        <p id="polycalc" className="text-lg" />
+                    </div>
                     <div className="mt-4">
                     Info:
                     </div>
