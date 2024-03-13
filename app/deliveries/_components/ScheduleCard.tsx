@@ -421,7 +421,7 @@ const ScheduleCard = ({
                                                     {schedule.deliveries?.map((delivery, index) => (
                                                         <div key={index} className="flex w-full mx-auto mb-2 space-y-2 border-2 border-foreground/50 p-2 rounded-md bg-card">
                                                             <div 
-                                                                className="text-xl font-bold my-8 align-middle text-center bg-foreground/50 py-2 rounded-md mr-2 text-orange-200/80 border dark:text-orange-300/60 border-t-slate-900 border-l-slate-900 border-b-slate-200 border-r-slate-200" style={{ writingMode: 'vertical-rl', textOrientation: 'upright', letterSpacing: '-0.2em' }} >
+                                                                className="text-xl font-bold my-8 align-middle text-center bg-foreground/50 py-2 rounded-md mr-2 text-orange-200/90 border dark:text-orange-300/80 border-t-slate-900 border-l-slate-900 border-b-slate-200 border-r-slate-200" style={{ writingMode: 'vertical-rl', textOrientation: 'upright', letterSpacing: '-0.2em' }} >
                                                                 {index + 1}
                                                             </div>
                                                             <div className="w-full grid grid-flow-row gap-2">
@@ -451,7 +451,9 @@ const ScheduleCard = ({
                                                                 <div className="mt-2 border-y-2 py-2">
                                                                     <div className="flex flex-wrap items-center gap-2">
                                                                         Stop Time: 
-                                                                        <span className="text-card-alternative text-lg">
+                                                                        <span className={`text-lg ${delivery.stopTime 
+                                                                            ? "text-card-alternative" 
+                                                                            : "text-orange-600 dark:text-orange-300"}`}>
                                                                             {delivery.stopTime 
                                                                             ? new Date(delivery.stopTime).toLocaleTimeString('en-US', {
                                                                                 year: 'numeric',
