@@ -426,17 +426,19 @@ const ScheduleCard = ({
                                                             </div>
                                                             <div className="w-full grid grid-flow-row gap-2">
                                                                 <div>
-                                                                    <p>
-                                                                        Start Time: {   
-                                                                        new Date(delivery.startTime).toLocaleTimeString('en-US', {
-                                                                        year: 'numeric',
-                                                                        month: 'numeric',
-                                                                        day: 'numeric',
-                                                                        hour: 'numeric',
-                                                                        minute: 'numeric',
-                                                                        hour12: false,
-                                                                        })}
-                                                                    </p>
+                                                                    <div className="flex flex-wrap items-center gap-2">
+                                                                        Start Time:
+                                                                        <span className="text-card-alternative text-lg">
+                                                                            {new Date(delivery.startTime).toLocaleTimeString('en-US', {
+                                                                                year: 'numeric',
+                                                                                month: 'numeric',
+                                                                                day: 'numeric',
+                                                                                hour: 'numeric',
+                                                                                minute: 'numeric',
+                                                                                hour12: false,
+                                                                            })}
+                                                                        </span>
+                                                                    </div>
                                                                     <div className="flex flex-wrap items-center gap-2">
                                                                         Date: 
                                                                         <span className=" text-card-alternative">
@@ -450,19 +452,33 @@ const ScheduleCard = ({
                                                                     </div>
                                                                 </div>
                                                                 <div>
-                                                                <p>
-                                                                    Stop Time: 
-                                                                </p>
-                                                                <Input  
-                                                                    className=" bg-background rounded-md"
-                                                                    defaultValue={delivery.stopTime ? new Date(delivery.stopTime).toLocaleTimeString('en-US', {
-                                                                    year: 'numeric',
-                                                                    month: 'numeric',
-                                                                    day: 'numeric',
-                                                                    hour: 'numeric',
-                                                                    minute: 'numeric',
-                                                                    hour12: false,
-                                                                }) : "Running..."} />
+                                                                    <div className="flex flex-wrap items-center gap-2">
+                                                                        Stop Time: 
+                                                                        <span className="text-card-alternative text-lg">
+                                                                            {delivery.stopTime 
+                                                                            ? new Date(delivery.stopTime).toLocaleTimeString('en-US', {
+                                                                                year: 'numeric',
+                                                                                month: 'numeric',
+                                                                                day: 'numeric',
+                                                                                hour: 'numeric',
+                                                                                minute: 'numeric',
+                                                                                hour12: false,
+                                                                            }) 
+                                                                            : "Running..."}
+                                                                        </span>
+                                                                    </div>
+                                                                    
+                                                                    <div className="flex flex-wrap items-center gap-2">
+                                                                        Date: 
+                                                                        <span className=" text-card-alternative">
+                                                                            Date Picker
+                                                                        </span>
+                                                                        <TimePicker 
+                                                                        className="border-stone-400"
+                                                                        inputClassName="border-stone-400"
+                                                                        gap={2} />
+                                                                        <Button variant={"secondary"} size={"sm"}>Update</Button>
+                                                                    </div>
                                                                 </div>
 
                                                                 <div className="">
