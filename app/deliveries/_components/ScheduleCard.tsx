@@ -437,15 +437,17 @@ const ScheduleCard = ({
                                                                         hour12: false,
                                                                         })}
                                                                     </p>
-                                                                    Date: <span className=" text-card-alternative mr-2">Date Picker</span>
-                                                                    
-                                                                        
+                                                                    <div className="flex flex-wrap items-center gap-2">
+                                                                        Date: 
+                                                                        <span className=" text-card-alternative">
+                                                                            Date Picker
+                                                                        </span>
                                                                         <TimePicker 
                                                                         className="border-stone-400"
                                                                         inputClassName="border-stone-400"
                                                                         gap={2} />
-                                                                    
-
+                                                                        <Button variant={"secondary"} size={"sm"}>Update</Button>
+                                                                    </div>
                                                                 </div>
                                                                 <div>
                                                                 <p>
