@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { KeyboardEventHandler } from "react"; // Import the KeyboardEventHandler type
+import { DatePicker, TimePicker } from "./DateTimePicker";
 
 
 const UpdateMeasurements: React.FC = () => {
@@ -50,6 +51,10 @@ const UpdateMeasurements: React.FC = () => {
                         </TabsList>
                     </div>
                 </DialogHeader>
+                <div className="pt-2 flex justify-center gap-2">
+                <DatePicker defaultDate={true} />
+                <TimePicker gap={2} defaultTime={true} />
+                </div>
                 <TabsContent value="est">
                     <p className="text-center text-lg">Estimation</p>
                     <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
