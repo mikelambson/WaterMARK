@@ -436,6 +436,9 @@ const ScheduleCard = ({
                                                                 </div>
                                                             </div>
                                                             <div className="w-full grid grid-flow-row gap-2 z-10">
+                                                                <div className="text-foreground/20 text-center text-sm">
+                                                                    Delivery ID: {delivery.id}
+                                                                </div>
                                                                 <div>
                                                                     <div className="flex flex-wrap items-center gap-2">
                                                                         Start Time:
