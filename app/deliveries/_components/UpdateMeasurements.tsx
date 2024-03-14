@@ -30,7 +30,7 @@ const UpdateMeasurements: React.FC = () => {
     };
 
     return (
-        <DialogContent className="max-w-[65%] h-[85%] dark:border-gray-600">
+        <DialogContent className="max-w-[95%] h-[95%] dark:border-gray-600">
             <Tabs defaultValue="est" className="w-full h-full">
                 <DialogHeader>
                     <DialogTitle className="text-center text-card-alternative text-xl">
