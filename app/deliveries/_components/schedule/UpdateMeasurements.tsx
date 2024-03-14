@@ -51,9 +51,12 @@ const UpdateMeasurements: React.FC = () => {
                         </TabsList>
                     </div>
                 </DialogHeader>
-                <div className="pt-2 flex justify-center gap-2">
-                <DatePicker defaultDate={true} />
-                <TimePicker gap={2} defaultTime={true} />
+                <div className="pt-2 flex justify-center gap-2 flex-wrap">
+                    <DatePicker defaultDate={true} />
+                    <TimePicker gap={2} defaultTime={true} />
+                    <DialogClose asChild>
+                        <Button variant={"secondary"}>Save Measurment</Button>
+                    </DialogClose>
                 </div>
                 <TabsContent value="est">
                     <p className="text-center text-lg">Estimation</p>

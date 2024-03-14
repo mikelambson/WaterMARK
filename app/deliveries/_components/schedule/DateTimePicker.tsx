@@ -24,14 +24,23 @@ interface DateTimePickerProps {
 }
 
 export const DatePicker: React.FC<DateTimePickerProps> = ({className, defaultDate}) => {
-
-    const enteredDate = typeof defaultDate === "string" ? new Date(defaultDate) : new Date();
-    const defaultDateValue = defaultDate ? new Date(enteredDate) : "";
-    
     const [date, setDate] = React.useState<Date>();
+
     useEffect(() => { 
-        if (defaultDate) setDate(defaultDateValue as Date);
-    }, [defaultDateValue]);
+        let isMounted = true;
+        const enteredDate = typeof defaultDate === "string" ? new Date(defaultDate) : new Date();
+        const effectDefaultDateValue = defaultDate ? new Date(enteredDate) : "";
+        
+
+        if (isMounted) { 
+            setDate(effectDefaultDateValue as Date); 
+        }
+
+        return () => { 
+            isMounted = false; 
+        };
+
+    }, [defaultDate]);
 
   return (
         <Popover>
