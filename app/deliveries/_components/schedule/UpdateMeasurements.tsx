@@ -73,7 +73,7 @@ const UpdateMeasurements: React.FC = () => {
                         <Input id="estW" defaultValue={"15.00"} />
                     </div>
                     <div className="flex border-2 text-lg my-2 h-8 px-2 w-fit min-w-[8rem] mx-auto justify-center items-center rounded-md">
-                        <p id="estcalc">Enter estimation...
+                        <p id="estcalc">Enter timed estimation...
                             {/* {(() => {
                                 const estCFS = document.getElementById("estCFS") as HTMLInputElement;
                                 return parseFloat(estCFS.value) > 0 ? `The flow is: ${estCFS.value} CFS.` : "Enter estimation.";
@@ -107,9 +107,13 @@ const UpdateMeasurements: React.FC = () => {
                     
                     <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                         <Label htmlFor="polyread">Polystick Reading:</Label>
-                        <Input id="polyread" defaultValue={"0.00"} />
+                        <Input id="polyread" defaultValue={"3.96"} />
                         <Label htmlFor="polywidth">Width:</Label>
-                        <Input id="polywidth" defaultValue={"0.00"} />
+                        <Input id="polywidth" defaultValue={"5.00"} />
+                    </div>
+
+                    <div className="flex border-2 text-lg my-2 h-8 px-2 w-fit min-w-[8rem] mx-auto justify-center items-center rounded-md">
+                        <p id="polycalc" className="text-lg">Enter polystick reading...</p>
                     </div>
 
                     <div className="mt-2 text-center text-lg">
@@ -120,7 +124,7 @@ const UpdateMeasurements: React.FC = () => {
                             const result = Math.round((parseFloat(polyread.value) * parseFloat(polywidth.value)) * 100 ) / 100;
                             polycalc.innerHTML = `The CFS is: ${result}`;
                         }}>Calculate</Button>
-                        <p id="polycalc" className="text-lg" />
+                        
                     </div>
                     <div className=" border-t-2 mt-4 text-sm">
                     Instructions: <br />
@@ -136,6 +140,10 @@ const UpdateMeasurements: React.FC = () => {
                         <Label htmlFor="otbL">Length:</Label>
                         <Input id="otbL" defaultValue={"4.00"} pattern="^\d+(\.\d{1,2})?$" />
                     </div>
+
+                    <div className="flex border-2 text-lg my-2 h-8 px-2 w-fit min-w-[8rem] mx-auto justify-center items-center rounded-md">
+                        <p id="otbcalc" className="text-lg">Enter over the boards measurements...</p>
+                    </div>
                     <div className="mt-2 text-center text-lg">
                         <Button className="mt-2" onClick={() => {
                             const otbU = document.getElementById("otbU") as HTMLInputElement;
@@ -145,7 +153,6 @@ const UpdateMeasurements: React.FC = () => {
                             const result = Math.round((3.33 * parseFloat(otbL.value) * Math.pow((parseFloat(otbB.value) - parseFloat(otbU.value)), 1.5)) * 100 ) / 100;
                             otbcalc.innerHTML = `The flow over the boards is: ${result} CFS.`;
                         }}>Calculate</Button>
-                        <p id="otbcalc" className="text-lg" />
                     </div>
                     
                     <div className=" border-t-2 mt-4 text-sm">
@@ -166,6 +173,10 @@ const UpdateMeasurements: React.FC = () => {
                         <Label htmlFor="subL">Length:</Label>
                         <Input id="subL" defaultValue={"6.00"} />
                     </div>
+
+                    <div className="flex border-2 text-lg my-2 h-8 px-2 w-fit min-w-[8rem] mx-auto justify-center items-center rounded-md">
+                        <p id="subcalc" className="text-lg">Enter submerged measurements...</p>
+                    </div>
                     <div className="mt-2 text-center text-lg">
                         <Button className="mt-2" onClick={() => {
                             const subU = document.getElementById("subU") as HTMLInputElement;
@@ -177,38 +188,41 @@ const UpdateMeasurements: React.FC = () => {
                             const result = Math.round((0.67 * (parseFloat(subS.value) - parseFloat(subG.value)) * parseFloat(subL.value) * Math.sqrt(64.4 * (parseFloat(subD.value) - parseFloat(subU.value))) ) * 100 ) / 100;
                             subcalc.innerHTML = `The flow is: ${result} CFS.`;
                         }}>Calculate</Button>
-                        <p id="subcalc" className="text-lg" />
                     </div>
                     <div className=" border-t-2 mt-4 text-sm">
                     Instructions: <br />
                     </div>
                 </TabsContent>
                 <TabsContent value="jet">
-                    <p className="text-center text-lg">Jet</p>
+                    <p className="text-center text-lg">Jet Flow</p>
                     <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
-                        <Label htmlFor="subU">Upstream:</Label>
-                        <Input id="subU" defaultValue={"2.00"} />
-                        <Label htmlFor="subD">Downstream:</Label>
-                        <Input id="subD" defaultValue={"3.00"} />
-                        <Label htmlFor="subG">Gate:</Label>
-                        <Input id="subG" defaultValue={"4.00"} />
-                        <Label htmlFor="subS">Sill:</Label>
-                        <Input id="subS" defaultValue={"5.00"} />
-                        <Label htmlFor="subL">Length:</Label>
-                        <Input id="subL" defaultValue={"6.00"} />
+                        <Label htmlFor="jetU">Upstream:</Label>
+                        <Input id="jetU" defaultValue={"2.00"} />
+                        <Label htmlFor="jetD">Downstream:</Label>
+                        <Input id="jetD" defaultValue={"3.00"} />
+                        <Label htmlFor="jetG">Gate:</Label>
+                        <Input id="jetG" defaultValue={"4.00"} />
+                        <Label htmlFor="jetS">Sill:</Label>
+                        <Input id="jetS" defaultValue={"5.00"} />
+                        <Label htmlFor="jetL">Length:</Label>
+                        <Input id="jetL" defaultValue={"6.00"} />
+                    </div>
+
+                    <div className="flex border-2 text-lg my-2 h-8 px-2 w-fit min-w-[8rem] mx-auto justify-center items-center rounded-md">
+                        <p id="jetcalc" className="text-lg">Enter jet flow gate measurements...</p>
                     </div>
                     <div className="mt-2 text-center text-lg">
                         <Button className="mt-2" onClick={() => {
-                            const subU = document.getElementById("subU") as HTMLInputElement;
-                            const subD = document.getElementById("subD") as HTMLInputElement;
-                            const subG = document.getElementById("subG") as HTMLInputElement;
-                            const subS = document.getElementById("subS") as HTMLInputElement;
-                            const subL = document.getElementById("subL") as HTMLInputElement;
-                            const subcalc = document.getElementById("subcalc") as HTMLParagraphElement;
-                            const result = Math.round((0.6 * (parseFloat(subS.value) - parseFloat(subG.value)) * parseFloat(subL.value) * Math.sqrt(64.4 * (parseFloat(subD.value) - parseFloat(subU.value))) ) * 100 ) / 100;
-                            subcalc.innerHTML = `The flow is: ${result} CFS.`;
+                            const jetU = document.getElementById("jetU") as HTMLInputElement;
+                            const jetD = document.getElementById("jetD") as HTMLInputElement;
+                            const jetG = document.getElementById("jetG") as HTMLInputElement;
+                            const jetS = document.getElementById("jetS") as HTMLInputElement;
+                            const jetL = document.getElementById("jetL") as HTMLInputElement;
+                            const jetcalc = document.getElementById("jetcalc") as HTMLParagraphElement;
+                            const result = Math.round((0.6 * (parseFloat(jetS.value) - parseFloat(jetG.value)) * parseFloat(jetL.value) * Math.sqrt(64.4 * (parseFloat(jetD.value) - parseFloat(jetU.value))) ) * 100 ) / 100;
+                            jetcalc.innerHTML = `The flow is: ${result} CFS.`;
                         }}>Calculate</Button>
-                        <p id="subcalc" className="text-lg" />
+                        
                     </div>
 
                     <div className=" border-t-2 mt-4 text-sm">
