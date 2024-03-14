@@ -423,13 +423,16 @@ const ScheduleCard = ({
                                                         
                                                     </div> 
                                                     : <div className="h-2" />}
-                                                    {schedule.deliveries?.map((delivery, index) => (
+                                                    {schedule.deliveries?.slice().reverse().map((delivery, index) => { 
+                                                        const reversedIndex = schedule.deliveries.length - index;
+
+                                                        return (
                                                         <div key={index} className="relative z-0 flex w-full mx-auto mb-2 space-y-2 border-2 border-foreground/50 p-2 rounded-md bg-card">
                                                             <div 
                                                                 className="text-2xl font-bold my-8 align-middle text-center bg-foreground/50 py-2 rounded-md mr-2 text-orange-200/90 border dark:text-orange-300/80 border-t-slate-900 border-l-slate-900 border-b-slate-200 border-r-slate-200" style={{ writingMode: 'vertical-rl', textOrientation: 'upright', letterSpacing: '-0.2em' }} >
-                                                                {index + 1}
+                                                                {reversedIndex}
                                                                 <div className="absolute left-[50%] top-20 sm:right-[10%] sm:top-0 text-[15rem] text-transparent dark:text-transparent/50 sm:text-gray-500/10 sm:dark:text-gray-100/5 z-0">
-                                                                    {index + 1}
+                                                                    {reversedIndex}
                                                                 </div>
                                                             </div>
                                                             <div className="w-full grid grid-flow-row gap-2 z-10">
@@ -507,7 +510,7 @@ const ScheduleCard = ({
                                                                 {/* Add more details as needed */}
                                                             </div>
                                                         </div>
-                                                    ))}
+                                                    )})}
                                                     
                                                 </ScrollArea>
 

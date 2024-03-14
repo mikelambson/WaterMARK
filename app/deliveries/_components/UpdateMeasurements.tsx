@@ -1,5 +1,6 @@
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
     DialogHeader,
@@ -28,6 +29,7 @@ const UpdateMeasurements: React.FC = () => {
             event.preventDefault();
         }
     };
+
 
     return (
         <DialogContent className="max-w-[95%] h-[95%] dark:border-gray-600">
@@ -59,17 +61,25 @@ const UpdateMeasurements: React.FC = () => {
                     <p className="mt-2 border-t-2 pt-2 text-center text-lg">Timed Flow</p>
                     <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                         <Label htmlFor="estD">Distance ft:</Label>
-                        <Input id="estD" defaultValue={"0.00"} />
+                        <Input id="estD" defaultValue={"10.00"} />
                         <Label htmlFor="estS">Time in seconds:</Label>
-                        <Input id="estS" defaultValue={"0.00"} />
+                        <Input id="estS" defaultValue={"15.00"} />
                         <Label htmlFor="estH">Water Height</Label>
-                        <Input id="estH" defaultValue={"0.00"} />
+                        <Input id="estH" defaultValue={"3.00"} />
                         <Label htmlFor="estW">Average Width</Label>
-                        <Input id="estW" defaultValue={"0.00"} />
+                        <Input id="estW" defaultValue={"15.00"} />
                     </div>
-                    <div className="mt-2 text-center text-lg">
-                        <Button className="mt-2" onClick={() => {
-                            const estCFS = document.getElementById("estCFS") as HTMLInputElement;
+                    <div className="flex border-2 text-lg my-2 h-8 px-2 w-fit min-w-[8rem] mx-auto justify-center items-center rounded-md">
+                        <p id="estcalc">Enter estimation...
+                            {/* {(() => {
+                                const estCFS = document.getElementById("estCFS") as HTMLInputElement;
+                                return parseFloat(estCFS.value) > 0 ? `The flow is: ${estCFS.value} CFS.` : "Enter estimation.";
+                            })()} */}
+                        </p>
+                    </div>
+                    <div className="flex mt-2 justify-center gap-4">
+                        <Button variant={"secondary"} className="mt-2" onClick={() => {
+                            
                             const estD = document.getElementById("estD") as HTMLInputElement;
                             const estS = document.getElementById("estS") as HTMLInputElement;
                             const estH = document.getElementById("estH") as HTMLInputElement;
@@ -77,8 +87,13 @@ const UpdateMeasurements: React.FC = () => {
                             const estcalc = document.getElementById("estcalc") as HTMLParagraphElement;
                             const result = Math.round((parseFloat(estD.value) * parseFloat(estH.value) * parseFloat(estW.value) / parseFloat(estS.value)) * 100 ) / 100;
                             estcalc.innerHTML = `The flow is: ${result} CFS.`;
-                        }}>Submit</Button>
-                        <p id="estcalc" className="text-lg" />
+                        }}>Calculate</Button>
+                        
+                        <DialogClose asChild>
+                            <Button className="mt-2">
+                                Submit
+                            </Button>
+                        </DialogClose>
                     </div>
                     <div className=" border-t-2 mt-4 text-sm">
                     Instructions: <br />
@@ -95,13 +110,13 @@ const UpdateMeasurements: React.FC = () => {
                     </div>
 
                     <div className="mt-2 text-center text-lg">
-                        <Button className="mt-2" onClick={() => {
+                        <Button variant={"secondary"} className="mt-2" onClick={() => {
                             const polyread = document.getElementById("polyread") as HTMLInputElement;
                             const polywidth = document.getElementById("polywidth") as HTMLInputElement;
                             const polycalc = document.getElementById("polycalc") as HTMLParagraphElement;
                             const result = Math.round((parseFloat(polyread.value) * parseFloat(polywidth.value)) * 100 ) / 100;
                             polycalc.innerHTML = `The CFS is: ${result}`;
-                        }}>Submit</Button>
+                        }}>Calculate</Button>
                         <p id="polycalc" className="text-lg" />
                     </div>
                     <div className=" border-t-2 mt-4 text-sm">
@@ -126,7 +141,7 @@ const UpdateMeasurements: React.FC = () => {
                             const otbcalc = document.getElementById("otbcalc") as HTMLParagraphElement;
                             const result = Math.round((3.33 * parseFloat(otbL.value) * Math.pow((parseFloat(otbB.value) - parseFloat(otbU.value)), 1.5)) * 100 ) / 100;
                             otbcalc.innerHTML = `The flow over the boards is: ${result} CFS.`;
-                        }}>Submit</Button>
+                        }}>Calculate</Button>
                         <p id="otbcalc" className="text-lg" />
                     </div>
                     
@@ -158,7 +173,7 @@ const UpdateMeasurements: React.FC = () => {
                             const subcalc = document.getElementById("subcalc") as HTMLParagraphElement;
                             const result = Math.round((0.67 * (parseFloat(subS.value) - parseFloat(subG.value)) * parseFloat(subL.value) * Math.sqrt(64.4 * (parseFloat(subD.value) - parseFloat(subU.value))) ) * 100 ) / 100;
                             subcalc.innerHTML = `The flow is: ${result} CFS.`;
-                        }}>Submit</Button>
+                        }}>Calculate</Button>
                         <p id="subcalc" className="text-lg" />
                     </div>
                     <div className=" border-t-2 mt-4 text-sm">
@@ -189,7 +204,7 @@ const UpdateMeasurements: React.FC = () => {
                             const subcalc = document.getElementById("subcalc") as HTMLParagraphElement;
                             const result = Math.round((0.6 * (parseFloat(subS.value) - parseFloat(subG.value)) * parseFloat(subL.value) * Math.sqrt(64.4 * (parseFloat(subD.value) - parseFloat(subU.value))) ) * 100 ) / 100;
                             subcalc.innerHTML = `The flow is: ${result} CFS.`;
-                        }}>Submit</Button>
+                        }}>Calculate</Button>
                         <p id="subcalc" className="text-lg" />
                     </div>
 
