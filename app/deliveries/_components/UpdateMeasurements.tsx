@@ -12,10 +12,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { KeyboardEventHandler } from "react"; // Import the KeyboardEventHandler type
 
-                    // ...
-
-                    
-
 
 const UpdateMeasurements: React.FC = () => {
 
@@ -58,17 +54,17 @@ const UpdateMeasurements: React.FC = () => {
                     <p className="text-center text-lg">Estimation</p>
                     <Label htmlFor="estCFS">Estimated CFS:</Label>
                     <Input id="estCFS" defaultValue={"0.00"} />
-                    <div className="mt-4">
-                    Info:
+                    <div className=" border-t-2 mt-4 text-sm">
+                    Instructions: <br />
                     </div>
                 </TabsContent>
                 <TabsContent value="poly">
                     <p className="text-center text-lg">Polystick</p>
                     
-                    <div className="grid grid-cols-2 gap-2 w-80 mx-auto pt-3">
+                    <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                     <Label htmlFor="polyread">Polystick Reading:</Label>
-                    <Label htmlFor="polywidth">Width:</Label>
                     <Input id="polyread" defaultValue={"0.00"} />
+                    <Label htmlFor="polywidth">Width:</Label>
                     <Input id="polywidth" defaultValue={"0.00"} />
                     </div>
 
@@ -82,8 +78,8 @@ const UpdateMeasurements: React.FC = () => {
                         }}>Submit</Button>
                         <p id="polycalc" className="text-lg" />
                     </div>
-                    <div className="mt-4">
-                    Info:
+                    <div className=" border-t-2 mt-4 text-sm">
+                    Instructions: <br />
                     </div>
                 </TabsContent>
                 <TabsContent value="overTheBoards">
@@ -108,23 +104,72 @@ const UpdateMeasurements: React.FC = () => {
                         <p id="otbcalc" className="text-lg" />
                     </div>
                     
-                    <div>
-                    Q=3.33LH^1.5 <br />
-                    Q=3.33*L*(B-U)^1.5 <br />
-                    U= Upstream <br />
-                    B= Boards<br />
-                    L= Length<br />
+                    <div className=" border-t-2 mt-4 text-sm">
+                    Instructions: <br />
                     </div>
                 </TabsContent>
                 <TabsContent value="submerged">
                     <p className="text-center text-lg">Submerged</p>
-                    <Label htmlFor="subCFS">Submerged CFS:</Label>
-                    <Input id="subCFS" defaultValue={"0.00"} />
+                    <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
+                        <Label htmlFor="subU">Upstream:</Label>
+                        <Input id="subU" defaultValue={"2.00"} />
+                        <Label htmlFor="subD">Downstream:</Label>
+                        <Input id="subD" defaultValue={"3.00"} />
+                        <Label htmlFor="subG">Gate:</Label>
+                        <Input id="subG" defaultValue={"4.00"} />
+                        <Label htmlFor="subS">Sill:</Label>
+                        <Input id="subS" defaultValue={"5.00"} />
+                        <Label htmlFor="subL">Length:</Label>
+                        <Input id="subL" defaultValue={"6.00"} />
+                    </div>
+                    <div className="mt-2 text-center text-lg">
+                        <Button className="mt-2" onClick={() => {
+                            const subU = document.getElementById("subU") as HTMLInputElement;
+                            const subD = document.getElementById("subD") as HTMLInputElement;
+                            const subG = document.getElementById("subG") as HTMLInputElement;
+                            const subS = document.getElementById("subS") as HTMLInputElement;
+                            const subL = document.getElementById("subL") as HTMLInputElement;
+                            const subcalc = document.getElementById("subcalc") as HTMLParagraphElement;
+                            const result = Math.round((0.67 * (parseFloat(subS.value) - parseFloat(subG.value)) * parseFloat(subL.value) * Math.sqrt(64.4 * (parseFloat(subD.value) - parseFloat(subU.value))) ) * 100 ) / 100;
+                            subcalc.innerHTML = `The flow is: ${result} CFS.`;
+                        }}>Submit</Button>
+                        <p id="subcalc" className="text-lg" />
+                    </div>
+                    <div className=" border-t-2 mt-4 text-sm">
+                    Instructions: <br />
+                    </div>
                 </TabsContent>
                 <TabsContent value="jet">
                     <p className="text-center text-lg">Jet</p>
-                    <Label htmlFor="jetCFS">Jet CFS:</Label>
-                    <Input id="jetCFS" defaultValue={"0.00"} />
+                    <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
+                        <Label htmlFor="subU">Upstream:</Label>
+                        <Input id="subU" defaultValue={"2.00"} />
+                        <Label htmlFor="subD">Downstream:</Label>
+                        <Input id="subD" defaultValue={"3.00"} />
+                        <Label htmlFor="subG">Gate:</Label>
+                        <Input id="subG" defaultValue={"4.00"} />
+                        <Label htmlFor="subS">Sill:</Label>
+                        <Input id="subS" defaultValue={"5.00"} />
+                        <Label htmlFor="subL">Length:</Label>
+                        <Input id="subL" defaultValue={"6.00"} />
+                    </div>
+                    <div className="mt-2 text-center text-lg">
+                        <Button className="mt-2" onClick={() => {
+                            const subU = document.getElementById("subU") as HTMLInputElement;
+                            const subD = document.getElementById("subD") as HTMLInputElement;
+                            const subG = document.getElementById("subG") as HTMLInputElement;
+                            const subS = document.getElementById("subS") as HTMLInputElement;
+                            const subL = document.getElementById("subL") as HTMLInputElement;
+                            const subcalc = document.getElementById("subcalc") as HTMLParagraphElement;
+                            const result = Math.round((0.6 * (parseFloat(subS.value) - parseFloat(subG.value)) * parseFloat(subL.value) * Math.sqrt(64.4 * (parseFloat(subD.value) - parseFloat(subU.value))) ) * 100 ) / 100;
+                            subcalc.innerHTML = `The flow is: ${result} CFS.`;
+                        }}>Submit</Button>
+                        <p id="subcalc" className="text-lg" />
+                    </div>
+
+                    <div className=" border-t-2 mt-4 text-sm">
+                    Instructions: <br />
+                    </div>
                 </TabsContent>
             </Tabs>
         </DialogContent>
