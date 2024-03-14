@@ -98,8 +98,10 @@ const UpdateMeasurements: React.FC = () => {
                             </Button>
                         </DialogClose>
                     </div>
-                    <div className=" border-t-2 mt-4 text-sm">
-                    Instructions: <br />
+                    <div className=" border-t-2 mt-4 text-sm text-center">
+                        <p>
+                            Use a float or a stick to measure the water velocity along a distance of at least ten feet.
+                        </p>
                     </div>
                 </TabsContent>
                 <TabsContent value="poly">
@@ -126,8 +128,16 @@ const UpdateMeasurements: React.FC = () => {
                         }}>Calculate</Button>
                         
                     </div>
-                    <div className=" border-t-2 mt-4 text-sm">
-                    Instructions: <br />
+                    <div className=" border-t-2 mt-4 text-sm text-center">
+                        <p>
+                            NOTE: Place, hold, and remove the stick in the water while keeping it completely vertical.
+                        </p>
+                        <p>
+                            Use dust on the stick to get a good reading, while maintaining the positioning. 
+                        </p>
+                        <p>    
+                            The water will wash away the dust to the measurement mark. This is the reading.
+                        </p>
                     </div>
                 </TabsContent>
                 <TabsContent value="overTheBoards">
@@ -155,8 +165,10 @@ const UpdateMeasurements: React.FC = () => {
                         }}>Calculate</Button>
                     </div>
                     
-                    <div className=" border-t-2 mt-4 text-sm">
-                    Instructions: <br />
+                    <div className=" border-t-2 mt-4 text-sm text-center">
+                        <p>
+                            Measure down from ref point to the measurement points.
+                        </p>
                     </div>
                 </TabsContent>
                 <TabsContent value="submerged">
@@ -189,8 +201,13 @@ const UpdateMeasurements: React.FC = () => {
                             subcalc.innerHTML = `The flow is: ${result} CFS.`;
                         }}>Calculate</Button>
                     </div>
-                    <div className=" border-t-2 mt-4 text-sm">
-                    Instructions: <br />
+                    <div className=" border-t-2 mt-4 text-sm text-center">
+                        <p>
+                            NOTE: Difference between up & downstream must be &gt; 0.2 feet (2.4 in)
+                        </p>
+                        <p>
+                            Measure down from ref point to the measurement points.
+                        </p>
                     </div>
                 </TabsContent>
                 <TabsContent value="jet">
@@ -225,8 +242,13 @@ const UpdateMeasurements: React.FC = () => {
                         
                     </div>
 
-                    <div className=" border-t-2 mt-4 text-sm">
-                    Instructions: <br />
+                    <div className=" border-t-2 mt-4 text-sm text-center">
+                        <p>
+                            NOTE: There must be space under the downstream flow to be considered a jet flow condition.
+                        </p>
+                        <p>
+                            Measure down from ref point to the measurement points.
+                        </p>
                     </div>
                 </TabsContent>
             </Tabs>
