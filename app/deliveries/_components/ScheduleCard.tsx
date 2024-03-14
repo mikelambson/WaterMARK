@@ -42,6 +42,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { DatePicker, TimePicker } from "./DateTimePicker";
 import UpdateMeasurements from "./UpdateMeasurements";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import EndRun from "./EndRun";
 
 
 
@@ -222,11 +223,17 @@ const ScheduleCard = ({
                                     </span> 
                                 </span>
                             </p>
-                            <Button 
-                                variant={"destructive"}
-                                className={"absolute top-14 right-2 sm:top-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
-                                End Run
-                            </Button>
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button 
+                                        variant={"destructive"}
+                                        className={"absolute top-14 right-2 sm:top-2 animate-none border dark:border-foreground/50  dark:text-foreground"}>
+                                        End Run
+                                    </Button>
+                                </DialogTrigger>
+                                <EndRun />
+                            </Dialog>
+                            
                         </div>
                     )}
 

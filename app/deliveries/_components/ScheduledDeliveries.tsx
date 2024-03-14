@@ -4,7 +4,7 @@ import useDeliveriesStore from "@/lib/store/deliveriesStore";
 // import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 // import { cn } from "@/lib/utils";
-import { Order, Schedule, TypedColumn, TypedScheduled } from "@/typings";
+import { Schedule } from "@/typings";
 import { useEffect } from 'react';
 import ScheduleCard from './ScheduleCard';
 

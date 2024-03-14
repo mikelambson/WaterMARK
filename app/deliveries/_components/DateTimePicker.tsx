@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
     InputOTP,
@@ -19,11 +19,20 @@ interface DateTimePickerProps {
     className?: string;
     inputClassName?: string;
     gap?: number;
+    defaultDate?: boolean | Date;
+    defaultTime?: boolean | string;
 }
 
-export const DatePicker: React.FC<DateTimePickerProps> = ({className, inputClassName, gap}) => {
-    const [date, setDate] = React.useState<Date>()
- 
+export const DatePicker: React.FC<DateTimePickerProps> = ({className, inputClassName, gap, defaultDate}) => {
+
+    const enteredDate = typeof defaultDate === "string" ? new Date(defaultDate) : new Date();
+    const defaultDateValue = defaultDate ? new Date(enteredDate) : "";
+    
+    const [date, setDate] = React.useState<Date>();
+    useEffect(() => { 
+        if (defaultDate) setDate(defaultDateValue as Date);
+    }, [defaultDateValue]);
+
   return (
         <Popover>
         <PopoverTrigger asChild>
@@ -31,7 +40,7 @@ export const DatePicker: React.FC<DateTimePickerProps> = ({className, inputClass
             variant={"outline"}
             className={cn(
                 "w-[280px] justify-start text-left font-normal",
-                !date && "text-muted-foreground"
+                !date && "text-muted-foreground", className
             )}
             >
             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -50,7 +59,7 @@ export const DatePicker: React.FC<DateTimePickerProps> = ({className, inputClass
     );
 }
 
-export const TimePicker: React.FC<DateTimePickerProps> = ({className, inputClassName, gap}) => {
+export const TimePicker: React.FC<DateTimePickerProps> = ({className, inputClassName, gap, defaultTime}) => {
     // Add your component logic here
 
     return (
