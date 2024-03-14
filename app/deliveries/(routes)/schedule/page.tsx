@@ -1,6 +1,6 @@
 // Delivery Schedule \app\deliveries\(routes)\schedule\page.tsx
 "use client"
-import Deliveries from "@/app/deliveries/_components/ScheduledDeliveries";
+import Deliveries from "@/app/deliveries/_components/schedule/ScheduledDeliveries";
 import { useEffect } from "react";
 import useDeliveriesStore from "@/lib/store/deliveriesStore";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
