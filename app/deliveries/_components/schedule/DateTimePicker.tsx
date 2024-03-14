@@ -29,11 +29,10 @@ export const DatePicker: React.FC<DateTimePickerProps> = ({className, defaultDat
     useEffect(() => { 
         let isMounted = true;
         const enteredDate = typeof defaultDate === "string" ? new Date(defaultDate) : new Date();
-        const effectDefaultDateValue = defaultDate ? new Date(enteredDate) : "";
-        
+        const defaultDateValue = defaultDate ? new Date(enteredDate) : "";
 
         if (isMounted) { 
-            setDate(effectDefaultDateValue as Date); 
+            setDate(defaultDateValue as Date); 
         }
 
         return () => { 
