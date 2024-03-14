@@ -23,7 +23,7 @@ interface DateTimePickerProps {
     onChange?: (value: string) => void;
 }
 
-export const DatePicker: React.FC<DateTimePickerProps> = ({className, inputClassName, gap, defaultDate}) => {
+export const DatePicker: React.FC<DateTimePickerProps> = ({className, defaultDate}) => {
 
     const enteredDate = typeof defaultDate === "string" ? new Date(defaultDate) : new Date();
     const defaultDateValue = defaultDate ? new Date(enteredDate) : "";

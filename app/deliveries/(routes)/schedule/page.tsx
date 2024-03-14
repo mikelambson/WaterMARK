@@ -9,8 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Button } from "@/components/ui/button";
 import { ChevronsUpDown } from "lucide-react";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
-import { set } from "date-fns";
-import { Schedule, TypedScheduled } from "@/typings";
+import { Schedule } from "@/typings";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function DeliverySchedule() {
