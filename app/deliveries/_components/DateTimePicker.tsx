@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
     InputOTP,
     InputOTPGroup,
@@ -21,6 +20,7 @@ interface DateTimePickerProps {
     gap?: number;
     defaultDate?: boolean | Date;
     defaultTime?: boolean | string;
+    onChange?: (value: string) => void;
 }
 
 export const DatePicker: React.FC<DateTimePickerProps> = ({className, inputClassName, gap, defaultDate}) => {
@@ -59,17 +59,27 @@ export const DatePicker: React.FC<DateTimePickerProps> = ({className, inputClass
     );
 }
 
-export const TimePicker: React.FC<DateTimePickerProps> = ({className, inputClassName, gap, defaultTime}) => {
-    // Add your component logic here
+export const TimePicker: React.FC<DateTimePickerProps> = ({className, inputClassName, gap, defaultTime, onChange}) => {
+    const [time, setTime] = useState(defaultTime || ''); // State to track the selected time
+
+
+    const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newTime = event.target.value;
+        setTime(newTime);
+        if (onChange) {
+            onChange(newTime); // Notify the parent component of the time change
+        }
+    };
 
     return (
         <div className={`flex items-center gap-${gap}`}>
             <div className={`inline-flex items-center gap-${gap}`}>
                 <p className="">Time:</p> 
                 <InputOTP
-                    className={`inline-flex items-center gap-[${gap ? gap/2 : 1}]`}
+                    className={cn(`inline-flex items-center gap-[${gap ? gap/2 : 1}]`, className)}
                     maxLength={4}
                     pattern={REGEXP_ONLY_DIGITS}
+                    onChange={(newValue: string) => handleTimeChange({ target: { value: newValue } } as ChangeEvent<HTMLInputElement>)}
                     render={({ slots }) => (
                         <>
                         <InputOTPGroup>

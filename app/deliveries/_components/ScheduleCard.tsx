@@ -527,11 +527,19 @@ const ScheduleCard = ({
                                                       
                                             </div>
                                         <DrawerFooter>
-                                           
-                                            <Button>Save</Button>
                                             <DrawerClose asChild>
-                                                <Button variant="outline">Exit</Button>
+                                                <Button variant="secondary">Exit</Button>
                                             </DrawerClose>
+                                            
+                                            <DrawerClose asChild>
+                                                <Dialog>
+                                                <DialogTrigger asChild>
+                                                <Button variant="destructive">End Run</Button>
+                                                </DialogTrigger>
+                                                <EndRun />
+                                                </Dialog>
+                                            </DrawerClose>
+                                            
                                         </DrawerFooter>
                                     </DrawerContent>
                                 </Drawer>

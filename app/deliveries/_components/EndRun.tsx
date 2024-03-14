@@ -14,8 +14,13 @@ interface EndRunProps {
 }
 
 const EndRun: React.FC<EndRunProps> = (props) => {
-    // Define the state variables here
-    const [value, setValue] = useState('');
+    const [timeSelected, setTimeSelected] = useState(false);
+
+    // Function to handle time selection
+    const handleTimeSelect = (time: string) => {
+        // Update the state to indicate time selection
+        setTimeSelected(!!time); // Convert time to boolean
+    };
 
     // Define any event handlers or helper functions here
 
@@ -30,10 +35,15 @@ const EndRun: React.FC<EndRunProps> = (props) => {
                 defaultDate={true} 
                 className="mb-4"
             />
-            <TimePicker />
+            <TimePicker gap={2} onChange={handleTimeSelect} />
+            <div className="flex justify-end mt-4 gap-2">
             <DialogClose>
-                <Button>Finalize Order</Button>
+                <Button>Cancel</Button>
             </DialogClose>
+            <DialogClose disabled={!timeSelected}>
+                <Button variant={"destructive"} disabled={!timeSelected}>Finalize Order</Button>
+            </DialogClose>
+            </div>
             {/* Add your component content here */}
         </DialogContent>
     );
