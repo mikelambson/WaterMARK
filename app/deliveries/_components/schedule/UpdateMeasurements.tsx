@@ -218,14 +218,12 @@ const UpdateMeasurements: React.FC = () => {
                     <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                         <Label htmlFor="jetU">Upstream:</Label>
                         <Input id="jetU" defaultValue={"2.00"} />
-                        <Label htmlFor="jetD">Downstream:</Label>
-                        <Input id="jetD" defaultValue={"3.00"} />
                         <Label htmlFor="jetG">Gate:</Label>
-                        <Input id="jetG" defaultValue={"4.00"} />
+                        <Input id="jetG" defaultValue={"3.00"} />
                         <Label htmlFor="jetS">Sill:</Label>
-                        <Input id="jetS" defaultValue={"5.00"} />
+                        <Input id="jetS" defaultValue={"3.50"} />
                         <Label htmlFor="jetL">Length:</Label>
-                        <Input id="jetL" defaultValue={"6.00"} />
+                        <Input id="jetL" defaultValue={"5.00"} />
                     </div>
 
                     <div className="flex border-2 text-lg my-2 h-8 px-2 w-fit min-w-[8rem] mx-auto justify-center items-center rounded-md">
@@ -234,12 +232,11 @@ const UpdateMeasurements: React.FC = () => {
                     <div className="mt-2 text-center text-lg">
                         <Button className="mt-2" onClick={() => {
                             const jetU = document.getElementById("jetU") as HTMLInputElement;
-                            const jetD = document.getElementById("jetD") as HTMLInputElement;
                             const jetG = document.getElementById("jetG") as HTMLInputElement;
                             const jetS = document.getElementById("jetS") as HTMLInputElement;
                             const jetL = document.getElementById("jetL") as HTMLInputElement;
                             const jetcalc = document.getElementById("jetcalc") as HTMLParagraphElement;
-                            const result = Math.round((0.6 * (parseFloat(jetS.value) - parseFloat(jetG.value)) * parseFloat(jetL.value) * Math.sqrt(64.4 * (parseFloat(jetD.value) - parseFloat(jetU.value))) ) * 100 ) / 100;
+                            const result = Math.round((0.6 * (parseFloat(jetS.value) - parseFloat(jetG.value)) * parseFloat(jetL.value) * Math.sqrt(64.4 * ((parseFloat(jetG.value) + parseFloat(jetS.value))) / 2 - (parseFloat(jetU.value)))) * 100 ) / 100;
                             jetcalc.innerHTML = `The flow is: ${result} CFS.`;
                         }}>Calculate</Button>
                         
