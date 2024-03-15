@@ -163,7 +163,9 @@ const UpdateMeasurements: React.FC = () => {
                             const otbB = document.getElementById("otbB") as HTMLInputElement;
                             const otbL = document.getElementById("otbL") as HTMLInputElement;
                             const otbcalc = document.getElementById("otbcalc") as HTMLParagraphElement;
-                            const result = Math.round((3.33 * parseFloat(otbL.value) * Math.pow((parseFloat(otbB.value) - parseFloat(otbU.value)), 1.5)) * 100 ) / 100;
+                            const result = Math.round(
+                                ( 3.33 * parseFloat(otbL.value) * Math.pow(
+                                    ( parseFloat(otbB.value) - parseFloat(otbU.value) ), 1.5 ) ) * 100 ) / 100;
                             otbcalc.innerHTML = `The flow over the boards is: ${result} CFS.`;
                         }}>Calculate</Button>
                     </div>
@@ -200,7 +202,8 @@ const UpdateMeasurements: React.FC = () => {
                             const subS = document.getElementById("subS") as HTMLInputElement;
                             const subL = document.getElementById("subL") as HTMLInputElement;
                             const subcalc = document.getElementById("subcalc") as HTMLParagraphElement;
-                            const result = Math.round((0.67 * (parseFloat(subS.value) - parseFloat(subG.value)) * parseFloat(subL.value) * Math.sqrt(64.4 * (parseFloat(subD.value) - parseFloat(subU.value))) ) * 100 ) / 100;
+                            const result = Math.round(
+                                ( 0.67 * ( parseFloat(subS.value) - parseFloat(subG.value) ) * parseFloat(subL.value) * Math.sqrt( 64.4 * (parseFloat(subD.value) - parseFloat(subU.value))) ) * 100 ) / 100;
                             subcalc.innerHTML = `The flow is: ${result} CFS.`;
                         }}>Calculate</Button>
                     </div>
@@ -237,7 +240,7 @@ const UpdateMeasurements: React.FC = () => {
                             const jetL = document.getElementById("jetL") as HTMLInputElement;
                             const jetcalc = document.getElementById("jetcalc") as HTMLParagraphElement;
                             const result = Math.round(
-                                (0.6 * (parseFloat(jetS.value) - parseFloat(jetG.value)) * parseFloat(jetL.value) * Math.sqrt(64.4 * ( ( parseFloat(jetG.value) + parseFloat(jetS.value) )  / 2 - parseFloat(jetU.value) ) ) ) * 100 ) / 100;
+                                ( 0.6 * (parseFloat(jetS.value) - parseFloat(jetG.value)) * parseFloat(jetL.value) * Math.sqrt( 64.4 * ( ( parseFloat(jetG.value) + parseFloat(jetS.value) )  / 2 - parseFloat(jetU.value) ) ) ) * 100 ) / 100;
                             jetcalc.innerHTML = `The flow is: ${result} CFS.`;
                         }}>Calculate</Button>
                         
