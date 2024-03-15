@@ -59,11 +59,11 @@ const ManageDelivery: React.FC<Props> = ({schedule}) => {
                         const reversedIndex = schedule.deliveries.length - index;
 
                         return (
-                        <div key={index} className={cn("relative z-0 flex w-full mx-auto mb-2 space-y-2 border-2 border-foreground/50 p-2 rounded-md", delivery.stopTime ? "bg-slate-300 dark:bg-slate-700" : "bg-card")}>
+                        <div key={index} className={cn("relative z-0 flex w-full mx-auto mb-2 space-y-2 border-2 border-foreground/50 p-2 rounded-md", delivery.stopTime ? "bg-slate-300 dark:bg-slate-950" : "bg-card")}>
                             <div 
                                 className="text-2xl font-bold my-8 align-middle text-center bg-foreground/50 py-2 rounded-md mr-2 text-orange-200/90 border dark:text-orange-300/80 border-t-slate-900 border-l-slate-900 border-b-slate-200 border-r-slate-200" style={{ writingMode: 'vertical-rl', textOrientation: 'upright', letterSpacing: '-0.2em' }} >
                                 {reversedIndex}
-                                <div className={cn("absolute left-[50%] top-20 sm:right-[10%] sm:top-[9rem]  text-transparent dark:text-transparent/50 sm:text-gray-500/10 sm:dark:text-gray-100/5 z-0", delivery.stopTime ? "text-[10rem]" : "text-[15rem]" )} style={{ writingMode: 'horizontal-tb'}}>
+                                <div className={cn("absolute right-[50%] top-20 sm:right-[5%] sm:top-[9rem]  text-transparent dark:text-transparent sm:text-gray-500/10 sm:dark:text-gray-100/5 z-0", delivery.stopTime ? "text-[10rem] sm:dark:text-gray-200/20" : "text-[15rem]" )} style={{ writingMode: 'horizontal-tb'}}>
                                     {delivery.stopTime ? "Done" : reversedIndex}
                                 </div>
                             </div>
@@ -126,13 +126,12 @@ const ManageDelivery: React.FC<Props> = ({schedule}) => {
                                 <div className="flex items-center gap-2">
                                     <p className="">Measurement:</p>
                                     <Dialog>
-                                    <DialogTrigger asChild>
-                                    
-                                    <Button variant={"secondary"} size={"sm"}>
-                                        Update Measurements
-                                    </Button>
-                                    </DialogTrigger>
-                                    <UpdateMeasurements />
+                                        <DialogTrigger asChild>
+                                            <Button variant={"secondary"} size={"sm"} disabled={delivery.stopTime ? true : false}>
+                                                Update Measurements
+                                            </Button>
+                                        </DialogTrigger>
+                                        <UpdateMeasurements />
                                     </Dialog>
                                 </div>
                             
