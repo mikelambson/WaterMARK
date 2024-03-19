@@ -40,7 +40,7 @@ const EndRun: React.FC<EndRunProps> = (props) => {
             <DialogClose>
                 <Button>Cancel</Button>
             </DialogClose>
-            <DialogClose disabled={!timeSelected}>
+            <DialogClose asChild disabled={!timeSelected}>
                 <Button variant={"destructive"} disabled={!timeSelected}>Finalize Order</Button>
             </DialogClose>
             </div>
