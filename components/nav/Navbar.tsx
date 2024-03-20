@@ -344,7 +344,7 @@ const Navbar = () => {
                     <DropdownMenuContent className="w-56">
                         <DropdownMenuLabel>Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <Link href="/login">
+                        <Link href="/account">
                         <DropdownMenuItem>
                             <User className="mr-2 h-4 w-4" />
                             <span>Profile</span>
