@@ -26,12 +26,12 @@ export default function Login() {
   return (
     <div className="">
       
-      <div className={"p-1 flex-col text-center"}>
+      <div className={"pt-10"}>
         <div>
           <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Profile/Login Page</h1> 
         </div>
       
-        <div className="mt-10">
+        <div className="mt-10 flex gap-2 text-center justify-center">
           <label htmlFor="roleSelect">Select Role:</label>
           <select
             id="roleSelect"
