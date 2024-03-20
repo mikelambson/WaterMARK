@@ -24,7 +24,7 @@ const SchedulingBoard = () => {
     const { droppableId: sourceId, index: sourceIndex } = source;
 
     // Retrieve the order that was dragged
-    const draggedOrder = board.columns.get(sourceId)?.orders[sourceIndex];
+    const draggedOrder = board.columns?.get(sourceId)?.orders[sourceIndex];
 
     // Log the details
     console.log('Destination ID:', destinationId)
@@ -80,7 +80,7 @@ const SchedulingBoard = () => {
           {(provided) => (
             <div
               aria-label="unscheduled"
-              className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto"
+              className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 px-2 mx-auto"
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
@@ -88,16 +88,16 @@ const SchedulingBoard = () => {
               <UnscheduledColumn
                 id="unscheduled"
                 columns={[
-                  ...(board.columns.get('unscheduled')?.orders || []),
-                  ...(board.columns.get('delayed')?.orders || []),
+                  ...(board.columns?.get('unscheduled')?.orders || []),
+                  ...(board.columns?.get('delayed')?.orders || []),
                 ]}
                 index={0}
               />
               <ScheduledColumn
                 id="scheduled"
                 columns={[
-                  ...(board.columns.get('scheduled')?.orders || []),
-                  ...(board.columns.get('running')?.orders || []),
+                  ...(board.columns?.get('scheduled')?.orders || []),
+                  ...(board.columns?.get('running')?.orders || []),
                 ]}
                 index={1}
               />
