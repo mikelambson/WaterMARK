@@ -41,7 +41,7 @@ export default function Login() {
             <div className="mt-10 flex gap-2 text-center justify-center items-center">
                 <label>Select Role:</label>
                 <Select onValueChange={handleRoleChange}>
-                    <SelectTrigger className="w-48">
+                    <SelectTrigger className="w-48 border-foreground/80">
                         <SelectValue id="selectedRole" placeholder={userRole} />
                     </SelectTrigger>
                     <SelectContent>
