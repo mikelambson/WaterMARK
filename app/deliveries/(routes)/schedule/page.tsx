@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { ChevronsUpDown } from "lucide-react";
-import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
+import { Command, CommandEmpty, CommandGroup, CommandItem, CommandInput, CommandList  } from "@/components/ui/command";
 import { Schedule } from "@/typings";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -38,6 +38,23 @@ export default function DeliverySchedule() {
         getHeadsheets(district)
         setSelectedHead(1)
     };
+
+    const handleKeyDown = (e: any) => {
+        if (e.key === 'ArrowDown') {
+          // Move focus to the next CommandItem when pressing ArrowDown
+          e.preventDefault();
+          const nextItem = e.target.nextElementSibling;
+          if (nextItem) nextItem.focus();
+        } else if (e.key === 'ArrowUp') {
+          // Move focus to the previous CommandItem when pressing ArrowUp
+          e.preventDefault();
+          const prevItem = e.target.previousElementSibling;
+          if (prevItem) prevItem.focus();
+        } else if (e.key === 'Tab' && !e.shiftKey && !e.altKey) {
+          // Close the popover when pressing Tab on the last CommandItem
+          setOpen(false);
+        }
+      };
 
     const convertedColumns = Array.from(schedule.columns.values()) as unknown as Schedule[];
 
@@ -89,23 +106,27 @@ export default function DeliverySchedule() {
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-[200px] -mt-1 p-0 z-50">  
+                            <PopoverContent className="w-[200px] -mt-1 p-0 z-50"> 
+                                {/* <CommandInput placeholder="Search headsheets..." />
+                                <CommandEmpty>No results found.</CommandEmpty> */}
                                 <Command className="my-1">
-                                    <CommandGroup>
-                                        {headsheets.map((headsheet:any) => (
-                                            <CommandItem 
-                                                key={headsheet.id} 
-                                                value={headsheet.name} 
-                                                onSelect={() => {
-                                                setSelectedSheet(headsheet)
-                                                setSelectedHead(1)
-                                                setOpen(false)
-                                                // setValue(selectedSheet.name)
-                                            }}>
-                                            {headsheet.name}
-                                            </CommandItem>
-                                        ))}
-                                    </CommandGroup>
+                                    <CommandList>
+                                        <CommandGroup>
+                                            {headsheets.map((headsheet:any) => (
+                                                <CommandItem 
+                                                    key={headsheet.id} 
+                                                    value={headsheet.name} 
+                                                    onSelect={() => {
+                                                    setSelectedSheet(headsheet)
+                                                    setSelectedHead(1)
+                                                    setOpen(false)
+                                                    // onKeyDown={handleKeyDown} 
+                                                }}>
+                                                {headsheet.name}
+                                                </CommandItem>
+                                            ))}
+                                        </CommandGroup>
+                                    </CommandList>
                                 </Command>
                             </PopoverContent>   
                         </Popover>
