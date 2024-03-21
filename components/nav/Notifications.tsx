@@ -4,14 +4,17 @@ import { Card, CardContent } from '@/components/ui/card';
 import useNotificationStore from '@/lib/store/notifications';
 import { cn } from '@/lib/utils';
 import { IoMdClose } from 'react-icons/io';
+import { useRoleStore } from './RoleContext';
 
 
 export const NotifyCount = () => {
   const notifications = useNotificationStore((state:any) => state.notifications);
-
+  const { userRole } = useRoleStore(); // Get the user role from the context
   const countUnread = notifications.filter((notification: { read: any; }) => !notification.read).length;
-  const bgform = countUnread > 0 ? 'bg-red-700 animate-bounce' : '';
-  const displayCount = countUnread > 0 ? 'text-white' : 'text-white/0';
+  
+  
+  const bgform = userRole !== "Anonymous" && countUnread > 0 ? 'bg-red-700 animate-bounce' : '';
+  const displayCount = userRole === "Anonymous" ? 'text-white/0' : countUnread > 0 ? 'text-white' : 'text-white/0';
 
   return (
     <div className={`absolute -bottom-2 -right-2 w-5 h-4 rounded-full text-xs ${bgform}`}>
