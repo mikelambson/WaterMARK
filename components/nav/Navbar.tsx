@@ -370,7 +370,7 @@ const Navbar = () => {
                                 </Link>
                                 <Link href="/account/settings">
                                     <DropdownMenuItem>
-                                        Settings
+                                        User Settings
                                     </DropdownMenuItem>
                                 </Link>
                                 <DropdownMenuSeparator />
