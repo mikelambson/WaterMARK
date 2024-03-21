@@ -1,0 +1,11 @@
+
+export default function UserSettings() {
+    
+    return (
+        <div className="px-2">
+            <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>
+                User Settings
+            </h1>
+        </div>  
+    );
+}

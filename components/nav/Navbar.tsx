@@ -345,17 +345,31 @@ const Navbar = () => {
                     <DropdownMenuContent className="w-56">
                         <DropdownMenuLabel>Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <Link href="/account">
-                        <DropdownMenuItem>
-                            <User className="mr-2 h-4 w-4" />
-                            <span>Profile</span>
-                            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                        </DropdownMenuItem>
-                        </Link>
-                        <DropdownMenuItem>Something</DropdownMenuItem>
-                        <DropdownMenuItem>More</DropdownMenuItem>
-                        <DropdownMenuItem>More Somethings</DropdownMenuItem>
-                        <DropdownMenuSeparator />
+                            {userRole !== "Anonymous" && (
+                            <>
+                                <Link href="/account">
+                                    <DropdownMenuItem>
+                                        <User className="mr-2 h-4 w-4" />
+                                        <span>
+                                            Profile
+                                        </span>
+                                        <DropdownMenuShortcut>
+                                            ⇧⌘P
+                                        </DropdownMenuShortcut>
+                                    </DropdownMenuItem>
+                                </Link>
+                                <DropdownMenuItem>
+                                    Notification History
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Messages
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Settings
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                            </>
+                            )}
                         <Link href="/">
                         <DropdownMenuItem 
                             onClick={() => {

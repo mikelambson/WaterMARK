@@ -1,12 +1,11 @@
-import { FaBuffer, FaChartArea, FaGear } from "react-icons/fa6";
-import { BsWrenchAdjustableCircleFill } from "react-icons/bs";
-import { ImMeter2 } from "react-icons/im";
-import { IoPerson } from "react-icons/io5";
+import { FaUserGear } from "react-icons/fa6";
+import { IoNotifications, IoPerson } from "react-icons/io5";
+import { SiGooglemessages } from "react-icons/si";
 
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased";
 const iconStyle = `mb-[2px] subpixel-antialiased`;
 
-export const analysisLinks = [
+export const accountLinks = [
   {
     id: 900, // Use a unique id for the logo section
     link: "/account", // Use "/" as the link for the logo
@@ -19,40 +18,31 @@ export const analysisLinks = [
   },
   {
     id: 901,
-    link: "/analysis/master",
+    link: "/account/notifications",
     content: (
       <>
-        <FaChartArea size={25} className={iconStyle} />
-        <span className={labelTextClass}>Order Analysis</span>
+        <IoNotifications size={25} className={iconStyle} />
+        <span className={labelTextClass}>Notifications</span>
       </>
     ),
   },
   {
     id: 902,
-    link: "/analysis/meters",
+    link: "/account/messages",
     content: (
       <>
-        <ImMeter2 size={30} className={iconStyle} />
-        <span className={labelTextClass}>Meter Data</span>
+        <SiGooglemessages size={30} className={iconStyle} />
+        <span className={labelTextClass}>Messages</span>
       </>
     ),
   },
+  
   {
     id: 903,
-    link: "/analysis/adjustments",
+    link: "/account/settings",
     content: (
       <>
-        <BsWrenchAdjustableCircleFill size={30} className={iconStyle} />
-        <span className={labelTextClass}>Adjust Order</span>
-      </>
-    ),
-  },
-  {
-    id: 904,
-    link: "/analysis/settings",
-    content: (
-      <>
-        <FaGear size={30} className={iconStyle} />
+        <FaUserGear size={30} className={iconStyle} />
         <span className={labelTextClass}>Settings</span>
       </>
     ),
