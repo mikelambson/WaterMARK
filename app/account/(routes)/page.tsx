@@ -27,8 +27,8 @@ export default function Login() {
   ];
 
     return (
-        <div>
-            <div className={"pt-10"}>
+        <div className="px-2">
+            <div className={"pt-4"}>
                 <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>
                     Profile/Login Page
                 </h1> 
@@ -38,8 +38,8 @@ export default function Login() {
                     Login
                 </Button>
         
-            <div className="mt-10 flex gap-2 text-center justify-center items-center">
-                <label>Select Role:</label>
+            <div className="mt-24 flex gap-2 text-center justify-center items-center">
+                <label className="text-xl">Veiw as:</label>
                 <Select onValueChange={handleRoleChange}>
                     <SelectTrigger className="w-48 border-foreground/80">
                         <SelectValue id="selectedRole" placeholder={userRole} />
