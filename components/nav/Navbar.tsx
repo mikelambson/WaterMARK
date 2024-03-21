@@ -1,27 +1,16 @@
 // \components\Navbar.tsx
 "use client";
+import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import React, { useState } from "react";
-import { FaBars, FaTimes, FaBell, FaUserCircle } from "react-icons/fa";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ModeToggle } from "./ModeToggle";
-import { useTheme } from "next-themes";
-import { useRole, useRoleStore } from "@/components/nav/RoleContext"; // Import useRole
+
+import { FaBars, FaTimes, FaBell } from "react-icons/fa";
 import { BsDatabaseFillGear } from "react-icons/bs";
+import { useTheme } from "next-themes";
+
 import { useToast } from "@/components/ui/use-toast";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { LogOut, User } from "lucide-react";
 import {
     Sheet,
     SheetContent,
@@ -30,13 +19,18 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
-import { Notify, NotifyCount } from "@/components/nav/Notifications";
+
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+import { useRole, useRoleStore } from "@/components/nav/RoleContext"; // Import useRole
+import { ModeToggle } from "@/components/nav/ModeToggle";
+import { Notify, NotifyCount } from "@/components/nav/Notifications";
+import AvatarMenu from "@/components/nav/AvatarMenu";
 
 const Navbar = () => {
     const { toast } = useToast();
@@ -327,71 +321,7 @@ const Navbar = () => {
                     </SheetHeader>
                 </SheetContent>
                 </Sheet>
-
-                <DropdownMenu>
-                    <DropdownMenuTrigger>
-                        <div  className={`${defaultTextColorClass}`}>
-                        <Avatar>
-                            <AvatarImage />
-                            <AvatarFallback className="bg-black/5">
-                            <FaUserCircle
-                                size={30}
-                                className={` ${iconHoverColorClass} subpixel-antialiased`}
-                            />
-                            </AvatarFallback>
-                        </Avatar>
-                        </div>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                        <DropdownMenuLabel>Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                            {userRole !== "Anonymous" && (
-                            <>
-                                <Link href="/account">
-                                    <DropdownMenuItem>
-                                        <User className="mr-2 h-4 w-4" />
-                                        <span>
-                                            Profile
-                                        </span>
-                                        <DropdownMenuShortcut>
-                                            ⇧⌘P
-                                        </DropdownMenuShortcut>
-                                    </DropdownMenuItem>
-                                </Link>
-                                <Link href="/account/notifications">
-                                    <DropdownMenuItem>
-                                        Notification History
-                                    </DropdownMenuItem>
-                                </Link>
-                                <Link href="/account/messages">
-                                    <DropdownMenuItem>
-                                        Messages
-                                    </DropdownMenuItem>
-                                </Link>
-                                <Link href="/account/settings">
-                                    <DropdownMenuItem>
-                                        User Settings
-                                    </DropdownMenuItem>
-                                </Link>
-                                <DropdownMenuSeparator />
-                            </>
-                            )}
-                        <Link href="/">
-                        <DropdownMenuItem 
-                            onClick={() => {
-                                userRole !== "Anonymous" 
-                                ? setUserRole("Anonymous") 
-                                : setUserRole("Watermaster")
-                        }}>
-                            <LogOut className="mr-2 h-4 w-4" />
-                            <span>
-                                {userRole !== "Anonymous" ? "Logout" : "Login"}
-                            </span>
-                            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                        </DropdownMenuItem>
-                        </Link>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <AvatarMenu />
             </div>
             ))}
         </div>
@@ -400,3 +330,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
