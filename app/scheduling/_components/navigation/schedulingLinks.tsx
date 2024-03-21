@@ -1,4 +1,5 @@
 import {
+  FaClipboardUser,
   FaFileImport,
   FaGear,
   FaGlobe,
@@ -58,7 +59,8 @@ export const schedulingLinks = [
     link: "/scheduling/ditchrider-schedule",
     content: (
       <>
-        <FaUserClock size={30} className={iconStyle} />
+        {/* <FaUserClock size={30} className={iconStyle} /> */}
+        <FaClipboardUser size={30} className={iconStyle} />
         <span className={labelTextClass}>Ditchrider Schedule</span>
       </>
     ),
