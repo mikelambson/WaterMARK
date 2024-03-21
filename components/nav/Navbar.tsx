@@ -358,15 +358,21 @@ const Navbar = () => {
                                         </DropdownMenuShortcut>
                                     </DropdownMenuItem>
                                 </Link>
-                                <DropdownMenuItem>
-                                    Notification History
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    Messages
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    Settings
-                                </DropdownMenuItem>
+                                <Link href="/account/notifications">
+                                    <DropdownMenuItem>
+                                        Notification History
+                                    </DropdownMenuItem>
+                                </Link>
+                                <Link href="/account/messages">
+                                    <DropdownMenuItem>
+                                        Messages
+                                    </DropdownMenuItem>
+                                </Link>
+                                <Link href="/account/settings">
+                                    <DropdownMenuItem>
+                                        Settings
+                                    </DropdownMenuItem>
+                                </Link>
                                 <DropdownMenuSeparator />
                             </>
                             )}

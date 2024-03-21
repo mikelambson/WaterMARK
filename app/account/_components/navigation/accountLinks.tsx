@@ -22,7 +22,7 @@ export const accountLinks = [
     content: (
       <>
         <IoNotifications size={25} className={iconStyle} />
-        <span className={labelTextClass}>Notifications</span>
+        <span className={labelTextClass}>History</span>
       </>
     ),
   },
