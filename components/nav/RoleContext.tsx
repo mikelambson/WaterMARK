@@ -8,7 +8,7 @@ interface RoleState {
 }
 
 export const useRoleStore = create<RoleState>((set) => ({
-  userRole: "Watermaster",
+  userRole: "Anonymous",
   setUserRole: (role: string) => set({ userRole: role }),
 }));
 
