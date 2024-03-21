@@ -1,20 +1,26 @@
 "use client";
+import { create } from "zustand";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-interface RoleContextType {
+interface RoleState {
   userRole: string;
   setUserRole: (role: string) => void;
 }
 
-const RoleContext = createContext<RoleContextType | undefined>(undefined);
+export const useRoleStore = create<RoleState>((set) => ({
+  userRole: "Watermaster",
+  setUserRole: (role: string) => set({ userRole: role }),
+}));
+
+const RoleContext = createContext<RoleState | undefined>(undefined);
 
 export const RoleProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [userRole, setUserRole] = useState<string>("Watermaster");
+  // const [userRole, setUserRole] = useState<string>("Watermaster");
 
   return (
-    <RoleContext.Provider value={{ userRole, setUserRole }}>
+    <RoleContext.Provider value={useRoleStore() }>
       {children}
     </RoleContext.Provider>
   );

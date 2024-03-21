@@ -9,7 +9,7 @@ import { FaBars, FaTimes, FaBell, FaUserCircle } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModeToggle } from "./ModeToggle";
 import { useTheme } from "next-themes";
-import { useRole } from "@/components/nav/RoleContext"; // Import useRole
+import { useRole, useRoleStore } from "@/components/nav/RoleContext"; // Import useRole
 import { BsDatabaseFillGear } from "react-icons/bs";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -50,6 +50,7 @@ const Navbar = () => {
         "transition-all hover:text-yellow-400 hover:scale-125 dark:hover:text-yellow-300";
     const defaultbg = "bg-slate-800/95 dark:bg-slate-800";
     const onlineScheduleName = userRole==="Anonymous" ? "Schedule" : "Public";
+    const { setUserRole } = useRoleStore(); // Access setUserRole
 
     const roleBasedLinks = [
         {
@@ -356,9 +357,16 @@ const Navbar = () => {
                         <DropdownMenuItem>More Somethings</DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <Link href="/">
-                        <DropdownMenuItem>
+                        <DropdownMenuItem 
+                            onClick={() => {
+                                userRole !== "Anonymous" 
+                                ? setUserRole("Anonymous") 
+                                : setUserRole("Watermaster")
+                        }}>
                             <LogOut className="mr-2 h-4 w-4" />
-                            <span>Logout</span>
+                            <span>
+                                {userRole !== "Anonymous" ? "Logout" : "Login"}
+                            </span>
                             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                         </DropdownMenuItem>
                         </Link>

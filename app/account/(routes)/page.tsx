@@ -1,30 +1,29 @@
 "use client";
-import { useRole } from "@/components/nav/RoleContext"; // Import useRole
+import { useRoleStore } from "@/components/nav/RoleContext"; // Import useRole
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 
-
 export default function Login() {
-  const { userRole, setUserRole } = useRole(); // Access userRole and setUserRole
-
-  const handleRoleChange = (role:string) => {
-    setUserRole(role); // Set the user's role
-  };
-
-  // Define an array of role options
-  const roleOptions = [
-    "Admin",
-    "Staff",
-    "Watermaster",
-    "Scheduler",
-    "Ditchrider",
-    "Senior Analyst",
-    "Analyst",
-    "Anonymous",
+    const { userRole, setUserRole } = useRoleStore(); // Access userRole and setUserRole
     
-    // Add other roles as needed
-  ];
+    const handleRoleChange = (role: string) => {
+        setUserRole(role); // Update userRole when the role changes
+    };
+
+    // Define an array of role options
+    const roleOptions = [
+        "Admin",
+        "Staff",
+        "Watermaster",
+        "Scheduler",
+        "Ditchrider",
+        "Senior Analyst",
+        "Analyst",
+        "Anonymous",
+        
+        // Add other roles as needed
+    ];
 
     return (
         <div className="px-2">
@@ -33,15 +32,18 @@ export default function Login() {
                     Profile/Login Page
                 </h1> 
             </div>
-
-            <Button disabled>
-                    Login
-                </Button>
-        
-            <div className="mt-24 flex gap-2 text-center justify-center items-center">
-                <label className="text-xl">Veiw as:</label>
+            <div className="flex flex-col gap-4 mt-8 justify-center">
+                <h2 className="text-xl text-center"> 
+                    {userRole === "Anonymous" ? "Please login to view your profile" : `Welcome ${userRole}`}
+                    
+                </h2>
+                
+            
+            </div>
+            <div className="mt-24 flex flex-col gap-2 text-center justify-center items-center">
+                <h3 className="text-xl">Veiw as:</h3>
                 <Select onValueChange={handleRoleChange}>
-                    <SelectTrigger className="w-48 border-foreground/80">
+                    <SelectTrigger className="w-48 border-foreground/80" value={userRole}>
                         <SelectValue id="selectedRole" placeholder={userRole} />
                     </SelectTrigger>
                     <SelectContent>
