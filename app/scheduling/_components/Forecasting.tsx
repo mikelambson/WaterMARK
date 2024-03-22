@@ -19,60 +19,77 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
 
   const spec: VisualizationSpec = {
     "$schema": "https://vega.github.io/schema/vega/v5.json",
-    "width": 800,
-    "height": 400,
-    "padding": 5,
+    "width": 900,
+    "height": 500,
+    "padding": 1,
+    "autosize": {"type": "fit", "contains": "padding"},
+
+    "signals": [
+      {
+        "name": "interpolate",
+        "value": "monotone",
+        "bind": {
+          "input": "select",
+          "options": [
+            "basis",
+            "cardinal",
+            "catmull-rom",
+            "linear",
+            "monotone",
+            "natural",
+            "step",
+            "step-after",
+            "step-before"
+          ]
+        }
+      }
+    ],
     
-    "data": [
-      {
-        "name": "table",
-        "values": [
-          {"month": "Jan", "value": 60},
-          {"month": "Feb", "value": 62},
-          {"month": "Mar", "value": 64},
-          {"month": "Apr", "value": 68},
-          {"month": "May", "value": 72},
-          {"month": "Jun", "value": 76},
-          {"month": "Jul", "value": 80},
-          {"month": "Aug", "value": 85},
-          {"month": "Sep", "value": 90},
-          {"month": "Oct", "value": 95},
-          {"month": "Nov", "value": 100},
-          {"month": "Dec", "value": 105}
-        ]
-      },
-      {
-        "name": "projectedLines",
-        "values": [
-          {"month": "Mar", "value": 64},
-          {"month": "Apr", "value": 72},
-          {"month": "May", "value": 95},
-          {"month": "Jun", "value": 100},
-          {"month": "Jul", "value": 105},
-          {"month": "Aug", "value": 110},
-          {"month": "Sep", "value": 115},
-          {"month": "Oct", "value": 120},
-          {"month": "Nov", "value": 125},
-          {"month": "Dec", "value": 150}
-        ]
-      }
-    ],
-    "scales": [
-      {
-        "name": "x",
-        "type": "band",
-        "domain": {"data": "table", "field": "month"},
-        "range": "width",
-        "padding": 0.05
-      },
-      {
-        "name": "y",
-        "type": "linear",
-        "domain": {"data": "table", "field": "value"},
-        "range": "height",
-        "nice": 2
-      }
-    ],
+     "data": [
+    {
+      "name": "table",
+      "values": [
+        {"x": 0, "y": 40, "c":0}, {"x": 0, "y": 40, "c":1},
+        {"x": 1, "y": 50, "c":0}, {"x": 1, "y": 50, "c":1},
+        {"x": 2, "y": 60, "c":0}, {"x": 2, "y": 60, "c":1},
+        {"x": 3, "y": 76, "c":0}, {"x": 3, "y": 76, "c":1},
+        {"x": 4, "y": 80, "c":0}, {"x": 4, "y": 90, "c":1},
+        {"x": 5, "y": 90, "c":0}, {"x": 5, "y": 120, "c":1},
+        {"x": 6, "y": 100, "c":0}, {"x": 6, "y": 130, "c":1},
+        {"x": 7, "y": 110, "c":0}, {"x": 7, "y": 150, "c":1},
+        {"x": 8, "y": 100, "c":0}, {"x": 8, "y": 110, "c":1},
+        {"x": 9, "y": 90, "c":0}, {"x": 9, "y": 90, "c":1},
+        {"x": 10, "y": 70, "c":0}, {"x": 10, "y": 80, "c":1},
+        {"x": 11, "y": 60, "c":0}, {"x": 11, "y": 70, "c":1},
+        {"x": 12, "y": 65, "c":0}, {"x": 12, "y": 85, "c":1},
+        {"x": 0, "y": 40, "c":2}, {"x": 1, "y": 50, "c":2}, {"x": 2, "y": 61, "c":2}, {"x": 3, "y": 76, "c":2}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "point",
+      "range": "width",
+      "domain": {"data": "table", "field": "x"}
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "table", "field": "y"}
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": ["#8b0000", "#00008b", "#000"],
+      "domain": {"data": "table", "field": "c"}
+    }
+  ],
+
     "axes": [
       {"orient": "bottom", "scale": "x", "title": "Month"},
       {"orient": "left", "scale": "y", "title": "Water Level (%)", "grid": true}
@@ -80,31 +97,44 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
   
     "marks": [
       {
-        "type": "line",
-        "from": {"data": "table"},
-        "encode": {
-          "enter": {
-            "x": {"scale": "x", "field": "month"},
-            "y": {"scale": "y", "field": "value"},
-            "stroke": {"value": "steelblue"},
-            "strokeWidth": {"value": 2}
+        "type": "group",
+        "from": {
+          "facet": {
+            "name": "series",
+            "data": "table",
+            "groupby": "c"
           }
-        }
-      },
-      {
-        "type": "line",
-        "from": {"data": "projectedLines"},
-        "encode": {
-          "enter": {
-            "x": {"scale": "x", "field": "month"},
-            "y": {"scale": "y", "field": "value"},
-            "stroke": {"value": "red"},
-            "strokeWidth": {"value": 2},
-            "strokeDash": {"value": [5, 5]}
+        },
+        "marks": [
+          {
+            "type": "line",
+            "from": {"data": "series"},
+            "encode": {
+              "enter": {
+                "x": {"scale": "x", "field": "x"},
+                "y": {"scale": "y", "field": "y"},
+                "stroke": {"scale": "color", "field": "c"},
+                "strokeWidth": {"value": 3}
+              },
+              "update": {
+                "interpolate": {"signal": "interpolate"},
+                "strokeOpacity": {"value": 1},
+                "style": {"value": "solid"}, // This line makes the line solid by default
+              "strokeDash": [
+                {"test": "datum.c === 0", "value": [6, 6]}, // Dashed style for the first line
+                {"test": "datum.c === 1", "value": [2, 2]}, // Dotted style for the second line
+                {"value": [0]} // Solid style for any other lines
+              ]
+              },
+              "hover": {
+                "strokeOpacity": {"value": 0.5}
+              }
+            }
           }
-        }
+        ]
       }
     ],
+
     "config": {
       "group": {"fill": backgroundColorClass},
       "arc": {"fill": "#000"},
@@ -129,7 +159,7 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
       },
       "legend": {
         "labelBaseline": "middle",
-        "labelFontSize": 11,
+        "labelFontSize": 14,
         "symbolSize": 40
       },
       "range": {
@@ -149,8 +179,9 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
     }
   }
 
+  
   return ( 
-    <div className={cn("p-2",className) }>
+    <div className={cn(`p-2 vega-menu`,className) }>
       <Vega spec={spec} />
     </div>
   );
