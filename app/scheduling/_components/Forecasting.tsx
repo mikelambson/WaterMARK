@@ -172,12 +172,12 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                     "type": "text",
                     "encode": {
                     "enter": {
-                        "x": {"signal": "width / 2"}, // Center the title horizontally
-                        "y": {"value": -42}, // Adjust the y-coordinate as needed
-                        "fill": {"value": "#8faf9f"},
+                        "x": {"signal": "width / 9"}, // Center the title horizontally
+                        "y": {"value": 20}, // Adjust the y-coordinate as needed
+                        "fill": {"value": "#333"},
                         "align": {"value": "center"},
                         "baseline": {"value": "top"},
-                        "fontSize": {"value": 28},
+                        "fontSize": {"value": 16},
                         "fontWeight": {"value": "bold"},
                         "text": {"value": "Lake Level Forecast"} // Set the title text
                     }
