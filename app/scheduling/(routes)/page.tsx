@@ -140,7 +140,7 @@ const Scheduling = () => {
                             </ResponsiveContainer> */}
                             </div>
                         </div>
-                        <DrawerFooter>
+                        <DrawerFooter className="sm:flex sm:flex-row sm:justify-end">
                             <Button>Submit</Button>
                             <DrawerClose asChild>
                             <Button variant="outline">Cancel</Button>
