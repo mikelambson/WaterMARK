@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Label } from 'recharts';
 import { Vega, VisualizationSpec } from 'react-vega';
 //npm rebuild canvas --update-binary for major version changes
 import { useTheme } from "next-themes";
@@ -13,12 +14,7 @@ interface ForecastProps {
 interface ForecastState {
     width: number;
     setWidth: (width: number) => void;
-    // data: any[];
-    // setData: (data: any) => void;
-    // userInput: string;
-    // setUserInput: (input: string) => void;
-    // queryParams: string;
-    // setQueryParams: (params: string) => void;
+   
 
 }
 
@@ -32,6 +28,70 @@ const useForecastStore = create<ForecastState>((set:any) => ({
     // queryParams: '?find:status=running',
     // setQueryParams: (params: any) => set({ queryParams: params }),
   }));
+
+const data = [
+    {
+    "name": "table",
+    "values": [
+        {"x": 0, "y": 40, "c":0}, {"x": 0, "y": 40, "c":1},
+        {"x": 1, "y": 50, "c":0}, {"x": 1, "y": 50, "c":1},
+        {"x": 2, "y": 60, "c":0}, {"x": 2, "y": 60, "c":1},
+        {"x": 3, "y": 76, "c":0}, {"x": 3, "y": 76, "c":1},
+        {"x": 4, "y": 80, "c":0}, {"x": 4, "y": 90, "c":1},
+        {"x": 5, "y": 90, "c":0}, {"x": 5, "y": 120, "c":1},
+        {"x": 6, "y": 100, "c":0}, {"x": 6, "y": 130, "c":1},
+        {"x": 7, "y": 110, "c":0}, {"x": 7, "y": 150, "c":1},
+        {"x": 8, "y": 100, "c":0}, {"x": 8, "y": 110, "c":1},
+        {"x": 9, "y": 90, "c":0}, {"x": 9, "y": 90, "c":1},
+        {"x": 10, "y": 70, "c":0}, {"x": 10, "y": 80, "c":1},
+        {"x": 11, "y": 60, "c":0}, {"x": 11, "y": 70, "c":1},
+        {"x": 12, "y": 65, "c":0}, {"x": 12, "y": 85, "c":1},
+        {"x": 0, "y": 40, "c":2}, {"x": 1, "y": 50, "c":2}, {"x": 2, "y": 61, "c":2}, {"x": 3, "y": 76, "c":2}
+    ]
+    }
+]
+
+const reData = {
+    "a":[
+        {"x": 0, "y": 40},
+        {"x": 1, "y": 50},
+        {"x": 2, "y": 60},
+        {"x": 3, "y": 76},
+        {"x": 4, "y": 80},
+        {"x": 5, "y": 90},
+        {"x": 6, "y": 100},
+        {"x": 7, "y": 110},
+        {"x": 8, "y": 100},
+        {"x": 9, "y": 90},
+        {"x": 10, "y": 70},
+        {"x": 11, "y": 60},
+        {"x": 12, "y": 65}
+    ],
+    "b": [
+        {"x": 0, "y": 40},
+        {"x": 1, "y": 50},
+        {"x": 2, "y": 60},
+        {"x": 3, "y": 76},
+        {"x": 4, "y": 90},
+        {"x": 5, "y": 120},
+        {"x": 6, "y": 130},
+        {"x": 7, "y": 150},
+        {"x": 8, "y": 110},
+        {"x": 9, "y": 90},
+        {"x": 10, "y": 80},
+        {"x": 11, "y": 70},
+        {"x": 12, "y": 85},
+
+    ],
+    "current": [
+        {"x": 0, "y": 40},
+        {"x": 1, "y": 50},
+        {"x": 2, "y": 61},
+        {"x": 3, "y": 76},
+    ]
+         
+}
+
 
 const Forecasting: React.FC<ForecastProps> = ({className}) => {
     const { resolvedTheme } = useTheme();
@@ -81,27 +141,7 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
             }
         ],
         
-        "data": [
-        {
-        "name": "table",
-        "values": [
-            {"x": 0, "y": 40, "c":0}, {"x": 0, "y": 40, "c":1},
-            {"x": 1, "y": 50, "c":0}, {"x": 1, "y": 50, "c":1},
-            {"x": 2, "y": 60, "c":0}, {"x": 2, "y": 60, "c":1},
-            {"x": 3, "y": 76, "c":0}, {"x": 3, "y": 76, "c":1},
-            {"x": 4, "y": 80, "c":0}, {"x": 4, "y": 90, "c":1},
-            {"x": 5, "y": 90, "c":0}, {"x": 5, "y": 120, "c":1},
-            {"x": 6, "y": 100, "c":0}, {"x": 6, "y": 130, "c":1},
-            {"x": 7, "y": 110, "c":0}, {"x": 7, "y": 150, "c":1},
-            {"x": 8, "y": 100, "c":0}, {"x": 8, "y": 110, "c":1},
-            {"x": 9, "y": 90, "c":0}, {"x": 9, "y": 90, "c":1},
-            {"x": 10, "y": 70, "c":0}, {"x": 10, "y": 80, "c":1},
-            {"x": 11, "y": 60, "c":0}, {"x": 11, "y": 70, "c":1},
-            {"x": 12, "y": 65, "c":0}, {"x": 12, "y": 85, "c":1},
-            {"x": 0, "y": 40, "c":2}, {"x": 1, "y": 50, "c":2}, {"x": 2, "y": 61, "c":2}, {"x": 3, "y": 76, "c":2}
-        ]
-        }
-    ],
+        "data": data,
 
     "scales": [
         {
@@ -231,13 +271,49 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
         }
     }
 
+    const customToolTip = cn(
+        "bg-white dark:bg-neutral-800 text-black dark:text-white border border-gray-200 dark:border-gray-800 rounded-lg shadow-md p-2",
+    );
   
-  
-  return ( 
-    <div id='graphContainer' className={cn(`calc(100vw - 18px)`, className) }>
-      <Vega spec={spec} />
-    </div>
-  );
+    return ( 
+        <div id='graphContainer' className={cn(`calc(100vw - 18px)`, className) }>
+            <Vega spec={spec} />
+
+            <h2 className="text-2xl font-bold text-center">Lake Level Forecast</h2>
+            {/* <ResponsiveContainer className={"w-full h-full"}> */}
+                <LineChart 
+                    className='dark:bg-neutral-700 mx-auto'
+                    width={width} 
+                    height={500} 
+                    margin={{ top: 30, right: 40, bottom: 30, left: 20 }
+                }>
+                    <CartesianGrid stroke="#777" strokeDasharray="1 1" />
+                    <XAxis dataKey={"x"} type='number' domain={[0,12]} tickCount={13}>
+                        <Label position="bottom" className='font-bold'>
+                            Month
+                        </Label>
+                    </XAxis>
+                    <YAxis dataKey={"y"}>
+                        <Label 
+                            angle={270} 
+                            position="left" 
+                            style={{ textAnchor: 'middle' }}
+                            className='font-bold'>
+                                Water Level (%)
+                        </Label>
+                    </YAxis>
+                    <Tooltip formatter={(value) => parseFloat(String(value))} wrapperClassName="gray" />
+                    {/* Render multiple Line components */}
+                    <Line data={reData.a} type="monotone" 
+                        dataKey="y" stroke="red" strokeDasharray="3 3" strokeWidth={3} />
+                    <Line data={reData.b} type="monotone" 
+                        dataKey="y" stroke="blue" strokeDasharray="2 2" strokeWidth={3} />
+                    <Line data={reData.current} type="monotone" 
+                        dataKey="y" stroke="#020"  strokeDasharray="0 0" activeDot={{r: 8}} strokeWidth={5}/>
+                </LineChart>
+            {/* </ResponsiveContainer> */}
+        </div>
+    );
 }
  
 export default Forecasting;
