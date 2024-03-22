@@ -41,6 +41,7 @@
     "add": "^2.0.6",
     "autoprefixer": "10.4.15",
     "axios": "^1.5.1",
+    "canvas": "^2.11.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.1",
@@ -49,6 +50,7 @@
     "eslint-config-next": "^14.0.4",
     "input-otp": "^1.1.0",
     "lucide-react": "^0.279.0",
+    "nan": "^2.19.0",
     "next": "^14.0.4",
     "next-themes": "^0.2.1",
     "postcss": "^8.4.31",
@@ -91,5 +93,5 @@
   "repository": {
     "url": "https://github.com/mikelambson/WaterMARK"
   },
-  "linecount": 12631
+  "linecount": 12602
 }
