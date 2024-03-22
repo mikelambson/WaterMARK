@@ -81,7 +81,7 @@ const Scheduling = () => {
             </TabsContent>
             <TabsContent 
                 value="forcasting"
-                className="overflow-y-auto"
+                className="overflow-y-auto w-full"
             >   
                 <Drawer>
                     <DrawerTrigger asChild>
@@ -149,9 +149,11 @@ const Scheduling = () => {
                         </div>
                     </DrawerContent>
                 </Drawer>
+                <div className="h-full">
                 <Forecasting 
-                    className={"w-full flex justify-center "}
+                    className={"p-2"}
                 />
+                </div>
             </TabsContent>
             <TabsContent value="taskstatus">
             <p>Task Status</p>
