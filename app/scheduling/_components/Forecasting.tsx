@@ -257,16 +257,24 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         y={100} 
                         stroke={"#C69E00"} 
                         strokeWidth={2}
-                        strokeDasharray={"9 9"}
-                        label={{ 
-                            position: 'insideLeft', 
-                            value: '100% Capacity', 
-                            fontSize: '12px', 
-                            fill: 'gray', 
-                            fontWeight: 'bold', 
-                            offset: 10,
-                            dy: -10,
-                            }} />
+                        strokeDasharray={"9 9"}>
+                            <Label 
+                                position='insideLeft' 
+                                value='100% Capacity' 
+                                fontSize='12px' 
+                                fill='gray' 
+                                fontWeight='bold' 
+                                offset={10}
+                                dy={-10} />
+                            <Label 
+                                position='insideRight' 
+                                value='310,000 Acre Feet' 
+                                fontSize='12px' 
+                                fill='gray' 
+                                fontWeight='bold' 
+                                offset={10}
+                                dy={-10} />
+                        </ReferenceLine>
                 </LineChart>
             </ResponsiveContainer>
         </div>
