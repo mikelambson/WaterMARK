@@ -17,7 +17,7 @@ const LakeForcast: React.FC<ForcastProps> = ({ className }) => {
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle>Lake Forcast</CardTitle>
+        {/* <CardTitle>Lake Forcast</CardTitle> */}
         {/* <CardDescription>Forcast description</CardDescription> */}
       </CardHeader>
       <CardContent>
