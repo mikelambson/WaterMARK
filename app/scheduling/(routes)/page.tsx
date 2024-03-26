@@ -5,7 +5,7 @@ import Ordercount from "@/components/cards/Ordercount";
 import SysInfo from "@/components/cards/SysInfo";
 import Demand from "../_components/Demand";
 import { Forcast } from "@/components/cards/Forcast";
-import Forecasting from "../_components/Forecasting";
+import Forecasting from "@/components/function/Forecasting";
 import UpdateFlows from "@/components/function/UpdateFlows";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";

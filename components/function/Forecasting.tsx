@@ -1,9 +1,9 @@
+"use client"
 import { cn } from '@/lib/utils';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Label, ReferenceLine, Legend } from 'recharts';
 // import { Vega, VisualizationSpec } from 'react-vega';
 //npm rebuild canvas --update-binary for major version changes
 import { useTheme } from "next-themes";
-import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { IoMdPrint } from 'react-icons/io';
 
@@ -59,7 +59,6 @@ const reData = {
 const Forecasting: React.FC<ForecastProps> = ({className}) => {
     const { resolvedTheme } = useTheme();
     const isDarkMode = resolvedTheme === "dark";
-    const chartRef = useRef(null);
     const handleSavePrint = () => {
         // Get the contents of the graphContainer div
         const graphContainer = document.getElementById('graphContainer');
@@ -219,7 +218,7 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         data={reData.a} 
                         type="monotone" 
                         dataKey="y" 
-                        stroke={isDarkMode ? "darkorange" : "red"} 
+                        stroke={isDarkMode ? "#080" : "green" } 
                         strokeDasharray="3 4" 
                         strokeWidth={1} 
                         yAxisId="left" 
@@ -229,7 +228,7 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         data={reData.b} 
                         type="monotone" 
                         dataKey="y" 
-                        stroke={isDarkMode ? "#080" : "green" }
+                        stroke={isDarkMode ? "darkorange" : "red"}
                         strokeDasharray="8 5 2 5" 
                         strokeWidth={1} 
                         yAxisId="left" 
@@ -239,7 +238,7 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         data={reData.current} 
                         type="monotone" 
                         dataKey="y" 
-                        stroke={isDarkMode ? "#6666ff" : "blue"}  
+                        stroke={isDarkMode ? "#5555ff" : "blue"}  
                         strokeDasharray="0 0" 
                         activeDot={{r: 8}} 
                         strokeWidth={3} 
@@ -248,14 +247,14 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         dot={{
                             fill: 'gray',
                             fillOpacity: 0.5,
-                            strokeWidth: 2,
-                            r: 5,
+                            strokeWidth: 1,
+                            r: 3,
                             strokeOpacity: 0.5,
                             }} />
                     <ReferenceLine 
                         yAxisId="left"
                         y={100} 
-                        stroke={"#C69E00"} 
+                        stroke={"gray"} 
                         strokeWidth={2}
                         strokeDasharray={"9 9"}>
                             <Label 

@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "../ui/skeleton";
+import Forecasting from "../function/Forecasting";
 
 interface ForcastProps {
   className?: string;
@@ -20,11 +21,12 @@ const LakeForcast: React.FC<ForcastProps> = ({ className }) => {
         {/* <CardDescription>Forcast description</CardDescription> */}
       </CardHeader>
       <CardContent>
-        <Skeleton className="w-full h-96" />
+        <Forecasting />
+        {/* <Skeleton className="w-full h-96" /> */}
       </CardContent>
-      <CardFooter>
+      {/* <CardFooter>
         <p>Algorithmic data</p>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 };

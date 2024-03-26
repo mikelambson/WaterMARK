@@ -26,7 +26,7 @@ export default function Home() {
           }
         >
           <SysInfo className={" w-full"} />
-          <LakeForcast className={"w-full"} />
+          <LakeForcast className={"w-full mb-4"} />
         </div>
         <div className=" min-w-[10rem] flex flex-col flex-grow gap-4 w-full md:w-[20%] md:max-w-[24rem]">
           <Demand />
