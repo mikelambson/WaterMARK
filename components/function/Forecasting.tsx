@@ -173,9 +173,9 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         domain={[0,12]} 
                         tickCount={13} 
                         tickFormatter={(value) => monthNames[value]}
-                        angle={330} 
+                        angle={320} 
                         dx={-16}
-                        dy={7}
+                        dy={10}
                         className='text-[10px]'>
                         <Label 
                             position="bottom" 
