@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Label } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Label, ReferenceLine } from 'recharts';
 // import { Vega, VisualizationSpec } from 'react-vega';
 //npm rebuild canvas --update-binary for major version changes
 import { useTheme } from "next-themes";
@@ -95,15 +95,41 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
 
    
 
-    const customToolTip = cn(
-        "bg-white dark:bg-neutral-800 text-black dark:text-white border border-gray-200 dark:border-gray-800 rounded-lg shadow-md p-2",
-    );
+    const monthNames = [
+        '', 'January', 'February', 'March', 'April', 'May', 'June', 
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
 
         // Maximum value of the left Y-axis (100)
     const maxLeftY = 160;
 
     // Maximum value of the right Y-axis (310000)
     const maxRightY = (maxLeftY * 310000) / 100;
+
+    const CustomTooltip = ({ active, payload, label }:any) => {
+        if (active && payload && payload.length) {
+            console.log(payload);
+          return (
+            <div className="custom-tooltip">
+              <p>{`Month: ${monthNames[label]}`}</p>
+              {payload.map((entry:any, index:any) => {
+                console.log(entry.name, entry.value);
+                return (
+                <p key={index}>{`${entry.name}: ${index === 2 
+                    ? entry.value > 1000 
+                        ? entry.value 
+                        : '--' 
+                    : entry.value > 1000 
+                        ? '--' 
+                        : entry.value}`}
+                </p>
+                )})}
+            </div>
+          );
+        }
+      
+        return null;
+      };
   
     return ( 
         <div id='graphContainer' className={cn(`w-full h-full`, className) }>
@@ -111,21 +137,33 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
 
             <h2 className="text-2xl font-bold text-center">Lake Level Forecast</h2>
             
-            {/* <ResponsiveContainer width="100%" height="100%"> */}
+            <ResponsiveContainer width={"99%"} height={500}>
                 <LineChart 
                     className='dark:bg-neutral-700 mx-auto'
-                    width={width} 
-                    height={500} 
+                    // width={width} 
+                    // height={500} 
                     margin={{ top: 30, right: 40, bottom: 30, left: 20 }
                 }>
                     <CartesianGrid stroke="#777" strokeDasharray="1 1" />
-                    <XAxis dataKey={"x"} type='number' domain={[0,12]} tickCount={13}>
-                        <Label position="bottom" className='font-bold'>
+                    <XAxis 
+                        dataKey={"x"} 
+                        type='number' 
+                        domain={[0,12]} 
+                        tickCount={13} 
+                        tickFormatter={(value) => monthNames[value]}
+                        angle={330} 
+                        dx={-12}
+                        dy={7}
+                        className='text-[8px]'>
+                        <Label 
+                            position="bottom" 
+                            className='font-bold text-lg'
+                            offset={12}>
                             Month
                         </Label>
                     </XAxis>
                     {/* Primary Y-axis */}
-                    <YAxis yAxisId={"left"} dataKey={"y"} domain={[0, maxLeftY]} tickCount={5}>
+                    <YAxis yAxisId={"left"} dataKey={"y"} domain={[0, maxLeftY]} tickCount={10}>
                         <Label 
                             angle={270} 
                             position="left" 
@@ -136,7 +174,13 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         </Label>
                     </YAxis>
                     {/* Secondary Y-axis */}
-                    <YAxis yAxisId="right" orientation="right" domain={[0, maxRightY]} tickCount={5}>
+                    <YAxis 
+                        yAxisId="right" 
+                        orientation="right" 
+                        domain={[0, maxRightY]} 
+                        tickCount={10}
+                        tickFormatter={(value) => value.toLocaleString()}
+                        className='text-sm'>
                         <Label 
                             angle={270} 
                             position="right" 
@@ -146,12 +190,29 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                                 Acre Feet
                         </Label>
                     </YAxis>
-                    <Tooltip formatter={(value) => parseFloat(String(value))} wrapperClassName="gray" />
+                    <Tooltip content={<CustomTooltip />} />
+                    {/* <Tooltip 
+                        formatter={(value) => parseFloat(String(value))} 
+                        wrapperClassName="gray" /> */}
                     {/* Render multiple Line components */}
-                    <Line data={reData.a} type="monotone" 
-                        dataKey="y" stroke="red" strokeDasharray="3 3" strokeWidth={3} yAxisId="left" />
-                    <Line data={reData.b} type="monotone" 
-                        dataKey="y" stroke="blue" strokeDasharray="2 2" strokeWidth={3} yAxisId="left" />
+                    <Line 
+                        data={reData.a} 
+                        type="monotone" 
+                        dataKey="y" 
+                        stroke="red" 
+                        strokeDasharray="3 3" 
+                        strokeWidth={3} 
+                        yAxisId="left" 
+                        name='90% Exeedence'/>
+                    <Line 
+                        data={reData.b} 
+                        type="monotone" 
+                        dataKey="y" 
+                        stroke="blue" 
+                        strokeDasharray="2 2" 
+                        strokeWidth={3} 
+                        yAxisId="left" 
+                        name='75% Exeedence'/>
                     <Line 
                         data={reData.current} 
                         type="monotone" 
@@ -160,9 +221,25 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         strokeDasharray="0 0" 
                         activeDot={{r: 8}} 
                         strokeWidth={5} 
-                        yAxisId="right" />
+                        yAxisId="right" 
+                        name='Current'/>
+                    <ReferenceLine 
+                        yAxisId="left"
+                        y={100} 
+                        stroke="green" 
+                        strokeWidth={2}
+                        strokeDasharray={"3 3"}
+                        label={{ 
+                            position: 'insideLeft', 
+                            value: '100%', 
+                            fontSize: '12px', 
+                            fill: 'black', 
+                            fontWeight: 'bold', 
+                            offset: 10,
+                            dy: -8,
+                            }} />
                 </LineChart>
-            {/* </ResponsiveContainer> */}
+            </ResponsiveContainer>
         </div>
     );
 }
