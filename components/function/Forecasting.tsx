@@ -133,7 +133,7 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         {`${entry.name}: 
                         ${index === 2 
                         ? entry.value > 1000 
-                            ? entry.value 
+                            ? entry.value.toLocaleString() + ' AF'
                             : '--' 
                         : entry.value > 1000 
                             ? '--' 
@@ -227,17 +227,17 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         strokeDasharray="3 4" 
                         strokeWidth={1} 
                         yAxisId="left" 
-                        name='90% Exeedence'
+                        name='75% Exeedence'
                         dot={false} />
                     <Line 
                         data={reData.b} 
                         type="monotone" 
                         dataKey="y" 
-                        stroke={isDarkMode ? "darkorange" : "red"}
+                        stroke={isDarkMode ? "#FF5C00" : "red"}
                         strokeDasharray="8 5 2 5" 
                         strokeWidth={1} 
                         yAxisId="left" 
-                        name='75% Exeedence'
+                        name='50% Exeedence'
                         dot={false} />
                     <Line 
                         data={reData.current} 
