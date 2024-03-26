@@ -448,7 +448,9 @@ const ScheduleCard = ({
                         </div>
                         <div className="grid grid-cols-4 items-center gap-2">
                             <Label htmlFor="deliverynotes" className="col-span-2 flex items-center gap-2">
-                                {schedule.deliveries.length > 1 ? "Deliveries:" : "Delivery:"}
+                                {schedule.deliveries.length > 1 
+                                    ? "Deliveries:" 
+                                    : "Delivery:"}
                                 <Drawer>
                                 <DrawerTrigger asChild>
                                     <Button variant={"outline"} size={"pagination"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
