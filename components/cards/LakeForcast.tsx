@@ -16,12 +16,10 @@ interface ForcastProps {
 const LakeForcast: React.FC<ForcastProps> = ({ className }) => {
   return (
     <Card className={className}>
-      <CardHeader>
-        {/* <CardTitle>Lake Forcast</CardTitle> */}
-        {/* <CardDescription>Forcast description</CardDescription> */}
-      </CardHeader>
+      
       <CardContent>
-        <Forecasting />
+        <Forecasting 
+        className={"mt-4"} />
         {/* <Skeleton className="w-full h-96" /> */}
       </CardContent>
       {/* <CardFooter>
