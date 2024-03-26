@@ -3,7 +3,6 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContai
 // import { Vega, VisualizationSpec } from 'react-vega';
 //npm rebuild canvas --update-binary for major version changes
 import { useTheme } from "next-themes";
-import { create } from 'zustand'
 import { useEffect } from 'react';
 
 
@@ -11,32 +10,13 @@ interface ForecastProps {
     className?: string;
 }
 
-interface ForecastState {
-    width: number;
-    setWidth: (width: number) => void;
-   
-
-}
-
-const useForecastStore = create<ForecastState>((set:any) => ({
-    width: 900,
-    setWidth: (width: number) => set({ width }),
-    // data: [],
-    // setData: (data: any) => set({ data }),
-    // userInput: '?find:status=running',
-    // setUserInput: (input: any) => set({ userInput: input }),
-    // queryParams: '?find:status=running',
-    // setQueryParams: (params: any) => set({ queryParams: params }),
-  }));
-
-
 
 const reData = {
     "a":[
-        {"x": 0, "y": 40},
-        {"x": 1, "y": 50},
-        {"x": 2, "y": 60},
-        {"x": 3, "y": 76},
+        {"x": 0, "y": 30},
+        {"x": 1, "y": 40},
+        {"x": 2, "y": 50},
+        {"x": 3, "y": 66},
         {"x": 4, "y": 80},
         {"x": 5, "y": 90},
         {"x": 6, "y": 100},
@@ -48,11 +28,11 @@ const reData = {
         {"x": 12, "y": 65}
     ],
     "b": [
-        {"x": 0, "y": 40},
-        {"x": 1, "y": 50},
-        {"x": 2, "y": 60},
-        {"x": 3, "y": 76},
-        {"x": 4, "y": 90},
+        {"x": 0, "y": 50},
+        {"x": 1, "y": 60},
+        {"x": 2, "y": 70},
+        {"x": 3, "y": 86},
+        {"x": 4, "y": 100},
         {"x": 5, "y": 120},
         {"x": 6, "y": 130},
         {"x": 7, "y": 150},
@@ -68,7 +48,7 @@ const reData = {
         {"x": 1, "y": 155000},
         {"x": 2, "y": 189100},
         {"x": 3, "y": 235600},
-        {"x": 4, "y": 268500},
+        {"x": 3.87, "y": 268500},
     ]
          
 }
@@ -77,29 +57,11 @@ const reData = {
 const Forecasting: React.FC<ForecastProps> = ({className}) => {
     const { resolvedTheme } = useTheme();
     const isDarkMode = resolvedTheme === "dark";
-    const textColorClass = isDarkMode ? "#AFBFCF" : "#102030";
-    const gridColorClass = isDarkMode ? "#1A202C" : "#F7FAFC";
-    const backgroundColorClass = isDarkMode ? "#555" : "#e5e5e5";
-    const { width, setWidth } = useForecastStore();
-    const graphContainer = document.getElementById('graphContainer');
-
-    const viewportWidth = window.innerWidth;
-    useEffect(() => {
-        const graphContainerWidth = graphContainer ? graphContainer.clientWidth - 60 : window.innerWidth - 110;
-        // Get the viewport width
-        const graphwidth = graphContainerWidth >= 575 ? graphContainerWidth : 575;
-        
-        if (graphContainer) {
-        setWidth(graphwidth);
-        }
-    }, [setWidth, viewportWidth, graphContainer]);
-
    
-
     const monthNames = [
         '', 'January', 'February', 'March', 'April', 'May', 'June', 
         'July', 'August', 'September', 'October', 'November', 'December'
-      ];
+    ];
 
         // Maximum value of the left Y-axis (100)
     const maxLeftY = 160;
@@ -202,18 +164,20 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         dataKey="y" 
                         stroke="red" 
                         strokeDasharray="3 3" 
-                        strokeWidth={3} 
+                        strokeWidth={1} 
                         yAxisId="left" 
-                        name='90% Exeedence'/>
+                        name='90% Exeedence'
+                        dot={false} />
                     <Line 
                         data={reData.b} 
                         type="monotone" 
                         dataKey="y" 
                         stroke="blue" 
                         strokeDasharray="2 2" 
-                        strokeWidth={3} 
+                        strokeWidth={1} 
                         yAxisId="left" 
-                        name='75% Exeedence'/>
+                        name='75% Exeedence'
+                        dot={false} />
                     <Line 
                         data={reData.current} 
                         type="monotone" 
@@ -223,13 +187,20 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         activeDot={{r: 8}} 
                         strokeWidth={5} 
                         yAxisId="right" 
-                        name='Current'/>
+                        name='Current'
+                        dot={{
+                            fill: 'gray',
+                            fillOpacity: 0.5,
+                            strokeWidth: 2,
+                            r: 5,
+                            strokeOpacity: 0.5,
+                            }} />
                     <ReferenceLine 
                         yAxisId="left"
                         y={100} 
                         stroke="green" 
                         strokeWidth={2}
-                        strokeDasharray={"3 3"}
+                        strokeDasharray={"4 4"}
                         label={{ 
                             position: 'insideLeft', 
                             value: '100%', 
