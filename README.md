@@ -35,6 +35,10 @@ ___
 Example showing dev layout of frontend screen:
 ![Frontend Image](frontend.png)
 
+![Frontend Image](frontendscheduling.png)
+
+![Frontend Image](frontenddeliveries.png)
+
 Example showing dev layout of backend screen:
 ![Backend Image](backend.png)
 
