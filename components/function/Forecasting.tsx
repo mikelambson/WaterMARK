@@ -78,14 +78,19 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
         if (printButton) {
             printButton.remove(); // or printButton.style.display = 'none';
         }
-    
+        
+        const currentDate = new Date().toLocaleString('en-US', {
+            year: 'numeric',    
+            month: 'long',
+            day: 'numeric',
+            });
         // Create a new div for the copyright section
         const copyrightDiv = document.createElement('div');
         copyrightDiv.style.textAlign = 'center';
         copyrightDiv.style.marginTop = '20px';
         copyrightDiv.innerHTML = `
             <p>
-                &copy; 2024 TCID. All rights reserved.
+               Printed: ${currentDate} | &copy; 2024 TCID. All rights reserved.
             </p>`;
     
         // Append the copyright section to the cloned contents
