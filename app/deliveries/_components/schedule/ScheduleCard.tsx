@@ -382,11 +382,14 @@ const ScheduleCard = ({
                             </div>
                             <div className="mt-2 flex justify-between">
                             <SheetTrigger asChild>
-                                    <Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                                <Button 
+                                    variant={"outline"} 
+                                    size={"sm"} 
+                                    className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
                                         <TbGridDots className={"mr-1"} />
                                         Details
-                                    </Button>
-                                </SheetTrigger>
+                                </Button>
+                            </SheetTrigger>
 
 {/* ///////////////////////////// Drawer Section /////////////////////////// */}
 
@@ -444,8 +447,19 @@ const ScheduleCard = ({
                             {/* <Input id="instructions" defaultValue={schedule.instructions || "Enter Instructions"} className="row-start-2 col-span-4 text-left" /> */}
                         </div>
                         <div className="grid grid-cols-4 items-center gap-2">
-                            <Label htmlFor="deliverynotes" className="col-span-2">
-                                Delivery Notes:
+                            <Label htmlFor="deliverynotes" className="col-span-2 flex items-center gap-2">
+                                {schedule.deliveries.length > 1 ? "Deliveries:" : "Delivery:"}
+                                <Drawer>
+                                <DrawerTrigger asChild>
+                                    <Button variant={"outline"} size={"pagination"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                                    <FaHandHoldingWater className={""} />
+                                       
+                                    </Button>
+                                </DrawerTrigger>
+                                <ManageDelivery
+                                    schedule={schedule}
+                                />
+                                </Drawer>
                             </Label>
                             <div className="col-span-4">
                                 {schedule.deliveries.map((delivery, index) => (
@@ -460,7 +474,7 @@ const ScheduleCard = ({
                                                 {deliveryAF(index)}
                                             </p>
                                         </div>
-                                        <p>{delivery.deliveryNote}</p>
+                                        <p>{delivery.deliveryNote ? delivery.deliveryNote : "No note..."}</p>
                                     </div>
                                     
                                 ))}
@@ -469,9 +483,15 @@ const ScheduleCard = ({
                         </div>
                         <div className="grid grid-cols-4 items-center gap-2">
                             <Label htmlFor="specialRequest" className="col-span-2">
-                            Special Request:
+                                Special Request:
                             </Label>
-                            <Input id="specialRequest" defaultValue={schedule.specialRequest || "Enter Request"} className="col-span-4" />
+                            <input
+                                id="specialRequest"
+                                defaultValue={schedule.specialRequest 
+                                    ? schedule.specialRequest 
+                                    : "No Special Requests"}
+                                className="flex flex-wrap col-span-4 px-2"
+                            />
                         </div>
                         <div className="grid grid-cols-6 items-center gap-4">
                             <Label htmlFor="startdate" className="text-right">
