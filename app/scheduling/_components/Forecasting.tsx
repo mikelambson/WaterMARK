@@ -1,9 +1,11 @@
 import { cn } from '@/lib/utils';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Label, ReferenceLine } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Label, ReferenceLine, Legend } from 'recharts';
 // import { Vega, VisualizationSpec } from 'react-vega';
 //npm rebuild canvas --update-binary for major version changes
 import { useTheme } from "next-themes";
-import { useEffect } from 'react';
+import { useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { IoMdPrint } from 'react-icons/io';
 
 
 interface ForecastProps {
@@ -57,6 +59,50 @@ const reData = {
 const Forecasting: React.FC<ForecastProps> = ({className}) => {
     const { resolvedTheme } = useTheme();
     const isDarkMode = resolvedTheme === "dark";
+    const chartRef = useRef(null);
+    const handleSavePrint = () => {
+        // Get the contents of the graphContainer div
+        const graphContainer = document.getElementById('graphContainer');
+        if (!graphContainer) return;
+    
+        // Clone the contents of the graphContainer div
+        const clone = graphContainer.cloneNode(true);
+    
+        // Center the h1 text in the new window
+        const h1Element = (clone as HTMLElement).querySelector('h2');
+        if (h1Element) {
+            h1Element.style.textAlign = 'center';
+        }
+    
+        // Remove or hide the button with ID === printButton
+        const printButton = (clone as HTMLElement).querySelector('#printButton');
+        if (printButton) {
+            printButton.remove(); // or printButton.style.display = 'none';
+        }
+    
+        // Create a new div for the copyright section
+        const copyrightDiv = document.createElement('div');
+        copyrightDiv.style.textAlign = 'center';
+        copyrightDiv.style.marginTop = '20px';
+        copyrightDiv.innerHTML = `
+            <p>
+                &copy; 2024 TCID. All rights reserved.
+            </p>`;
+    
+        // Append the copyright section to the cloned contents
+        clone.appendChild(copyrightDiv);
+    
+        // Create a new window with the cloned contents
+        const printWindow = window.open('', '_blank');
+        if (!printWindow) return;
+    
+        // Append the cloned contents to the new window
+        printWindow.document.body.appendChild(clone);
+    
+        // Print the new window
+        printWindow.print();
+    };
+    
    
     const monthNames = [
         '', 'January', 'February', 'March', 'April', 'May', 'June', 
@@ -100,16 +146,27 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
     return ( 
         <div id='graphContainer' className={cn(`w-full h-full`, className) }>
             {/* <Vega spec={spec} /> */}
-
-            <h2 className="text-2xl font-bold text-center">Lake Level Forecast</h2>
-            
+            <div className="flex justify-center items-center gap-2">
+                <h2 className="text-2xl font-bold">
+                    Lake Level Forecast
+                </h2>
+                <Button id='printButton' size={"pagination"} variant={'secondary'} onClick={handleSavePrint}>
+                    <IoMdPrint />
+                </Button>
+            </div>
             <ResponsiveContainer width={"99%"} height={450}>
                 <LineChart 
-                    className='dark:bg-neutral-700 mx-auto'
+                    className=' mx-auto'
                     // width={width} 
                     // height={500} 
-                    margin={{ top: 30, right: 40, bottom: 30, left: 20 }
+                    margin={{ top: 0, right: 40, bottom: 30, left: 20 }
                 }>
+                     <Legend 
+                        verticalAlign="top" 
+                        align="center" 
+                        wrapperStyle={{ paddingTop: 10 }} 
+                        iconType="plainline" // Set iconType to "plainline" to display different line styles
+                    />
                     <CartesianGrid stroke="#777" strokeDasharray="1 1" />
                     <XAxis 
                         dataKey={"x"} 
@@ -162,8 +219,8 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         data={reData.a} 
                         type="monotone" 
                         dataKey="y" 
-                        stroke="red" 
-                        strokeDasharray="3 3" 
+                        stroke={isDarkMode ? "darkorange" : "red"} 
+                        strokeDasharray="3 4" 
                         strokeWidth={1} 
                         yAxisId="left" 
                         name='90% Exeedence'
@@ -172,8 +229,8 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         data={reData.b} 
                         type="monotone" 
                         dataKey="y" 
-                        stroke="blue" 
-                        strokeDasharray="2 2" 
+                        stroke={isDarkMode ? "#080" : "green" }
+                        strokeDasharray="8 5 2 5" 
                         strokeWidth={1} 
                         yAxisId="left" 
                         name='75% Exeedence'
@@ -182,10 +239,10 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         data={reData.current} 
                         type="monotone" 
                         dataKey="y" 
-                        stroke="#020"  
+                        stroke={isDarkMode ? "#6666ff" : "blue"}  
                         strokeDasharray="0 0" 
                         activeDot={{r: 8}} 
-                        strokeWidth={5} 
+                        strokeWidth={3} 
                         yAxisId="right" 
                         name='Current'
                         dot={{
@@ -198,17 +255,17 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                     <ReferenceLine 
                         yAxisId="left"
                         y={100} 
-                        stroke="green" 
+                        stroke={"#C69E00"} 
                         strokeWidth={2}
-                        strokeDasharray={"4 4"}
+                        strokeDasharray={"9 9"}
                         label={{ 
                             position: 'insideLeft', 
-                            value: '100%', 
+                            value: '100% Capacity', 
                             fontSize: '12px', 
-                            fill: 'black', 
+                            fill: 'gray', 
                             fontWeight: 'bold', 
                             offset: 10,
-                            dy: -8,
+                            dy: -10,
                             }} />
                 </LineChart>
             </ResponsiveContainer>
