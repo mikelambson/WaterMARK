@@ -68,6 +68,7 @@ const reData = {
         {"x": 1, "y": 155000},
         {"x": 2, "y": 189100},
         {"x": 3, "y": 235600},
+        {"x": 4, "y": 268500},
     ]
          
 }
@@ -108,21 +109,24 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
 
     const CustomTooltip = ({ active, payload, label }:any) => {
         if (active && payload && payload.length) {
-            console.log(payload);
+            
           return (
             <div className="custom-tooltip">
-              <p>{`Month: ${monthNames[label]}`}</p>
-              {payload.map((entry:any, index:any) => {
-                console.log(entry.name, entry.value);
-                return (
-                <p key={index}>{`${entry.name}: ${index === 2 
-                    ? entry.value > 1000 
-                        ? entry.value 
-                        : '--' 
-                    : entry.value > 1000 
-                        ? '--' 
-                        : entry.value}`}
+                <p>
+                    {`Month: ${monthNames[label]}`}
                 </p>
+                {payload.map((entry:any, index:any) => {
+                    return (
+                    <p key={index}>
+                        {`${entry.name}: 
+                        ${index === 2 
+                        ? entry.value > 1000 
+                            ? entry.value 
+                            : '--' 
+                        : entry.value > 1000 
+                            ? '--' 
+                            : entry.value + '%'}`}
+                    </p>
                 )})}
             </div>
           );
@@ -137,7 +141,7 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
 
             <h2 className="text-2xl font-bold text-center">Lake Level Forecast</h2>
             
-            <ResponsiveContainer width={"99%"} height={500}>
+            <ResponsiveContainer width={"99%"} height={450}>
                 <LineChart 
                     className='dark:bg-neutral-700 mx-auto'
                     // width={width} 
@@ -191,10 +195,7 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         </Label>
                     </YAxis>
                     <Tooltip content={<CustomTooltip />} />
-                    {/* <Tooltip 
-                        formatter={(value) => parseFloat(String(value))} 
-                        wrapperClassName="gray" /> */}
-                    {/* Render multiple Line components */}
+                    
                     <Line 
                         data={reData.a} 
                         type="monotone" 
