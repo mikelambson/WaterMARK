@@ -27,7 +27,7 @@ const SchedulingBoard = () => {
     const draggedOrder = board.columns?.get(sourceId)?.orders[sourceIndex];
 
     // Log the details
-    console.log('Destination ID:', destinationId)
+    console.log('Destination ID (head):', destinationId - 1)
     console.log('Destination Index:',destinationIndex)
     console.log('Dragged Order ID:', draggableId);
     console.log('Selected Sheet:', selectedSheet);
