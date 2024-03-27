@@ -87,10 +87,6 @@ const SchedulingBoard = () => {
               />
               <ScheduledColumn
                 id="scheduled"
-                columns={[
-                  ...(board.columns?.get('scheduled')?.orders || []),
-                  ...(board.columns?.get('running')?.orders || []),
-                ]}
                 index={1}
               />
             </div>

@@ -10,7 +10,7 @@ import ScheduleCard from './ScheduleCard';
 
 type Properties = {
     id: TypedColumn,
-    columns: (Schedule | Order)[],
+    columns?: (Schedule | Order)[],
     index: number,  
 }
 
