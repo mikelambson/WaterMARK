@@ -10,7 +10,7 @@ import UnscheduledColumn from "@/app/scheduling/_components/board/ColumnUnschedu
 
 
 const SchedulingBoard = () => {
-  const { board, isLoading, selectedSheet, selectedHead } = useSchedulingStore();
+  const { board, isLoading, selectedSheet, selectedHead, schedule } = useSchedulingStore();
 
   // console.log('Board:', board);
 
@@ -36,15 +36,7 @@ const SchedulingBoard = () => {
     // Handle the logic for updating the order status to "running"
     if (Number(destinationId) === 1) {
       // Your logic to update the order status to "running"
-      const orderId = draggableId;
-      const newStatus = 'running';
-
-      console.log('Updating Order Status to "running"...');
-      console.log('Order ID:', orderId);
-      console.log('New Status:', newStatus);
-
-      // array from destinationIndex to end of array
-      const scheduledColumn = board.columns
+      const scheduledColumn = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
       console.log('Scheduled Column Orders:', scheduledColumn);
 
 
