@@ -106,19 +106,26 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                 <Droppable droppableId={"0"} type="card">
                     {(provided, snapshot) => (
                         <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        className={cn("h-full rounded-md -mx-2 pb-8 border border-transparent",
-                            snapshot.isDraggingOver ? "bg-yellow-200/50" : "bg-transparent")}
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                            className={cn("h-full rounded-md -mx-2 pb-8 border border-transparent",
+                                snapshot.isDraggingOver 
+                                ? "bg-yellow-200/50" 
+                                : "bg-transparent"
+                            )}
                         >
-                            <TabsContent key={`unscheduled-content`} value={"unscheduled"} className="h-full mt-1 w-full">
+                            <TabsContent 
+                                key={`unscheduled-content`} 
+                                value={"unscheduled"} 
+                                className="h-full mt-1 w-full"
+                            >
                                 <div className="text-center text-sm font-bold text-foreground/50 dark:text-secondary/50">
                                     <PaginationComponent
-                                    page={page}
-                                    pageNumbers={pageNumbers}
-                                    currentPage={currentPage}
-                                    handlePageChange={handlePageChange}
-                                    key={`unscheduled-pagination`}
+                                        page={page}
+                                        pageNumbers={pageNumbers}
+                                        currentPage={currentPage}
+                                        handlePageChange={handlePageChange}
+                                        key={`unscheduled-pagination`}
                                     />
                                 </div>
                                 {/* Change Height below ==>  */}
@@ -126,7 +133,8 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                                     ref={provided.innerRef}
                                     autoScroll
                                     {...provided.droppableProps}
-                                    className="min-h-80 h-[98%] w-full px-[0.5rem] rounded-md">
+                                    className="min-h-80 h-[98%] w-full px-[0.5rem] rounded-md"
+                                >
                                     <div className="space-y-2">
                                         {filteredUnscheduledOrders.map((order: Order, index: any) => (
                                             <Draggable
@@ -154,36 +162,41 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
 
                             <TabsContent key={`delayed-content`} value={"delayed"} className="h-full mt-1 w-full">
                                 <div className="text-center text-sm font-bold text-foreground/50 dark:text-secondary/50">
-                                <PaginationComponent
-                                    page={page}
-                                    pageNumbers={pageNumbers}
-                                    currentPage={currentPage}
-                                    handlePageChange={handlePageChange}
-                                    key={`delayed-content`}
-                                    />
+                                    <PaginationComponent
+                                        page={page}
+                                        pageNumbers={pageNumbers}
+                                        currentPage={currentPage}
+                                        handlePageChange={handlePageChange}
+                                        key={`delayed-content`}
+                                        />
                                 </div>
                                 {/* Change Height below ==>  */}
-                                <ScrollArea autoScroll className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
+                                <ScrollArea 
+                                    ref={provided.innerRef}
+                                    autoScroll 
+                                    {...provided.droppableProps}
+                                    className="min-h-96 h-full w-full px-[0.5rem] rounded-md"
+                                >
                                     <div className="space-y-2">
-                                    {filteredDelayedOrders.map((delayedOrder: Order, index: any) => (
-                                        <Draggable
-                                        key={delayedOrder.id}
-                                        draggableId={delayedOrder.id}
-                                        index={index}
-                                        >
-                                        {(provided) => (
-                                            <OrderCard
-                                            order={delayedOrder}
+                                        {filteredDelayedOrders.map((delayedOrder: Order, index: any) => (
+                                            <Draggable
+                                            key={delayedOrder.id}
+                                            draggableId={delayedOrder.id}
                                             index={index}
-                                            id={delayedOrder.orderNumber}
-                                            innerRef={provided.innerRef}
-                                            draggableProps={provided.draggableProps}
-                                            dragHandleProps={provided.dragHandleProps}
-                                            />
-                                        )}
-                                        </Draggable>
-                                    ))}
-                                    {provided.placeholder}
+                                            >
+                                            {(provided) => (
+                                                <OrderCard
+                                                order={delayedOrder}
+                                                index={index}
+                                                id={delayedOrder.orderNumber}
+                                                innerRef={provided.innerRef}
+                                                draggableProps={provided.draggableProps}
+                                                dragHandleProps={provided.dragHandleProps}
+                                                />
+                                            )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
                                     </div>
                                 </ScrollArea>
                             </TabsContent>
