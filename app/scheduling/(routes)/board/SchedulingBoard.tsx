@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label";
 import { FaRegClock } from "react-icons/fa6";
+import { TbRotateClockwise2 } from "react-icons/tb";
 
 
 const SchedulingBoard = () => {
@@ -152,7 +153,7 @@ return (
                     </DialogTitle>
                     <DialogDescription className="p-3 inline-flex items-center">
                         <Label className="z-10 pl-1">
-                            <FaRegClock size={20} />
+                            <TbRotateClockwise2 size={20} />
                             </Label>
                         <Input placeholder={'hours'} className="-ml-7 z-0 pl-10" />
                     </DialogDescription>
