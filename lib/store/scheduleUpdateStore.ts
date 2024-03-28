@@ -14,16 +14,7 @@ type ScheduleUpdateState = {
     resetData: () => void;
 };
 
-/*
-'Sheet ID:': selectedSheet.name },
-        {'Head:': destinationId },
-        {'Destination Index:': destinationIndex},
-        {'Previous Order:': previousOrder },
-        {'Dragged Order ID:': draggableId },
-        {'Dragged Order:': draggedOrder(draggableId)},
-        {'Schedule Time:': scheduleTime },
-        {'Subsequent Orders:':
-*/
+
 
 const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
     sheetId: 0,

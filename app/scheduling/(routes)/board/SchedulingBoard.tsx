@@ -75,6 +75,7 @@ const handleOnDragEnd = (result: any) => {
         {'Schedule Time:': scheduleTime },
         {'Subsequent Orders:': scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
     ]);
+    
 
     destinationIndex === 0 
         ? setDialogOpen(true) : console.log('No dialog');
