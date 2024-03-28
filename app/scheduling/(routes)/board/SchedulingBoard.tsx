@@ -11,6 +11,8 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, Di
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label";
+import { FaRegClock } from "react-icons/fa6";
 
 
 const SchedulingBoard = () => {
@@ -143,19 +145,34 @@ return (
             {/* <DialogTrigger onClick={() => setDialogOpen(true)}>Open</DialogTrigger> */}
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Travel Time</DialogTitle>
-                    <DialogDescription className="p-3">
-                        <Input placeholder={'0'}></Input>
+                    <DialogTitle>
+                        Travel Time
+                    </DialogTitle>
+                    <DialogDescription className="p-3 inline-flex items-center">
+                        <Label className="z-10 pl-1">
+                            <FaRegClock size={20} />
+                            </Label>
+                        <Input placeholder={'hours'} className="-ml-7 z-0 pl-10" />
                     </DialogDescription>
-                    <DialogTitle>Instructions</DialogTitle>
+                    <DialogTitle>
+                        Instructions</DialogTitle>
                     <DialogDescription className="p-3">
-                        <Textarea placeholder={'Enter Instructions'}></Textarea>
+                        <Textarea placeholder={'Enter Instructions'} />
                     </DialogDescription>
                 </DialogHeader>
                 <DialogClose onClick={() => setDialogOpen(false)} />
                 <div className="flex justify-end gap-2">
-                    <Button variant={"destructive"} onClick={() => setDialogOpen(false)} className="btn btn-secondary">Cancel</Button>
-                    <Button onClick={() => setDialogOpen(false)} className="btn btn-primary">Confirm</Button>
+                    <Button 
+                        variant={"destructive"} 
+                        onClick={() => setDialogOpen(false)} 
+                        className="btn btn-secondary">
+                            Cancel
+                        </Button>
+                    <Button 
+                        onClick={() => setDialogOpen(false)} 
+                        className="btn btn-primary">
+                            Confirm
+                        </Button>
                 </div>
             </DialogContent>
     </Dialog>
