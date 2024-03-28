@@ -16,7 +16,7 @@ import { FaRegClock } from "react-icons/fa6";
 
 
 const SchedulingBoard = () => {
-const { board, isLoading, selectedSheet, schedule } = useSchedulingStore();
+const { board, isLoading, selectedSheet, schedule, getSchedule, selectedHead} = useSchedulingStore();
 const [isDialogOpen, setDialogOpen] = useState(false);
 
 // console.log('Board:', board);
@@ -86,23 +86,20 @@ const handleOnDragEnd = (result: any) => {
     // After updating the order status, trigger a re-fetch or re-render if needed
     // Example: refetchData();
     // ...
+    getSchedule(destinationId);
     }
 
     // Handle other drag and drop logic as needed
     // ...
 };
 
-const getDraggedOrder = (draggableId: string) => {
-    // Search for the order in your data structure based on the draggableId
-    // Assuming you have a way to access your orders data, you would replace this with your actual data retrieval logic
-    const foundOrder = Array.from(board.columns?.values() || []).flatMap(column => column.orders).find(order => order.id === draggableId);
-
-    return foundOrder || null; // Return the found order or null if not found
-};
 
 if (isLoading) {
     return (
-        <div className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto " >
+        <div 
+            className={`w-full lg:max-w-full flex flex-col lg:grid 
+                        grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 pr-2 mx-auto`} 
+        >
             <Skeleton className="h-[82svh]" />
             <Skeleton className="h-[82svh]" />
 
@@ -113,29 +110,33 @@ if (isLoading) {
 return (
     <div>
         <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="id" direction="vertical" type="column">
-            {(provided) => (
-                <div
-                aria-label="unscheduled"
-                className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 px-2 mx-auto"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                >
-                {/* Render Unscheduled and Scheduled Columns within the same set of tabs */}
-                <UnscheduledColumn
-                    id="unscheduled"
-                    columns={[
-                    ...(board.columns?.get('unscheduled')?.orders || []),
-                    ...(board.columns?.get('delayed')?.orders || []),
-                    ]}
-                    index={0}
-                />
-                <ScheduledColumn
-                    id="scheduled"
-                    index={1}
-                />
-                </div>
-            )}
+            <Droppable 
+                droppableId="id" 
+                direction="vertical" 
+                type="column"
+            >
+                {(provided) => (
+                    <div
+                    aria-label="unscheduled"
+                    className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 px-2 mx-auto"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    >
+                    {/* Render Unscheduled and Scheduled Columns within the same set of tabs */}
+                    <UnscheduledColumn
+                        id="unscheduled"
+                        columns={[
+                        ...(board.columns?.get('unscheduled')?.orders || []),
+                        ...(board.columns?.get('delayed')?.orders || []),
+                        ]}
+                        index={0}
+                    />
+                    <ScheduledColumn
+                        id="scheduled"
+                        index={1}
+                    />
+                    </div>
+                )}
             </Droppable>
         </DragDropContext>
     
@@ -170,14 +171,16 @@ return (
                             Cancel
                         </Button>
                     <Button 
-                        onClick={() => setDialogOpen(false)} 
+                        onClick={() => {
+                            setDialogOpen(false)
+                            getSchedule(Number(selectedHead));
+                        }} 
                         className="btn btn-primary">
                             Confirm
                         </Button>
                 </div>
             </DialogContent>
-    </Dialog>
-
+        </Dialog>
     </div>
 );
 };
