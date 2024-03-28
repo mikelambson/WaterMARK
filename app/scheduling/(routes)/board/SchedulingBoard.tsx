@@ -1,30 +1,41 @@
 // Scheduling Board @\app\scheduling\_components\schedule-orders\SchedulingBoard.tsx
 "use client";
 import { useSchedulingStore } from "@/lib/store/schedulingStore";
+import { useState } from 'react'; 
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import ScheduledColumn from "@/app/scheduling/_components/board/ColumnScheduled";
 import UnscheduledColumn from "@/app/scheduling/_components/board/ColumnUnscheduled";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 
 
 const SchedulingBoard = () => {
-const { board, isLoading, selectedSheet, selectedHead, schedule } = useSchedulingStore();
+const { board, isLoading, selectedSheet, schedule } = useSchedulingStore();
+const [isDialogOpen, setDialogOpen] = useState(false);
 
 // console.log('Board:', board);
 
 const handleOnDragEnd = (result: any) => {
     const { destination, source, draggableId } = result;
-
+    
     // If the order is not dropped into a valid destination, do nothing
     if (!destination) return;
-
+    
     const { index: destinationIndex, droppableId: destinationId } = destination;
     const { droppableId: sourceId, index: sourceIndex } = source;
 
     // Retrieve the order that was dragged
-    // const draggedOrder = board.columns?.get(sourceId)?.orders[sourceIndex];
+    const draggedOrder = (draggableId: string) => {
+        // Search for the order in your data structure based on the draggableId
+        // Assuming you have a way to access your orders data, you would replace this with your actual data retrieval logic
+        const foundOrder = Array.from(board.columns?.values() || []).flatMap(column => column.orders).find(order => order.id === draggableId);
+    
+        return foundOrder || null; // Return the found order or null if not found
+    };
 
     // Log the details
     // console.log('Destination ID (head):', destinationId - 1)
@@ -57,11 +68,13 @@ const handleOnDragEnd = (result: any) => {
         { key: 'Head:', value: destinationId },
         { key: 'Previous Order:', value: previousOrder },
         { key: 'Dragged Order ID:', value: draggableId },
+        { key: 'Dragged Order:', value: draggedOrder(draggableId)},
         { key: 'Schedule Time:', value: scheduleTime },
         { key: 'Subsequent Orders:', value: scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
     ]);
 
-
+   
+    setDialogOpen(true);
 
     // You can now update the order status using your API or store methods
     // Example: updateOrderStatus(orderId, newStatus);
@@ -74,6 +87,14 @@ const handleOnDragEnd = (result: any) => {
 
     // Handle other drag and drop logic as needed
     // ...
+};
+
+const getDraggedOrder = (draggableId: string) => {
+    // Search for the order in your data structure based on the draggableId
+    // Assuming you have a way to access your orders data, you would replace this with your actual data retrieval logic
+    const foundOrder = Array.from(board.columns?.values() || []).flatMap(column => column.orders).find(order => order.id === draggableId);
+
+    return foundOrder || null; // Return the found order or null if not found
 };
 
 if (isLoading) {
@@ -114,6 +135,27 @@ return (
         )}
         </Droppable>
     </DragDropContext>
+    
+        <Dialog 
+            open={isDialogOpen} 
+            onOpenChange={setDialogOpen}
+        > 
+            {/* <DialogTrigger onClick={() => setDialogOpen(true)}>Open</DialogTrigger> */}
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Travel Time</DialogTitle>
+                    <DialogDescription className="p-3">
+                        <Input placeholder={'0'}></Input>
+                    </DialogDescription>
+                </DialogHeader>
+                <DialogClose onClick={() => setDialogOpen(false)} />
+                <div className="flex justify-end gap-2">
+                    <Button variant={"destructive"} onClick={() => setDialogOpen(false)} className="btn btn-secondary">Cancel</Button>
+                    <Button onClick={() => setDialogOpen(false)} className="btn btn-primary">Confirm</Button>
+                </div>
+            </DialogContent>
+    </Dialog>
+
     </div>
 );
 };
