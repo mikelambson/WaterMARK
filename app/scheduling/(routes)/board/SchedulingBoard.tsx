@@ -66,13 +66,14 @@ const handleOnDragEnd = (result: any) => {
     }
     
     console.log('Info:', [
-        { key: 'Sheet ID:', value: selectedSheet },
-        { key: 'Head:', value: destinationId },
-        { key: 'Previous Order:', value: previousOrder },
-        { key: 'Dragged Order ID:', value: draggableId },
-        { key: 'Dragged Order:', value: draggedOrder(draggableId)},
-        { key: 'Schedule Time:', value: scheduleTime },
-        { key: 'Subsequent Orders:', value: scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
+        {'Sheet ID:': selectedSheet.name },
+        {'Head:': destinationId },
+        {'Destination Index:': destinationIndex},
+        {'Previous Order:': previousOrder },
+        {'Dragged Order ID:': draggableId },
+        {'Dragged Order:': draggedOrder(draggableId)},
+        {'Schedule Time:': scheduleTime },
+        {'Subsequent Orders:': scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
     ]);
 
     destinationIndex === 0 
@@ -111,32 +112,32 @@ if (isLoading) {
 
 return (
     <div>
-    <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="id" direction="vertical" type="column">
-        {(provided) => (
-            <div
-            aria-label="unscheduled"
-            className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 px-2 mx-auto"
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            >
-            {/* Render Unscheduled and Scheduled Columns within the same set of tabs */}
-            <UnscheduledColumn
-                id="unscheduled"
-                columns={[
-                ...(board.columns?.get('unscheduled')?.orders || []),
-                ...(board.columns?.get('delayed')?.orders || []),
-                ]}
-                index={0}
-            />
-            <ScheduledColumn
-                id="scheduled"
-                index={1}
-            />
-            </div>
-        )}
-        </Droppable>
-    </DragDropContext>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="id" direction="vertical" type="column">
+            {(provided) => (
+                <div
+                aria-label="unscheduled"
+                className="w-full lg:max-w-full flex flex-col lg:grid grid-cols-1 lg:grid-cols-[2fr,3fr] gap-2 px-2 mx-auto"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                >
+                {/* Render Unscheduled and Scheduled Columns within the same set of tabs */}
+                <UnscheduledColumn
+                    id="unscheduled"
+                    columns={[
+                    ...(board.columns?.get('unscheduled')?.orders || []),
+                    ...(board.columns?.get('delayed')?.orders || []),
+                    ]}
+                    index={0}
+                />
+                <ScheduledColumn
+                    id="scheduled"
+                    index={1}
+                />
+                </div>
+            )}
+            </Droppable>
+        </DragDropContext>
     
         <Dialog 
             open={isDialogOpen} 
