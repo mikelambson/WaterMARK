@@ -1,6 +1,7 @@
 // Scheduling Board @\app\scheduling\_components\schedule-orders\SchedulingBoard.tsx
 "use client";
 import { useSchedulingStore } from "@/lib/store/schedulingStore";
+import { useScheduleUpdateStore } from "@/lib/store/scheduleUpdateStore"
 import { useState } from 'react'; 
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -16,7 +17,24 @@ import { TbRotateClockwise2 } from "react-icons/tb";
 
 
 const SchedulingBoard = () => {
-const { board, isLoading, selectedSheet, schedule, getSchedule, selectedHead} = useSchedulingStore();
+const { 
+    board, 
+    isLoading, 
+    selectedSheet, 
+    schedule, 
+    getSchedule, 
+    selectedHead
+} = useSchedulingStore();
+
+const { 
+    sheetId, 
+    headNumber, 
+    destinationId, 
+    destinationIndex, 
+    draggedOrder, 
+    previousOrder, 
+    scheduleTime 
+} = useScheduleUpdateStore();
 const [isDialogOpen, setDialogOpen] = useState(false);
 
 // console.log('Board:', board);
@@ -75,7 +93,7 @@ const handleOnDragEnd = (result: any) => {
         {'Schedule Time:': scheduleTime },
         {'Subsequent Orders:': scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
     ]);
-    
+
 
     destinationIndex === 0 
         ? setDialogOpen(true) : console.log('No dialog');

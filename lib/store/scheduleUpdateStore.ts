@@ -9,14 +9,14 @@ type ScheduleUpdateState = {
     draggedOrder: number;
     scheduleTime: string;
     subsequentOrders: any[];
-    data: any;
+    data: any[];
     updateData: (data: any) => void;
     resetData: () => void;
 };
 
 
 
-const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
+export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
     sheetId: 0,
     headNumber: 0,
     destinationId: 0,
@@ -25,10 +25,9 @@ const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
     draggedOrder: 0,
     scheduleTime: '',
     subsequentOrders: [],
-    data: null,
+    data: [],
     
     updateData: (data: ScheduleUpdateState) => set(data),
-    resetData: () => set({ data: null }),
+    resetData: () => set({ data: [] }),
 }));
 
-export default useScheduleUpdateStore;
