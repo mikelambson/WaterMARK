@@ -67,15 +67,20 @@ const handleOnDragEnd = (result: any) => {
     // Handle the logic for updating the order status to "running"
     if (Number(destinationId) === 1) {
     let scheduleTime;
+    
     // Your logic to update the order status to "running"
     const scheduledColumn = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
-    console.log('Scheduled Column Orders:', (scheduledColumn[destinationId - 1][destinationId].schedules).length);
+    console.log('Scheduled Column Orders:', (
+        scheduledColumn[destinationId - 1][destinationId].schedules).length);
     const previousOrder = scheduledColumn[destinationId - 1][destinationId].schedules[destinationIndex - 1];
+
     // Check if previousOrder exists
     if (!previousOrder) {
+    
         // If previousOrder does not exist, set scheduleTime to current time
         scheduleTime = new Date().toISOString();
     } else {
+    
         // If previousOrder exists, calculate new scheduleTime
         const scheduledDate = new Date(previousOrder.scheduledDate); // Convert scheduledDate to Date object
         const approxHrsMs = previousOrder.order.approxHrs * 3600000; // Convert approximate hours to milliseconds
@@ -105,6 +110,7 @@ const handleOnDragEnd = (result: any) => {
     // After updating the order status, trigger a re-fetch or re-render if needed
     // Example: refetchData();
     // ...
+    
     getSchedule(destinationId);
     }
 
