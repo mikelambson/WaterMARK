@@ -10,7 +10,7 @@ import UnscheduledColumn from "@/app/scheduling/_components/board/ColumnUnschedu
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
+import { Textarea } from "@/components/ui/textarea"
 
 
 const SchedulingBoard = () => {
@@ -73,8 +73,8 @@ const handleOnDragEnd = (result: any) => {
         { key: 'Subsequent Orders:', value: scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
     ]);
 
-   
-    setDialogOpen(true);
+    destinationIndex === 0 
+        ? setDialogOpen(true) : console.log('No dialog');
 
     // You can now update the order status using your API or store methods
     // Example: updateOrderStatus(orderId, newStatus);
@@ -146,6 +146,10 @@ return (
                     <DialogTitle>Travel Time</DialogTitle>
                     <DialogDescription className="p-3">
                         <Input placeholder={'0'}></Input>
+                    </DialogDescription>
+                    <DialogTitle>Instructions</DialogTitle>
+                    <DialogDescription className="p-3">
+                        <Textarea placeholder={'Enter Instructions'}></Textarea>
                     </DialogDescription>
                 </DialogHeader>
                 <DialogClose onClick={() => setDialogOpen(false)} />
