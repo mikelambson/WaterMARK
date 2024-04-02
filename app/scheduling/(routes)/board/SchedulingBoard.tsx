@@ -33,7 +33,19 @@ const {
     destinationIndex, 
     draggedOrder, 
     previousOrder, 
-    scheduleTime 
+    scheduleTime,
+    subsequentOrders,
+    setSheetId,
+    setHeadNumber,
+    setDestinationId,
+    setDestinationIndex,
+    setDraggedOrder,
+    setPreviousOrder,
+    setScheduleTime,
+    setSubsequentOrders,
+    data,
+    updateData,
+    resetData
 } = useScheduleUpdateStore();
 const [isDialogOpen, setDialogOpen] = useState(false);
 
@@ -45,7 +57,7 @@ const handleOnDragEnd = (result: any) => {
     // If the order is not dropped into a valid destination, do nothing
     if (!destination) return;
     
-    const { index: destinationIndex, droppableId: destinationId } = destination;
+    const { index: destinationIndex, droppableId: tempdestinationId } = destination;
     const { droppableId: sourceId, index: sourceIndex } = source;
 
     // Retrieve the order that was dragged
@@ -72,7 +84,7 @@ const handleOnDragEnd = (result: any) => {
     const scheduledColumn = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
     console.log('Scheduled Column Orders:', (
         scheduledColumn[destinationId - 1][destinationId].schedules).length);
-    const previousOrder = scheduledColumn[destinationId - 1][destinationId].schedules[destinationIndex - 1];
+    const previousOrder = scheduledColumn[tempdestinationId - 1][tempdestinationId].schedules[destinationIndex - 1];
 
     // Check if previousOrder exists
     if (!previousOrder) {
@@ -98,6 +110,38 @@ const handleOnDragEnd = (result: any) => {
         {'Schedule Time:': scheduleTime },
         {'Subsequent Orders:': scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
     ]);
+
+    setSheetId(selectedSheet.id);
+    setHeadNumber(Number(tempdestinationId));
+    setDestinationId(Number(tempdestinationId));
+    setDestinationIndex(destinationIndex);
+    setPreviousOrder(previousOrder);
+    setDraggedOrder(Number(draggableId));
+    setScheduleTime(scheduleTime);
+    setSubsequentOrders(scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex));
+    updateData({
+        sheetId: selectedSheet.id,
+        headNumber: Number(destinationId),
+        destinationId: Number(destinationId),
+        destinationIndex,
+        previousOrder,
+        draggedOrder: Number(draggableId),
+        scheduleTime,
+        subsequentOrders: scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex),
+        data: []
+    });
+
+    console.log('Data:', [
+    {'Sheet ID:': sheetId },
+    {'Head:': destinationId },
+    {'Destination Index:': destinationIndex},
+    {'Previous Order:': previousOrder },
+    {'Dragged Order ID:': draggableId },
+    {'Dragged Order:': draggedOrder(draggableId)},
+    {'Schedule Time:': scheduleTime },
+    {'Subsequent Orders:': scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
+    , headNumber, destinationId, destinationIndex, previousOrder, draggedOrder, scheduleTime, subsequentOrders, data]);
+
 
 
     destinationIndex === 0 
