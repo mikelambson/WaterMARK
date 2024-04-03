@@ -1,6 +1,6 @@
 "use client"
 import { cn } from '@/lib/utils';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Label, ReferenceLine, Legend } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Label, ReferenceLine, Legend, ComposedChart, Brush } from 'recharts';
 // import { Vega, VisualizationSpec } from 'react-vega';
 //npm rebuild canvas --update-binary for major version changes
 import { useTheme } from "next-themes";
@@ -161,8 +161,7 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
             <ResponsiveContainer width={"99%"} height={450}>
                 <LineChart 
                     className=' mx-auto'
-                    // width={width} 
-                    // height={500} 
+                    data={reData.a}
                     margin={{ top: 0, right: 40, bottom: 30, left: 20 }
                 }>
                      <Legend 
@@ -218,7 +217,11 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         </Label>
                     </YAxis>
                     <Tooltip content={<CustomTooltip />} />
-                    
+                    {/* <Brush dataKey="x" startIndex={2} height={30} stroke="#888000" 
+                        fill={isDarkMode ? "#555" : "#f5f5f5"} 
+                        tickFormatter={(value) => monthNames[value]}
+                        className='text-[10px]'
+                    /> */}
                     <Line 
                         data={reData.a} 
                         type="monotone" 
@@ -261,25 +264,28 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                         y={100} 
                         stroke={"gray"} 
                         strokeWidth={2}
-                        strokeDasharray={"9 9"}>
-                            <Label 
-                                position='insideLeft' 
-                                value='100% Capacity' 
-                                fontSize='12px' 
-                                fill='gray' 
-                                fontWeight='bold' 
-                                offset={10}
-                                dy={-10} />
-                            <Label 
-                                position='insideRight' 
-                                value='310,000 Acre Feet' 
-                                fontSize='12px' 
-                                fill='gray' 
-                                fontWeight='bold' 
-                                offset={10}
-                                dy={-10} />
-                        </ReferenceLine>
-                </LineChart>
+                        strokeDasharray={"9 9"}
+                        >
+                        <Label 
+                            position='insideLeft' 
+                            value='100% Capacity' 
+                            fontSize='12px' 
+                            fill='gray' 
+                            fontWeight='bold' 
+                            offset={10}
+                            dy={-10} />
+                        <Label 
+                            position='insideRight' 
+                            value='310,000 Acre Feet' 
+                            fontSize='12px' 
+                            fill='gray' 
+                            fontWeight='bold' 
+                            offset={10}
+                            dy={-10} />
+                    </ReferenceLine>
+                    
+                </LineChart> 
+                 
             </ResponsiveContainer>
         </div>
     );

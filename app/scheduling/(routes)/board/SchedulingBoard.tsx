@@ -57,7 +57,7 @@ const handleOnDragEnd = (result: any) => {
     // If the order is not dropped into a valid destination, do nothing
     if (!destination) return;
     
-    const { index: destinationIndex, droppableId: tempdestinationId } = destination;
+    const { index: destinationIndex, droppableId: destinationId } = destination;
     const { droppableId: sourceId, index: sourceIndex } = source;
 
     // Retrieve the order that was dragged
@@ -70,11 +70,11 @@ const handleOnDragEnd = (result: any) => {
     };
 
     // Log the details
-    // console.log('Destination ID (head):', destinationId - 1)
-    // console.log('Destination Index:',destinationIndex)
-    // console.log('Dragged Order ID:', draggableId);
-    // console.log('Selected Sheet:', selectedSheet);
-    // console.log('Selected Head:', selectedHead);
+    console.log('\n Destination ID (head):', destinationId)
+    console.log('\n Destination Index:',destinationIndex)
+    console.log('\n Dragged Order ID:', draggableId);
+    console.log('\n Selected Sheet:', selectedSheet);
+    console.log('\n Selected Head:', selectedHead);
 
     // Handle the logic for updating the order status to "running"
     if (Number(destinationId) === 1) {
@@ -84,7 +84,7 @@ const handleOnDragEnd = (result: any) => {
     const scheduledColumn = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
     console.log('Scheduled Column Orders:', (
         scheduledColumn[destinationId - 1][destinationId].schedules).length);
-    const previousOrder = scheduledColumn[tempdestinationId - 1][tempdestinationId].schedules[destinationIndex - 1];
+    const previousOrder = scheduledColumn[destinationId - 1][destinationId].schedules[destinationIndex - 1];
 
     // Check if previousOrder exists
     if (!previousOrder) {
@@ -98,6 +98,7 @@ const handleOnDragEnd = (result: any) => {
         const approxHrsMs = previousOrder.order.approxHrs * 3600000; // Convert approximate hours to milliseconds
         const newTimeMs = scheduledDate.getTime() + approxHrsMs; // Add milliseconds to scheduledDate
         scheduleTime = new Date(newTimeMs).toISOString(); // Convert new time to ISO string
+        const subsequentOrders = scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex);
     }
     
     console.log('Info:', [
@@ -112,8 +113,8 @@ const handleOnDragEnd = (result: any) => {
     ]);
 
     setSheetId(selectedSheet.id);
-    setHeadNumber(Number(tempdestinationId));
-    setDestinationId(Number(tempdestinationId));
+    setHeadNumber(Number(destinationId));
+    setDestinationId(Number(destinationId));
     setDestinationIndex(destinationIndex);
     setPreviousOrder(previousOrder);
     setDraggedOrder(Number(draggableId));
@@ -131,16 +132,17 @@ const handleOnDragEnd = (result: any) => {
         data: []
     });
 
-    console.log('Data:', [
-    {'Sheet ID:': sheetId },
-    {'Head:': destinationId },
-    {'Destination Index:': destinationIndex},
-    {'Previous Order:': previousOrder },
-    {'Dragged Order ID:': draggableId },
-    {'Dragged Order:': draggedOrder(draggableId)},
-    {'Schedule Time:': scheduleTime },
-    {'Subsequent Orders:': scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
-    , headNumber, destinationId, destinationIndex, previousOrder, draggedOrder, scheduleTime, subsequentOrders, data]);
+    console.log('\n Master Data:', {
+        'Sheet ID:': sheetId,
+        // Add other properties here
+    'Head:': destinationId,
+    'Destination Index:': destinationIndex,
+    'Previous Order:': previousOrder,
+    'Dragged Order ID:': draggableId,
+    'Dragged Order:': draggedOrder(draggableId),
+    'Schedule Time:': scheduleTime,
+    'Subsequent Orders:': subsequentOrders,}, '\n', [
+    headNumber, destinationId, destinationIndex, previousOrder, draggedOrder, scheduleTime, subsequentOrders, data]);
 
 
 
