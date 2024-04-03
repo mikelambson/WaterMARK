@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label";
 import { TbRotateClockwise2 } from "react-icons/tb";
+import { toast } from "@/components/ui/use-toast";
 
 
 const SchedulingBoard = () => {
@@ -27,16 +28,12 @@ const {
 } = useSchedulingStore();
 
 const { 
-    sheetId, 
-    headNumber, 
     destinationId, 
     destinationIndex, 
     draggedOrder, 
     previousOrder, 
     scheduleTime,
     subsequentOrders,
-    setSheetId,
-    setHeadNumber,
     setDestinationId,
     setDestinationIndex,
     setDraggedOrder,
@@ -54,11 +51,31 @@ const [isDialogOpen, setDialogOpen] = useState(false);
 const handleOnDragEnd = (result: any) => {
     const { destination, source, draggableId } = result;
     
-    // If the order is not dropped into a valid destination, do nothing
-    if (!destination) return;
+    // // If the order is not dropped into a valid destination, do nothing
+    // if (!destination) return;
     
     const { index: destinationIndex, droppableId: destinationId } = destination;
     const { droppableId: sourceId, index: sourceIndex } = source;
+
+
+    if (sourceId === '0' && destinationId === sourceId) {
+        toast({
+            variant: "destructive",
+            title: 'Invalid Destination',
+            description: 'Cannot move unscheduled orders to the same column',
+        });
+        return;
+        
+    };
+
+    if (sourceId === '1' && destinationId === '0') {
+        toast({
+            title: 'Unschedule The Order',
+            description: 'Removed the order from the scheduled column and unscheduled it',
+        });
+        return;
+        
+    }
 
     // Retrieve the order that was dragged
     const draggedOrder = (draggableId: string) => {
@@ -70,11 +87,11 @@ const handleOnDragEnd = (result: any) => {
     };
 
     // Log the details
-    console.log('\n Destination ID (head):', destinationId)
-    console.log('\n Destination Index:',destinationIndex)
-    console.log('\n Dragged Order ID:', draggableId);
-    console.log('\n Selected Sheet:', selectedSheet);
-    console.log('\n Selected Head:', selectedHead);
+    // console.log('\n Destination ID (head):', destinationId)
+    // console.log('\n Destination Index:',destinationIndex)
+    // console.log('\n Dragged Order ID:', draggableId);
+    // console.log('\n Selected Sheet:', selectedSheet);
+    // console.log('\n Selected Head:', selectedHead);
 
     // Handle the logic for updating the order status to "running"
     if (Number(destinationId) === 1) {
@@ -82,8 +99,8 @@ const handleOnDragEnd = (result: any) => {
     
     // Your logic to update the order status to "running"
     const scheduledColumn = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
-    console.log('Scheduled Column Orders:', (
-        scheduledColumn[destinationId - 1][destinationId].schedules).length);
+    // console.log('Scheduled Column Orders:', (
+    //     scheduledColumn[destinationId - 1][destinationId].schedules).length);
     const previousOrder = scheduledColumn[destinationId - 1][destinationId].schedules[destinationIndex - 1];
 
     // Check if previousOrder exists
@@ -98,56 +115,59 @@ const handleOnDragEnd = (result: any) => {
         const approxHrsMs = previousOrder.order.approxHrs * 3600000; // Convert approximate hours to milliseconds
         const newTimeMs = scheduledDate.getTime() + approxHrsMs; // Add milliseconds to scheduledDate
         scheduleTime = new Date(newTimeMs).toISOString(); // Convert new time to ISO string
-        const subsequentOrders = scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex);
+        const subsequentOrdersTemp = scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex);
     }
     
-    console.log('Info:', [
-        {'Sheet ID:': selectedSheet.name },
-        {'Head:': destinationId },
-        {'Destination Index:': destinationIndex},
-        {'Previous Order:': previousOrder },
-        {'Dragged Order ID:': draggableId },
-        {'Dragged Order:': draggedOrder(draggableId)},
-        {'Schedule Time:': scheduleTime },
-        {'Subsequent Orders:': scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
-    ]);
+    // console.log('Info: \n', [
+    //     {'Sheet ID:': selectedSheet.name },
+    //     {'Head:': destinationId },
+    //     {'Destination Index:': destinationIndex},
+    //     {'Previous Order:': previousOrder },
+    //     {'Dragged Order ID:': draggableId },
+    //     {'Dragged Order:': draggedOrder(draggableId)},
+    //     {'Schedule Time:': scheduleTime },
+    //     {'Subsequent Orders:': scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex) }
+    // ]);
 
-    setSheetId(selectedSheet.id);
-    setHeadNumber(Number(destinationId));
     setDestinationId(Number(destinationId));
     setDestinationIndex(destinationIndex);
     setPreviousOrder(previousOrder);
     setDraggedOrder(Number(draggableId));
     setScheduleTime(scheduleTime);
     setSubsequentOrders(scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex));
-    updateData({
-        sheetId: selectedSheet.id,
-        headNumber: Number(destinationId),
-        destinationId: Number(destinationId),
-        destinationIndex,
-        previousOrder,
-        draggedOrder: Number(draggableId),
-        scheduleTime,
-        subsequentOrders: scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex),
-        data: []
-    });
+    // updateData({
+    //     sheetId: selectedSheet.id,
+    //     headNumber: Number(destinationId),
+    //     destinationId: Number(destinationId),
+    //     destinationIndex,
+    //     previousOrder,
+    //     draggedOrder: Number(draggableId),
+    //     scheduleTime,
+    //     subsequentOrders: scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex),
+    //     data: []
+    // });
 
     console.log('\n Master Data:', {
-        'Sheet ID:': sheetId,
-        // Add other properties here
-    'Head:': destinationId,
+    'Sheet ID:': selectedSheet.id,
+    'Head:': selectedHead,
+    'Destination ID:': destinationId,
     'Destination Index:': destinationIndex,
     'Previous Order:': previousOrder,
     'Dragged Order ID:': draggableId,
     'Dragged Order:': draggedOrder(draggableId),
     'Schedule Time:': scheduleTime,
     'Subsequent Orders:': subsequentOrders,}, '\n', [
-    headNumber, destinationId, destinationIndex, previousOrder, draggedOrder, scheduleTime, subsequentOrders, data]);
+     draggedOrder, data
+    ]);
 
-
+    console.log({
+        "Destination" : destination, 
+        "Source" : source
+    });
+    
 
     destinationIndex === 0 
-        ? setDialogOpen(true) : console.log('No dialog');
+        ? setDialogOpen(true) : null;
 
     // You can now update the order status using your API or store methods
     // Example: updateOrderStatus(orderId, newStatus);

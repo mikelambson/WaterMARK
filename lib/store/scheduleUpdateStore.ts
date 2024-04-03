@@ -2,8 +2,6 @@ import { create } from 'zustand';
 import { Schedule } from '@/typings';
 
 type ScheduleUpdateState = {
-    sheetId: number;
-    headNumber: number;
     destinationId: number;
     destinationIndex: number;
     previousOrder: Schedule | null;
@@ -11,8 +9,6 @@ type ScheduleUpdateState = {
     scheduleTime: string;
     subsequentOrders: any[];
     data: any[];
-    setSheetId: (id: number) => void;
-    setHeadNumber: (headNumber: number) => void;
     setDestinationId: (id: number) => void;
     setDestinationIndex: (index: number) => void;
     setPreviousOrder: (order: Schedule) => void;
@@ -26,8 +22,6 @@ type ScheduleUpdateState = {
 
 
 export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
-    sheetId: 0,
-    headNumber: 0,
     destinationId: 0,
     destinationIndex: 0,
     previousOrder: null,
@@ -35,8 +29,6 @@ export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
     scheduleTime: '',
     subsequentOrders: [],
     data: [],
-    setSheetId: (id: number) => set({ sheetId: id }),
-    setHeadNumber: (headNumber: number) => set({ headNumber }),
     setDestinationId: (id: number) => set({ destinationId: id }),
     setDestinationIndex: (index: number) => set({ destinationIndex: index }),
     setPreviousOrder: (order: Schedule) => set({ previousOrder: order }),
