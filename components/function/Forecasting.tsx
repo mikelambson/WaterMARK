@@ -1,8 +1,20 @@
 "use client"
 import { cn } from '@/lib/utils';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Label, ReferenceLine, Legend, ComposedChart, Brush } from 'recharts';
-// import { Vega, VisualizationSpec } from 'react-vega';
-//npm rebuild canvas --update-binary for major version changes
+import { 
+    LineChart, 
+    Line, 
+    CartesianGrid, 
+    XAxis, 
+    YAxis, 
+    Tooltip, 
+    ResponsiveContainer, 
+    Label, 
+    ReferenceLine, 
+    Legend, 
+    ComposedChart, 
+    Brush 
+} from 'recharts';
+
 import { useTheme } from "next-themes";
 import { Button } from '@/components/ui/button';
 import { IoMdPrint } from 'react-icons/io';
