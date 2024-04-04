@@ -12,13 +12,22 @@ type AddOrderData = {
 
 // Define the structure for updating other orders based on insertion position
 type UpdateOrderData = {
-        orderId: number;
-        newScheduleTimestamp: string;
+    orderId: number;
+    newScheduleTimestamp: string;
 };
 
-type UpdateData = AddOrderData | UpdateOrderData[];
+type UpdateData = [AddOrderData, ...UpdateOrderData[]];
 
-const initialData: UpdateData[] = [];
+const initialData: UpdateData = [
+    {
+        orderId: 0,
+        headsheetId: 0,
+        head: 0,
+        scheduledTime: '',
+        travelTime: 0,
+    },
+    
+];
 
 interface ScheduleUpdateState {
         destinationId: number;
@@ -34,7 +43,7 @@ interface ScheduleUpdateState {
         setDraggedOrder: (order: number) => void;
         setScheduleTime: (time: string) => void;
         setSubsequentOrders: (orders: any[]) => void;
-        updateData: (newSchedule: string, duration: number, updateSchedules: UpdateOrderData[]) => void; // Updated type signature
+        updateData: (newSchedule: AddOrderData, duration: number, updateSchedules: UpdateOrderData[]) => void; // Updated type signature
         resetData: () => void;
 };
 
@@ -54,37 +63,28 @@ export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
         draggedOrder: 0,
         scheduleTime: '',
         subsequentOrders: [],
-        data: initialData,
+        data: [initialData],
         setDestinationId: (id: number) => set({ destinationId: id }),
         setDestinationIndex: (index: number) => set({ destinationIndex: index }),
         setPreviousOrder: (order: Schedule) => set({ previousOrder: order }),
         setDraggedOrder: (order: number) => set({ draggedOrder: order }),
         setScheduleTime: (time: string) => set({ scheduleTime: time }),
         setSubsequentOrders: (orders: any[]) => set({ subsequentOrders: orders }),
-        updateData: (newSchedule: string, duration: number, updateSchedules: UpdateOrderData[]) => { 
-                set((state) => {
-                    // Generate update data based on scheduling changes
-                    // const updates: (AddOrderData | UpdateOrderData)[] = generateUpdateData(state, newSchedule, duration, updateSchedules);
-        
-                    // Store the update data in the data[] array
-                    const updatedData: UpdateData[] = [...state.data];
-        
-                    // Check if the data array already contains an entry for the dragged order
-                    // const existingIndex = updatedData.findIndex((entry) => {
-                    //     return entry instanceof Array && entry[0].orderId === state.draggedOrder;
-                    // });
-        
-                    // // If an entry for the dragged order already exists, append the updates
-                    // if (existingIndex !== -1) {
-                    //     updatedData[existingIndex] = [...updatedData[existingIndex], ...updates.filter(entry => entry instanceof UpdateOrderData)];
-                    // } else {
-                    //     // Otherwise, add a new entry for the dragged order with the updates
-                    //     updatedData.push([...updates]);
-                    // }
-        
-                    // Return the updated state
-                    return { ...state, data: updatedData };
-                });
+        updateData: (newSchedule: AddOrderData, duration: number, updateSchedules: UpdateOrderData[]) => { 
+             // Calculate new schedule timestamp for each update schedule
+            const updatedSchedules: UpdateOrderData[] = updateSchedules.map((updateSchedule) => ({
+                orderId: updateSchedule.orderId,
+                newScheduleTimestamp: calculateNewScheduleTimestamp(updateSchedule.newScheduleTimestamp, duration)
+            }));
+
+            let data: UpdateData[] = [];
+            if (updatedSchedules.length > 0) {
+                data = [[newSchedule, ...updatedSchedules]];
+            } else {
+                data = [[newSchedule]];
+            }
+
+            set({ data });
             },
         resetData: () => set({ data: [] }),
 }));
