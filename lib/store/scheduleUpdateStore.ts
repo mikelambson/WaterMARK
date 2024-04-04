@@ -85,7 +85,7 @@ export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
             }
 
             set({ updateScheduleData });
-            console.log(updateScheduleData);
+            console.log("\nUpdated Schedule Data:\n",updateScheduleData);
             },
         resetData: () => set({ updateScheduleData: [initialData] }),
 }));

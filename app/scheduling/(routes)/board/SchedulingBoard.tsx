@@ -167,39 +167,38 @@ const handleOnDragEnd = (result: any) => {
         "Destination" : destination, 
         "Source" : source
     });
-    type UpdateOrderData = {
-        orderId: string;
-        newScheduleTimestamp: string;
-    };
-
-updateData(
-    {
-        orderId: draggableId,
-        headsheetId: selectedSheet.id,
-        head: Number(selectedHead),
-        scheduledTime: new Date(scheduleTime).toISOString(),
-        travelTime: 0,
-    },
-    0,
-    subsequentOrders.map((order: { order: { id: string; scheduleDate: string } }) => ({
-        orderId: order.order.id,
-        newScheduleTimestamp: new Date(scheduleTime).toISOString()
-    })) as UpdateOrderData[],
-);
-
-destinationIndex === 0 
-    ? setDialogOpen(true) : null;
-
-    // You can now update the order status using your API or store methods
-    // Example: updateOrderStatus(orderId, newStatus);
-    // ...
-
-    // After updating the order status, trigger a re-fetch or re-render if needed
-    // Example: refetchData();
-    // ...
     
-    getSchedule(destinationId);
-    }
+    
+    updateData(
+        {
+            orderId: draggableId,
+            headsheetId: selectedSheet.id,
+            head: Number(selectedHead),
+            scheduledTime: new Date(scheduleTime).toISOString(),
+            travelTime: 0,
+        },
+        0,
+        [
+        ...subsequentOrders.map((order: { order: { id: string; scheduleDate: string } }) => ({
+            orderId: order.order.id,
+            newScheduleTimestamp: new Date(scheduleTime).toISOString()
+        }))
+        ]
+    );
+
+    destinationIndex === 0 
+        ? setDialogOpen(true) : null;
+
+        // You can now update the order status using your API or store methods
+        // Example: updateOrderStatus(orderId, newStatus);
+        // ...
+
+        // After updating the order status, trigger a re-fetch or re-render if needed
+        // Example: refetchData();
+        // ...
+        
+        getSchedule(destinationId);
+        }
 
     // Handle other drag and drop logic as needed
     // ...
