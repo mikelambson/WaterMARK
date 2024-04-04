@@ -105,7 +105,7 @@ const handleOnDragEnd = (result: any) => {
 
     // Check if previousOrder exists
     if (!previousOrder) {
-    
+        
         // If previousOrder does not exist, set scheduleTime to current time
         scheduleTime = new Date().toISOString();
     } else {
@@ -115,7 +115,7 @@ const handleOnDragEnd = (result: any) => {
         const approxHrsMs = previousOrder.order.approxHrs * 3600000; // Convert approximate hours to milliseconds
         const newTimeMs = scheduledDate.getTime() + approxHrsMs; // Add milliseconds to scheduledDate
         scheduleTime = new Date(newTimeMs).toISOString(); // Convert new time to ISO string
-        const subsequentOrdersTemp = scheduledColumn[destinationId - 1][destinationId].schedules.slice(destinationIndex);
+       
     }
     
     // console.log('Info: \n', [
@@ -156,9 +156,11 @@ const handleOnDragEnd = (result: any) => {
     'Dragged Order ID:': draggableId,
     'Dragged Order:': draggedOrder(draggableId),
     'Schedule Time:': scheduleTime,
-    'Subsequent Orders:': subsequentOrders,}, '\n', [
-     draggedOrder, data
-    ]);
+    'Subsequent Orders:': subsequentOrders,}, 
+    '\n More...', 
+    {
+        'Data Block' : data
+    });
 
     console.log({
         "Destination" : destination, 
