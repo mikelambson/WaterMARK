@@ -166,7 +166,16 @@ const handleOnDragEnd = (result: any) => {
         "Destination" : destination, 
         "Source" : source
     });
-    
+   updateData(
+    {
+        orderId: 0,
+        headsheetId: 0,
+        head: 0,
+        scheduledTime: '',
+        travelTime: 0,
+    }
+    //newSchedule: AddOrderData, duration: number, updateSchedules: UpdateOrderData[]
+    )
 
     destinationIndex === 0 
         ? setDialogOpen(true) : null;

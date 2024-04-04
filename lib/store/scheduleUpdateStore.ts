@@ -43,7 +43,7 @@ interface ScheduleUpdateState {
         setDraggedOrder: (order: number) => void;
         setScheduleTime: (time: string) => void;
         setSubsequentOrders: (orders: any[]) => void;
-        updateData: (newSchedule: AddOrderData, duration: number, updateSchedules: UpdateOrderData[]) => void; // Updated type signature
+        updateData: (newSchedule: AddOrderData, duration?: number, updateSchedules?: UpdateOrderData[]) => void; // Updated type signature
         resetData: () => void;
 };
 
@@ -70,12 +70,12 @@ export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
         setDraggedOrder: (order: number) => set({ draggedOrder: order }),
         setScheduleTime: (time: string) => set({ scheduleTime: time }),
         setSubsequentOrders: (orders: any[]) => set({ subsequentOrders: orders }),
-        updateData: (newSchedule: AddOrderData, duration: number, updateSchedules: UpdateOrderData[]) => { 
+        updateData: (newSchedule: AddOrderData, duration?: number, updateSchedules?: UpdateOrderData[]) => { 
              // Calculate new schedule timestamp for each update schedule
-            const updatedSchedules: UpdateOrderData[] = updateSchedules.map((updateSchedule) => ({
+            const updatedSchedules: UpdateOrderData[] = updateSchedules ? updateSchedules.map((updateSchedule) => ({
                 orderId: updateSchedule.orderId,
-                newScheduleTimestamp: calculateNewScheduleTimestamp(updateSchedule.newScheduleTimestamp, duration)
-            }));
+                newScheduleTimestamp: calculateNewScheduleTimestamp(updateSchedule.newScheduleTimestamp, duration? duration : 0)
+            })) : [];
 
             let data: UpdateData[] = [];
             if (updatedSchedules.length > 0) {
@@ -85,6 +85,7 @@ export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
             }
 
             set({ data });
+            console.log(data);
             },
         resetData: () => set({ data: [] }),
 }));
