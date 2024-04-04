@@ -21,7 +21,10 @@ import { IoMdPrint } from 'react-icons/io';
 
 const error = console.error; // Remove after fixing defaultProps warning
 console.error = (...args: any) => {
-  if (/defaultProps/.test(args[0])) return;
+    if (/defaultProps/.test(args[0])) {
+        console.warn('Warning:', args[0]);
+        return
+    };
   error(...args);
 };
 
