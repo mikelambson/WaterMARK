@@ -168,10 +168,10 @@ const handleOnDragEnd = (result: any) => {
     });
    updateData(
     {
-        orderId: 0,
-        headsheetId: 0,
-        head: 0,
-        scheduledTime: '',
+        orderId: draggableId,
+        headsheetId: selectedSheet.id,
+        head: Number(selectedHead),
+        scheduledTime: scheduleTime,
         travelTime: 0,
     }
     //newSchedule: AddOrderData, duration: number, updateSchedules: UpdateOrderData[]
