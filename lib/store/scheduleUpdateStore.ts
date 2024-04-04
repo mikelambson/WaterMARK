@@ -12,7 +12,7 @@ type AddOrderData = {
 
 // Define the structure for updating other orders based on insertion position
 type UpdateOrderData = {
-    orderId: number;
+    orderId: string;
     newScheduleTimestamp: string;
 };
 
@@ -36,7 +36,7 @@ interface ScheduleUpdateState {
         draggedOrder: number;
         scheduleTime: string;
         subsequentOrders: any[];
-        data: UpdateData[];
+        updateScheduleData: UpdateData[];
         setDestinationId: (id: number) => void;
         setDestinationIndex: (index: number) => void;
         setPreviousOrder: (order: Schedule) => void;
@@ -63,7 +63,7 @@ export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
         draggedOrder: 0,
         scheduleTime: '',
         subsequentOrders: [],
-        data: [initialData],
+        updateScheduleData: [initialData],
         setDestinationId: (id: number) => set({ destinationId: id }),
         setDestinationIndex: (index: number) => set({ destinationIndex: index }),
         setPreviousOrder: (order: Schedule) => set({ previousOrder: order }),
@@ -77,16 +77,16 @@ export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
                 newScheduleTimestamp: calculateNewScheduleTimestamp(updateSchedule.newScheduleTimestamp, duration? duration : 0)
             })) : [];
 
-            let data: UpdateData[] = [];
+            let updateScheduleData: UpdateData[] = [];
             if (updatedSchedules.length > 0) {
-                data = [[newSchedule, ...updatedSchedules]];
+                updateScheduleData = [[newSchedule, ...updatedSchedules]];
             } else {
-                data = [[newSchedule]];
+                updateScheduleData= [[newSchedule]];
             }
 
-            set({ data });
-            console.log(data);
+            set({ updateScheduleData });
+            console.log(updateScheduleData);
             },
-        resetData: () => set({ data: [] }),
+        resetData: () => set({ updateScheduleData: [initialData] }),
 }));
 

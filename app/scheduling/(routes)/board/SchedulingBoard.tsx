@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label";
 import { TbRotateClockwise2 } from "react-icons/tb";
 import { toast } from "@/components/ui/use-toast";
+import { Dumbbell } from "lucide-react";
 
 
 const SchedulingBoard = () => {
@@ -40,7 +41,7 @@ const {
     setPreviousOrder,
     setScheduleTime,
     setSubsequentOrders,
-    data,
+    updateScheduleData,
     updateData,
     resetData
 } = useScheduleUpdateStore();
@@ -95,7 +96,7 @@ const handleOnDragEnd = (result: any) => {
 
     // Handle the logic for updating the order status to "running"
     if (Number(destinationId) === 1) {
-    let scheduleTime;
+    let scheduleTime: any;
     
     // Your logic to update the order status to "running"
     const scheduledColumn = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
@@ -159,26 +160,35 @@ const handleOnDragEnd = (result: any) => {
     'Subsequent Orders:': subsequentOrders,}, 
     '\n More...', 
     {
-        'Data Block' : data
+        'Data Block' : updateScheduleData
     });
 
     console.log({
         "Destination" : destination, 
         "Source" : source
     });
-   updateData(
+    type UpdateOrderData = {
+        orderId: string;
+        newScheduleTimestamp: string;
+    };
+
+updateData(
     {
         orderId: draggableId,
         headsheetId: selectedSheet.id,
         head: Number(selectedHead),
-        scheduledTime: scheduleTime,
+        scheduledTime: new Date(scheduleTime).toISOString(),
         travelTime: 0,
-    }
-    //newSchedule: AddOrderData, duration: number, updateSchedules: UpdateOrderData[]
-    )
+    },
+    0,
+    subsequentOrders.map((order: { order: { id: string; scheduleDate: string } }) => ({
+        orderId: order.order.id,
+        newScheduleTimestamp: new Date(scheduleTime).toISOString()
+    })) as UpdateOrderData[],
+);
 
-    destinationIndex === 0 
-        ? setDialogOpen(true) : null;
+destinationIndex === 0 
+    ? setDialogOpen(true) : null;
 
     // You can now update the order status using your API or store methods
     // Example: updateOrderStatus(orderId, newStatus);
