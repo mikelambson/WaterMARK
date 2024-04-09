@@ -51,10 +51,11 @@ interface ScheduleUpdateState {
 
   
   // Function to calculate new schedule timestamp based on current timestamp and order duration
-  const calculateNewScheduleTimestamp = (currentTimestamp: string, duration: number): string => {
-    // Logic to calculate new schedule timestamp based on current timestamp and order duration
-    return ''; // Replace with actual logic
-  };
+const calculateNewScheduleTimestamp = (currentTimestamp: string, duration: number): string => {
+    const convertedDate = new Date(currentTimestamp);
+    convertedDate.setHours(convertedDate.getHours() + duration);
+    return convertedDate.toISOString();
+};
 
 export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
         destinationId: 0,
@@ -70,23 +71,41 @@ export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
         setDraggedOrder: (order: number) => set({ draggedOrder: order }),
         setScheduleTime: (time: string) => set({ scheduleTime: time }),
         setSubsequentOrders: (orders: any[]) => set({ subsequentOrders: orders }),
-        updateData: (newSchedule: AddOrderData, duration?: number, updateSchedules?: UpdateOrderData[]) => { 
-             // Calculate new schedule timestamp for each update schedule
+        
+        updateData: async (newSchedule: AddOrderData, duration?: number, updateSchedules?: UpdateOrderData[]) => {
+
+            // Calculate new schedule timestamp for each update schedule
             const updatedSchedules: UpdateOrderData[] = updateSchedules ? updateSchedules.map((updateSchedule) => ({
                 orderId: updateSchedule.orderId,
-                newScheduleTimestamp: calculateNewScheduleTimestamp(updateSchedule.newScheduleTimestamp, duration? duration : 0)
+                newScheduleTimestamp: calculateNewScheduleTimestamp(updateSchedule.newScheduleTimestamp, duration ? duration : 0)
             })) : [];
 
             let updateScheduleData: UpdateData[] = [];
             if (updatedSchedules.length > 0) {
                 updateScheduleData = [[newSchedule, ...updatedSchedules]];
             } else {
-                updateScheduleData= [[newSchedule]];
+                updateScheduleData = [[newSchedule]];
             }
+        
+            // Perform any asynchronous operations here
+            // For example, await an API call or database operation
+            // await someAsyncFunction();
+        
+            // Set the updated data using set function
+            await set({ updateScheduleData });
+        
+            console.log("\nFrom Store\nUpdated Schedule Data:\n", updateScheduleData);
+        },
 
-            set({ updateScheduleData });
-            console.log("\nUpdated Schedule Data:\n",updateScheduleData);
-            },
-        resetData: () => set({ updateScheduleData: [initialData] }),
+        resetData: () => set({ 
+            destinationId: 0,
+            destinationIndex: 0,
+            previousOrder: null,
+            draggedOrder: 0,
+            scheduleTime: '',
+            subsequentOrders: [],
+            updateScheduleData: [initialData] 
+        }),
+        
 }));
 
