@@ -35,7 +35,7 @@ interface ScheduleUpdateState {
         previousOrder: Schedule | null;
         draggedOrder: number;
         scheduleTime: string;
-        subsequentOrders: any[];
+        subsequentOrders: Schedule[];
         updateScheduleData: UpdateData[];
         setDestinationId: (id: number) => void;
         setDestinationIndex: (index: number) => void;

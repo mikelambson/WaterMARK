@@ -16,7 +16,6 @@ import { Label } from "@/components/ui/label";
 import { TbRotateClockwise2 } from "react-icons/tb";
 import { toast } from "@/components/ui/use-toast";
 import { Dumbbell } from "lucide-react";
-import { Schedule } from "@/typings";
 
 
 const SchedulingBoard = () => {
@@ -109,8 +108,6 @@ const handleOnDragEnd =  async (result: any) => {
     const headID = Number(selectedHead) - 1;
     const previousOrder = scheduledColumn[headID][Number(selectedHead)].schedules[destinationColumnIndex - 1];
     previousOrder ? console.log('\nPrevious Order:', previousOrder) : console.log('\nPrevious Order:', 'No Previous Order');
-    const subsequentOrders = scheduledColumn[headID][destinationId].schedules.slice(destinationColumnIndex);
-    console.log('\nSubsequent Orders:', subsequentOrders);
         
     setTimeout(() => {
         console.log('Dragged Schedule Time:', draggedScheduleTime);
@@ -119,7 +116,8 @@ const handleOnDragEnd =  async (result: any) => {
         setDestinationIndex(destinationColumnIndex);
         setPreviousOrder(previousOrder);
         setDraggedOrder(Number(draggableOrderId));
-        setSubsequentOrders(scheduledColumn[headID][destinationId].schedules.slice(destinationColumnIndex));
+        setSubsequentOrders(scheduledColumn[headID][destinationColumnIndex].schedules.slice(destinationColumnIndex));
+        console.log('Subsequent Orders:', subsequentOrders);
         updateData(
             {
                 orderId: draggableOrderId,
@@ -128,12 +126,12 @@ const handleOnDragEnd =  async (result: any) => {
                 scheduledTime: draggedScheduleTime,
                 travelTime: 0,
             },
-            draggedOrder?.approxHrs ?? 0,
+            draggedOrder?.approxHrs || 0,
             [
-                ...subsequentOrders.map((order: Schedule) => ({
-                    orderId: order.order.id,
-                    newScheduleTimestamp: draggedScheduleTime,
-                }))
+            ...subsequentOrders.map((order) => ({
+                orderId: order.orderId,
+                newScheduleTimestamp: order.scheduledDate,
+            }))
             ]
         );
         console.log('updateData:', updateScheduleData);
