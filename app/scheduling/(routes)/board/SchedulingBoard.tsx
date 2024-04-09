@@ -15,7 +15,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label";
 import { TbRotateClockwise2 } from "react-icons/tb";
 import { toast } from "@/components/ui/use-toast";
-import { Dumbbell } from "lucide-react";
 
 
 const SchedulingBoard = () => {
@@ -47,11 +46,6 @@ const {
 } = useScheduleUpdateStore();
 const [isDialogOpen, setDialogOpen] = useState(false);
 
-// useEffect(() => {
-//     console.log('\nUse Effect Schedule:', updateScheduleData);
-
-// }, [updateScheduleData]);
-
 const handleOnDragEnd =  async (result: any) => {
     let draggedScheduleTime: any;
     
@@ -75,18 +69,15 @@ const handleOnDragEnd =  async (result: any) => {
         }
         const scheduledDate = new Date(previousOrder.scheduledDate);
         const approxHrsMs = previousOrder.order.approxHrs * 3600000;
-        console.log('\nApprox Hrs:', approxHrsMs, '\nScheduled Date:', scheduledDate.getTime());
         const newTimeMs = scheduledDate.getTime() + approxHrsMs;
         const newISOTime = new Date(newTimeMs).toISOString();
-        console.log('\nNew Time:', newISOTime);
         return newISOTime;   
     };
     draggedScheduleTime = calculateNewScheduleTime(previousOrder);
 
 
     const draggedOrder = Array.from(board.columns?.values() || []).flatMap(column => column.orders).find(order => order.id === draggableOrderId);
-    console.log(draggedOrder);
-    
+    // console.log(draggedOrder);
 
     if (sourceId === '0' && destinationColumnId === sourceId) {
         toast({
@@ -103,21 +94,27 @@ const handleOnDragEnd =  async (result: any) => {
         return;    
     }
     if (destinationColumnId === "1") {
-    
-    const scheduledColumn = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
-    const headID = Number(selectedHead) - 1;
-    const previousOrder = scheduledColumn[headID][Number(selectedHead)].schedules[destinationColumnIndex - 1];
-    previousOrder ? console.log('\nPrevious Order:', previousOrder) : console.log('\nPrevious Order:', 'No Previous Order');
+        const scheduledColumn = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
+        const headID = Number(selectedHead) - 1;
+        const previousOrder = scheduledColumn[headID][Number(selectedHead)].schedules[destinationColumnIndex - 1];
+        const isolatedScheduledColumn = scheduledColumn[headID][Number(selectedHead)].schedules;
+        const draggedSubsequentOrders = isolatedScheduledColumn.slice(destinationColumnIndex);
+            
         
-    setTimeout(() => {
+            
+        console.log('Post Dragged Data:', {
+            'Array': isolatedScheduledColumn,
+            'Subsequent Orders:': draggedSubsequentOrders,
+            'Destination Column': destinationColumnId,
+            'Destination Index': destinationColumnIndex,
+        });
         console.log('Dragged Schedule Time:', draggedScheduleTime);
         setScheduleTime(draggedScheduleTime);
         setDestinationId(Number(destinationColumnId));
         setDestinationIndex(destinationColumnIndex);
         setPreviousOrder(previousOrder);
         setDraggedOrder(Number(draggableOrderId));
-        setSubsequentOrders(scheduledColumn[headID][destinationColumnIndex].schedules.slice(destinationColumnIndex));
-        console.log('Subsequent Orders:', subsequentOrders);
+        setSubsequentOrders(isolatedScheduledColumn.slice(destinationColumnIndex));
         updateData(
             {
                 orderId: draggableOrderId,
@@ -134,13 +131,19 @@ const handleOnDragEnd =  async (result: any) => {
             }))
             ]
         );
-        console.log('updateData:', updateScheduleData);
-    }, 100);
+        setTimeout(() => {
+            console.log('updateData:', updateScheduleData);
+        }, 2000);
+        
+
+        getSchedule(Number(selectedHead));
+
     
+    // Handle other drag and drop logic as needed
+    // ...
+};
 
-    getSchedule(Number(selectedHead));
-
-    destinationColumnIndex === 0 
+destinationColumnIndex === 0 
         ? setDialogOpen(true) : null;
 
         // You can now update the order status using your API or store methods
@@ -153,11 +156,6 @@ const handleOnDragEnd =  async (result: any) => {
         
         getSchedule(Number(selectedHead));
         }
-
-    // Handle other drag and drop logic as needed
-    // ...
-};
-
 
 
 if (isLoading) {

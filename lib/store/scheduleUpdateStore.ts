@@ -92,9 +92,10 @@ export const useScheduleUpdateStore = create<ScheduleUpdateState>((set) => ({
             // await someAsyncFunction();
         
             // Set the updated data using set function
-            await set({ updateScheduleData });
-        
+            set({ updateScheduleData });
+            setTimeout(() => {
             console.log("\nFrom Store\nUpdated Schedule Data:\n", updateScheduleData);
+            }, 15);
         },
 
         resetData: () => set({ 
