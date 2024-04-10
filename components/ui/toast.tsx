@@ -30,7 +30,8 @@ const toastVariants = cva(
         default: "border bg-background text-foreground",
         destructive:
           "destructive group border-destructive bg-destructive text-destructive-foreground",
-        standard: "border border-muted-foreground bg-muted text-accent-foreground"
+        standard: "border border-muted-foreground bg-muted text-accent-foreground",
+        top_right: "border bg-background text-foreground top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4 data-[state=open]:sm:slide-in-from-top-full data-[state=open]:slide-in-from-top-full data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=closed]:sm:slide-out-to-right-full",
       },
     },
     defaultVariants: {

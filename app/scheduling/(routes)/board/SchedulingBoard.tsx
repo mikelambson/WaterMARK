@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label";
 import { TbRotateClockwise2 } from "react-icons/tb";
 import { toast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 
 
 const SchedulingBoard = () => {
@@ -108,6 +109,7 @@ const handleOnDragEnd =  async (result: any) => {
             'Destination Column': destinationColumnId,
             'Destination Index': destinationColumnIndex,
         });
+
         console.log('Dragged Schedule Time:', draggedScheduleTime);
         setScheduleTime(draggedScheduleTime);
         setDestinationId(Number(destinationColumnId));
@@ -135,9 +137,13 @@ const handleOnDragEnd =  async (result: any) => {
             console.log('updateData:', updateScheduleData);
         }, 2000);
         
-
         getSchedule(Number(selectedHead));
 
+        toast({
+            variant: "top_right",
+            title: 'Order Scheduled',
+            description: `Order ${draggedOrder?.orderNumber} has been successfully scheduled to ${selectedSheet.name} Head ${selectedHead} at ${new Date(draggedScheduleTime).toLocaleString()}.`,
+        });
     
     // Handle other drag and drop logic as needed
     // ...
