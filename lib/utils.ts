@@ -13,4 +13,12 @@ export const formatPhoneNumber = (phoneNumber: any) => {
   const secondPart = phoneNumber.slice(6);
   
   return `(${areaCode}) ${firstPart}-${secondPart}`;
-  };
+};
+
+export const calculateNewScheduleTimestamp = (currentTimestamp: string, duration: number): string => {
+  const convertedDate = new Date(currentTimestamp);
+  convertedDate.setHours(convertedDate.getHours() + duration);
+  return convertedDate.toISOString();
+};
+
+

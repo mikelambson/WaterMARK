@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label";
 import { TbRotateClockwise2 } from "react-icons/tb";
 import { toast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils";
+import { calculateNewScheduleTimestamp, cn } from "@/lib/utils";
 
 
 const SchedulingBoard = () => {
@@ -94,30 +94,14 @@ const handleOnDragEnd =  async (result: any) => {
         });
         return;    
     }
-    if (destinationColumnId === "1") {
+    if (sourceId === '0' && destinationColumnId === "1") {
         const scheduledColumn = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
         const headID = Number(selectedHead) - 1;
         const previousOrder = scheduledColumn[headID][Number(selectedHead)].schedules[destinationColumnIndex - 1];
         const isolatedScheduledColumn = scheduledColumn[headID][Number(selectedHead)].schedules;
         const draggedSubsequentOrders = isolatedScheduledColumn.slice(destinationColumnIndex);
-            
         
-            
-        console.log('Post Dragged Data:', {
-            'Array': isolatedScheduledColumn,
-            'Subsequent Orders:': draggedSubsequentOrders,
-            'Destination Column': destinationColumnId,
-            'Destination Index': destinationColumnIndex,
-        });
-
-        console.log('Dragged Schedule Time:', draggedScheduleTime);
-        setScheduleTime(draggedScheduleTime);
-        setDestinationId(Number(destinationColumnId));
-        setDestinationIndex(destinationColumnIndex);
-        setPreviousOrder(previousOrder);
-        setDraggedOrder(Number(draggableOrderId));
-        setSubsequentOrders(isolatedScheduledColumn.slice(destinationColumnIndex));
-        updateData(
+        const updateList = [
             {
                 orderId: draggableOrderId,
                 headsheetId: selectedSheet.id,
@@ -125,17 +109,43 @@ const handleOnDragEnd =  async (result: any) => {
                 scheduledTime: draggedScheduleTime,
                 travelTime: 0,
             },
-            draggedOrder?.approxHrs || 0,
-            [
-            ...subsequentOrders.map((order) => ({
+            {"Durration": draggedOrder?.approxHrs || 0},
+            
+            ...draggedSubsequentOrders.map((order) => ({
                 orderId: order.orderId,
-                newScheduleTimestamp: order.scheduledDate,
+                newScheduleTimestamp: calculateNewScheduleTimestamp(order.scheduledDate, draggedOrder?.approxHrs || 0),
             }))
-            ]
-        );
-        setTimeout(() => {
-            console.log('updateData:', updateScheduleData);
-        }, 2000);
+            
+
+        ];
+        
+            
+        console.log('Dragged\n\nUpdate Data:', updateList);
+
+        console.log('Dragged Schedule Time:', draggedScheduleTime);
+        // setScheduleTime(draggedScheduleTime);
+        // setDestinationId(Number(destinationColumnId));
+        // setDestinationIndex(destinationColumnIndex);
+        // setPreviousOrder(previousOrder);
+        // setDraggedOrder(Number(draggableOrderId));
+        // setSubsequentOrders(isolatedScheduledColumn.slice(destinationColumnIndex));
+        // updateData(
+        //     {
+        //         orderId: draggableOrderId,
+        //         headsheetId: selectedSheet.id,
+        //         head: Number(selectedHead),
+        //         scheduledTime: draggedScheduleTime,
+        //         travelTime: 0,
+        //     },
+        //     draggedOrder?.approxHrs || 0,
+        //     [
+        //     ...subsequentOrders.map((order) => ({
+        //         orderId: order.orderId,
+        //         newScheduleTimestamp: order.scheduledDate,
+        //     }))
+        //     ]
+        // );
+        
         
         getSchedule(Number(selectedHead));
 
