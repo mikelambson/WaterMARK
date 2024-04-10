@@ -108,11 +108,11 @@ const handleOnDragEnd =  async (result: any) => {
         draggedScheduleTime = calculateNewScheduleTime(previousOrder);
         console.log('Dragged Schedule Time:', draggedScheduleTime);
        
-        
+        const lineId = Number(selectedSheet.id);
         const updateList = [
             {
                 orderId: draggableOrderId,
-                scheduledLine: selectedSheet.id,
+                scheduledLineId: lineId,
                 scheduledHead: Number(selectedHead),
                 scheduledDate: draggedScheduleTime,
                 order: {
@@ -130,23 +130,18 @@ const handleOnDragEnd =  async (result: any) => {
         console.log('Dragged\n\nUpdate Data:', updateList);
 
         
-        updateList.forEach((scheduleData) => {
+        for (const scheduleData of updateList) {
             const { orderId, ...requestData } = scheduleData;
             console.log('Request Data:', requestData);
-            apiFetch.updateData(`schedule/${orderId}`, requestData)
-                .then((result) => {
-                    if (result.success) {
-                        console.log(`Schedule ${orderId} successfully updated:`, result.data);
-                    } else {
-                        console.error(`Error updating schedule ${orderId}:`, result.error);
-                    }
-                })
-                .catch((error) => {
-                    console.error(`Error updating schedule ${orderId}:`, error);
-                });
-        });
-        
-        
+            try {
+                const response = await apiFetch.updateData(`schedule/${orderId}`, requestData);
+                console.log('Response:', response);
+            } catch (error) {
+                console.error('Error Updating Schedule:', error);
+            }
+        }
+
+
         getSchedule(Number(selectedHead));
 
         // toast({
