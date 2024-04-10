@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { TbRotateClockwise2 } from "react-icons/tb";
 import { toast } from "@/components/ui/use-toast";
 import { calculateNewScheduleTimestamp, cn } from "@/lib/utils";
+import ApiFetch from "@/lib/apiFetch";
 
 
 const SchedulingBoard = () => {
@@ -28,30 +29,31 @@ const {
     selectedHead
 } = useSchedulingStore();
 
-const { 
-    destinationId, 
-    destinationIndex, 
-    draggedOrder, 
-    previousOrder, 
-    scheduleTime,
-    subsequentOrders,
-    setDestinationId,
-    setDestinationIndex,
-    setDraggedOrder,
-    setPreviousOrder,
-    setScheduleTime,
-    setSubsequentOrders,
-    updateScheduleData,
-    updateData,
-    resetData
-} = useScheduleUpdateStore();
+// const { 
+//     destinationId, 
+//     destinationIndex, 
+//     draggedOrder, 
+//     previousOrder, 
+//     scheduleTime,
+//     subsequentOrders,
+//     setDestinationId,
+//     setDestinationIndex,
+//     setDraggedOrder,
+//     setPreviousOrder,
+//     setScheduleTime,
+//     setSubsequentOrders,
+//     updateScheduleData,
+//     updateData,
+//     resetData
+// } = useScheduleUpdateStore();
 const [isDialogOpen, setDialogOpen] = useState(false);
+
+const apiFetch = new ApiFetch();
+
 
 const handleOnDragEnd =  async (result: any) => {
     let draggedScheduleTime: any;
-    
-    resetData(); 
-    
+     
     // Destructure the result object to get the source and destination
     const { 
         destination: draggedDestination, 
@@ -64,17 +66,8 @@ const handleOnDragEnd =  async (result: any) => {
     } = draggedDestination;
     const { droppableId: sourceId } = source;
     // Check if previousOrder exists
-    const calculateNewScheduleTime = (previousOrder: any) => {
-        if (!previousOrder) {
-            return new Date().toISOString();
-        }
-        const scheduledDate = new Date(previousOrder.scheduledDate);
-        const approxHrsMs = previousOrder.order.approxHrs * 3600000;
-        const newTimeMs = scheduledDate.getTime() + approxHrsMs;
-        const newISOTime = new Date(newTimeMs).toISOString();
-        return newISOTime;   
-    };
-    draggedScheduleTime = calculateNewScheduleTime(previousOrder);
+   
+    
 
 
     const draggedOrder = Array.from(board.columns?.values() || []).flatMap(column => column.orders).find(order => order.id === draggableOrderId);
@@ -100,60 +93,67 @@ const handleOnDragEnd =  async (result: any) => {
         const previousOrder = scheduledColumn[headID][Number(selectedHead)].schedules[destinationColumnIndex - 1];
         const isolatedScheduledColumn = scheduledColumn[headID][Number(selectedHead)].schedules;
         const draggedSubsequentOrders = isolatedScheduledColumn.slice(destinationColumnIndex);
+
+        const calculateNewScheduleTime = (previousOrder: any) => {
+            if (!previousOrder) {
+                return new Date().toISOString();
+            }
+            const scheduledDate = new Date(previousOrder.scheduledDate);
+            const approxHrsMs = previousOrder.order.approxHrs * 3600000;
+            const newTimeMs = scheduledDate.getTime() + approxHrsMs;
+            const newISOTime = new Date(newTimeMs).toISOString();
+            return newISOTime;   
+        };
+        console.log('Previous Order Time:', previousOrder.scheduledDate);
+        draggedScheduleTime = calculateNewScheduleTime(previousOrder);
+        console.log('Dragged Schedule Time:', draggedScheduleTime);
+       
         
         const updateList = [
             {
                 orderId: draggableOrderId,
-                headsheetId: selectedSheet.id,
-                head: Number(selectedHead),
-                scheduledTime: draggedScheduleTime,
+                scheduledLine: selectedSheet.id,
+                scheduledHead: Number(selectedHead),
+                scheduledDate: draggedScheduleTime,
+                order: {
+                    status: 'scheduled',
+                },
                 travelTime: 0,
-            },
-            {"Durration": draggedOrder?.approxHrs || 0},
-            
+            },            
             ...draggedSubsequentOrders.map((order) => ({
                 orderId: order.orderId,
-                newScheduleTimestamp: calculateNewScheduleTimestamp(order.scheduledDate, draggedOrder?.approxHrs || 0),
+                scheduledDate: calculateNewScheduleTimestamp(order.scheduledDate, draggedOrder?.approxHrs || 0),
             }))
-            
-
         ];
         
             
         console.log('Dragged\n\nUpdate Data:', updateList);
 
-        console.log('Dragged Schedule Time:', draggedScheduleTime);
-        // setScheduleTime(draggedScheduleTime);
-        // setDestinationId(Number(destinationColumnId));
-        // setDestinationIndex(destinationColumnIndex);
-        // setPreviousOrder(previousOrder);
-        // setDraggedOrder(Number(draggableOrderId));
-        // setSubsequentOrders(isolatedScheduledColumn.slice(destinationColumnIndex));
-        // updateData(
-        //     {
-        //         orderId: draggableOrderId,
-        //         headsheetId: selectedSheet.id,
-        //         head: Number(selectedHead),
-        //         scheduledTime: draggedScheduleTime,
-        //         travelTime: 0,
-        //     },
-        //     draggedOrder?.approxHrs || 0,
-        //     [
-        //     ...subsequentOrders.map((order) => ({
-        //         orderId: order.orderId,
-        //         newScheduleTimestamp: order.scheduledDate,
-        //     }))
-        //     ]
-        // );
+        
+        updateList.forEach((scheduleData) => {
+            const { orderId, ...requestData } = scheduleData;
+            console.log('Request Data:', requestData);
+            apiFetch.updateData(`schedule/${orderId}`, requestData)
+                .then((result) => {
+                    if (result.success) {
+                        console.log(`Schedule ${orderId} successfully updated:`, result.data);
+                    } else {
+                        console.error(`Error updating schedule ${orderId}:`, result.error);
+                    }
+                })
+                .catch((error) => {
+                    console.error(`Error updating schedule ${orderId}:`, error);
+                });
+        });
         
         
         getSchedule(Number(selectedHead));
 
-        toast({
-            variant: "top_right",
-            title: 'Order Scheduled',
-            description: `Order ${draggedOrder?.orderNumber} has been successfully scheduled to ${selectedSheet.name} Head ${selectedHead} at ${new Date(draggedScheduleTime).toLocaleString()}.`,
-        });
+        // toast({
+        //     variant: "top_right",
+        //     title: 'Order Scheduled',
+        //     description: `Order ${draggedOrder?.orderNumber} has been successfully scheduled to ${selectedSheet.name} Head ${selectedHead} at ${new Date(draggedScheduleTime).toLocaleString()}.`,
+        // });
     
     // Handle other drag and drop logic as needed
     // ...
