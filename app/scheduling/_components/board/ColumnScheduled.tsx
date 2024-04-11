@@ -135,6 +135,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                                     )
                                                     ))}
                                                     {provided.placeholder}
+                                                    <div className="h-60"></div>
                                                 </div>
                                             ))}
                                         </ScrollArea>
