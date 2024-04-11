@@ -92,18 +92,18 @@ const handleOnDragEnd =  async (result: any) => {
         toast({
             variant: "destructive",
             title: 'Invalid Destination',
-            description: 'Cannot move unscheduled orders to the same column',
+            description: 'Cannot move unscheduled orders to the same column yet',
         });
         return;  
     } else if (sourceId === '1' && destinationColumnId === '0') {
         
         toast({
             title: 'Unschedule The Order',
-            description: 'Removed the order from the scheduled column and unscheduled it. \n\n Must update the array of orders in the scheduled column.',
+            description: 'Doesn\'t work yet!!! \nRemoved the order from the scheduled column and unscheduled it. \n\n Must update the array of orders in the scheduled column.',
         });
         return;    
     }
-    if (sourceId === '0' && destinationColumnId === "1") {
+    if (sourceId === '0' && destinationColumnId === '1') {
         
         console.log('Previous Order Time:', previousOrder ? previousOrder.scheduledDate : 'No Previous Order');
         draggedScheduleTime = calculateNewScheduleTime(previousOrder);
