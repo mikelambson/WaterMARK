@@ -10,10 +10,11 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "npm prune",
-    "rebuild": "npm ci && typings install",
+    "rebuild": "npm cache clean --force && npm install --package-lock-only && npm ci && typings install && npm run optimize",
     "git": "npm run clean && git add --all && git commit -m \"Update Code\" && git push",
     "commit": "node -e \"const readlineSync = require('readline-sync'); const commitMessage = readlineSync.question('Enter your commit message: '); require('child_process').execSync(`git commit -m '\"'\"${commitMessage}\"'\"'`, {stdio: 'inherit'});\"",
-    "count": "node count-lines.js"
+    "count": "node count-lines.js",
+    "optimize": "npm prune && npm find-dupes && npm ddp"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^16.3.0",
@@ -53,13 +54,11 @@
     "next-themes": "^0.2.1",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
-    "react-beautiful-dnd": "^13.1.1",
     "react-day-picker": "^8.8.2",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
     "react-icons": "^4.11.0",
     "react-table": "^7.8.0",
-    "react-vega": "^7.6.0",
     "recharts": "^2.12.3",
     "shadcn-ui": "^0.4.0",
     "sharp": "^0.33.1",
@@ -91,5 +90,5 @@
   "repository": {
     "url": "https://github.com/mikelambson/WaterMARK"
   },
-  "linecount": 14111
+  "linecount": 14110
 }
