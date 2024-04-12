@@ -107,14 +107,23 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                             {selectedSheet.name} | Head {selectedHead}
                                         </div>
                                         <div className='absolute top-0 left-3 text-md font-bold text-foreground/50 dark:text-secondary/50 z-20'>
-                                            {schedule.columns.get(index + 1)?.schedules.length}
+                                            {schedule.columns.get(index + 1)?.schedules.length === 0 
+                                                ? "" 
+                                                : schedule.columns.get(index + 1)?.schedules.length
+                                            }
                                             <span className=' items-center text-xs'>
-                                            &nbsp;scheduled
+                                                {schedule.columns.get(index + 1)?.schedules.length === 0 
+                                                    ? "" 
+                                                    : " scheduled"
+                                                }
                                             </span>
                                         </div>
                                         <div className='absolute top-0 right-3 text-md font-bold text-foreground/50 dark:text-secondary/50 z-20'>
                                             <span className=' items-center text-xs'>
-                                                Out To:&nbsp;
+                                                {schedule.columns.get(index + 1)?.schedules.length === 0 
+                                                    ? "" 
+                                                    : "Out To: "
+                                                }
                                             </span>
                                             {
                                                 (() => {
@@ -126,7 +135,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
 
                                                     const endDate = scheduledDate ? new Date(scheduledDate).getTime() + approxHours * 60 * 60 * 1000 : null;
 
-                                                    let displayDate = "N/A";
+                                                    let displayDate = "";
                                                     if (scheduledDate && endDate) {
                                                         const formattedDate = new Date(endDate).toLocaleDateString(undefined, {
                                                             year: '2-digit',
@@ -138,7 +147,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                                             minute: 'numeric',
                                                             hour12: true
                                                         });
-                                                        displayDate = `${formattedDate} ${formattedTime.split(' ')[1]}`; // Extracting AM/PM from formatted time
+                                                        displayDate = `${formattedDate} ${formattedTime.split(' ')[1]}`;
                                                     }
 
                                                     return displayDate;
