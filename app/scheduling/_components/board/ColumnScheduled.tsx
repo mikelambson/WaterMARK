@@ -107,24 +107,43 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                             {selectedSheet.name} | Head {selectedHead}
                                         </div>
                                         <div className='absolute top-0 left-3 text-md font-bold text-foreground/50 dark:text-secondary/50 z-20'>
-                                            <span className=' items-center text-xs'>
-                                                Scheduled:&nbsp;
-                                            </span>
                                             {schedule.columns.get(index + 1)?.schedules.length}
+                                            <span className=' items-center text-xs'>
+                                            &nbsp;scheduled
+                                            </span>
                                         </div>
                                         <div className='absolute top-0 right-3 text-md font-bold text-foreground/50 dark:text-secondary/50 z-20'>
                                             <span className=' items-center text-xs'>
                                                 Out To:&nbsp;
                                             </span>
-                                            {(() => {
-                                                const nextColumn = schedule.columns.get(index + 1);
+                                            {
+                                                (() => {
+                                                    const nextColumn = schedule.columns.get(index + 1);
 
-                                                const scheduledDate = nextColumn?.schedules[nextColumn?.schedules.length - 1]?.scheduledDate;
+                                                    const scheduledDate = nextColumn?.schedules[nextColumn?.schedules.length - 1]?.scheduledDate;
 
-                                                const displayDate = scheduledDate ? new Date(scheduledDate).toLocaleDateString() : "N/A";
+                                                    const approxHours = nextColumn?.schedules[nextColumn?.schedules.length - 1]?.order.approxHrs ?? 0;
 
-                                                return displayDate;
-                                            })()}
+                                                    const endDate = scheduledDate ? new Date(scheduledDate).getTime() + approxHours * 60 * 60 * 1000 : null;
+
+                                                    let displayDate = "N/A";
+                                                    if (scheduledDate && endDate) {
+                                                        const formattedDate = new Date(endDate).toLocaleDateString(undefined, {
+                                                            year: '2-digit',
+                                                            month: '2-digit',
+                                                            day: '2-digit'
+                                                        });
+                                                        const formattedTime = new Date(endDate).toLocaleTimeString(undefined, {
+                                                            hour: 'numeric',
+                                                            minute: 'numeric',
+                                                            hour12: true
+                                                        });
+                                                        displayDate = `${formattedDate} ${formattedTime.split(' ')[1]}`; // Extracting AM/PM from formatted time
+                                                    }
+
+                                                    return displayDate;
+                                                })()
+                                            }
                                         </div>
                                     </div>
                                         <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
