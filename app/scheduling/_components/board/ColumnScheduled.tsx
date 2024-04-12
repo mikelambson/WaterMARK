@@ -102,7 +102,31 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                         >
                             {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
                                 <TabsContent key={(index)} value={`${index + 1}`} className="h-full">
-                                    <div className="text-center -mt-1 mb-1 text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest">{selectedSheet.name} | Head {selectedHead} </div>
+                                    <div className='-mt-1 mb-1 relative z-0'>
+                                        <div className="text-center text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest z-10">
+                                            {selectedSheet.name} | Head {selectedHead}
+                                        </div>
+                                        <div className='absolute top-0 left-3 text-md font-bold text-foreground/50 dark:text-secondary/50 z-20'>
+                                            <span className=' items-center text-xs'>
+                                                Scheduled:&nbsp;
+                                            </span>
+                                            {schedule.columns.get(index + 1)?.schedules.length}
+                                        </div>
+                                        <div className='absolute top-0 right-3 text-md font-bold text-foreground/50 dark:text-secondary/50 z-20'>
+                                            <span className=' items-center text-xs'>
+                                                Out To:&nbsp;
+                                            </span>
+                                            {(() => {
+                                                const nextColumn = schedule.columns.get(index + 1);
+
+                                                const scheduledDate = nextColumn?.schedules[nextColumn?.schedules.length - 1]?.scheduledDate;
+
+                                                const displayDate = scheduledDate ? new Date(scheduledDate).toLocaleDateString() : "N/A";
+
+                                                return displayDate;
+                                            })()}
+                                        </div>
+                                    </div>
                                         <ScrollArea className="min-h-96 h-full w-full px-[0.5rem] rounded-md">
                                             {Array.from(schedule.columns.values())
                                                 .filter((sched) => sched.id === index + 1)

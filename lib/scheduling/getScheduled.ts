@@ -1,5 +1,5 @@
 // @/lib/getScheduleGroupedByTypedSchedule.ts
-import { TypedSchedule, PartialHeadsheetsData, HeadData, Schedule, SchBoard } from "@/typings";
+import { TypedScheduled, PartialHeadsheetsData, HeadData, Schedule, SchBoard } from "@/typings";
 
 import ApiFetch from "@/lib/apiFetch";
 // import { toast } from "@/components/ui/use-toast";
@@ -30,8 +30,8 @@ const getScheduledByHead = async (filters: ApiFilters) => {
 
         const arrayOfHeads: number[] = Array.from(new Set(scheduled.map(schedule => schedule.scheduledHead)));
 
-        const heads: Map<number, TypedSchedule> = scheduled.reduce(
-            (acc: Map<number, TypedSchedule>, schedule: Schedule) => {
+        const heads: Map<number, TypedScheduled> = scheduled.reduce(
+            (acc: Map<number, TypedScheduled>, schedule: Schedule) => {
               const head = schedule.scheduledHead;
           
               if (arrayOfHeads.includes(head)) {
@@ -57,7 +57,7 @@ const getScheduledByHead = async (filters: ApiFilters) => {
           
               return acc;
             },
-            new Map<number, TypedSchedule>()
+            new Map<number, TypedScheduled>()
         );
 
         const headTypes: number[] = [ 1, 2, 3, 4, 5, 6, 10];

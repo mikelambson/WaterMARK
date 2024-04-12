@@ -109,4 +109,3 @@ export const TimePicker: React.FC<DateTimePickerProps> = ({className, inputClass
     );
 };
 
-export default {DatePicker, TimePicker};

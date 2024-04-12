@@ -47,7 +47,7 @@ const Daily = () => {
       setQueryParams(userInput);
       fetchData();
     },
-    [userInput]
+    [fetchData, setQueryParams, userInput]
   );
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
