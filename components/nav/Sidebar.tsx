@@ -21,9 +21,6 @@ export const Sidebar: React.FC<NavigationSidebarProps> = ({ sideLinks }) => {
   const isDarkMode = theme === "light";
   const pathname = usePathname();
 
-  const sidebarBgColor = isDarkMode ? "bg-stone-400/60" : "bg-zinc-800";
-  
-
   const sidebarStyle = `bg-stone-400/60 dark:bg-zinc-800 px-[1px] text-center border-solid border-r-[.5px] border-neutral-400 dark:border-neutral-700 flex flex-col`;
   const sidebarItem = `hover:text-yellow-800 dark:hover:text-yellow-300 duration-200 cursor-pointer flex flex-col items-center drop-shadow-md`;
 
@@ -46,7 +43,7 @@ export const Sidebar: React.FC<NavigationSidebarProps> = ({ sideLinks }) => {
                   pathname === item.link
                     ? cn(
                         isDarkMode
-                          ? "border-b-yellow-950/60 border-t-orange-100/60 border-r-orange-100/70 bg-gradient-to-l from-yellow-950/60 via-yellow-950/50 to-yellow-950/40"
+                          ? "border-b-yellow-950/50 border-t-orange-100/20 border-r-orange-200/60 bg-gradient-to-l from-yellow-950/60 via-yellow-950/50 to-yellow-950/40 drop-shadow-md"
                           : "border-t-orange-50/5 border-b-orange-950/20 border-r-orange-300/40 bg-gradient-to-l from-orange-300/40 via-orange-300/30 to-orange-300/20"
                       )
                     : "border-none hover:scale-90"
