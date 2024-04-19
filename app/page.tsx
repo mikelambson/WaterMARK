@@ -8,12 +8,12 @@ export default function Home() {
   return (
     <div className={" pt-16"}>
       <div className={"p-4 text-center"}>
-        <h2 className={" font-serif text-lg font-semibold text-yellow-800 dark:text-orange-300"}>
+        <h2 className={" font-serif text-lg font-semibold text-yellow-800 dark:text-orange-300/80"}>
           Welcome to TCID WaterMARK
         </h2>
         <h1
           className={
-            " font-serif text-sm md:text-2xl font-semibold text-yellow-800 dark:text-orange-300 break-normal"
+            " font-serif text-sm md:text-2xl font-semibold text-yellow-800 dark:text-orange-300/80 break-normal"
           }
         >
           Water Measurment Administration & Record Keeping
