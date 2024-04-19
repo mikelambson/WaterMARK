@@ -158,7 +158,7 @@ const Navbar = () => {
                     className={cn(
                     `nav-links h-[3.8rem] inline-flex items-center px-3 capitalize font-medium subpixel-antialiased ${defaultTextColorClass}  duration-200 pb-1`,
                     children.includes(pathname)
-                        ? `text-orange-300 dark:text-orange-300/95 border-y-[4px] border-t-transparent border-b-orange-300/95 -mb-2 dark:border-b-orange-300/80 border-x-[1px] border-x-orange-300/10 rounded-sm`
+                        ? `text-orange-300 dark:text-orange-300/95 border-y-[4px] border-t-transparent border-b-orange-300/95 -mb-2 pb-2 dark:border-b-orange-300/80 border-x-[1px] border-x-orange-300/10 rounded-sm`
                         : { defaultTextColorClass }
                     )}
                 >
