@@ -73,7 +73,13 @@ const Navbar = () => {
             link: "/meters",
             allowedRoles: ["any"], // Define roles that can access this link
             name: "Meters",
-            children: ["/meters"],
+            children: [
+                "/meters",
+                "/meters/west",
+                "/meters/central",
+                "/meters/east",
+                "/meters/truckee"
+            ],
         },
         {
             id: 33,
