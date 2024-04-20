@@ -164,7 +164,7 @@ const Navbar = () => {
                     className={cn(
                     `nav-links h-[3.8rem] inline-flex items-center px-3 capitalize font-medium subpixel-antialiased ${defaultTextColorClass}  duration-200 pb-1`,
                     children.includes(pathname)
-                        ? `text-orange-300 dark:text-orange-300/95 border-y-[3px] border-b-orange-300/95 -mb-2 pb-2 dark:border-b-orange-300/80 bg-gradient-to-t from-orange-300/10 via-orange-300/5 to-transparent border-t-slate-800/95 dark:border-t-slate-800 rounded-sm`
+                        ? `text-orange-300 dark:text-orange-300/95 border-b-[3px] border-b-orange-300/95 -mb-2 pb-2 dark:border-b-orange-300/80 bg-gradient-to-t from-orange-300/10 via-orange-300/5 to-transparent dark:border-t-slate-800 rounded-sm`
                         : { defaultTextColorClass }
                     )}
                 >
