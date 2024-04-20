@@ -64,6 +64,8 @@ const handleOnDragEnd =  async (result: any) => {
         droppableId: destinationColumnId 
     } = draggedDestination;
     const { droppableId: sourceId } = source;
+    const {  } = source;
+    
     // Check if previousOrder exists
 
     const draggedOrder = Array.from(board.columns?.values() || []).flatMap(column => column.orders).find(order => order.id === draggableOrderId);
@@ -153,7 +155,37 @@ const handleOnDragEnd =  async (result: any) => {
     
     // Handle other drag and drop logic as needed
     // ...
-};
+    };
+
+    if (sourceId === '1' && destinationColumnId === '1') {
+        // Re-ordering within the same column
+        const updatedSchedule = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
+        const headID = Number(selectedHead) - 1;
+        const isolatedScheduledColumn = updatedSchedule[headID][Number(selectedHead)].schedules;
+        
+        const subsequentSourceOrders = isolatedScheduledColumn.slice(source.index + 1);
+        const draggedOrderIndex = isolatedScheduledColumn.findIndex(order => order.orderId === draggableOrderId);
+        const updatedOrder = isolatedScheduledColumn[draggedOrderIndex];
+        const updatedScheduleList = [
+            ...isolatedScheduledColumn.slice(0, draggedOrderIndex),
+            ...isolatedScheduledColumn.slice(draggedOrderIndex + 1),
+        ];
+        updatedScheduleList.splice(destinationColumnIndex, 0, updatedOrder);
+        updatedSchedule[headID][Number(selectedHead)].schedules = updatedScheduleList;
+        // console.log('Updated Schedule:', updatedSchedule);
+        // Update the schedule state with the new order positions
+        console.log({
+            'Result': result,
+            'Source Index:': source.index,
+            'Destination Index:': destinationColumnIndex,
+            'Isolated Scheduled Column:': isolatedScheduledColumn,
+            'subsequentSourceOrders:': subsequentSourceOrders,
+        });
+
+        
+        getSchedule(Number(selectedHead));
+        getBoard(schedulingState);
+    }
 
 destinationColumnIndex === 0 
         ? setDialogOpen(true) : null;
