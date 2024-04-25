@@ -9,7 +9,7 @@ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   
 //   try {
 //     const response = await axios.get(
-//       `${baseUrl}opsflows`
+//       `${baseUrl}opsflows` 
 //     );
 //     const data = response.data
 //     useFlowsStore.getState().setFlows(data);
