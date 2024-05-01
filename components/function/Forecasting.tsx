@@ -149,7 +149,21 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
                 </p>
                 {payload.map((entry:any, index:any) => {
                     return (
-                    <p key={index}>
+                    <p 
+                        key={index}
+                        className={ 
+                            index === 2 
+                            ? isDarkMode 
+                                ? 'text-[#5555ff]' 
+                                : 'text-[blue]' 
+                            : index === 1 
+                            ? isDarkMode 
+                                ? 'text-[#FF5C00]' 
+                                : 'text-[red]' 
+                            : isDarkMode 
+                                ? 'text-[#080]' 
+                                : 'text-[green]' }
+                    >
                         {`${entry.name}: 
                         ${index === 2 
                         ? entry.value > 1000 

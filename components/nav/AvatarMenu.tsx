@@ -90,7 +90,7 @@ const AvatarMenu = () => {
                                 <DropdownMenuSeparator />
                             </>
                             )}   
-                        <Link href="/">
+                        {/* <Link href="/"> */}
                             <DropdownMenuItem 
                                 onClick={() => {
                                     userRole !== "Anonymous" 
@@ -103,7 +103,7 @@ const AvatarMenu = () => {
                                 </span>
                                 <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                             </DropdownMenuItem>
-                        </Link>
+                        {/* </Link> */}
                     </DropdownMenuContent>
                 </DropdownMenu> );
 }
