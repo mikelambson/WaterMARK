@@ -124,7 +124,7 @@ const Navbar = () => {
         {
             id: 66,
             link: "/reports",
-            allowedRoles: ["Watermaster", "Senior Analyst", "Admin"],
+            allowedRoles: ["Watermaster", "Senior Analyst", "Admin", "Staff"],
             name: "Reports",
             children: ["/reports"],
         },
