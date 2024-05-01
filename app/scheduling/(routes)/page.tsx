@@ -26,8 +26,8 @@ const Scheduling = () => {
         case "updateflows":
             setHeaderText("Update Flows");
             break;
-        case "forcasting":
-            setHeaderText("Forcasting");
+        case "forecasting":
+            setHeaderText("Forecasting");
             break;
         case "taskstatus":
             setHeaderText("Task Status");
@@ -53,8 +53,8 @@ const Scheduling = () => {
             <TabsTrigger value="updateflows" onClick={() => handleTabClick("updateflows")}>
                 Update Flows
             </TabsTrigger>
-            <TabsTrigger value="forcasting" onClick={() => handleTabClick("forcasting")}>
-                Forcasting
+            <TabsTrigger value="forecasting" onClick={() => handleTabClick("forecasting")}>
+                Forecasting
             </TabsTrigger>
             <TabsTrigger value="taskstatus" onClick={() => handleTabClick("taskstatus")}>
                 Task Status
@@ -80,7 +80,7 @@ const Scheduling = () => {
             <UpdateFlows watermaster />
             </TabsContent>
             <TabsContent 
-                value="forcasting"
+                value="forecasting"
                 className="overflow-y-auto w-full"
             >   
                 <Drawer>
