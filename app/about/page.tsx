@@ -29,7 +29,7 @@ const AboutPage = () => {
                         Mission
                     </AccordionTrigger>
                     <AccordionContent>
-                        Our mission is to provide high-quality water solutions to communities around the world.
+                        Our mission is to provide delivery of water to the community in an efficient way, while mitigating losses especially during drought years.
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3">
@@ -37,7 +37,7 @@ const AboutPage = () => {
                         Vision
                     </AccordionTrigger>
                     <AccordionContent>
-                        Our vision is to provide clean water to every community in the world.
+                        Our vision is to provide...
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-4">
