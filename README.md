@@ -39,6 +39,8 @@ Example showing dev layout of frontend screen:
 
 ![Frontend Image](frontenddeliveries.png)
 
+![Frontend Image](frontendforecastgraph.png)
+
 ___
 
 ## To-do
