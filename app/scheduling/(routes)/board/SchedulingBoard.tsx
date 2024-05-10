@@ -159,9 +159,9 @@ const handleOnDragEnd =  async (result: any) => {
 
     if (sourceId === '1' && destinationColumnId === '1') {
         // Re-ordering within the same column
-        const updatedSchedule = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
+        const initialSchedule = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
         const headID = Number(selectedHead) - 1;
-        const isolatedScheduledColumn = updatedSchedule[headID][Number(selectedHead)].schedules;
+        const isolatedScheduledColumn = initialSchedule[headID][Number(selectedHead)].schedules;
         
         const subsequentSourceOrders = isolatedScheduledColumn.slice(source.index + 1);
         const draggedOrderIndex = isolatedScheduledColumn.findIndex(order => order.orderId === draggableOrderId);
@@ -171,7 +171,7 @@ const handleOnDragEnd =  async (result: any) => {
             ...isolatedScheduledColumn.slice(draggedOrderIndex + 1),
         ];
         updatedScheduleList.splice(destinationColumnIndex, 0, updatedOrder);
-        updatedSchedule[headID][Number(selectedHead)].schedules = updatedScheduleList;
+        initialSchedule[headID][Number(selectedHead)].schedules = updatedScheduleList;
         // console.log('Updated Schedule:', updatedSchedule);
         // Update the schedule state with the new order positions
         console.log({
