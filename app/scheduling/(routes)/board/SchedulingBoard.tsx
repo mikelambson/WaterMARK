@@ -163,8 +163,8 @@ const handleOnDragEnd =  async (result: any) => {
         const headID = Number(selectedHead) - 1;
         const isolatedScheduledColumn = initialSchedule[headID][Number(selectedHead)].schedules;
         
-        const subsequentSourceOrders = isolatedScheduledColumn.slice(source.index + 1);
         const draggedOrderIndex = isolatedScheduledColumn.findIndex(order => order.orderId === draggableOrderId);
+        const subsequentSourceOrders = isolatedScheduledColumn.slice(draggedOrderIndex + 1);
         const updatedOrder = isolatedScheduledColumn[draggedOrderIndex];
         const updatedScheduleList = [
             ...isolatedScheduledColumn.slice(0, draggedOrderIndex),
