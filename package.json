@@ -16,7 +16,7 @@
     "count": "node count-lines.js",
     "optimize": "npm prune && npm find-dupes && npm ddp",
     "pm2": "pm2 start 'npm run dev' --name WaterMARK",
-    "stop": "pm2 stop WaterMARK-Backend && pm2 delete WaterMARK",
+    "stop": "pm2 stop WaterMARK && pm2 delete WaterMARK",
     "scale": "pm2 scale WaterMARK +3",
     "log": "pm2 logs --raw"
   },
