@@ -1,0 +1,61 @@
+{
+    "items":[
+        {   "id":"carsonriver",
+            "value":"755",
+            "name":"Carson River Lahontan Outflow",
+            "maxflow":"3100",
+            "color":"#003a5c"
+        },
+        {"id":"lahontaninflow","value":"1","name":"Lake Inflow","maxflow":"","color":"#777"},
+        {"id":"lahontonlevel","value":"193,000","name":"Lake Level","maxflow":"268,700","color":"#bc6500"},
+        {"id":"vline","value":"590","name":"V-Line","maxflow":"2500","color":"#722200"},
+        {"id":"rivergates","value":"30","name":"River Gates","maxflow":"1100","color":"#722200"},
+        {"id":"tline","value":"130","name":"T-Line","maxflow":"","color":"#722200"},
+        {"id":"vlineweir","value":"--","name":"V-Line Weir","maxflow":"","color":"#722200"},
+        {"id":"vlinespill","value":"30","name":"V-Line Spill","maxflow":"150","color":"#1f1f1f"},
+        {"id":"nline","value":"--","name":"N-Line","maxflow":"","color":"#0a5700"},
+        {"id":"shecklerinlet","value":"40","name":"Sheckler Inlet","maxflow":"","color":"#570052"},
+        {"id":"colemandam","value":"60","name":"Carson River to Coleman Dam","maxflow":"","color":"#570052"},
+        {"id":"sagauspedam","value":"60","name":"Sagauspe Dam","maxflow":"","color":"#570052"},
+        {"id":"eline","value":"30","name":"E-Line","maxflow":"","color":"#0a5700"},
+        {"id":"vlinetosline","value":"120","name":"V-Line to S-Line","maxflow":"140","color":"#003a5c"},
+        {"id":"riverbelowsagauspe","value":"6","name":"River Below Sagauspe","maxflow":"","color":"#003a5c"},
+        {"id":"aline","value":"143","name":"A-Line","maxflow":"","color":"#0a5700"},
+        {"id":"slinereservoir","value":"126","name":"S-Line Reservoir","maxflow":"","color":"#b40000"},
+        {"id":"dline","value":"50","name":"D-Line","maxflow":"","color":"#0a5700"},
+        {"id":"gline","value":"52","name":"G-Line","maxflow":"","color":"#0a5700"},
+        {"id":"s7","value":"37","name":"S7 Lateral","maxflow":"","color":"#003a5c"},{"id":"slinetoharmon","value":"80","name":"S-Line to Harmon","maxflow":"","color":"#003a5c"},
+        {"id":"upperlake","value":"--","name":"Upper Lake","maxflow":"","color":"#7c6500"},
+        {"id":"carsonlakepasture","value":"--","name":"Carson Lake Pasture","maxflow":"","color":"#000"},
+        {"id":"rline","value":"23","name":"R-Line","maxflow":"","color":"#0a5700"},
+        {"id":"likeslake","value":"--","name":"Likes Lake","maxflow":"","color":"#7c6500"},
+        {"id":"lline","value":"230","name":"L-Line","maxflow":"","color":"#0a5700"},
+        {"id":"harmonreservoir","value":"25","name":"Harmon Reservoir","maxflow":"","color":"#b40000"},
+        {"id":"papooselake","value":"--","name":"Papoose Lake","maxflow":"","color":"#7c6500"},
+        {"id":"lspilltoharmon","value":"--","name":"L-Spill to Harmon","maxflow":"","color":"#003a5c"},
+        {"id":"slinebelowharmon","value":"85","name":"S-Line Below Harmon","maxflow":"","color":"#052b00"},
+        {"id":"bigindianlake","value":"--","name":"Big Indian Lake","maxflow":"","color":"#7c6500"},
+        {"id":"lendspill","value":"10","name":"Lend Spill","maxflow":"","color":"#000"},{"id":"st75","value":"19","name":"ST75","maxflow":"","color":"#003a5c"},
+        {"id":"paiutedrain","value":"--","name":"Paiute Drain","maxflow":"","color":"#000"},
+        {"id":"harmonspill","value":"7","name":"Harmon Spill","maxflow":"","color":"#000"},
+        {"id":"stillwaterpointreservoir","value":"17","name":"Stillwater Point Reservoir","maxflow":"","color":"#b40000"}
+    ],
+        
+    "text":[
+        {
+            "id":"tcidwarning",
+            "description":"",
+            "string":"# ----------------------------------- WARNING -----------------------------------------\n#\n# Some of the this data has been obtained via manual methods and my not have received \n# the Watermaster's approval.  Any such data values are qualified as provisional and \n# are subject to revision.  Provisional data is released on the condition that neither \n# TCID nor site maintainers may be held liable for any damages resulting from its use.\n#\n# Flowrates shown represent estimated values for all canal systems.\n# Esitmated time lag (non live) = 24 hrs.\n#\n# Contact:   Truckee Carson Irrigation District\n#\n# -------------------------------------------------------------------------------------"
+        },
+        {
+            "id":"disclaimer",
+            "description":"This is the default warning text for TCID flows.",
+            "string":"Some of the this data has been obtained via manual methods and my not have received the Watermaster's approval.  Any such data values are qualified as provisional and are subject to revision.  Provisional data is released on the condition that neither TCID nor site maintainers may be held liable for any damages resulting from its use. Flowrates shown represent estimated values for all canal systems. Esitmated time lag (non live) = 24 hrs. <br> Contact:   Truckee Carson Irrigation District"
+        },
+        {
+            "id":"wminfo",
+            "description":"Information",
+            "string":"Flowrates shown represent estimated values for all canal systems. <br /> Esitmated time lag (non live) = 24 hrs."
+        }
+    ]
+}
