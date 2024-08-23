@@ -145,9 +145,11 @@ export default function Meters() {
 
   return (
     <div className="p-2">
-      <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Overview</h1>
-      <LakeForcast />
-      <div className='w-full p-2'>
+      <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center mb-2"}>
+        System Overview
+      </h1>
+      <LakeForcast className='mx-2' />
+      <div className='w-full p-2 my-2'>
         <div id="container" className=' w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
           {/* Render items */}
           {items.map((item, index) => (
@@ -166,7 +168,6 @@ export default function Meters() {
               
             </p>
             <p>
-            {carsonData}
             {item.id}
             </p>
             </div>
@@ -182,9 +183,9 @@ export default function Meters() {
         
       </div>
       {/* Footer */}
-      <footer className={'w-full flex flex-col items-center justify-center'}>
+      <footer className={'w-full flex flex-col items-center justify-center my-5 gap-2'}>
+          <pre>{wmInfo?.string}</pre>
           <h1>© Mike Lambson 2023</h1>
-          <p>{wmInfo?.string}</p>
           {/* Add more footer content here */}
         </footer>
     </div>

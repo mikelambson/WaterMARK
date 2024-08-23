@@ -55,7 +55,7 @@
         {
             "id":"wminfo",
             "description":"Information",
-            "string":"Flowrates shown represent estimated values for all canal systems. <br /> Esitmated time lag (non live) = 24 hrs."
+            "string":"Flowrates shown represent estimated values for all canal systems.\nEsitmated time lag (non live) = 24 hrs."
         }
     ]
 }
