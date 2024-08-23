@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react';
 import LakeForcast from "@/components/cards/LakeForcast";
+import { cn } from '@/lib/utils';
 
 interface Item {
   id: string;
@@ -153,7 +154,11 @@ export default function Meters() {
         <div id="container" className=' w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
           {/* Render items */}
           {items.map((item, index) => (
-            <div key={index} className={`p-4 bg-slate-300 dark:bg-stone-400 shadow-md border-[3px] border-slate-600 dark:border-gray-500 rounded-lg ${item.id} flex flex-col text-center items-center`}>
+            <div key={index} className={cn(`p-4 bg-slate-300 dark:bg-stone-400 shadow-md border-[3px] border-slate-600 dark:border-gray-500 rounded-lg ${item.id} flex flex-col text-center items-center`, 
+            item.id === "carsonriver" 
+            || item.id === "lahontaninflow" 
+            || item.id === "lahontonlevel" 
+            ? "col-span-3 md:mx-16 lg:mx-32" : "col-span-1")}>
             <h3 className="text-lg font-semibold" style={{ color: item.color }}>
               {item.name}
             </h3>
