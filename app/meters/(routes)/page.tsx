@@ -77,13 +77,13 @@ export default function Meters() {
       setCarsonData(parseCarsonData(carsonData));
       
 
-      // const tarzanResponse = await fetch(`https://waterservices.usgs.gov/nwis/iv/?sites=10312275&parameterCd=00060&startDT=${startDate}T${startTime}-07:00&endDT=${endDate}T${endTime}-07:00&siteStatus=all&format=rdb`);
-      // const tarzanData = await tarzanResponse.text();
-      // setTarzanData(parseTarzanData(tarzanData));
+      const tarzanResponse = await fetch(`https://waterservices.usgs.gov/nwis/iv/?sites=10312275&parameterCd=00060&startDT=${startDate}T${startTime}-07:00&endDT=${endDate}T${endTime}-07:00&siteStatus=all&format=rdb`);
+      const tarzanData = await tarzanResponse.text();
+      setTarzanData(parseTarzanData(tarzanData));
 
-      // const inflowResponse = await fetch(`https://waterservices.usgs.gov/nwis/iv/?sites=10312000&parameterCd=00060&startDT=${startDate}T${startTime}-07:00&endDT=${endDate}T${endTime}-07:00&siteStatus=all&format=rdb`);
-      // const inflowData = await inflowResponse.text();
-      // setInflowData(parseInflowData(inflowData));
+      const inflowResponse = await fetch(`https://waterservices.usgs.gov/nwis/iv/?sites=10312000&parameterCd=00060&startDT=${startDate}T${startTime}-07:00&endDT=${endDate}T${endTime}-07:00&siteStatus=all&format=rdb`);
+      const inflowData = await inflowResponse.text();
+      setInflowData(parseInflowData(inflowData));
 
       const levelResponse = await fetch(`https://waterservices.usgs.gov/nwis/iv/?sites=10312100&parameterCd=00054&startDT=${startDate}T${startTime}-07:00&endDT=${endDate}T${endTime}-07:00&siteStatus=all&format=rdb`);
       const levelData = await levelResponse.text();
@@ -158,7 +158,7 @@ export default function Meters() {
             item.id === "carsonriver" 
             || item.id === "lahontaninflow" 
             || item.id === "lahontonlevel" 
-            ? "col-span-3 md:mx-16 lg:mx-32" : "col-span-1")}>
+            ? "col-span-1 sm:col-span-2 md:col-span-3 mx-0 md:mx-16 lg:mx-32" : "")}>
             <h3 className="text-lg font-semibold" style={{ color: item.color }}>
               {item.name}
             </h3>
@@ -168,6 +168,10 @@ export default function Meters() {
                   ? carsonData 
                   : item.id === "lahontonlevel" 
                   ? levelData
+                  : item.id === "lahontaninflow" 
+                  ? inflowData 
+                  : item.id === "riverbelowsagauspe" 
+                  ? tarzanData 
                   : item.value} {item.id === "lahontonlevel" ? "AF" : "CFS"}
                 </data> 
               
