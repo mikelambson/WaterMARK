@@ -136,7 +136,7 @@ export default function Meters() {
       loadItems();
       // refreshData();
       updateLiveData();
-    }, 600000); // Refresh every 10 minutes
+    }, 24000); // Refresh every 600000 = 10 minutes
     
     // Clean up interval on component unmount
     return () => {
@@ -154,16 +154,16 @@ export default function Meters() {
         <div id="container" className=' w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
           {/* Render items */}
           {items.map((item, index) => (
-            <div key={index} className={cn(`p-4 bg-slate-300 dark:bg-stone-400 shadow-md border-[3px] border-slate-600 dark:border-gray-500 rounded-lg ${item.id} flex flex-col text-center items-center`, 
+            <div key={index} className={cn(`p-4 bg-gray-300 dark:bg-stone-400 shadow-md border-[3px] border-slate-600 dark:border-gray-500 rounded-lg ${item.id} flex flex-col text-center items-center`, 
             item.id === "carsonriver" 
             || item.id === "lahontaninflow" 
             || item.id === "lahontonlevel" 
             ? "col-span-1 sm:col-span-2 md:col-span-3 mx-0 md:mx-16 lg:mx-32" : "")}>
-            <h3 className="text-lg font-semibold" style={{ color: item.color }}>
+            <h3 className="text-lg font-bold" style={{ color: item.color }}>
               {item.name}
             </h3>
             <p className="font-extrabold text-black">
-              <data id={item.id}>
+              <data id={item.id} className=' text-blue-950 dark:text-indigo-950'>
                 {item.id === "carsonriver" 
                   ? carsonData 
                   : item.id === "lahontonlevel" 
