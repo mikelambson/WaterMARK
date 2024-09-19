@@ -5,8 +5,8 @@
   "scripts": {
     "initialize": "npm install && npm envmake",
     "envmake": "node createEnv.js",
-    "dev": "next dev",
-    "devt": "next dev --turbo",
+    "devo": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -16,7 +16,7 @@
     "commit": "node -e \"const readlineSync = require('readline-sync'); const commitMessage = readlineSync.question('Enter your commit message: '); require('child_process').execSync(`git commit -m '\"'\"${commitMessage}\"'\"'`, {stdio: 'inherit'});\"",
     "count": "node count-lines.js",
     "optimize": "npm prune && npm find-dupes && npm ddp",
-    "pm2": "pm2 start 'npm run devt' --name WaterMARK",
+    "pm2": "pm2 start 'npm run dev' --name WaterMARK",
     "stop": "pm2 stop WaterMARK && pm2 delete WaterMARK",
     "scale": "pm2 scale WaterMARK +3",
     "log": "pm2 logs --raw"
