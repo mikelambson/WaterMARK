@@ -39,7 +39,7 @@ interface TypedScheduled {
 
 interface Order {
     id: string;
-    orderTimestamp: string;
+    ordertimestamp: string;
     orderNumber: number;
     tcidSn: string;
     district: string;
