@@ -5,7 +5,7 @@
   "scripts": {
     "initialize": "npm install && npm envmake",
     "envmake": "node createEnv.js",
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -95,5 +95,5 @@
   "repository": {
     "url": "https://github.com/mikelambson/WaterMARK"
   },
-  "linecount": 15455
+  "linecount": 15558
 }
