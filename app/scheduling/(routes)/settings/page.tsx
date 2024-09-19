@@ -1,5 +1,5 @@
 //scheduling/settings @/app/scheduling/(routes)/settings/page.tsx
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Headsheets,
@@ -25,7 +25,9 @@ const errorMessage: Headsheets[] = [
 
 const Settings = async () => {
   const result = await apiFetch.fetchData<Headsheets[]>("/headsheets");
-  const hsData = result.success ? result.data : errorMessage;
+  const hsData = result.success && Array.isArray(result.data)
+  ? result.data.filter(row => row.name !== "NotScheduled")
+  : errorMessage;
   const finalHsData = hsData || errorMessage;
 
   return (

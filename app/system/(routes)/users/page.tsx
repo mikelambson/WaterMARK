@@ -43,7 +43,7 @@ const ManageUsers = () => {
                 {/* Add User Button */}
                 <div className="md:col-start-3 md:justify-self-end">
                     <Dialog>
-                    <DialogTrigger>
+                    <DialogTrigger asChild>
                         <Button variant={"secondary"} className="w-[180px] text-lg">Add User</Button>
                     </DialogTrigger>
                     <DialogContent>
