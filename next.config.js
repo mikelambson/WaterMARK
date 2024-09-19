@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    optimizePackageImports: [
+      'react-icons/fa',
+      'react-icons/fa6',
+      'react-icons/md',
+      'react-icons/fi',
+      'react-icons/bs',
+      'react-icons/io',
+      'react-icons/lu',
+    ],
     turbo: {
       resolveExtensions: [
         '.mdx',

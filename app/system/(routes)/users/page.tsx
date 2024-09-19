@@ -36,7 +36,7 @@ const ManageUsers = () => {
                 </div>
 
                 {/* h1 - User Management */}
-                <h1 className="text-2xl font-semibold justify-self-center self-center order-first md:order-none">
+                <h1 className="text-2xl font-semibold justify-self-center self-center order-first md:order-none animate-pulse text-yellow-950 dark:text-orange-300">
                     User Management
                 </h1>
 
