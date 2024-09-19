@@ -22,7 +22,7 @@ interface ApiFilters {
         const orders: Order[] = response.data.orders;
         
 
-    orders.sort((a: any, b: any) => new Date(a.orderTimestamp).getTime() - new Date(b.orderTimestamp).getTime());
+    orders.sort((a: any, b: any) => new Date(a.ordertimestamp).getTime() - new Date(b.ordertimestamp).getTime());
 
 
     const columns = orders.reduce((acc: Map<string, TypedUnscheduled>, order: any) => {
