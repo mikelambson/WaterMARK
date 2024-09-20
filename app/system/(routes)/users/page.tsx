@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import UserTemplate from "@/app/system/_components/manusers/usertemplate";
+import { Checkbox } from "@/components/ui/checkbox"
 
 
 const ManageUsers = () => {
@@ -46,7 +47,7 @@ const ManageUsers = () => {
                     <DialogTrigger asChild>
                         <Button variant={"secondary"} className="w-[180px] text-lg">Add User</Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="">
                         <DialogHeader>
                         <DialogTitle>Add New User</DialogTitle>
                         <DialogDescription>
@@ -55,8 +56,19 @@ const ManageUsers = () => {
                         </DialogHeader>
                         <Input type="login" placeholder="Login" />
                         <Input type="first" placeholder="First Name" />
+                        <Input type="middle" placeholder="Middle Name" />
                         <Input type="last" placeholder="Last Name" />
                         <Input type="email" placeholder="Email" />
+                        <Input type="title" placeholder="Title" />
+                        <div className="inline-flex">
+                            <Checkbox id="isStaff" />
+                            <label
+                                htmlFor="isStaff"
+                                className="pl-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                                TCID Staff?
+                            </label>
+                        </div>
                     </DialogContent>
                     </Dialog>
                 </div>
