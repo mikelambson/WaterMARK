@@ -1,3 +1,5 @@
+"use client"
+import { useState } from "react";
 import {
     Select,
     SelectContent,
@@ -9,6 +11,7 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -17,19 +20,29 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import UserTemplate from "@/app/system/_components/manusers/usertemplate";
 import { Checkbox } from "@/components/ui/checkbox"
+import { cn } from "@/lib/utils";
+import NewUserDialogue from "@/app/system/_components/manusers/newuserdialogue";
 
 
 const ManageUsers = () => {
+    
+    const [userType, setUserType] = useState("staff");
+
+    const handleUserType = (type: any) => {
+        setUserType(type);
+      };
+
     return ( 
         <div className="p-2">
            <div className="flex flex-col md:grid md:grid-cols-3 mb-2 gap-3">
                 {/* Select Dropdown */}
                 <div className="justify-center lg:col-start-1">
-                    <Select>
+                    <Select onValueChange={handleUserType}>
                     <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
-                        <SelectValue placeholder="Select" defaultValue={"staff"} />
+                        <SelectValue placeholder={userType} />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent 
+                    >
                         <SelectItem value="staff">Staff</SelectItem>
                         <SelectItem value="wateruser">Wateruser</SelectItem>
                     </SelectContent>
@@ -43,34 +56,7 @@ const ManageUsers = () => {
 
                 {/* Add User Button */}
                 <div className="md:col-start-3 md:justify-self-end">
-                    <Dialog>
-                    <DialogTrigger asChild>
-                        <Button variant={"secondary"} className="w-[180px] text-lg">Add User</Button>
-                    </DialogTrigger>
-                    <DialogContent className="">
-                        <DialogHeader>
-                        <DialogTitle>Add New User</DialogTitle>
-                        <DialogDescription>
-                            Best practice login should be lower case first initial and last name.
-                        </DialogDescription>
-                        </DialogHeader>
-                        <Input type="login" placeholder="Login" />
-                        <Input type="first" placeholder="First Name" />
-                        <Input type="middle" placeholder="Middle Name" />
-                        <Input type="last" placeholder="Last Name" />
-                        <Input type="email" placeholder="Email" />
-                        <Input type="title" placeholder="Title" />
-                        <div className="inline-flex">
-                            <Checkbox id="isStaff" />
-                            <label
-                                htmlFor="isStaff"
-                                className="pl-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                                TCID Staff?
-                            </label>
-                        </div>
-                    </DialogContent>
-                    </Dialog>
+                    <NewUserDialogue userType={userType} />
                 </div>
             </div>
             <UserTemplate />
