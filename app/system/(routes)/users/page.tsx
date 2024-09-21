@@ -7,30 +7,13 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
-  import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-  } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import UserTemplate from "@/app/system/_components/manusers/usertemplate";
-import { Checkbox } from "@/components/ui/checkbox"
-import { cn } from "@/lib/utils";
 import NewUserDialogue from "@/app/system/_components/manusers/newuserdialogue";
 
 
 const ManageUsers = () => {
-    
     const [userType, setUserType] = useState("staff");
-
-    const handleUserType = (type: any) => {
-        setUserType(type);
-      };
+    const handleUserType = (type: string) => setUserType(type);
 
     return ( 
         <div className="p-2">

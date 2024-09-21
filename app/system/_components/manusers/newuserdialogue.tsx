@@ -28,7 +28,14 @@ interface UserType {
 
 const NewUserDialogue: React.FC<UserType> = ({userType}) => {
     const [isActive, setIsActiveChecked] = useState(true);
+    const [email, setEmail] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [middlename, setMiddlename] = useState('');
+    const [lastname, setLastname] = useState('');
     const isStaff: boolean = userType === "staff";
+    let constructedlogin = firstname !== '' && middlename !== '' && lastname !== '' 
+        ? `${firstname?.[0].toLowerCase()}${middlename?.[0].toLowerCase()}${lastname?.toLowerCase()}`
+        : '--';
 
     const handleActiveChecked = (checked: boolean) => {
         setIsActiveChecked(checked);
@@ -38,34 +45,63 @@ const NewUserDialogue: React.FC<UserType> = ({userType}) => {
                         <DialogTrigger asChild>
                             <Button variant={"secondary"} className="w-[180px] text-lg">Add User</Button>
                         </DialogTrigger>
-                        <DialogContent className="lg:max-w-[45.25rem]">
+                        <DialogContent className="w-full lg:max-w-[45.25rem]">
                             <DialogHeader>
-                            <DialogTitle className="text-xl">
+                            <DialogTitle className="text-xl text-center">
                                 Add New <span className="text-orange-300/60">
                                 {userType.charAt(0).toUpperCase() + userType.slice(1)}
                                 </span> {isStaff ? "Member" : ""}
                             </DialogTitle>
-                            <DialogDescription className="text-lg text-secondary-foreground">
-                                Best practice login should be lower case first initial and last name.
+                            <DialogDescription className="text-center text-lg text-secondary-foreground opacity-50">
+                                Enter all information to construct the login.
                             </DialogDescription>
                             </DialogHeader>
-                            <div className={cn(isStaff || "hidden")}>
-                                <Input 
-                                    type="login" 
-                                    placeholder={isStaff ? "Login**" : "Login"} 
-                                    disabled={!isStaff}
-                                    className="max-w-xs"
-                                />
+                                    
+                            <div className="inline-flex items-center gap-2 font-semibold text-lg"> 
+                                <p className="opacity-50 text-xl">Login:</p>
+                                
+                                <div 
+                                    id="addlogin"
+                                    className="font-bold text-lg"
+                                >
+                                    {isStaff
+                                    ? `${constructedlogin}`
+                                    : `${email}`}
+                                </div>
                             </div>
                             <div className="flex flex-wrap gap-2">
-                                <Input type="email" placeholder="Email**" className="max-w-sm" />
-                                <Input type="temppass" placeholder="Temporary Password**" className="max-w-[17.5rem]" />
+                                <Input 
+                                    id="addemail" 
+                                    type="email" 
+                                    placeholder="Email**"
+                                    value={email} 
+                                    onChange={(e) => setEmail(e.target.value)} 
+                                    className="max-w-sm" 
+                                />
+                                <Input id="addtemppass" type="string" placeholder="Temporary Password**" className="max-w-[17.5rem]" />
                             </div>
                             <div className={"flex flex-col gap-2 max-w-2xl"}>
-                                <Input type="first" placeholder="First Name**" />
-                                <Input type="middle" placeholder="Middle Name" />
-                                <Input type="last" placeholder="Last Name**" />
-                                
+                                <Input 
+                                    id="addfirstName" 
+                                    type="string" 
+                                    placeholder="First Name**" 
+                                    value={firstname} 
+                                    onChange={(e) => setFirstname(e.target.value)} 
+                                />
+                                <Input 
+                                    id="addmiddleName" 
+                                    type="string" 
+                                    placeholder="Middle Name" 
+                                    value={middlename}
+                                    onChange={(e) => setMiddlename(e.target.value)}
+                                />
+                                <Input 
+                                    id="addlastname" 
+                                    type="string" 
+                                    placeholder="Last Name**" 
+                                    value={lastname} 
+                                    onChange={(e) => setLastname(e.target.value)} 
+                                />
                             </div>
                             <div className={cn(isStaff || "hidden")}>
                                 <div className="flex flex-wrap items-center gap-2">
