@@ -3,7 +3,7 @@ import { Sidebar } from "@/components/nav/Sidebar";
 import { onlineLinks } from "./_components/navigation/onlineLinks";
 
 
-const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => {
+const PublicScheduleLayout = async ({ children }: { children: React.ReactNode} ) => {
     return ( 
         <>
         <div className={"h-full m-0 pt-[4rem]"}>
@@ -16,4 +16,4 @@ const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => 
      );
 }
  
-export default SchedulingLayout;
+export default PublicScheduleLayout;

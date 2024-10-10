@@ -1,13 +1,13 @@
 // /app/reports/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
-import { reportLinks } from "./_components/navigation/reportsLinks";
+import { testingLinks } from "@/app/testing/_components/navigation/testingLinks";
 
 
-const ReportsLayout = async ({ children }: { children: React.ReactNode} ) => {
+const TestingLayout = async ({ children }: { children: React.ReactNode} ) => {
     return ( 
         <>
         <div className={"h-full m-0 pt-[4rem]"}>
-        <Sidebar sideLinks={reportLinks} />
+        <Sidebar sideLinks={testingLinks} />
         <main className={"pt-0 pl-16"}>
             {children}
         </main>
@@ -16,4 +16,4 @@ const ReportsLayout = async ({ children }: { children: React.ReactNode} ) => {
      );
 }
  
-export default ReportsLayout;
+export default TestingLayout;

@@ -2,7 +2,7 @@
 import { Sidebar } from "@/components/nav/Sidebar";
 import { accountLinks } from "./_components/navigation/accountLinks";
 
-const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => {
+const AccountLayout = async ({ children }: { children: React.ReactNode} ) => {
     return ( 
         <div className={"h-full m-0 pt-[4rem]"}>
             <Sidebar sideLinks={accountLinks}/>
@@ -13,4 +13,4 @@ const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => 
      );
 }
  
-export default SchedulingLayout;
+export default AccountLayout;
