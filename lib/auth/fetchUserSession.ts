@@ -1,6 +1,6 @@
 export const fetchUserSession = async (login:string, password:string) => {
 
-    const loginRoute = `${process.env.API_ADDRESS}/auth`
+    const loginRoute = `${process.env.AUTH_ADDRESS}/login`
 
     const response = await fetch(loginRoute, {
         method: 'POST',

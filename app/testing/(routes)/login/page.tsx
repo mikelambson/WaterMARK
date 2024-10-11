@@ -4,7 +4,6 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -17,40 +16,43 @@ import {
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import LoginForm from "@/app/testing/_components/login/loginForm"
+
+
 export default function Login() {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { userRole, setUserRole } = useRoleStore();
-  const router = useRouter();
+//   const [login, setLogin] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [error, setError] = useState('');
+//   const { userRole, setUserRole } = useRoleStore();
+//   const router = useRouter();
 
-  const getUserRoleFromToken = (payload: { roles: string | any[]; }) => {
-    if (payload.roles && payload.roles.length > 0) {
-      return payload.roles[0].roleName; // Return the roleName of the first role
-    }
-    return 'anonymous'; // Return "anonymous" if no roles are present
-  };
+//   const getUserRoleFromToken = (payload: { roles: string | any[]; }) => {
+//     if (payload.roles && payload.roles.length > 0) {
+//       return payload.roles[0].roleName; // Return the roleName of the first role
+//     }
+//     return 'anonymous'; // Return "anonymous" if no roles are present
+//   };
 
-  const handleSubmit = async (e:any) => {
-    e.preventDefault();
-    const result = await signIn('credentials', {
-      redirect: false,
-      login,
-      password,
-    });
+//   const handleSubmit = async (e:any) => {
+//     e.preventDefault();
+//     const result = await signIn('credentials', {
+//       redirect: false,
+//       login,
+//       password,
+//     });
 
-    if (result?.error) {
-      setError(result.error);
-    } else {
-        console.log('Result:', result?.url)
-        // Decode the JWT to extract the user role
-    //   const decodedPayload = jwt.decode(result?.token) as JwtPayload; // Use your JwtPayload interface here
-    //   const role = getUserRoleFromToken(decodedPayload); // Get the user role
-    //   setUserRole(role); // Set the user role in state
-      // Redirect to dashboard upon successful login
-      router.push('/account');
-    }
-  };
+//     if (result?.error) {
+//       setError(result.error);
+//     } else {
+//         console.log('Result:', result?.url)
+//         // Decode the JWT to extract the user role
+//     //   const decodedPayload = jwt.decode(result?.token) as JwtPayload; // Use your JwtPayload interface here
+//     //   const role = getUserRoleFromToken(decodedPayload); // Get the user role
+//     //   setUserRole(role); // Set the user role in state
+//       // Redirect to dashboard upon successful login
+//       router.push('/account');
+//     }
+//   };
 
   return (
     <div className='p-4 ml-4'>
@@ -91,7 +93,8 @@ export default function Login() {
                                 Please sign in to your account.
                             </DialogDescription>
                         </DialogHeader>
-                        <form onSubmit={handleSubmit} className="flex flex-col">
+                        <LoginForm />
+                        {/* <form onSubmit={handleSubmit} className="flex flex-col">
                             {error && <p className="text-red-400">{error}</p>}
 
                             <label className="mt-2 mb-1">Username</label>
@@ -118,7 +121,7 @@ export default function Login() {
                                 ...login processing.
                             </div>
                             <Button type="submit">Sign in</Button>
-                        </form>
+                        </form> */}
                     </DialogContent>
                 </Dialog>
 
