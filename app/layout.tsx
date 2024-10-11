@@ -1,11 +1,13 @@
 // /app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
-import Navbar from "@/components/nav/Navbar";
+import { Open_Sans, Work_Sans } from "next/font/google";
+import { ReactQueryProvider } from "@/components/auth/ReactQueryProvider"
 import { ThemeProvider } from "@/components/nav/theme-provider";
 import { RoleProvider } from "@/components/nav/RoleContext";
-import { Open_Sans, Work_Sans } from "next/font/google";
+import Navbar from "@/components/nav/Navbar";
 import { Toaster } from "@/components/ui/toaster";
+
 
 const openSans = Open_Sans({ 
   subsets: ['latin'],
@@ -48,11 +50,13 @@ export default function RootLayout({
       <body className={font.className}>
         <ThemeProvider attribute="class" enableSystem>
           <RoleProvider>
-            <Navbar />
-            <main className={"min-h-screen  w-full"}>
-              {children}
-            </main>
-            <Toaster />
+            <ReactQueryProvider>
+              <Navbar />
+              <main className={"min-h-screen  w-full"}>
+                {children}
+              </main>
+              <Toaster />
+            </ReactQueryProvider>
           </RoleProvider>
         </ThemeProvider>
       </body>

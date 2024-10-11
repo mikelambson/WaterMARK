@@ -58,7 +58,7 @@ const Navbar = () => {
         {
             id: 11,
             link: "/admin",
-            allowedRoles: ["Staff", "Watermaster", "Analyst", "Senior Analyst", "Admin"],
+            allowedRoles: ["Staff", "Watermaster", "Analyst", "Senior Analyst", "Admin", "sysadmin"],
             name: "Admin",
             children: [
                 "/admin",
@@ -84,7 +84,7 @@ const Navbar = () => {
         {
             id: 33,
             link: "/scheduling",
-            allowedRoles: ["Watermaster", "Scheduler", "Admin", "Senior Analyst"],
+            allowedRoles: ["Watermaster", "Scheduler", "Admin", "sysadmin", "Senior Analyst"],
             name: "Scheduling",
             children: [
                 "/scheduling",
@@ -99,7 +99,7 @@ const Navbar = () => {
         {
             id: 44,
             link: "/deliveries",
-            allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "Admin", "Senior Analyst"],
+            allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "Admin", "sysadmin", "Senior Analyst"],
             name: "Deliveries",
             children: [
                 "/deliveries",
@@ -111,7 +111,7 @@ const Navbar = () => {
         {
             id: 55,
             link: "/analysis",
-            allowedRoles: ["Scheduler", "Admin", "Analyst", "Senior Analyst", "Watermaster"],
+            allowedRoles: ["Scheduler", "Admin", "sysadmin", "Analyst", "Senior Analyst", "Watermaster"],
             name: "Analysis",
             children: [
                 "/analysis",
@@ -124,7 +124,7 @@ const Navbar = () => {
         {
             id: 66,
             link: "/reports",
-            allowedRoles: ["Watermaster", "Senior Analyst", "Admin", "Staff"],
+            allowedRoles: ["Watermaster", "Senior Analyst", "Admin", "sysadmin", "Staff"],
             name: "Reports",
             children: ["/reports"],
         },
@@ -141,7 +141,7 @@ const Navbar = () => {
         {
         id: 88, // Use a unique id for the logo section
         link: "/system", // Use "/" as the link for the logo
-        allowedRoles: ["Admin"], // Define roles that can access this link
+        allowedRoles: ["Admin", "sysadmin"], // Define roles that can access this link
         name: "Home",
         children: ["/system", "/system/users", "/system/meters"],
         },
@@ -274,7 +274,7 @@ const Navbar = () => {
                 key={id}
                 className={"inline-flex h-16 items-center pr-4 space-x-3"}
             >
-                {userRole === "Admin" && (
+                {["Admin", "sysadmin"].includes(userRole) && (
                 <div
                     className={cn(
                     "inline-flex h-full items-center",
