@@ -17,3 +17,22 @@ export const fetchUserSession = async (login:string, password:string) => {
     const data = await response.json();
     return data; // Return user data
 };
+
+export const checkUserSession = async () => {
+
+    const checkRoute = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/session`
+
+    const response = await fetch(checkRoute, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Login failed'); // Throw an error if the response is not ok
+    }
+
+    const data = await response.json();
+    return data; // Return user data
+};

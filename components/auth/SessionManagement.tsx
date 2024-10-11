@@ -1,13 +1,15 @@
 // components/SessionManagement.js
 import { ReactNode } from 'react';
-import useAuthStore from '@/lib/store/authStore'; // Adjust path as necessary
+import { useAuthStore } from '@/lib/store/authStore'; // Adjust path as necessary
 import Login from '@/components/auth/Login'; // Import the Login component
 
 export const SessionManagement: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const { isAuthenticated, user } = useAuthStore();
+    const { isAuthenticated, checkSession, setUser} = useAuthStore();
 
     if (!isAuthenticated) {
-        return <Login />; // Render Login component if not authenticated
+        // Render Login component if not authenticated
+        checkSession()
+        
     }
 
     return (
