@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { DialogTrigger } from "../ui/dialog";
 
 
 const loginSchema = z.object({
@@ -113,10 +114,12 @@ const UserLoginForm = () => {
             />
             
             {/* Submit Button */}
-            <Button type="submit" disabled={['pending'].includes(mutation.status)}>
-                {mutation.status === 'success' ? 'Success' 
-                : mutation.status === 'pending' ? 'Logging in...' : 'Login'}
-            </Button>
+            <DialogTrigger asChild>
+                <Button type="submit" disabled={['pending'].includes(mutation.status)}>
+                    {mutation.status === 'success' ? 'Success' 
+                    : mutation.status === 'pending' ? 'Logging in...' : 'Login'}
+                </Button>
+            </DialogTrigger>
             
             {mutation.isError && <p className="text-red-500">{mutation.error.message}</p>}
             {mutation.isSuccess && <p className="text-green-500">Login successful!</p>}
