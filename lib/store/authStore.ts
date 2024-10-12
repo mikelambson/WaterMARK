@@ -19,7 +19,7 @@ interface authState {
     roles: string[];
     permissions: string[];
     userLogin: (login:string, password:string) => Promise<UserSessionResponse>;
-    userLogout: (userId:string) => Promise<void>;
+    userLogout: () => Promise<void>;
     checkSession: () => void;
     setUser: (user:any) => void;
     clearUser: () => void;
@@ -47,16 +47,23 @@ const useAuthStore = create<authState>((set, get) => ({
             // Handle the error as needed, e.g., set an error state or show a message
         }
     },
-    userLogout: async (userId: string) => {
+    userLogout: async () => {
+        const { user } = get(); // Assuming you have user in the Zustand store
+        if (!user || !user.id) {
+            console.error("Logout failed: No user found.");
+            return;
+        }
+    
         try {
-            const logout = await LogoutUser(userId);
-            set({ user: null, isAuthenticated: false, roles: ["Anonymous"], permissions: [] })
-
+            const logout = await LogoutUser(user.id); // user.id will always be a string here
+            set({ user: null, isAuthenticated: false, roles: ["Anonymous"], permissions: [] });
+    
             return logout;
         } catch (error) {
-            console.error("Logout failed:", error)
+            console.error("Logout failed:", error);
         }
     },
+    
     // Function to set user data
     checkSession: async () => {
         if (!get().user) {  // If user not in state, check session
