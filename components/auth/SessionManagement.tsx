@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState, ReactNode } from
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 import { useRoleStore } from '@/components/nav/RoleContext';
+import { UserSessionData } from '@/lib/auth/fetchUserSession';
 
 interface SessionProviderProps {
     children: ReactNode;
@@ -21,6 +22,7 @@ const SessionContext = createContext<SessionContextType | null>(null);
 export const useSession = () => useContext(SessionContext);
 
 export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
+    let returnUser = {};
     const { 
         userData, 
         isAuthenticated, 
@@ -31,6 +33,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
         setUser, 
         clearUser,
         setAuthenticated  } = useAuthStore();
+    const [liveUser, setLiveUser] = useState<UserSessionData>()
     const [loading, setLoading] = useState(true);  // Handle loading state
     const router = useRouter();
     const { setUserRole } = useRoleStore();
@@ -39,14 +42,21 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
         setUserRole(role); // Update userRole when the role changes
     };
 
+    const handleAuth = (data: UserSessionData | null) => {
+        if ( data === null ) return;
+        returnUser = data;
+        setUser(data)
+        setLiveUser(data);
+    }
+
     // Function to check and regenerate session
     const verifySession = async () => {
         try {
             setLoading(true); // Ensure loading state is managed properly
             const result = await checkSession();
-            console.log(result)
-            setUser(result)
-            result && setAuthenticated(true)
+            handleAuth(result)
+
+           
             const mainRole = result ? result.roles[0] as string : "Anonymous"
             handleRoleChange(mainRole);
            
@@ -66,7 +76,12 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
     // Initial check on page load
     useEffect(() => {
         verifySession(); 
-        setTimeout(function() {console.log('List of Variables: ', { 
+
+        setTimeout(function() {
+            setUser(returnUser as UserSessionData)
+            console.log('component state: ', liveUser)
+            console.log('List of Variables: ', { 
+            returnUser,
             userData,
             isAuthenticated,
             roles,

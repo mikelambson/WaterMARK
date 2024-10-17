@@ -5,7 +5,7 @@ export type UserSessionData = {
     lastName: string;               // User's last name
     roles: string[];                // Array of roles associated with the user
     permissions: string[];          // Array of permissions associated with the user
-} | null;
+};
 
 const selfOrigin = 'https://backend.watermark.work'
 

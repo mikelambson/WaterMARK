@@ -91,7 +91,14 @@ const useAuthStore = create<AuthState>((set, get) => ({
                     permissions: []
                 });
                
-                return null;
+                return {
+                    id: "null",
+                    login: "null",
+                    firstName: "null",
+                    lastName: "null",
+                    roles: [],
+                    permissions: []
+                };
             }
     },
 
