@@ -47,7 +47,8 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
             console.log(result)
             setUser(result)
             result && setAuthenticated(true)
-            handleRoleChange(result?.roles[0] as string);
+            const mainRole = result ? result.roles[0] as string : "Anonymous"
+            handleRoleChange(mainRole);
            
             if (!result) {
                 clearUser();
