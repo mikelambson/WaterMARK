@@ -3,6 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Open_Sans, Work_Sans } from "next/font/google";
 import { ReactQueryProvider } from "@/components/auth/ReactQueryProvider"
+
+import { SessionProvider } from "@/components/auth/SessionManagement";
 import { ThemeProvider } from "@/components/nav/theme-provider";
 import { RoleProvider } from "@/components/nav/RoleContext";
 import Navbar from "@/components/nav/Navbar";
@@ -51,11 +53,13 @@ export default function RootLayout({
         <ThemeProvider attribute="class" enableSystem>
           <RoleProvider>
             <ReactQueryProvider>
+              <SessionProvider>
               <Navbar />
               <main className={"min-h-screen  w-full"}>
                 {children}
               </main>
               <Toaster />
+              </SessionProvider>
             </ReactQueryProvider>
           </RoleProvider>
         </ThemeProvider>

@@ -11,6 +11,7 @@ import LoginForm from "@/components/auth/LoginForm"
 import { useRoleStore } from "@/components/nav/RoleContext";
 import { useAuthStore } from "@/lib/store/authStore";
 import { Button } from "../ui/button";
+import { useRouter } from 'next/navigation';
 
 
 function LoginDialog({ children }: { children: React.ReactNode }) {
@@ -23,7 +24,8 @@ function LoginDialog({ children }: { children: React.ReactNode }) {
 LoginDialog.Trigger = DialogTrigger;
 LoginDialog.Content = () => {
     const { userRole, setUserRole } = useRoleStore();
-    const { user, userLogout } = useAuthStore();
+    const { userLogout } = useAuthStore();
+    const router = useRouter();
     return (
         <>
         {userRole === "Anonymous" ? (
@@ -54,6 +56,7 @@ LoginDialog.Content = () => {
                                     onClick={() => {
                                         userLogout()
                                         setUserRole("Anonymous")
+                                        router.push('/');
                                     }}>
                                     Yes
                                 </Button>
