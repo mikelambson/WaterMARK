@@ -1,18 +1,19 @@
 "use client";
 // components/SessionManagement.js
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, ReactNode } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 import { useRoleStore } from '@/components/nav/RoleContext';
 import { UserSessionData } from '@/lib/auth/fetchUserSession';
 
 interface SessionProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 interface SessionContextType {
-    userSession: any; // Update with correct user type if needed
-    verifySession: () => Promise<void>;
+  userSession: any; // Update with correct user type if needed
+  verifySession: () => void;
 }
 
 // Create a SessionContext
@@ -22,83 +23,63 @@ const SessionContext = createContext<SessionContextType | null>(null);
 export const useSession = () => useContext(SessionContext);
 
 export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
-    let returnUser = {};
-    const { 
-        userData, 
-        isAuthenticated, 
-        roles, 
-        permissions, 
-        error, 
-        checkSession, 
-        setUser, 
-        clearUser,
-        setAuthenticated  } = useAuthStore();
-    const [liveUser, setLiveUser] = useState<UserSessionData>()
-    const [loading, setLoading] = useState(true);  // Handle loading state
-    const router = useRouter();
-    const { setUserRole } = useRoleStore();
+  const { userData, setUser, clearUser, checkSession, setAuthenticated, setRoles, setPermissions, setError} = useAuthStore();
+  const { setUserRole } = useRoleStore();
+  const router = useRouter();
 
-    const handleRoleChange = (role: string) => {
-        setUserRole(role); // Update userRole when the role changes
-    };
+  // Handle role change
+  const handleRoleChange = (role: string) => {
+    setUserRole(role);
+  };
 
-    const handleAuth = (data: UserSessionData | null) => {
-        if ( data === null ) return;
-        returnUser = data;
-        setUser(data)
-        setLiveUser(data);
+    const badAuth = (error: any) => {
+        handleRoleChange("Anonymous")
+        clearUser();
+        router.push('/');
+        setError(error)
+        console.log(error)
     }
 
-    // Function to check and regenerate session
-    const verifySession = async () => {
-        try {
-            setLoading(true); // Ensure loading state is managed properly
-            const result = await checkSession();
-            handleAuth(result)
-
-           
-            const mainRole = result ? result.roles[0] as string : "Anonymous"
-            handleRoleChange(mainRole);
-           
-            if (!result) {
-                clearUser();
-                router.push('/');
-            }
-        } catch (error) {
-            console.error('Error verifying session:', error);
-            clearUser();
-            router.push('/');
-        } finally {
-            setLoading(false);
+  // Handle session authentication
+  const handleAuth = (data: UserSessionData | null) => {
+    if (data) {
+            const dataId: string | null = data.id;
+            const validSession = dataId != null;
+            const mainRole = validSession ? data.roles[0] as string : "Anonymous";  
+            //set the user
+            if (validSession) {
+                setUser(data); // Zustand store update 
+                handleRoleChange(mainRole);
+                setRoles(data.roles)
+                setPermissions(data.permissions)
+                setAuthenticated(validSession)
+            } else { badAuth("Please Try Again") }
+        } else {
+            badAuth(data)
         }
-    };
+  };
 
-    // Initial check on page load
-    useEffect(() => {
-        verifySession(); 
+  // UseMutation to validSession and regenerate session
+  const verifySession = useMutation({
+    mutationFn: async () => await checkSession(), // API call to validSession session
+    onSuccess: (data: UserSessionData | null) => {
+      handleAuth(data);
+    },
+    onError: (error) => {
+      console.error('Error verifying session:', error);
+      badAuth(error)
+    },
+  });
 
-        setTimeout(function() {
-            setUser(returnUser as UserSessionData)
-            console.log('component state: ', liveUser)
-            console.log('List of Variables: ', { 
-            returnUser,
-            userData,
-            isAuthenticated,
-            roles,
-            permissions,
-            error,
-        })}, 3000);
-        
-        // Verify session on mount
-    }, []);
+  // Verify session on mount using useEffect
+  useEffect(() => {
+    verifySession.mutate();
+  }, []); // Empty dependency array ensures this runs once on mount
 
-    // Provide session data and actions to the rest of the app
-    return (
-        <SessionContext.Provider value={{ userSession: userData, verifySession }}>
-            {/* {!loading ? children : <p>Loading...</p>} */}
-            {children}
-        </SessionContext.Provider>
-    );
+  // Provide session data and actions to the rest of the app
+  return (
+    <SessionContext.Provider value={{ userSession: userData, verifySession: verifySession.mutate }}>
+      {children}
+    </SessionContext.Provider>
+  );
 };
-
-

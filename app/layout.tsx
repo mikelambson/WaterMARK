@@ -51,17 +51,17 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ThemeProvider attribute="class" enableSystem>
-          <RoleProvider>
-            <ReactQueryProvider>
-              <SessionProvider>
-              <Navbar />
-              <main className={"min-h-screen  w-full"}>
-                {children}
-              </main>
-              <Toaster />
-              </SessionProvider>
-            </ReactQueryProvider>
-          </RoleProvider>
+          <ReactQueryProvider>
+            <SessionProvider>
+              <RoleProvider>
+                <Navbar />
+                <main className={"min-h-screen  w-full"}>
+                  {children}
+                </main>
+                <Toaster />
+              </RoleProvider>
+            </SessionProvider>
+          </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -17,6 +17,10 @@ interface AuthState {
     setUser: (arg0: UserSessionData) => void;
     clearUser: () => void;
     setAuthenticated: (value: boolean) => void;
+    setRoles: (roleArray: string[]) => void;
+    setPermissions: (permissionsArray: string[]) => void;
+    setError: (errordata: any) => void;
+
 }
 
 
@@ -74,28 +78,16 @@ const useAuthStore = create<AuthState>((set, get) => ({
     checkSession: async (): Promise<UserSessionData> => {
         try {
                 const sessionUser = await verifySession();  
-                set({ 
-                    userData: sessionUser, 
-                    isAuthenticated: true, 
-                    roles: sessionUser.roles || ["Anonymous"],
-                    permissions: sessionUser.permissions || [] 
-                });
                 return sessionUser;
             } catch (error) {
                 console.error("Login failed:", error);
-                set({ 
-                    error: 'Login failed. Please try again.', 
-                    userData: null,  // Set user to null on error
-                    isAuthenticated: false,
-                    roles: ["Anonymous"],
-                    permissions: []
-                });
+                
                
                 return {
-                    id: "null",
-                    login: "null",
-                    firstName: "null",
-                    lastName: "null",
+                    id: null,
+                    login: null,
+                    firstName: null,
+                    lastName: null,
                     roles: [],
                     permissions: []
                 };
@@ -106,13 +98,25 @@ const useAuthStore = create<AuthState>((set, get) => ({
 
     clearUser: () => {
     set(() => ({
-        user: null,
+        userData: null,
         isAuthenticated: false,
         roles: ["Anonymous"],
         permissions: []
     }));
     },
-    setAuthenticated: (value: boolean) => {set({isAuthenticated: value})}
+    setAuthenticated: (value: boolean) => {
+        set({isAuthenticated: value});
+        console.log({
+            "UserData":get().userData,
+            "isAuthenticated":get().isAuthenticated,
+            "Permissions":get().permissions,
+            "Roles":get().roles,
+            "Error":get().error
+        })
+    },
+    setRoles: (roleArray) => { set({ roles: roleArray, }) },
+    setPermissions: (permissionsArray) => { set({ permissions: permissionsArray }) },
+    setError: (errordata) => { set({ error: errordata }); }
 }));
 
 export  { useAuthStore };    

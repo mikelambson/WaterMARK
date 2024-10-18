@@ -1,8 +1,8 @@
 export type UserSessionData = {
-    id: string;                     // UUID for the user
-    login: string;                  // User login name
-    firstName: string;              // User's first name
-    lastName: string;               // User's last name
+    id: string | null;                     // UUID for the user
+    login: string | null;                  // User login name
+    firstName: string | null;              // User's first name
+    lastName: string | null;               // User's last name
     roles: string[];                // Array of roles associated with the user
     permissions: string[];          // Array of permissions associated with the user
 };
