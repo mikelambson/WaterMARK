@@ -81,8 +81,6 @@ const useAuthStore = create<AuthState>((set, get) => ({
                 return sessionUser;
             } catch (error) {
                 console.error("Login failed:", error);
-                
-               
                 return {
                     id: null,
                     login: null,
