@@ -1,4 +1,4 @@
-import LoginForm from "@/app/testing/_components/login/loginForm"
+import LoginForm from "@/features/testing/login/loginForm"
 import UserLoginForm from "@/components/auth/userLogin";
 
 export default function Login() {

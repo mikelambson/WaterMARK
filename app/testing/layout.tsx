@@ -1,6 +1,6 @@
 // /app/reports/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
-import { testingLinks } from "@/app/testing/_components/navigation/testingLinks";
+import { testingLinks } from "@/features/testing/navigation/testingLinks";
 
 
 const TestingLayout = async ({ children }: { children: React.ReactNode} ) => {
