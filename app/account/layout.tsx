@@ -1,6 +1,6 @@
 // /app/account/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
-import { accountLinks } from "./_components/navigation/accountLinks";
+import { accountLinks } from "@/features/account/navigation/accountLinks";
 
 const AccountLayout = async ({ children }: { children: React.ReactNode} ) => {
     return ( 
