@@ -55,16 +55,15 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
                 setRoles(data.roles)
                 setPermissions(data.permissions)
                 setAuthenticated(validSession)
-                setTimeout(() => {
-                  setLoading(false)  
-                }, 4000);
+              
                 
-            } else { badAuth("Please Try Again") }
+            } else { 
+              badAuth("Please Try Again") 
+              
+            }
         } else {
             badAuth(data)
-            setTimeout(() => {
-              setLoading(false)  
-            }, 4000);
+           
         }
   };
 
@@ -73,16 +72,21 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
     mutationFn: async () => await checkSession(), // API call to validSession session
     onSuccess: (data: UserSessionData | null) => {
       handleAuth(data);
+      
     },
     onError: (error) => {
       console.error('Error verifying session:', error);
       badAuth(error)
+      
     },
   });
 
   // Verify session on mount using useEffect
   useEffect(() => {
     verifySession.mutate();
+    setTimeout(() => {
+      setLoading(false)  
+    }, 4000);
   }, []); // Empty dependency array ensures this runs once on mount
 
   // Provide session data and actions to the rest of the app
