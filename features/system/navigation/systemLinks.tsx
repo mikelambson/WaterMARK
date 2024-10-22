@@ -1,6 +1,7 @@
 import { FaUsersCog } from "react-icons/fa";
 import { BsFillHouseGearFill } from "react-icons/bs";
 import { TbAdjustmentsCog } from "react-icons/tb";
+import { GrTest } from "react-icons/gr";
 
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased";
 const iconStyle = `mb-[2px] subpixel-antialiased`;
@@ -33,6 +34,16 @@ export const systemLinks = [
       <>
         <TbAdjustmentsCog size={30} className={iconStyle} />
         <span className={labelTextClass}>Manage Meters</span>
+      </>
+    ),
+  },
+  {
+    id: 888,
+    link: "/testing",
+    content: (
+      <>
+        <GrTest size={30} className={iconStyle} />
+        <span className={labelTextClass}>Testing</span>
       </>
     ),
   },

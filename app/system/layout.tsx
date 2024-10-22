@@ -1,6 +1,6 @@
 // /app/system/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
-import { systemLinks } from "./_components/navigation/systemLinks";
+import { systemLinks } from "@/features/system/navigation/systemLinks";
 
 
 const SystemLayout = async ({ children }: { children: React.ReactNode} ) => {

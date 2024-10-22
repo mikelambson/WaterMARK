@@ -33,7 +33,6 @@ import { Notify, NotifyCount } from "@/components/nav/Notifications";
 import AvatarMenu from "@/components/nav/AvatarMenu";
 
 const Navbar = () => {
-    const { toast } = useToast();
     const { userRole } = useRole(); // Destructure userRole from useRole hook
     const [nav, setNav] = useState(false);
     const { theme } = useTheme();
@@ -44,8 +43,7 @@ const Navbar = () => {
         "transition-all hover:text-yellow-400 hover:scale-125 dark:hover:text-yellow-300";
     const defaultbg = "bg-slate-800/95 dark:bg-slate-800";
     const onlineScheduleName = userRole==="Anonymous" ? "Schedule" : "Public";
-    const { setUserRole } = useRoleStore(); // Access setUserRole
-
+    
     const roleBasedLinks = [
         {
             id: 0o0, // Use a unique id for the logo section
@@ -142,8 +140,15 @@ const Navbar = () => {
         id: 88, // Use a unique id for the logo section
         link: "/system", // Use "/" as the link for the logo
         allowedRoles: ["Admin", "sysadmin"], // Define roles that can access this link
-        name: "Home",
-        children: ["/system", "/system/users", "/system/meters"],
+        name: "System Administration",
+        children: [
+            "/system", 
+            "/system/users", 
+            "/system/meters",
+            "/testing",
+            "/testing/login",
+            "/testing/scheduling"
+        ],
         },
     ];
 
@@ -302,6 +307,7 @@ const Navbar = () => {
                         />
                     </div>
                     </Link>
+                    
                 </div>
                 )}
                 <ModeToggle />

@@ -7,8 +7,8 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
-import UserTemplate from "@/app/system/_components/manusers/usertemplate";
-import NewUserDialogue from "@/app/system/_components/manusers/newuserdialogue";
+import UserTemplate from "@/features/system/manusers/usertemplate";
+import NewUserDialogue from "@/features/system/manusers/newuserdialogue";
 
 
 const ManageUsers = () => {
