@@ -1,11 +1,12 @@
 "use client";
 // components/SessionManagement.js
-import React, { createContext, useContext, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, ReactNode, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 import { useRoleStore } from '@/components/nav/RoleContext';
 import { UserSessionData } from '@/lib/auth/fetchUserSession';
+import LoadingAnimation from '@/features/testing/loader/loading.module';
 
 interface SessionProviderProps {
   children: ReactNode;
@@ -23,6 +24,7 @@ const SessionContext = createContext<SessionContextType | null>(null);
 export const useSession = () => useContext(SessionContext);
 
 export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
+  const [isLoading, setLoading] = useState(true);
   const { userData, setUser, clearUser, checkSession, setAuthenticated, setRoles, setPermissions, setError} = useAuthStore();
   const { setUserRole } = useRoleStore();
   const router = useRouter();
@@ -53,9 +55,16 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
                 setRoles(data.roles)
                 setPermissions(data.permissions)
                 setAuthenticated(validSession)
+                setTimeout(() => {
+                  setLoading(false)  
+                }, 4000);
+                
             } else { badAuth("Please Try Again") }
         } else {
             badAuth(data)
+            setTimeout(() => {
+              setLoading(false)  
+            }, 4000);
         }
   };
 
@@ -79,7 +88,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
   // Provide session data and actions to the rest of the app
   return (
     <SessionContext.Provider value={{ userSession: userData, verifySession: verifySession.mutate }}>
-      {children}
+      {isLoading ? <LoadingAnimation /> : children}
     </SessionContext.Provider>
   );
 };

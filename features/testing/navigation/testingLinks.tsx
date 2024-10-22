@@ -1,8 +1,9 @@
 import { MdDashboard } from "react-icons/md";
 import { RiShieldUserFill } from "react-icons/ri";
 import { GrSchedules } from "react-icons/gr";
+import { TbLoader3 } from "react-icons/tb";
 
-const labelTextClass = "text-[10px] leading-3 subpixel-antialiased px-1";
+const labelTextClass = "text-[10px] leading-3 subpixel-antialiased px-1 break-words";
 const iconStyle = `mb-[2px] subpixel-antialiased`;
 
 
@@ -13,7 +14,7 @@ export const testingLinks = [
     content: (
       <>
         <MdDashboard size={30} className={iconStyle} />
-        <span className={labelTextClass}>DEVELOPMENT DASHBOARD</span>
+        <span className={labelTextClass}>DEV DASH</span>
       </>
     ),
   },
@@ -23,7 +24,7 @@ export const testingLinks = [
     content: (
       <>
         <RiShieldUserFill size={30} className={iconStyle} />
-        <span className={labelTextClass}>DEVELOPMENT LOGIN</span>
+        <span className={labelTextClass}>DEV LOGIN</span>
       </>
     ),
   },
@@ -33,7 +34,17 @@ export const testingLinks = [
     content: (
       <>
         <GrSchedules size={30} className={iconStyle} />
-        <span className={labelTextClass}>DEVELOPMENT SCHEDULING</span>
+        <span className={labelTextClass}>DEV SCHEDULE</span>
+      </>
+    ),
+  },
+  {
+    id: 999003, // Use a unique id for the logo section
+    link: "/testing/loader", // Use "/" as the link for the logo
+    content: (
+      <>
+        <TbLoader3 size={30} className={iconStyle} />
+        <span className={labelTextClass}>DEV LOADER</span>
       </>
     ),
   },
