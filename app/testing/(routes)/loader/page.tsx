@@ -1,4 +1,4 @@
-import LoadingAnimation from "@/features/testing/loader/loading.module";
+import LoadingAnimation from "@/features/loader/loading.module";
 
 
 const Loader = () => {

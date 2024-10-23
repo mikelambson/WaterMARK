@@ -1,9 +1,15 @@
-import styles from '@/features/testing/loader/loading.module.css'
 
-const LoadingAnimation = () => {
+import styles from '@/features/loader/loading.module.css'
+import React from 'react';
+
+interface fadeOutProps {
+    fadeOut?: boolean;
+}
+
+const LoadingAnimation: React.FC<fadeOutProps> = ({fadeOut}) => {
     return ( 
         <>
-            <div className={styles.animationbg}>
+            <div className={`${styles.loader} ${fadeOut ? styles['fade-out'] : ''}`}>
                 <div className={styles.logo}>
                     Water<span className={styles.altlogo}>MARK</span>
                 </div>

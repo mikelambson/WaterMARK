@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 import { useRoleStore } from '@/components/nav/RoleContext';
 import { UserSessionData } from '@/lib/auth/fetchUserSession';
-import LoadingAnimation from '@/features/testing/loader/loading.module';
+import LoadingAnimation from '@/features/loader/loading.module';
 
 interface SessionProviderProps {
   children: ReactNode;
@@ -25,6 +25,7 @@ export const useSession = () => useContext(SessionContext);
 
 export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) => {
   const [isLoading, setLoading] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
   const { userData, setUser, clearUser, checkSession, setAuthenticated, setRoles, setPermissions, setError} = useAuthStore();
   const { setUserRole } = useRoleStore();
   const router = useRouter();
@@ -69,7 +70,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
 
   // UseMutation to validSession and regenerate session
   const verifySession = useMutation({
-    mutationFn: async () => await checkSession(), // API call to validSession session
+    mutationFn: checkSession, // API call to validSession session
     onSuccess: (data: UserSessionData | null) => {
       handleAuth(data);
       
@@ -83,16 +84,39 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
 
   // Verify session on mount using useEffect
   useEffect(() => {
-    verifySession.mutate();
-    setTimeout(() => {
-      setLoading(false)  
-    }, 4000);
+
+    const MAX_RETRIES = 3;
+    let retryCount = 0;
+
+    const attemptVerifySession = async () => {
+      while (retryCount < MAX_RETRIES) {
+        try {
+          await verifySession.mutateAsync(); // Call the mutation
+          break; // Exit loop if successful
+        } catch (error) {
+          retryCount++;
+          console.error('Retrying session verification...', error);
+          await new Promise(resolve => setTimeout(resolve, 1000)); // Optional delay
+        }
+      } 
+
+    // After all attempts, handle fade-out logic
+      setTimeout(() => {
+        setFadeOut(true); // Trigger fade-out animation
+      }, 1700);
+      setTimeout(() => {
+        setLoading(false); // Hide loader after animation
+      }, 2000);
+    };
+
+    attemptVerifySession()
   }, []); // Empty dependency array ensures this runs once on mount
 
   // Provide session data and actions to the rest of the app
   return (
     <SessionContext.Provider value={{ userSession: userData, verifySession: verifySession.mutate }}>
-      {isLoading ? <LoadingAnimation /> : children}
+      {isLoading && <LoadingAnimation fadeOut={fadeOut} />}
+      {children}
     </SessionContext.Provider>
   );
 };
