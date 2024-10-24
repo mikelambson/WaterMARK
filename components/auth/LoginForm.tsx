@@ -1,9 +1,9 @@
 "use client"
 import { useState } from "react";
 import { useRoleStore } from "@/components/nav/RoleContext";
-import { useAuthStore, UserSessionResponse } from '@/lib/store/authStore';
+import { useAuthStore } from '@/lib/store/authStore';
 import { useMutation } from '@tanstack/react-query';
-
+import { UserSessionData } from '@/lib/auth/fetchUserSession'
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -14,7 +14,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { DialogTrigger } from "../ui/dialog";
-
 
 const loginSchema = z.object({
     login: z.string().min(1, { message: "Login is required" }),
@@ -27,7 +26,7 @@ const loginSchema = z.object({
 const UserLoginForm = () => {
     const { toast } = useToast();
     const {userRole, setUserRole } = useRoleStore();
-    const { user, isAuthenticated, roles, permissions, userLogin, clearUser } = useAuthStore();
+    const { userData, isAuthenticated, roles, permissions, userLogin, clearUser } = useAuthStore();
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -42,7 +41,7 @@ const UserLoginForm = () => {
 
 
     // UseMutation with the correct types
-    const mutation = useMutation<UserSessionResponse, Error, LoginFormValues>({
+    const mutation = useMutation<UserSessionData | null, Error, LoginFormValues>({
     mutationFn: ({ login, password }) => userLogin(login, password),
     });
 
@@ -50,7 +49,7 @@ const UserLoginForm = () => {
         console.log('Submitting form', data);
         try {
             const user = await mutation.mutateAsync(data); 
-            const roles = user?.roles && user.roles.length > 0 ? user.roles.map(role => role) : ["Anonymous"];
+            const roles = user?.roles && user.roles.length > 0 ? user.roles.map((role: any) => role) : ["Anonymous"];
             const role = roles[0]
             console.log('User logged in:', user);
             console.log('User roles:', user?.roles);
