@@ -1,7 +1,7 @@
 // /app/admin/layout.tsx
 "use client";
 import { Sidebar } from "@/components/nav/Sidebar";
-import { adminLinks } from "./_components/navigation/adminLinks";
+import { adminLinks } from "@/features/admin/navigation/adminLinks";
 import { useRoleStore } from "@/components/nav/RoleContext"; // Import useRole
 import { useRouter } from "next/navigation";
 

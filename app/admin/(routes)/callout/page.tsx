@@ -1,6 +1,6 @@
 // Callouts \app\admin\(routes)\callouts\page.tsx
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import RenderOrders from "@/app/admin/_components/callout/RenderOrders";
+import RenderOrders from "@/features/admin/callout/RenderOrders";
 
 const Callout = () => {
   return (
