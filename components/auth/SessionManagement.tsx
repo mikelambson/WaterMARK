@@ -103,10 +103,10 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
     // After all attempts, handle fade-out logic
       setTimeout(() => {
         setFadeOut(true); // Trigger fade-out animation
-      }, 1700);
+      }, 2300);
       setTimeout(() => {
         setLoading(false); // Hide loader after animation
-      }, 2000);
+      }, 2500);
     };
 
     attemptVerifySession()
