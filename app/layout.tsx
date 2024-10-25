@@ -9,6 +9,8 @@ import { ThemeProvider } from "@/components/nav/theme-provider";
 import { RoleProvider } from "@/components/nav/RoleContext";
 import Navbar from "@/components/nav/Navbar";
 import { Toaster } from "@/components/ui/toaster";
+import { Suspense } from "react";
+import LoadingAnimation from "@/features/loader/loading.module";
 
 
 const openSans = Open_Sans({ 
@@ -50,19 +52,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <ThemeProvider attribute="class" enableSystem>
-          <ReactQueryProvider>
-            <SessionProvider>
-              <RoleProvider>
-                <Navbar />
-                <main className={"min-h-screen  w-full"}>
-                  {children}
-                </main>
-                <Toaster />
-              </RoleProvider>
-            </SessionProvider>
-          </ReactQueryProvider>
-        </ThemeProvider>
+        <Suspense fallback={<LoadingAnimation />}>
+          <ThemeProvider attribute="class" enableSystem>
+            <ReactQueryProvider>
+              <SessionProvider>
+                <RoleProvider>
+                  <Navbar />
+                  <Suspense fallback={<LoadingAnimation />}>
+                    <main className={"min-h-screen  w-full"}>
+                      {children}
+                    </main>
+                  </Suspense>
+                  <Toaster />
+                </RoleProvider>
+              </SessionProvider>
+            </ReactQueryProvider>
+          </ThemeProvider>
+        </Suspense>
       </body>
     </html>
   );
