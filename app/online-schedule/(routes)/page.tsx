@@ -1,4 +1,4 @@
-import OnlineSchedule from "@/app/online-schedule/_components/onlineSchedule";
+import OnlineSchedule from "@/features/online-schedule/onlineSchedule";
 import { getScheduled } from "@/lib/basicFunctions";
 
 

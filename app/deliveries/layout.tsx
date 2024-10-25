@@ -1,6 +1,6 @@
 // /app/deliveries/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
-import { deliveriesLinks } from "./_components/navigation/deliveriesLinks";
+import { deliveriesLinks } from "@/features/delivery/navigation/deliveriesLinks";
 
 
 const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => {

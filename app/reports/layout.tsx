@@ -1,6 +1,6 @@
 // /app/reports/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
-import { reportLinks } from "./_components/navigation/reportsLinks";
+import { reportLinks } from "@/features/reports/navigation/reportsLinks";
 
 
 const ReportsLayout = async ({ children }: { children: React.ReactNode} ) => {

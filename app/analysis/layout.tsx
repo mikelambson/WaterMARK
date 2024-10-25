@@ -1,6 +1,6 @@
 // /app/analysis/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
-import { analysisLinks } from "./_components/navigation/analysisLinks";
+import { analysisLinks } from "@/features/analysis/navigation/analysisLinks";
 
 const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => {
     return ( 

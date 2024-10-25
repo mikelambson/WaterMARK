@@ -1,6 +1,6 @@
 // /app/online-schedule/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
-import { onlineLinks } from "./_components/navigation/onlineLinks";
+import { onlineLinks } from "@/features/online-schedule/navigation/onlineLinks";
 
 
 const PublicScheduleLayout = async ({ children }: { children: React.ReactNode} ) => {

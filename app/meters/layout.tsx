@@ -1,6 +1,6 @@
 // /app/meters/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
-import { metersLinks } from "./_components/navigation/metersLinks";
+import { metersLinks } from "@/features/meters/navigation/metersLinks";
 
 
 const MetersLayout = async ({ children }: { children: React.ReactNode} ) => {
