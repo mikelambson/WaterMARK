@@ -32,42 +32,42 @@ export const Sidebar: React.FC<NavigationSidebarProps> = ({ sideLinks }) => {
 
   return (
     <nav>
-      <div className="fixed flex h-full w-14">
-        <div className={sidebarStyle}>
-          <div className="mb-5">
-            {sideLinks.map((item: any) => (
-              <div
-                key={item.id}
-                className={cn(
-                  "py-2 border-r border-b border-t rounded-r-sm -ml-1 -mr-[.75px] pl-1",
-                  pathname === item.link
-                    ? cn(
-                        isDarkMode
-                          ? "border-b-yellow-950/50 border-t-orange-100/20 border-r-orange-200/60 bg-gradient-to-l from-yellow-950/60 via-yellow-950/50 to-yellow-950/40 drop-shadow-md"
-                          : "border-t-orange-50/5 border-b-orange-950/20 border-r-orange-300/40 bg-gradient-to-l from-orange-300/40 via-orange-300/30 to-orange-300/20"
-                      )
-                    : "border-none hover:scale-90"
-                )}
-              >
-                <Link
+        <div className="fixed flex h-full w-14">
+          <div className={sidebarStyle}>
+            <div className="mb-5">
+              {sideLinks.map((item: any) => (
+                <div
                   key={item.id}
-                  href={item.link}
                   className={cn(
-                    `${sidebarItem}`,
+                    "py-2 border-r border-b border-t rounded-r-sm -ml-1 -mr-[.75px] pl-1",
                     pathname === item.link
                       ? cn(
-                          isDarkMode ? "text-orange-300" : "text-orange-300/95"
+                          isDarkMode
+                            ? "border-b-yellow-950/50 border-t-orange-100/20 border-r-orange-200/60 bg-gradient-to-l from-yellow-950/60 via-yellow-950/50 to-yellow-950/40 drop-shadow-md"
+                            : "border-t-orange-50/5 border-b-orange-950/20 border-r-orange-300/40 bg-gradient-to-l from-orange-300/40 via-orange-300/30 to-orange-300/20"
                         )
-                      : cn(isDarkMode ? "text-zinc-500" : "text-stone-500")
+                      : "border-none hover:scale-90"
                   )}
                 >
-                  {item.content}
-                </Link>
-              </div>
-            ))}
+                  <Link
+                    key={item.id}
+                    href={item.link}
+                    className={cn(
+                      `${sidebarItem}`,
+                      pathname === item.link
+                        ? cn(
+                            isDarkMode ? "text-orange-300" : "text-orange-300/95"
+                          )
+                        : cn(isDarkMode ? "text-zinc-500" : "text-stone-500")
+                    )}
+                  >
+                    {item.content}
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
     </nav>
   );
 };

@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import ScheduledColumn from "@/app/scheduling/_components/board/ColumnScheduled";
-import UnscheduledColumn from "@/app/scheduling/_components/board/ColumnUnscheduled";
+import ScheduledColumn from "@/features/scheduling/board/ColumnScheduled";
+import UnscheduledColumn from "@/features/scheduling/board/ColumnUnscheduled";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

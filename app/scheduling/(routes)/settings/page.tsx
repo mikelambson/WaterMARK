@@ -4,9 +4,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Headsheets,
   columns,
-} from "@/app/scheduling/_components/settings/hs-columns";
-import { DataTable } from "@/app/scheduling/_components/settings/data-table";
-import FlowsSettings from "../../_components/settings/flowsSettings";
+} from "@/features/scheduling/settings/hs-columns";
+import { DataTable } from "@/features/scheduling/settings/data-table";
+import FlowsSettings from "../../../../features/scheduling/settings/flowsSettings";
 import ApiFetch from "@/lib/apiFetch";
 
 const apiFetch = new ApiFetch();

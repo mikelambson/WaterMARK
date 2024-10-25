@@ -1,6 +1,8 @@
 // /app/scheduling/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
-import { schedulingLinks } from "./_components/navigation/schedulingLinks";
+import LoadingAnimation from "@/features/loader/loading.module";
+import { schedulingLinks } from "@/features/scheduling/navigation/schedulingLinks";
+import { Suspense } from "react";
 
 
 const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => {
@@ -8,9 +10,11 @@ const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => 
         <>
         <div className={"h-full m-0 pt-[4rem]"}>
         <Sidebar sideLinks={schedulingLinks} />
-        <main className={"pt-0 pl-14"}>
-            {children}
-        </main>
+        <Suspense fallback={<LoadingAnimation />}>
+            <main className={"pt-0 pl-14"}>
+                {children}
+            </main>
+        </Suspense>
         </div>
         </>
      );

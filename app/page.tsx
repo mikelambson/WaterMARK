@@ -2,7 +2,7 @@
 import SysInfo from "@/components/cards/SysInfo";
 import Ordercount from "@/components/cards/Ordercount";
 import LakeForcast from "@/components/cards/LakeForcast";
-import Demand from "./scheduling/_components/Demand";
+import Demand from "../features/scheduling/Demand";
 
 export default function Home() {
     return (

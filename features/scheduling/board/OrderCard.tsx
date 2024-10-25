@@ -5,7 +5,7 @@ import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } fro
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Order, TypedColumn } from "@/typings";
-import DragIcon from "@/app/scheduling/_components/board/DragIcon";
+import DragIcon from "@/features/scheduling/board/DragIcon";
 import { Button } from "@/components/ui/button";
 import { 
     Sheet, 

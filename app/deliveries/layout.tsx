@@ -1,6 +1,8 @@
 // /app/deliveries/layout.tsx
 import { Sidebar } from "@/components/nav/Sidebar";
 import { deliveriesLinks } from "@/features/delivery/navigation/deliveriesLinks";
+import LoadingAnimation from "@/features/loader/loading.module";
+import { Suspense } from "react";
 
 
 const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => {
@@ -8,9 +10,11 @@ const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => 
         <>
         <div className={"h-full m-0 pt-[4rem]"}>
         <Sidebar sideLinks={deliveriesLinks} />
-        <main className={"pt-0 pl-14"}>
-            {children}
-        </main>
+        <Suspense fallback={<LoadingAnimation />}>
+            <main className={"pt-0 pl-14"}>
+                {children}
+            </main>
+        </Suspense>
         </div>
         </>
      );
