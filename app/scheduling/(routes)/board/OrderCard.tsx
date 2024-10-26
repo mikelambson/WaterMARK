@@ -30,7 +30,7 @@ import { TbGridDots } from "react-icons/tb";
 import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
 import { useSchedulingStore } from "@/lib/store/schedulingStore";
-import DelayOrderButton from "./DelayOrder";
+import DelayOrderButton from "../../../../features/scheduling/board/DelayOrder";
 
 type Properties = {
     order: Order;

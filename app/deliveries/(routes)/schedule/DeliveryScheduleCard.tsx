@@ -34,7 +34,7 @@ import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
 // import { ScrollArea } from "@/components/ui/scroll-area";
 // import { DatePicker, TimePicker } from "./DateTimePicker";
-import UpdateMeasurements from "./UpdateMeasurements";
+import UpdateMeasurements from "../../../../features/delivery/schedule/UpdateMeasurements";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import EndRun from "@/features/delivery/schedule/EndRun";
 import ManageDelivery from "@/features/delivery/schedule/ManageDeliveries";

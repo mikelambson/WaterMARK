@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Order, Schedule, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { useEffect } from 'react';
-import ScheduleCard from './ScheduleCard';
+import ScheduleCard from '@/app/scheduling/(routes)/board/ScheduleCard';
 
 type Properties = {
     id: TypedColumn,
@@ -102,11 +102,8 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                         >
                             {Array.from({ length: selectedSheet.maxHeads }, (_, index) => (
                                 <TabsContent key={(index)} value={`${index + 1}`} className="h-full">
-                                    <div className='-mt-1 mb-1 relative z-0'>
-                                        <div className="text-center text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest z-10">
-                                            {selectedSheet.name} | Head {selectedHead}
-                                        </div>
-                                        <div className='absolute top-0 left-3 text-md font-bold text-foreground/50 dark:text-secondary/50 z-20'>
+                                    <div className='-mt-1 mb-1 w-full px-3 z-0 inline-flex justify-between'>
+                                        <div className='text-md font-bold text-foreground/50 dark:text-secondary/50 z-20'>
                                             {schedule.columns.get(index + 1)?.schedules.length === 0 
                                                 ? "" 
                                                 : schedule.columns.get(index + 1)?.schedules.length
@@ -118,7 +115,10 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
                                                 }
                                             </span>
                                         </div>
-                                        <div className='absolute top-0 right-3 text-md font-bold text-foreground/50 dark:text-secondary/50 z-20'>
+                                        <div className="text-center text-md font-bold text-foreground/50 dark:text-secondary/50 tracking-widest z-10">
+                                            {selectedSheet.name} | Head {selectedHead}
+                                        </div>
+                                        <div className='text-md font-bold text-foreground/50 dark:text-secondary/50 z-20'>
                                             <span className=' items-center text-xs'>
                                                 {schedule.columns.get(index + 1)?.schedules.length === 0 
                                                     ? "" 
