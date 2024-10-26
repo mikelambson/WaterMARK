@@ -1,4 +1,4 @@
-// TabbedColumn @\app\deliveries\_components\ScheduledDeliveries.tsx
+// TabbedColumn @\app\deliveries\_components\ScheduledDeliveryBoadtsx
 "use client"
 import { useDeliveriesStore }from "@/lib/deliveries/deliveriesStore";
 // import { ScrollArea } from "@/components/ui/scroll-area";
@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 // import { cn } from "@/lib/utils";
 import { Schedule } from "@/typings";
 import { useEffect } from 'react';
-import { ScheduleCard } from '@/features/delivery/schedule/ScheduleCard';
+import { ScheduledDeliveryCard } from '@/features/delivery/schedule/DeliveryScheduleCard';
 
 type Properties = {
     id: number | null,
@@ -15,7 +15,7 @@ type Properties = {
 }
 
 
-const Deliveries = ({ id, columns, index }: Properties) => {
+const ScheduledDeliveryBoard= ({ id, columns, index }: Properties) => {
     const { selectedDistrict, selectedSheet, selectedHead, setSelectedHead, schedule, getSchedule } = useDeliveriesStore();
 
     useEffect(() => { 
@@ -111,13 +111,13 @@ const Deliveries = ({ id, columns, index }: Properties) => {
                                 {filteredSched.schedules.map((schedule: any, innerIndex: number) => (
                                     <div key={innerIndex}>
                                     {schedule.order.status !== "running" ? (
-                                        <ScheduleCard
+                                        <ScheduledDeliveryCard
                                         schedule={schedule}
                                         index={getIndexMS(schedule.scheduledDate, schedule.order.approxHrs)}
                                         innerRef={() => {}}
                                         />
                                     ) : (
-                                        <ScheduleCard
+                                        <ScheduledDeliveryCard
                                         schedule={schedule}
                                         index={getIndexMS(schedule.scheduledDate, schedule.order.approxHrs)}
                                         key={innerIndex}
@@ -150,4 +150,4 @@ const Deliveries = ({ id, columns, index }: Properties) => {
     );
 };
 
-export { Deliveries };
+export { ScheduledDeliveryBoard };

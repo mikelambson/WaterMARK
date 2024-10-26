@@ -48,7 +48,7 @@ type Properties = {
     
 };
 
-const ScheduleCard = ({
+const ScheduledDeliveryCard = ({
     index,
     schedule,
     innerRef,
@@ -566,7 +566,7 @@ const ScheduleCard = ({
      );
 }
  
-export { ScheduleCard };
+export { ScheduledDeliveryCard };
 
 function Number(startTime: Date) {
     throw new Error("Function not implemented.");

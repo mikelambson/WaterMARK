@@ -10,7 +10,7 @@ import { ChevronsUpDown } from "lucide-react";
 import { Command, CommandGroup, CommandItem, CommandInput, CommandList  } from "@/components/ui/command";
 import { Schedule } from "@/typings";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Deliveries }from "@/features/delivery/schedule/ScheduledOrders";
+import { ScheduledDeliveryBoard }from "@/features/delivery/schedule/DeliveryBoard";
 
 export default function DeliverySchedule() {
     const { userDefaultDistrict, selectedSheet, headsheets, setSelectedSheet, selectedHead, setSelectedHead, selectedDistrict, open, setOpen, setDistrict, getHeadsheets, getSchedule, schedule } = useDeliveriesStore();
@@ -135,7 +135,7 @@ export default function DeliverySchedule() {
                 </div>
         
         
-        <Deliveries 
+        <ScheduledDeliveryBoard
             columns={convertedColumns} 
             index={0} 
             id={selectedSheet.id} 
