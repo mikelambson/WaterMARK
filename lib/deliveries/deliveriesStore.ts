@@ -120,4 +120,4 @@ const useDeliveriesStore = create<DeliveriesState>((set) => ({
     },
 }));
 
-export default useDeliveriesStore;
+export { useDeliveriesStore };

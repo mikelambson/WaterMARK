@@ -15,8 +15,8 @@ import {
     Dialog, 
     DialogTrigger 
 } from '@/components/ui/dialog';
-import { DatePicker, TimePicker } from './DateTimePicker';
-import UpdateMeasurements from './UpdateMeasurements';
+import { DatePicker, TimePicker } from '@/features/delivery/schedule/DateTimePicker';
+import UpdateMeasurements from '@/features/delivery/schedule/UpdateMeasurements';
 import EndRun from './EndRun';
 import { cn } from '@/lib/utils';
 

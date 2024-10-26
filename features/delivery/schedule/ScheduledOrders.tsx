@@ -1,12 +1,12 @@
 // TabbedColumn @\app\deliveries\_components\ScheduledDeliveries.tsx
 "use client"
-import useDeliveriesStore from "@/lib/store/deliveriesStore";
+import { useDeliveriesStore }from "@/lib/deliveries/deliveriesStore";
 // import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 // import { cn } from "@/lib/utils";
 import { Schedule } from "@/typings";
 import { useEffect } from 'react';
-import ScheduleCard from './ScheduleCard';
+import { ScheduleCard } from '@/features/delivery/schedule/ScheduleCard';
 
 type Properties = {
     id: number | null,
@@ -150,4 +150,4 @@ const Deliveries = ({ id, columns, index }: Properties) => {
     );
 };
 
-export default Deliveries;
+export { Deliveries };

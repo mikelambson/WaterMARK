@@ -32,12 +32,12 @@ import { formatPhoneNumber } from "@/lib/utils";
 import { FaHandHoldingWater } from "react-icons/fa";
 import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { DatePicker, TimePicker } from "./DateTimePicker";
+// import { ScrollArea } from "@/components/ui/scroll-area";
+// import { DatePicker, TimePicker } from "./DateTimePicker";
 import UpdateMeasurements from "./UpdateMeasurements";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import EndRun from "./EndRun";
-import ManageDelivery from "./ManageDeliveries";
+import EndRun from "@/features/delivery/schedule/EndRun";
+import ManageDelivery from "@/features/delivery/schedule/ManageDeliveries";
 
 
 
@@ -204,9 +204,10 @@ const ScheduleCard = ({
                         <div className={"flex justify-between text-emerald-50 dark:text-gray-300/95 text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold"}>
                             <p className="relative drop-shadow-md">
                                 <span className={cn("absolute left-0", schedule.order.status === "running" 
-                                    ?? currentAFCalc > schedule.order.details.approxAf 
-                                    ? "animate-ping transform-gpu" 
-                                    : "animate-pulse transform-gpu")}>
+                                    && currentAFCalc > schedule.order.details.approxAf
+                                    ? "animate-ping transform-gpu"
+                                    : "animate-pulse transform-gpu"
+                                )}>
                                     _________
                                 </span>
                                 <span className={cn("absolute top-0 left-0", currentAFCalc > schedule.order.details.approxAf 
@@ -324,7 +325,7 @@ const ScheduleCard = ({
                                 {currentAFCalc} / {schedule.order.details.approxAf}
                             </p>
                             <div className={deliveriesArray.length !== 0 ? "grid my-1 gap-2" : "before:content-['Deliveries:'] before:mr-1 before:text-foreground/50"}>
-                                {deliveriesArray.length === 0 ?? "Start the delivery to add details..."}
+                                {deliveriesArray.length === 0 ? "Start the delivery to add details..." : null}
                                 {deliveriesArray?.map((delivery, index) => (
                                     <div key={index} className="mx-2 grid border-y border-foreground rounded-md pb-1 bg-black/25">
                                         <div className="py-1 mb-1 flex flex-col justify-center align-middle text-center bg-black/25">
@@ -565,7 +566,7 @@ const ScheduleCard = ({
      );
 }
  
-export default ScheduleCard;
+export { ScheduleCard };
 
 function Number(startTime: Date) {
     throw new Error("Function not implemented.");
