@@ -34,7 +34,7 @@ import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";
 // import { ScrollArea } from "@/components/ui/scroll-area";
 // import { DatePicker, TimePicker } from "./DateTimePicker";
-import UpdateMeasurements from "../../../../features/delivery/schedule/UpdateMeasurements";
+import UpdateMeasurements from "@/features/delivery/schedule/UpdateMeasurements";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import EndRun from "@/features/delivery/schedule/EndRun";
 import ManageDelivery from "@/features/delivery/schedule/ManageDeliveries";
@@ -57,9 +57,12 @@ const ScheduledDeliveryCard = ({
     const cardRef = useRef<HTMLDivElement | null>(null);
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
     const [currentAFCalc, setCurrentAFCalc] = useState(0);
-    const toggleDetailsVisibility = () => {
-        setIsDetailsVisible(!isDetailsVisible);
+    const setHide = () => {
+        setIsDetailsVisible(false);
     };
+    const setVisible = () => {
+        setIsDetailsVisible(true)
+    }
     const [date, setDate] = React.useState<Date>()
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -178,7 +181,7 @@ const ScheduledDeliveryCard = ({
             : "bg-slate-700/90 dark:bg-gray-800/90")}
         >
             <Sheet>
-                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,1fr,2fr] md:grid-cols-[2.25rem,2fr,3fr,2fr] lg:grid-cols-[2.75rem,2fr,3fr,2fr]
+                <div onClick={setVisible} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,1fr,2fr] md:grid-cols-[2.25rem,2fr,3fr,2fr] lg:grid-cols-[2.75rem,2fr,3fr,2fr]
                 gap-0 rounded-sm align-text-bottom">
                     <div className={cn(`col-start-1 row-start-1 row-span-5 flex justify-center items-center ${schedule.order.status !== "running" 
                         ? "text-gray-400 dark:text-gray-500"
@@ -309,7 +312,7 @@ const ScheduledDeliveryCard = ({
                         {schedule.order.approxCfs} CFS
                         <div className={cn(`flex justify-between px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
                         {schedule.order.approxHrs} hrs 
-                        <PiDotsThreeDuotone className={`absolute bottom-2 right-2 sm:relative hover:scale-125 ${iconStyle}`} />
+                        <PiDotsThreeDuotone onClick={setHide} className={`absolute bottom-2 right-2 sm:relative hover:scale-125 ${iconStyle}`} />
                     </div>
                     </div>
                     

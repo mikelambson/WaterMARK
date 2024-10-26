@@ -33,7 +33,12 @@ const ManageDelivery: React.FC<Props> = ({schedule}) => {
                 <DrawerTitle className="flex gap-3 text-xl justify-center">
                     <FaHandHoldingWater size={"1.25em"} />
                     Manage Deliveries
-                    <Button variant={"secondary"} size={"sm"}>Add Delivery</Button>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button variant={"secondary"} size={"sm"}>Add Delivery</Button>
+                        </DialogTrigger>
+                        <UpdateMeasurements />
+                    </Dialog>
                 </DrawerTitle>  
                 <DrawerDescription className="flex justify-center gap-4 -my-1">
                     <span className="text-sm">
