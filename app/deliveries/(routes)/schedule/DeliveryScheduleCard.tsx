@@ -57,8 +57,8 @@ const ScheduledDeliveryCard = ({
     const cardRef = useRef<HTMLDivElement | null>(null);
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
     const [currentAFCalc, setCurrentAFCalc] = useState(0);
-    const setHide = () => {
-        setIsDetailsVisible(false);
+    const toggleVisibility = () => {
+        setIsDetailsVisible(!isDetailsVisible);
     };
     const setVisible = () => {
         setIsDetailsVisible(true)
@@ -181,7 +181,7 @@ const ScheduledDeliveryCard = ({
             : "bg-slate-700/90 dark:bg-gray-800/90")}
         >
             <Sheet>
-                <div onClick={setVisible} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,1fr,2fr] md:grid-cols-[2.25rem,2fr,3fr,2fr] lg:grid-cols-[2.75rem,2fr,3fr,2fr]
+                <div className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,1fr,2fr] md:grid-cols-[2.25rem,2fr,3fr,2fr] lg:grid-cols-[2.75rem,2fr,3fr,2fr]
                 gap-0 rounded-sm align-text-bottom">
                     <div className={cn(`col-start-1 row-start-1 row-span-5 flex justify-center items-center ${schedule.order.status !== "running" 
                         ? "text-gray-400 dark:text-gray-500"
@@ -195,14 +195,20 @@ const ScheduledDeliveryCard = ({
                         </span>
                     </div>
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
-                    {schedule.order.status === "scheduled" ? (
-                        <div className={`flex justify-end text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-2`}>
-                            <Button 
-                                variant={"secondary"} 
-                                className={`absolute top-5 right-4 bg-green-950 active:bg-black/50 border dark:border-foreground/50 text-background dark:text-foreground`}>
-                                Start Run
-                            </Button>
-                        </div>
+                    <div className={`flex justify-end text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-3 border-b-2 ${borderColors}`}>
+                        {schedule.order.status === "scheduled" ? (
+                        
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button 
+                                        variant={"secondary"} 
+                                        className={`mt-4 mr-4 bg-green-950 active:bg-black/50 border dark:border-foreground/50 text-background dark:text-foreground`}>
+                                        Start Run
+                                    </Button>
+                                </DialogTrigger>
+                                <UpdateMeasurements />
+                            </Dialog>
+                        
                         ) : (
                         <div className={"flex justify-between text-emerald-50 dark:text-gray-300/95 text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold"}>
                             <p className="relative drop-shadow-md">
@@ -235,7 +241,7 @@ const ScheduledDeliveryCard = ({
                             
                         </div>
                     )}
-
+                    </div>
                     <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 flex flex-wrap text-sm lg:text-md text-emerald-50 dark:text-gray-300/95">
                         <p className="mr-1 after:content-['|'] after:ml-1">
                             {schedule.order.details.irrigatorsName
@@ -265,7 +271,7 @@ const ScheduledDeliveryCard = ({
                         {hoursCalc(99)}
                     </div>
                     
-                    <div className={cn(`col-span-4 sm:col-span-3 text-bottom row-start-3 border-b-2 text-sm sm:text-md font-semibold flex flex-wrap text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
+                    <div className={cn(`col-span-2 text-bottom row-start-3 border-b-2 text-sm sm:text-md font-semibold flex flex-wrap text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
                         Instructions: {schedule.instructions}
                     </div>
                     <div className="col-start-1 row-start-4"></div>
@@ -312,7 +318,7 @@ const ScheduledDeliveryCard = ({
                         {schedule.order.approxCfs} CFS
                         <div className={cn(`flex justify-between px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
                         {schedule.order.approxHrs} hrs 
-                        <PiDotsThreeDuotone onClick={setHide} className={`absolute bottom-2 right-2 sm:relative hover:scale-125 ${iconStyle}`} />
+                        <PiDotsThreeDuotone onClick={toggleVisibility}  className={`absolute bottom-2 right-2 sm:relative hover:scale-125 ${iconStyle}`} />
                     </div>
                     </div>
                     
