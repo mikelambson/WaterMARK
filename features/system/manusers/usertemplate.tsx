@@ -31,13 +31,13 @@ const UserTemplate = () => {
                         </AccordionTrigger>
                         <AccordionContent>
                             <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3">
-                                <Input className="col-span-1 bg-card-foreground" type="login" placeholder="Login" />
+                                <Input className="col-span-1 bg-slate-400 dark:bg-card-foreground" type="login" placeholder="Login" />
                                 <Input className="col-span-2 bg-card-foreground" type="email" placeholder="Email" />
                                 <Input className="bg-card-foreground" type="first" placeholder="First Name" />
                                 <Input className=" bg-card-foreground" type="middle" placeholder="Middle Name" />
                                 <Input className=" bg-card-foreground" type="last" placeholder="Last Name" />
                                 <Input className=" bg-card-foreground" type="title" placeholder="Title" />
-                                
+
                                 <p className="text-md font-semibold col-span-3">User Roles</p>
 
                                 <div className=" col-span-5"></div>

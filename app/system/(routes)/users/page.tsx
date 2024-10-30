@@ -85,11 +85,11 @@ const ManageUsers = () => {
                 <h2 className="text-lg font-semibold">
                     {user.firstName} {user.middleName ? user.middleName + ' ' : ''}{user.lastName}
                 </h2>
-                <p className="text-sm text-gray-600">Username: {user.login}</p>
-                <p className="text-sm text-gray-600">Email: {user.email}</p>
-                <p className="text-sm text-gray-600">Title: {user.title}</p>
-                <p className="text-sm text-gray-600">Active: {user.active ? 'Yes' : 'No'}</p>
-                <p className="text-sm text-gray-600">Protected: {user.protected ? 'Yes' : 'No'}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Username: {user.login}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Email: {user.email}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Title: {user.title}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Active: {user.active ? 'Yes' : 'No'}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Protected: {user.protected ? 'Yes' : 'No'}</p>
                 
                 {/* Role Information */}
                 {user.roleId.length > 0 && (
