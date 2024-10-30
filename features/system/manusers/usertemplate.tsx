@@ -40,11 +40,11 @@ const UserTemplate = () => {
 
                                 <p className="text-md font-semibold col-span-3">User Roles</p>
 
-                                <div className=" col-span-5"></div>
-                                <div className="inline-flex items-center lg:justify-end">
+                                {/* <div className=" col-span-5"></div> */}
+                                {/* <div className="inline-flex items-center lg:justify-end">
                                     
-                                </div>
-                                <div>
+                                </div> */}
+                                <div className="col-span-3">
                                     <Select>
                                         <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
                                             <SelectValue placeholder="User Role" />
@@ -61,13 +61,13 @@ const UserTemplate = () => {
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                <div className="inline-flex flex-row-reverse items-center gap-2 lg:flex-row justify-end">
+                                <div className="inline-flex flex-row-reverse md:flex-row items-center gap-2 lg:flex-row justify-end">
                                     <p className="text-md font-semibold text-right">Reset Sessions</p>
                                     <Button>
                                         <MdResetTv size={"24"} />
                                     </Button>
                                 </div>
-                                <div className="inline-flex flex-row-reverse lg:flex-row items-center gap-2 justify-end">
+                                <div className="inline-flex items-center gap-2 justify-end">
                                     <p className="text-md font-semibold text-right">Reset Password</p>
                                     <Button variant={"destructive"}>
                                         <MdLockReset size={"28"} />
