@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { FaUserEdit } from "react-icons/fa";
 import { MdLockReset } from "react-icons/md";
 import { MdResetTv } from "react-icons/md";
+import { BsPersonVcard } from "react-icons/bs";
 
 const UserTemplate = () => {
     return (
@@ -34,17 +35,21 @@ const UserTemplate = () => {
                                 <Input className="col-span-1 bg-slate-400 dark:bg-card-foreground" type="login" placeholder="Login" />
                                 <Input className="col-span-2 bg-card-foreground" type="email" placeholder="Email" />
                                 <Input className="bg-card-foreground" type="first" placeholder="First Name" />
-                                <Input className=" bg-card-foreground" type="middle" placeholder="Middle Name" />
+                                <Input className="bg-card-foreground" type="middle" placeholder="Middle Name" />
                                 <Input className=" bg-card-foreground" type="last" placeholder="Last Name" />
-                                <Input className=" bg-card-foreground" type="title" placeholder="Title" />
-
-                                <p className="text-md font-semibold col-span-3">User Roles</p>
-
-                                {/* <div className=" col-span-5"></div> */}
-                                {/* <div className="inline-flex items-center lg:justify-end">
-                                    
-                                </div> */}
-                                <div className="col-span-3">
+                                <Input className="bg-card-foreground" type="title" placeholder="Title" />
+                                <div className="border-b-2 col-span-3" />
+                                <div className="col-span-3 flex sm:inline-flex items-center gap-3">
+                                    <p className="w-44 h-1 ">User Roles</p>
+                                    <div className="px-3 py-2 bg-card-foreground border rounded-sm flex items-center w-full ">...list of role names</div>
+                                </div>
+                                <div className="col-span-3 inline-flex items-center gap-2 justify-end">
+                                    <p className="text-md font-semibold col-span-3">
+                                        Add/Remove Roles
+                                    </p>
+                                    <Button>
+                                        <BsPersonVcard size={"24"} />
+                                    </Button>
                                     <Select>
                                         <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
                                             <SelectValue placeholder="User Role" />
@@ -61,8 +66,8 @@ const UserTemplate = () => {
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                <div className="inline-flex flex-row-reverse md:flex-row items-center gap-2 lg:flex-row justify-end">
-                                    <p className="text-md font-semibold text-right">Reset Sessions</p>
+                                <div className="inline-flex items-center gap-2 justify-end">
+                                    <p className="text-md font-semibold text-right">Manage Sessions</p>
                                     <Button>
                                         <MdResetTv size={"24"} />
                                     </Button>
@@ -74,7 +79,7 @@ const UserTemplate = () => {
                                     </Button>
                                 </div>
                                 <div className="inline-flex flex-row-reverse lg:flex-row items-center gap-2 justify-end">
-                                    <p className="text-md font-semibold text-right">Update User</p>
+                                    <p className="text-md font-semibold text-right">Save Changes</p>
                                     <Button variant={"default"}>
                                         <FaUserEdit size={"24"} />
                                     </Button>
