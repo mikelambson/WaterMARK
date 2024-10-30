@@ -1,7 +1,9 @@
 // /app/layout.tsx
 import "./globals.css";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Open_Sans, Work_Sans } from "next/font/google";
+import LoadingAnimation from "@/features/loader/loading.module";
 import { ReactQueryProvider } from "@/components/auth/ReactQueryProvider"
 
 import { SessionProvider } from "@/components/auth/SessionManagement";
@@ -9,8 +11,8 @@ import { ThemeProvider } from "@/components/nav/theme-provider";
 import { RoleProvider } from "@/components/nav/RoleContext";
 import Navbar from "@/components/nav/Navbar";
 import { Toaster } from "@/components/ui/toaster";
-import { Suspense } from "react";
-import LoadingAnimation from "@/features/loader/loading.module";
+
+
 
 
 const openSans = Open_Sans({ 
@@ -52,23 +54,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <Suspense fallback={<LoadingAnimation />}>
-          <ThemeProvider attribute="class" enableSystem>
-            <ReactQueryProvider>
-              <SessionProvider>
-                <RoleProvider>
+        <ThemeProvider attribute="class" enableSystem>
+          <ReactQueryProvider>
+            <SessionProvider>
+              <RoleProvider>
+                <Suspense fallback={<LoadingAnimation />}>
                   <Navbar />
-                  <Suspense fallback={<LoadingAnimation />}>
-                    <main className={"min-h-screen  w-full"}>
-                      {children}
-                    </main>
-                  </Suspense>
-                  <Toaster />
-                </RoleProvider>
-              </SessionProvider>
-            </ReactQueryProvider>
-          </ThemeProvider>
-        </Suspense>
+                </Suspense>
+                <Suspense fallback={<LoadingAnimation />}>
+                  <main className={"min-h-screen  w-full"}>
+                    {children}
+                  </main>
+                </Suspense>
+                <Toaster />
+              </RoleProvider>
+            </SessionProvider>
+          </ReactQueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 // \components\Navbar.tsx
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
+import LoadingAnimation from "@/features/loader/loading.module";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -153,6 +154,7 @@ const Navbar = () => {
     ];
 
     return (
+        <Suspense fallback={<LoadingAnimation />}>
         <div
         className={` w-full h-16 align-middle ${defaultbg} subpixel-antialiased text-${defaultTextColorClass} fixed z-50 nav`}
         >
@@ -337,6 +339,7 @@ const Navbar = () => {
             ))}
         </div>
         </div>
+        </Suspense>
     );
 };
 
