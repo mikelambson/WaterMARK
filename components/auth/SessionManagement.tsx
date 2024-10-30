@@ -82,6 +82,17 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
     },
   });
 
+  function loadWait(fadeTime: number, loadTime: number) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        setFadeOut(true); // Trigger fade-out animation
+      }, fadeTime);
+      setTimeout(() => {
+        setLoading(false); // Hide loader after animation
+      }, loadTime);
+    })
+  }
+
   // Verify session on mount using useEffect
   useEffect(() => {
 
@@ -89,6 +100,8 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
     let retryCount = 0;
 
     const attemptVerifySession = async () => {
+      await loadWait(2300,2500)
+
       while (retryCount < MAX_RETRIES) {
         try {
           await verifySession.mutateAsync(); // Call the mutation
@@ -99,14 +112,6 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
           await new Promise(resolve => setTimeout(resolve, 1000)); // Optional delay
         }
       } 
-
-    // After all attempts, handle fade-out logic
-      setTimeout(() => {
-        setFadeOut(true); // Trigger fade-out animation
-      }, 2300);
-      setTimeout(() => {
-        setLoading(false); // Hide loader after animation
-      }, 2500);
     };
 
     attemptVerifySession()
