@@ -21,24 +21,28 @@ import { MdResetTv } from "react-icons/md";
 
 const UserTemplate = () => {
     return (
-        <div className={"border rounded-md bg-gray-500/80 dark:bg-slate-700/95 h-full"}>
-                <Accordion type="single" collapsible className="px-4">
+        <div className={"border rounded-md bg-yellow-400"}>
+                <Accordion type="single" collapsible className="px-4 bg-card rounded-md">
                     <AccordionItem value="item-1">
                         <AccordionTrigger className="font-semibold text-xl text-gray-100">
-                           <div className="md:text-left md:pl-4 bg-black/25 w-full rounded-md mr-2">
+                           <div className="text-left pl-4 w-full rounded-md mr-2 text-card-alternative">
                            User Name 1
                            </div>
                         </AccordionTrigger>
                         <AccordionContent>
-                            <div className="flex flex-col lg:grid lg:grid-cols-5 gap-3">
-                                <Input type="login" placeholder="Login" />
-                                <Input type="first" placeholder="First Name" />
-                                <Input type="last" placeholder="Last Name" />
-                                <Input className="col-span-2" type="email" placeholder="Email" />
+                            <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3">
+                                <Input className="col-span-1 bg-card-foreground" type="login" placeholder="Login" />
+                                <Input className="col-span-2 bg-card-foreground" type="email" placeholder="Email" />
+                                <Input className="bg-card-foreground" type="first" placeholder="First Name" />
+                                <Input className=" bg-card-foreground" type="middle" placeholder="Middle Name" />
+                                <Input className=" bg-card-foreground" type="last" placeholder="Last Name" />
+                                <Input className=" bg-card-foreground" type="title" placeholder="Title" />
                                 
+                                <p className="text-md font-semibold col-span-3">User Roles</p>
+
                                 <div className=" col-span-5"></div>
                                 <div className="inline-flex items-center lg:justify-end">
-                                    <p className="text-md font-semibold lg:text-right">User Role</p>
+                                    
                                 </div>
                                 <div>
                                     <Select>
