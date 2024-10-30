@@ -41,7 +41,9 @@ const UserTemplate = () => {
                                 <div className="border-b-2 col-span-3" />
                                 <div className="col-span-3 flex sm:inline-flex items-center gap-3">
                                     <p className="w-44 h-1 ">User Roles</p>
-                                    <div className="px-3 py-2 bg-card-foreground border rounded-sm flex items-center w-full ">...list of role names</div>
+                                    <div className="p-2 bg-card-foreground">
+                                        {"...list of role names"} 
+                                    </div>
                                 </div>
                                 <div className="col-span-3 inline-flex items-center gap-2 justify-end">
                                     <p className="text-md font-semibold col-span-3">
