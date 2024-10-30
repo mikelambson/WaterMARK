@@ -14,22 +14,14 @@ import { Toaster } from "@/components/ui/toaster";
 
 
 
-
-const openSans = Open_Sans({ 
-  subsets: ['latin'],
-  display: 'swap',
-  // Add variable to the font
-  variable: '--font-opensans',
-});
-
-const work = Work_Sans({
+const workFont = Work_Sans({
   subsets: ['latin'],
   display: 'swap',
   // Add variable to the font
   variable: '--font-work',
 });
 
-const font = work;
+const font = workFont;
 
 export const metadata: Metadata = {
   title: "WaterMARK",

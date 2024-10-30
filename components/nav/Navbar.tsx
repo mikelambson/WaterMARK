@@ -11,7 +11,6 @@ import { FaBars, FaTimes, FaBell } from "react-icons/fa";
 import { BsDatabaseFillGear } from "react-icons/bs";
 import { useTheme } from "next-themes";
 
-import { useToast } from "@/components/ui/use-toast";
 import {
     Sheet,
     SheetContent,
@@ -28,7 +27,7 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { useRole, useRoleStore } from "@/components/nav/RoleContext"; // Import useRole
+import { useRole } from "@/components/nav/RoleContext"; // Import useRole
 import { ModeToggle } from "@/components/nav/ModeToggle";
 import { Notify, NotifyCount } from "@/components/nav/Notifications";
 import AvatarMenu from "@/components/nav/AvatarMenu";
