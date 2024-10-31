@@ -1,15 +1,17 @@
 
 import styles from '@/features/loader/loading.module.css'
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 interface fadeOutProps {
     fadeOut?: boolean;
+    classProp?: string;
 }
 
-const LoadingAnimation: React.FC<fadeOutProps> = ({fadeOut}) => {
+const LoadingAnimation: React.FC<fadeOutProps> = ({fadeOut, classProp}) => {
     return ( 
         <>
-            <div className={`${styles.loader} ${fadeOut ? styles['fade-out'] : ''}`}>
+            <div className={cn(`${styles.loader} ${fadeOut ? styles['fade-out'] : ''}`, classProp)}>
                 <div className={styles.logo}>
                     Water<span className={styles.altlogo}>MARK</span>
                 </div>
