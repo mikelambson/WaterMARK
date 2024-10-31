@@ -17,6 +17,7 @@ import { TbRotateClockwise2 } from "react-icons/tb";
 import { toast } from "@/components/ui/use-toast";
 import { calculateNewScheduleTimestamp, cn } from "@/lib/utils";
 import ApiFetch from "@/lib/apiFetch";
+import { TypedScheduled, TypedUnscheduled } from "@/typings";
 
 
 const SchedulingBoard = () => {
@@ -51,8 +52,7 @@ const apiFetch = new ApiFetch();
 
 
 const handleOnDragEnd =  async (result: any) => {
-    let draggedScheduleTime: any;
-     
+    let draggedScheduleTime: any;   
     // Destructure the result object to get the source and destination
     const { 
         destination: draggedDestination, 
@@ -67,7 +67,6 @@ const handleOnDragEnd =  async (result: any) => {
     const {  } = source;
     
     // Check if previousOrder exists
-
     const draggedOrder = Array.from(board.columns?.values() || []).flatMap(column => column.orders).find(order => order.id === draggableOrderId);
     // console.log(draggedOrder);
 
@@ -89,28 +88,16 @@ const handleOnDragEnd =  async (result: any) => {
         return newISOTime;   
     };
 
-
-    if (sourceId === '0' && destinationColumnId === sourceId) {
+    if (sourceId === '0' && destinationColumnId === '0') {
         toast({
             variant: "destructive",
             title: 'Invalid Destination',
             description: 'Cannot move unscheduled orders to the same column yet',
         });
-        return;  
-    } else if (sourceId === '1' && destinationColumnId === '0') {
-        
-        toast({
-            title: 'Unschedule The Order',
-            description: 'Doesn\'t work yet!!! \nRemoved the order from the scheduled column and unscheduled it. \n\n Must update the array of orders in the scheduled column.',
-        });
         return;    
     }
     if (sourceId === '0' && destinationColumnId === '1') {
-        
-        console.log('Previous Order Time:', previousOrder ? previousOrder.scheduledDate : 'No Previous Order');
         draggedScheduleTime = calculateNewScheduleTime(previousOrder);
-        console.log('Dragged Schedule Time:', draggedScheduleTime);
-       
         const lineId = Number(selectedSheet.id);
         const updateList = [
             {
@@ -128,11 +115,9 @@ const handleOnDragEnd =  async (result: any) => {
                 scheduledDate: calculateNewScheduleTimestamp(order.scheduledDate, draggedOrder?.approxHrs || 0),
             }))
         ];
-        
-            
+
         console.log('Dragged\n\nUpdate Data:', updateList);
 
-        
         for (const scheduleData of updateList) {
             const { orderId, ...requestData } = scheduleData;
             console.log('Request Data:', requestData);
@@ -147,59 +132,168 @@ const handleOnDragEnd =  async (result: any) => {
         getBoard(schedulingState);
         getSchedule(Number(selectedHead));
 
-        // toast({
-        //     variant: "top_right",
-        //     title: 'Order Scheduled',
-        //     description: `Order ${draggedOrder?.orderNumber} has been successfully scheduled to ${selectedSheet.name} Head ${selectedHead} at ${new Date(draggedScheduleTime).toLocaleString()}.`,
-        // });
+        toast({
+            variant: "top_right",
+            title: 'Order Scheduled',
+            description: `Order ${draggedOrder?.orderNumber} has been successfully scheduled to ${selectedSheet.name} Head ${selectedHead} at ${new Date(draggedScheduleTime).toLocaleString()}.`,
+        });
     
     // Handle other drag and drop logic as needed
     // ...
     };
+ if (sourceId === '1' && destinationColumnId === '1') {
+     // Reorder the items in the column
+     const headID = Number(selectedHead);
+     if (!headID) {
+        console.error('Error: headID is undefined.')
+        console.error(headID)
+        return
+     }
+     let isolatedScheduledColumn;
 
-    if (sourceId === '1' && destinationColumnId === '1') {
-        // Re-ordering within the same column
-        const initialSchedule = Array.from(schedule.columns).map(([key, value]) => ({ [key]: value }));
-        const headID = Number(selectedHead) - 1;
-        const isolatedScheduledColumn = initialSchedule[headID][Number(selectedHead)].schedules;
-        
-        const draggedOrderIndex = isolatedScheduledColumn.findIndex(order => order.orderId === draggableOrderId);
-        const subsequentSourceOrders = isolatedScheduledColumn.slice(draggedOrderIndex + 1);
-        const updatedOrder = isolatedScheduledColumn[draggedOrderIndex];
-        const updatedScheduleList = [
-            ...isolatedScheduledColumn.slice(0, draggedOrderIndex),
-            ...isolatedScheduledColumn.slice(draggedOrderIndex + 1),
-        ];
-        updatedScheduleList.splice(destinationColumnIndex, 0, updatedOrder);
-        initialSchedule[headID][Number(selectedHead)].schedules = updatedScheduleList;
-        // console.log('Updated Schedule:', updatedSchedule);
-        // Update the schedule state with the new order positions
-        console.log({
-            'Result': result,
-            'Source Index:': source.index,
-            'Destination Index:': destinationColumnIndex,
-            'Isolated Scheduled Column:': isolatedScheduledColumn,
-            'subsequentSourceOrders:': subsequentSourceOrders,
-        });
+     if (headID) {isolatedScheduledColumn = schedule.columns.get(headID)?.schedules;}
 
-        
-        getSchedule(Number(selectedHead));
-        getBoard(schedulingState);
+     if (!isolatedScheduledColumn) {
+        console.error('Error: isolatedScheduledColumn is undefined.');
+        return;
+    }
+ 
+    // Locate and extract the dragged order
+    const draggedOrderIndex = isolatedScheduledColumn.findIndex(order => order.orderId === draggableOrderId);
+    
+    // Ensure draggedOrderIndex is valid
+    if (draggedOrderIndex === -1) {
+        console.error('Error: dragged order not found in isolatedScheduledColumn.');
+        return;
     }
 
-destinationColumnIndex === 0 
-        ? setDialogOpen(true) : null;
-
-        // You can now update the order status using your API or store methods
-        // Example: updateOrderStatus(orderId, newStatus);
-        // ...
-
-        // After updating the order status, trigger a re-fetch or re-render if needed
-        // Example: refetchData();
-        // ...
-        
-        getSchedule(Number(selectedHead));
+    const draggedOrder = isolatedScheduledColumn[draggedOrderIndex];
+ 
+     // Create the reordered column list
+     const reorderedColumn = [
+         ...isolatedScheduledColumn.slice(0, draggedOrderIndex),
+         ...isolatedScheduledColumn.slice(draggedOrderIndex + 1),
+     ];
+     reorderedColumn.splice(destinationColumnIndex, 0, draggedOrder);
+ 
+     // Update the board state with the reordered column
+     const updatedSchedule = new Map(schedule.columns);
+     const updatedBoardColumns: Map<string, TypedUnscheduled> = new Map(
+        Array.from(updatedSchedule).map(([key, value]) => [String(key), value as unknown as TypedUnscheduled])
+    );
+     // Update the board state with the transformed column map
+    schedulingState.board = { ...board, columns: updatedBoardColumns };
+ 
+     // Step 1: Insert the dragged order at its new position in reorderedColumn
+    const updateList = reorderedColumn.map((order, index) => {
+        // Calculate the new start time based on the previous order’s end time
+        if (index === 0) {
+            // First order in the list, set its start time as is (or a base time)
+            order.scheduledDate = calculateNewScheduleTimestamp(order.scheduledDate, 0);
+        } else {
+            // For each subsequent order, calculate start time based on the previous order's end time
+            const previousOrder = reorderedColumn[index - 1];
+            const previousOrderDuration = previousOrder.order.approxHrs + previousOrder.travelTime;
+            const previousEndTime = calculateNewScheduleTimestamp(
+                previousOrder.scheduledDate,
+                previousOrderDuration
+            );
+            
+            // Set the start time for the current order
+            order.scheduledDate = previousEndTime;
         }
+
+        return {
+            orderId: order.orderId,
+            scheduledLineId: Number(selectedSheet.id),
+            scheduledHead: Number(selectedHead),
+            scheduledDate: order.scheduledDate,
+            order: {
+                status: 'scheduled',
+            },
+            travelTime: order.travelTime || 0,
+        };
+    });
+    // Update each schedule through the API
+    for (const scheduleData of updateList) {
+        const { orderId, ...requestData } = scheduleData;
+        console.log('Request Data:', requestData);
+        try {
+            const response = await apiFetch.updateData(`schedule/${orderId}`, requestData);
+            console.log('Response:', response);
+        } catch (error) {
+            console.error('Error Updating Schedule:', error);
+        }
+    }
+ 
+    // Refresh board and schedule state
+    getBoard(schedulingState);
+    getSchedule(Number(selectedHead));
+    }
+
+    if (sourceId === '1' && destinationColumnId === '0') {
+        
+    // setDialogOpen(true) 
+    // Step 1: Isolate the scheduled column and dragged order
+    const headID = Number(selectedHead);
+    if (!headID) {
+        console.error('Error: headID is undefined.');
+        return;
+    }
+
+    const isolatedScheduledColumn = schedule.columns.get(headID)?.schedules;
+    if (!isolatedScheduledColumn) {
+        console.error('Error: isolatedScheduledColumn is undefined.');
+        return;
+    }
+
+    // Locate the dragged order in the column
+    const draggedOrderIndex = isolatedScheduledColumn.findIndex(order => order.orderId === draggableOrderId);
+    if (draggedOrderIndex === -1) {
+        console.error('Error: dragged order not found in isolatedScheduledColumn.');
+        return;
+    }
+
+    const draggedOrder = isolatedScheduledColumn[draggedOrderIndex];
+    try {
+        await apiFetch.updateData(`schedule/${draggedOrder.orderId}`, {
+            orderId: draggedOrder.orderId,
+            scheduledLineId: null,
+            scheduledHead: null,
+            scheduledDate: null,
+            order: {
+                status: 'delayed',
+            },
+            travelTime: 0,
+        });
+        console.log(`Order ${draggedOrder.orderId} marked as delayed.`);
+    } catch (error) {
+        console.error(`Error updating status to delayed for order ${draggedOrder.orderId}:`, error);
+    }
+
+    // Step 3: Adjust subsequent orders by subtracting the delayed order's duration
+    const delayedOrderDuration = draggedOrder.order.approxHrs || 0;
+    const subsequentOrders = isolatedScheduledColumn.slice(draggedOrderIndex + 1);
+
+    for (const order of subsequentOrders) {
+        // Adjust each order’s start time by subtracting the delayed order's duration
+        order.scheduledDate = calculateNewScheduleTimestamp(order.scheduledDate, -delayedOrderDuration);
+
+        try {
+            await apiFetch.updateData(`schedule/${order.orderId}`, {
+                scheduledDate: order.scheduledDate,
+                travelTime: order.travelTime || 0,
+            });
+            console.log(`Order ${order.orderId} rescheduled after delay adjustment.`);
+        } catch (error) {
+            console.error(`Error updating subsequent order ${order.orderId}:`, error);
+        }
+    }
+        getBoard(schedulingState);
+        getSchedule(Number(selectedHead));
+    } else { null }
+    
+}
 
 
 if (isLoading) {
