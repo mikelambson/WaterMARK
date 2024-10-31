@@ -100,7 +100,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
     let retryCount = 0;
 
     const attemptVerifySession = async () => {
-      await loadWait(2300,2500)
+      loadWait(2300,2500)
 
       while (retryCount < MAX_RETRIES) {
         try {
