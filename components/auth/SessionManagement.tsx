@@ -95,13 +95,12 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
 
   // Verify session on mount using useEffect
   useEffect(() => {
-
-    const MAX_RETRIES = 3;
-    let retryCount = 0;
-
     const attemptVerifySession = async () => {
-      loadWait(2300,2500)
-
+      setLoading(true); // Start loading
+  
+      const MAX_RETRIES = 3;
+      let retryCount = 0;
+  
       while (retryCount < MAX_RETRIES) {
         try {
           await verifySession.mutateAsync(); // Call the mutation
@@ -109,18 +108,21 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
         } catch (error) {
           retryCount++;
           console.error('Retrying session verification...', error);
+          if (retryCount === MAX_RETRIES) throw error;
           await new Promise(resolve => setTimeout(resolve, 1000)); // Optional delay
         }
-      } 
+      }
+  
+      setLoading(false); // Stop loading after verification is complete or max retries reached
     };
-
-    attemptVerifySession()
+  
+    attemptVerifySession();
   }, []); // Empty dependency array ensures this runs once on mount
 
   // Provide session data and actions to the rest of the app
   return (
     <SessionContext.Provider value={{ userSession: userData, verifySession: verifySession.mutate }}>
-      {isLoading && <LoadingAnimation fadeOut={fadeOut} />}
+      {typeof window !== 'undefined' && isLoading && <LoadingAnimation fadeOut={fadeOut} />}
       {children}
     </SessionContext.Provider>
   );
