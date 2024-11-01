@@ -99,6 +99,8 @@ const handleOnDragEnd =  async (result: any) => {
     if (sourceId === '0' && destinationColumnId === '1') {
         draggedScheduleTime = calculateNewScheduleTime(previousOrder);
         const lineId = Number(selectedSheet.id);
+
+        // Initialize update list with the dragged order's new schedule
         const updateList = [
             {
                 orderId: draggableOrderId,
@@ -116,7 +118,7 @@ const handleOnDragEnd =  async (result: any) => {
             }))
         ];
 
-        console.log('Dragged\n\nUpdate Data:', updateList);
+    console.log('Dragged\n\nUpdate Data:', updateList);
 
         for (const scheduleData of updateList) {
             const { orderId, ...requestData } = scheduleData;

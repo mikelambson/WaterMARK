@@ -114,7 +114,7 @@ const ScheduleCard = ({
             
         >
             <Sheet>
-                <div onClick={toggleDetailsVisibility} className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,2fr,1fr] 
+                <div className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,2fr,1fr] 
                 gap-0 rounded-sm align-text-bottom">
                     <div className={cn(`col-start-1 row-start-1 row-span-5 pt-9 ${schedule.order.status !== "running" 
                         ? "text-gray-400/80 dark:text-gray-600/80"
@@ -147,7 +147,7 @@ const ScheduleCard = ({
                     <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>Travel: {schedule.travelTime} hrs</div>
                     <div className={cn(`flex justify-between col-start-4 row-start-5 px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
                         {schedule.order.approxHrs} hrs 
-                        <PiDotsThreeDuotone className={`hover:scale-125 ${iconStyle}`} />
+                        <PiDotsThreeDuotone onClick={toggleDetailsVisibility} className={`hover:scale-125 ${iconStyle} group-hover:border rounded-sm border-yellow-400`} />
                     </div>
                     <div className={`col-start-1 col-span-4 row-start-6 relative overflow-hidden transition-all ${isDetailsVisible ? cn(`h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md ${borderColors}`) : 'h-0 opacity-0'} duration-300 ease-in-out`}>
                         <div className={cn(`p-2 flex flex-col gap-2 bg-stone-400/60 dark:bg-stone-800/70`)}>
@@ -159,46 +159,46 @@ const ScheduleCard = ({
                             Special Request: {schedule.specialRequest}<br />
                             <div className="flex justify-between">
                             <SheetTrigger asChild>
-                                    <Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
-                                        <TbGridDots className={"mr-1"} />
-                                        Schedule
-                                    </Button>
-                                </SheetTrigger>
-                                <Drawer>
-                                    <DrawerTrigger asChild><Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
-                                        Delivery <FaHandHoldingWater className={"ml-1"} />
-                                    </Button></DrawerTrigger>
-                                    <DrawerContent>
-                                        <DrawerHeader>
-                                        <DrawerTitle className="flex gap-3 text-xl justify-center">
-                                            <FaHandHoldingWater size={"1.25em"} />
-                                            Manage Deliveries
-                                        </DrawerTitle>
-                                        <DrawerDescription className="flex justify-center">
-                                            Some description...</DrawerDescription>
-                                        </DrawerHeader>
-                                            <div className="flex justify-center">
-                                                {schedule.deliveries?.map((delivery, index) => (
-                                                    <div key={index} className="w-11/12 space-y-2 border-2 p-2">
-                                                        <div className="flex justify-between">
-                                                            <p>Delivery {index + 1}:</p>
-                                                            
-                                                            <p>Start Time: {delivery.startTime}</p>
-                                                            <p>Stop Time: {delivery.stopTime}</p>
-                                                        </div>
-                                                        <p>Delivery Note: {delivery.deliveryNote}</p>
-                                                        {/* Add more details as needed */}
+                                <Button  variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                                    <TbGridDots className={"mr-1"} />
+                                    Schedule
+                                </Button>
+                            </SheetTrigger>
+                            <Drawer>
+                                <DrawerTrigger asChild><Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                                    Delivery <FaHandHoldingWater className={"ml-1"} />
+                                </Button></DrawerTrigger>
+                                <DrawerContent>
+                                    <DrawerHeader>
+                                    <DrawerTitle className="flex gap-3 text-xl justify-center">
+                                        <FaHandHoldingWater size={"1.25em"} />
+                                        Manage Deliveries
+                                    </DrawerTitle>
+                                    <DrawerDescription className="flex justify-center">
+                                        Some description...</DrawerDescription>
+                                    </DrawerHeader>
+                                        <div className="flex justify-center">
+                                            {schedule.deliveries?.map((delivery, index) => (
+                                                <div key={index} className="w-11/12 space-y-2 border-2 p-2">
+                                                    <div className="flex justify-between">
+                                                        <p>Delivery {index + 1}:</p>
+                                                        
+                                                        <p>Start Time: {delivery.startTime}</p>
+                                                        <p>Stop Time: {delivery.stopTime}</p>
                                                     </div>
-                                                ))}
-                                            </div>
-                                        <DrawerFooter>
-                                        <Button>Submit</Button>
-                                        <DrawerClose asChild>
-                                            <Button variant="outline">Cancel</Button>
-                                        </DrawerClose>
-                                        </DrawerFooter>
-                                    </DrawerContent>
-                                </Drawer>
+                                                    <p>Delivery Note: {delivery.deliveryNote}</p>
+                                                    {/* Add more details as needed */}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    <DrawerFooter>
+                                    <Button>Submit</Button>
+                                    <DrawerClose asChild>
+                                        <Button variant="outline">Cancel</Button>
+                                    </DrawerClose>
+                                    </DrawerFooter>
+                                </DrawerContent>
+                            </Drawer>
                             </div>
                         </div>    
                     </div>
