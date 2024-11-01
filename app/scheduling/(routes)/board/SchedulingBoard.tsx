@@ -1,7 +1,7 @@
 // Scheduling Board @\app\scheduling\_components\schedule-orders\SchedulingBoard.tsx
 "use client";
 import { useSchedulingStore } from "@/lib/store/schedulingStore";
-import { useState } from 'react'; 
+import { useEffect, useState } from 'react'; 
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { Skeleton } from "@/components/ui/skeleton";
 import ScheduledColumn from "@/features/scheduling/board/ColumnScheduled";
@@ -21,6 +21,7 @@ import { TypedUnscheduled } from "@/typings";
 
 
 const SchedulingBoard = () => {
+    const [dragContextKey, setDragContextKey] = useState(0);
     const { board, isLoading, setPage, setPageSize, totalPages, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead, schedule, getSchedule, updateOrderStatus, getUnscheduled} = useSchedulingStore();
 
 const schedulingState = {
@@ -49,6 +50,7 @@ const schedulingState = {
 const [isDialogOpen, setDialogOpen] = useState(false);
 const apiFetch = new ApiFetch();
 
+
 if (isLoading) {
     return (
         <div 
@@ -64,7 +66,13 @@ if (isLoading) {
 
 return (
     <div>
-        <DragDropContext onDragEnd={(result) => handleOnDragEnd(result, schedulingState, apiFetch, setDialogOpen)}>
+        <DragDropContext
+            key={dragContextKey}
+            onDragEnd={(result) => {
+                handleOnDragEnd(result, schedulingState, apiFetch, setDialogOpen);
+                setDragContextKey(prev => prev + 1);
+            }
+        }>
             <Droppable 
                 droppableId="id" 
                 direction="vertical" 

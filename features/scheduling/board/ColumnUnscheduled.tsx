@@ -24,7 +24,7 @@ type Properties = {
     delayed: 'Delayed',
   };
 
-const UnscheduledColumn = ({ id, columns, index }: Properties) => {
+const UnscheduledColumn = ({ id, columns }: Properties) => {
     const { page, setPage, totalPages } = useSchedulingStore();
     const pageNumbers = Array.from({ length: Number(totalPages) }, (_, index) => index + 1);
     // Step 1: Add State for Filter Value
@@ -100,6 +100,7 @@ const UnscheduledColumn = ({ id, columns, index }: Properties) => {
                     className="pl-5 h-7 w-24 sm:w-32 mr-1 bg-background/60 self-center uppercase text-[10px] sm:text-sm md:text-md"
                     value={filterValue}
                     onChange={(e) => setFilterValue(e.target.value)}
+                    autoComplete="off"
                     />
                 </div>
                 </TabsList>
