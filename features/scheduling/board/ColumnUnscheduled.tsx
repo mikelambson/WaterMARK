@@ -79,7 +79,7 @@ const UnscheduledColumn = ({ id, columns }: Properties) => {
 
     
     return (
-        <div className="relative w-full min-h-96 h-[84svh] p-2 px-2 overflow-visible bg-foreground/10 dark:bg-foreground/75 rounded-md shadow-md">
+        <div className="relative w-full min-h-96 h-full p-2 px-2 overflow-visible bg-foreground/10 dark:bg-foreground/75 rounded-md shadow-md">
             <Tabs defaultValue="unscheduled" className="w-full h-full pb-8">
                 <TabsList className={'w-full inline-flex flex-nowrap justify-between px-1 bg-stone-400 dark:bg-zinc-800 cursor-default'}>
                 <div className="inline-flex">
@@ -134,7 +134,7 @@ const UnscheduledColumn = ({ id, columns }: Properties) => {
                                     ref={provided.innerRef}
                                     autoScroll
                                     {...provided.droppableProps}
-                                    className="min-h-80 h-[98%] w-full px-[0.5rem] rounded-md"
+                                    className="min-h-80 h-full w-full px-[0.5rem] rounded-md"
                                 >
                                     <div className="space-y-2">
                                         {filteredUnscheduledOrders.map((order: Order, index: any) => (

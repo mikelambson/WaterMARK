@@ -4,6 +4,8 @@ import { calculateNewScheduleTimestamp } from "@/lib/utils";
 import ApiFetch from "@/lib/apiFetch";
 import { HeadsheetsData, Board, PartialHeadsheetsData, HeadData, SchBoard, TypedUnscheduled } from '@/typings';
 
+
+
 interface SchedulingState {
     board: Board;
     updateOrderStatus: (orderId: string, newStatus: string) => void;
@@ -29,6 +31,7 @@ interface SchedulingState {
 }
 
 // Define `handleOnDragEnd` as a function with parameters for dependencies
+
 export const handleOnDragEnd = async (
     result: any,
     schedulingState: SchedulingState,
@@ -123,10 +126,10 @@ export const handleOnDragEnd = async (
         newColumns.set(sourceId, { ...sourceId });
         newColumns.set(destinationId, { ...destinationId });
     
-        // Update the scheduling state
-        schedulingState.board = { ...board, columns: newColumns };
+        // Update the scheduling state using Zustand's set function
+        schedulingState.getBoard(schedulingState);
 
-        // getBoard(schedulingState);
+        getBoard(schedulingState);
         getSchedule(Number(selectedHead));
         
         toast({
@@ -228,8 +231,8 @@ export const handleOnDragEnd = async (
         newColumns.set(sourceId, { ...sourceId });
         newColumns.set(destinationId, { ...destinationId });
     
-        // Update the scheduling state
-        schedulingState.board = { ...board, columns: newColumns };
+        // Update the scheduling state using Zustand's set function
+        schedulingState.getBoard(schedulingState);
         
         // Refresh board and schedule state
         // getBoard(schedulingState);
@@ -302,7 +305,7 @@ export const handleOnDragEnd = async (
         newColumns.set(destinationId, { ...destinationId });
     
         // Update the scheduling state
-        schedulingState.board = { ...board, columns: newColumns };
+        schedulingState.getBoard(schedulingState);
 
         getBoard(schedulingState);
         getSchedule(Number(selectedHead));
