@@ -45,7 +45,7 @@ const ManageUsers = () => {
     };
 
     allUsers();
-  }, []); // Run once on component mount
+  }, [handleUserType]); // Run once on component mount
 
   return (
     <div className="p-2 h-full">

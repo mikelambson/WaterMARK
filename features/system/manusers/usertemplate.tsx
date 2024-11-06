@@ -34,7 +34,7 @@ const UserTemplate = ({userList, error}: UserTemplateProps) => {
             ) : userList ? (
                 <>
                     {userList.map((user) => (
-                        <AccordionItem value={user.id}>
+                        <AccordionItem value={user.id} key={user.id}>
                             <AccordionTrigger className="font-semibold text-xl text-gray-100 p-1">
                                 <div className="text-left w-full rounded-md mr-2 text-card-alternative">
                                 {user.firstName} {user.middleName ? user.middleName + ' ' : ''}{user.lastName}
