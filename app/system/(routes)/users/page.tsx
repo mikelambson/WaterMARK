@@ -74,62 +74,8 @@ const ManageUsers = () => {
         </div>
       </div>
 
-      <UserTemplate />
-      {error ? (
-        <p className="text-red-500">Error: {error}</p>
-      ) : userList ? (
-        <div>
-            {userList.map((user) => (
-                <div key={user.id} className="p-4 border-b border-gray-300">
-                {/* Basic User Information */}
-                <h2 className="text-lg font-semibold">
-                    {user.firstName} {user.middleName ? user.middleName + ' ' : ''}{user.lastName}
-                </h2>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Username: {user.login}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Email: {user.email}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Title: {user.title}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Active: {user.active ? 'Yes' : 'No'}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Protected: {user.protected ? 'Yes' : 'No'}</p>
-                
-                {/* Role Information */}
-                {user.roleId.length > 0 && (
-                    <div className="mt-2">
-                    <h3 className="text-md font-semibold">Role:</h3>
-                    {user.roleId.map((role: any) => (
-                        <div key={role.role.id} className="pl-4">
-                        <p className="text-sm">Name: {role.role.name}</p>
-                        <p className="text-sm">Super Admin: {role.role.superAdmin ? 'Yes' : 'No'}</p>
-                        <p className="text-sm">Protected: {role.role.protected ? 'Yes' : 'No'}</p>
-                        <p className="text-sm">Assigned By: {role.assignedBy}</p>
-                        <p className="text-sm">Assigned At: {new Date(role.assignedAt).toLocaleString()}</p>
-                        </div>
-                    ))}
-                    </div>
-                )}
-                
-                {/* Active Sessions */}
-                {user.ActiveSessions.length > 0 && (
-                    <div className="mt-2">
-                    <h3 className="text-md font-semibold">Active Sessions:</h3>
-                    {user.ActiveSessions.map((session: any) => (
-                        <div key={session.id} className="pl-4">
-                        <p className="text-sm">Session ID: {session.id}</p>
-                        <p className="text-sm">IP Address: {session.ipAddress}</p>
-                        <p className="text-sm">User Agent: {session.userAgent}</p>
-                        <p className="text-sm">Created At: {new Date(session.createdAt).toLocaleString()}</p>
-                        <p className="text-sm">Expires At: {new Date(session.expiresAt).toLocaleString()}</p>
-                        <p className="text-sm">Is Active: {session.isActive ? 'Yes' : 'No'}</p>
-                        </div>
-                    ))}
-                    </div>
-                )}
-                </div>
-            ))}
-            </div>
-
-      ) : (
-        <p>Loading...</p>
-      )}
+      <UserTemplate userList={userList} error={error} />
+      
     </div>
   );
 };

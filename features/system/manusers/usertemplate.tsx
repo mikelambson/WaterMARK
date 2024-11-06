@@ -20,30 +20,70 @@ import { MdLockReset } from "react-icons/md";
 import { MdResetTv } from "react-icons/md";
 import { BsPersonVcard } from "react-icons/bs";
 
-const UserTemplate = () => {
+interface UserTemplateProps {
+    userList: any[] | null;
+    error: string | null;
+}
+
+const UserTemplate = ({userList, error}: UserTemplateProps) => {
     return (
         <div className={"border rounded-md bg-yellow-400"}>
-                <Accordion type="single" collapsible className="px-4 bg-card rounded-md">
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger className="font-semibold text-xl text-gray-100">
-                           <div className="text-left pl-4 w-full rounded-md mr-2 text-card-alternative">
-                           User Name 1
-                           </div>
+            <Accordion type="single" collapsible className="px-4 bg-card rounded-md">
+                
+            
+
+            {error ? (
+                <p className="text-red-500">Error: {error}</p>
+            ) : userList ? (
+                <>
+                    {userList.map((user) => (
+                        <>
+                        <AccordionItem value={user.id}>
+                        <AccordionTrigger className="font-semibold text-xl text-gray-100 p-1">
+                            <div className="text-left w-full rounded-md mr-2 text-card-alternative">
+                            {user.firstName} {user.middleName ? user.middleName + ' ' : ''}{user.lastName}
+                            </div>
                         </AccordionTrigger>
                         <AccordionContent>
                             <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3">
-                                <Input className="col-span-1 bg-slate-400 dark:bg-card-foreground" type="login" placeholder="Login" />
-                                <Input className="col-span-2 bg-card-foreground" type="email" placeholder="Email" />
-                                <Input className="bg-card-foreground" type="first" placeholder="First Name" />
-                                <Input className="bg-card-foreground" type="middle" placeholder="Middle Name" />
-                                <Input className=" bg-card-foreground" type="last" placeholder="Last Name" />
-                                <Input className="bg-card-foreground" type="title" placeholder="Title" />
+                                <Input className="col-span-1 bg-slate-400 dark:bg-card-foreground" type="login" placeholder={user.login} />
+                                <Input className="col-span-2 bg-card-foreground" type="email" placeholder={user.email} />
+                                <Input className="bg-card-foreground" type="first" placeholder={user.firstName} />
+                                <Input className="bg-card-foreground" type="middle" placeholder={user.middleName} />
+                                <Input className=" bg-card-foreground" type="last" placeholder={user.lastName} />
+                                <Input className="bg-card-foreground" type="title" placeholder={user.title} />
                                 <div className="border-b-2 col-span-3" />
                                 <div className="col-span-3 flex sm:inline-flex items-center gap-3">
                                     <p className="w-44 h-1 ">User Roles</p>
                                     <div className="p-2 bg-card-foreground">
-                                        {"...list of role names"} 
+                                        {user.roleId.map((role: any) => (
+                                            <div key={role.role.id} className="pl-4">
+                                                <p className="text-sm">Name: {role.role.name}</p>
+                                                <p className="text-sm">Super Admin: {role.role.superAdmin ? 'Yes' : 'No'}</p>
+                                                <p className="text-sm">Protected: {role.role.protected ? 'Yes' : 'No'}</p>
+                                                <p className="text-sm">Assigned By: {role.assignedBy}</p>
+                                                <p className="text-sm">Assigned At: {new Date(role.assignedAt).toLocaleString()}</p>
+                                            </div>
+                                        ))}
                                     </div>
+                                </div>
+                                <div className="border-b-2 col-span-3">
+                                    {/* Active Sessions */}
+                                    {user.ActiveSessions.length > 0 && (
+                                        <div className="mt-2">
+                                        <h3 className="text-md font-semibold">Active Sessions:</h3>
+                                        {user.ActiveSessions.map((session: any) => (
+                                            <div key={session.id} className="pl-4">
+                                            <p className="text-sm">Session ID: {session.id}</p>
+                                            <p className="text-sm">IP Address: {session.ipAddress}</p>
+                                            <p className="text-sm">User Agent: {session.userAgent}</p>
+                                            <p className="text-sm">Created At: {new Date(session.createdAt).toLocaleString()}</p>
+                                            <p className="text-sm">Expires At: {new Date(session.expiresAt).toLocaleString()}</p>
+                                            <p className="text-sm">Is Active: {session.isActive ? 'Yes' : 'No'}</p>
+                                            </div>
+                                        ))}
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="col-span-3 inline-flex items-center gap-2 justify-end">
                                     <p className="text-md font-semibold col-span-3">
@@ -89,8 +129,18 @@ const UserTemplate = () => {
                             </div>
                         </AccordionContent>
                     </AccordionItem>
-                </Accordion>
-            </div>
+
+                        
+                    
+                    </>
+                    ))}
+                </>
+                
+            ) : (
+                <p>Loading...</p>
+            )}
+            </Accordion>
+        </div>
     )
 }
 
