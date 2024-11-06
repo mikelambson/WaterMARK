@@ -19,6 +19,11 @@ class ApiFetch {
     try {
       const response: AxiosResponse<T> = await axios({
         method,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": "true",
+          "Access-Control-Allow-Origin": "https://backend.watermark.work",
+        },
         url: `${baseUrl}${route}`,
         data,
       });
