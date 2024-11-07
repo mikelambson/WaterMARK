@@ -16,6 +16,14 @@ interface ForcastProps {
   className?: string;
 }
 
+
+const formatDate = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Ensure month is 2 digits
+    const day = String(date.getDate()).padStart(2, '0'); // Ensure day is 2 digits
+    return `${year}-${month}-${day}`;
+};
+
 const LahontanLakeLevel = ({ className }: ForcastProps) => {
     const { data, lastFetched, setData } = useLahontanDataStore();
     const [error, setError] = useState<string | null>(null);
@@ -24,7 +32,8 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
     useEffect(() => {
         const cacheExpiration = 60 * 60 * 1000; // 1 hour in milliseconds
         const currentTime = new Date().getTime();
-    
+        const today = new Date();
+
         if (data && lastFetched && currentTime - lastFetched < cacheExpiration) {
           // Use cached data if it's less than an hour old
           setIsLoading(false);
@@ -32,8 +41,12 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
           // Fetch new data using Web Worker if cache is expired or data is missing
           if (window.Worker) {
             const worker = new Worker(new URL('@/utils/fetchWorker.js', import.meta.url));
-    
-            worker.postMessage('https://nwis.waterdata.usgs.gov/usa/nwis/uv/?cb_00054=on&cb_00062=on&cb_62615=on&format=rdb&site_no=10312100&legacy=1&period=&begin_date=2024-01-01&end_date=2024-11-07');
+            const endDate = formatDate(today);
+            const oneYearAgo = new Date();
+            oneYearAgo.setFullYear(today.getFullYear() - 1);
+            const beginDate = formatDate(oneYearAgo);
+
+            worker.postMessage(`https://nwis.waterdata.usgs.gov/usa/nwis/uv/?cb_00054=on&cb_00062=on&cb_62615=on&format=rdb&site_no=10312100&legacy=1&period=&begin_date=${beginDate}&end_date=${endDate}`);
     
             worker.onmessage = (event) => {
               if (event.data.error) {
@@ -71,7 +84,7 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
         <Card className={className}>
         <CardContent>
             {data ? <LahontanLevelGraph className={"my-4"} data={data} />
-            : <Skeleton className="w-full h-96 mt-6" />}
+            : <Skeleton className="w-full h-[500px] mt-6" />}
         </CardContent>
             <CardFooter className="inline-flex w-full justify-end">
                 <Dialog>

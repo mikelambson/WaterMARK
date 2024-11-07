@@ -24,10 +24,9 @@ export default function Home() {
             </div>
             <div className={"flex flex-row justify-center gap-4 flex-wrap px-[1%]"}>
                 <div className={"flex flex-col gap-4 min-w-fit w-full md:w-3/4 md:max-w-screen-lg"}>
-                    <SysInfo className={" w-full"} />
                     <LahontanLakeLevel className={"w-full"} />
+                    <SysInfo className={" w-full"} />
                     <LakeForcast className={"w-full mb-4"} />
-                    
                 </div>
                 <div className=" min-w-[10rem] flex flex-col flex-grow gap-4 w-full md:w-[20%] md:max-w-[24rem]">
                     <Demand />
