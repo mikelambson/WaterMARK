@@ -69,7 +69,7 @@
     "react-icons": "^4.11.0",
     "react-table": "^7.8.0",
     "react-vega": "^7.6.0",
-    "recharts": "^2.12.3",
+    "recharts": "^2.13.3",
     "shadcn-ui": "^0.2.3",
     "sharp": "^0.33.1",
     "tailwind-merge": "^1.14.0",
@@ -78,8 +78,6 @@
     "tooltip": "^1.6.1",
     "typescript": "5.2.2",
     "vaul": "^0.8.9",
-    "vega": "^5.30.0",
-    "vega-lite": "^5.21.0",
     "zod": "^3.23.8",
     "zustand": "^4.4.2"
   },

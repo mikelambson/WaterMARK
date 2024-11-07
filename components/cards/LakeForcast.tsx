@@ -1,13 +1,9 @@
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "../ui/skeleton";
-import Forecasting from "@/components/function/AltForecasting";
+import Forecasting from "@/components/function/Forecasting";
 
 interface ForcastProps {
   className?: string;

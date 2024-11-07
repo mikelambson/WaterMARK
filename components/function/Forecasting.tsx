@@ -67,10 +67,13 @@ const reData = {
     ],
     "current": [
         {"x": 0, "y": 124000},
+        {"x": .5, "y": 132000},
         {"x": 1, "y": 155000},
         {"x": 2, "y": 189100},
         {"x": 3, "y": 235600},
-        {"x": 3.87, "y": 268500},
+        {"x": 4, "y": 268500},
+        {"x": 5, "y": 288500},
+        {"x": 6, "y": 308500},
     ]
          
 }
@@ -142,45 +145,46 @@ const Forecasting: React.FC<ForecastProps> = ({className}) => {
     const CustomTooltip = ({ active, payload, label }:any) => {
         if (active && payload && payload.length) {
             
-          return (
-            <div className="custom-tooltip">
-                <p>
-                    {`Month: ${monthNames[label]}`}
-                </p>
-                {payload.map((entry:any, index:any) => {
-                    return (
-                    <p 
-                        key={index}
-                        className={ 
-                            index === 2 
-                            ? isDarkMode 
-                                ? 'text-[#5555ff]' 
-                                : 'text-[blue]' 
-                            : index === 1 
-                            ? isDarkMode 
-                                ? 'text-[#FF5C00]' 
-                                : 'text-[red]' 
-                            : isDarkMode 
-                                ? 'text-[#080]' 
-                                : 'text-[green]' }
-                    >
-                        {`${entry.name}: 
-                        ${index === 2 
-                        ? entry.value > 1000 
-                            ? entry.value.toLocaleString() + ' AF'
-                            : '--' 
-                        : entry.value > 1000 
-                            ? '--' 
-                            : entry.value + '%'}`}
+            return (
+                <div className="custom-tooltip">
+                    <p>
+                        {`Month: ${monthNames[label]}`}
                     </p>
-                )})}
-            </div>
-          );
+                    {payload.map((entry:any, index:any) => {
+                        return (
+                        <p 
+                            key={index}
+                            className={ 
+                                index === 2 
+                                ? isDarkMode 
+                                    ? 'text-[#5555ff]' 
+                                    : 'text-[blue]' 
+                                : index === 1 
+                                ? isDarkMode 
+                                    ? 'text-[#FF5C00]' 
+                                    : 'text-[red]' 
+                                : isDarkMode 
+                                    ? 'text-[#080]' 
+                                    : 'text-[green]' }
+                        >
+                            {`${entry.name}: 
+                            ${index === 2 
+                            ? entry.value > 1000 
+                                ? entry.value.toLocaleString() + ' AF'
+                                : '--' 
+                            : entry.value > 1000 
+                                ? '--' 
+                                : entry.value + '%'}`}
+                        </p>
+                    )})}
+                </div>
+            );
         }
-      
-        return null;
-      };
-  
+        
+            return null;
+        };
+    
+
     return ( 
         <div id='graphContainer' className={cn(`w-full h-full`, className) }>
             {/* <Vega spec={spec} /> */}

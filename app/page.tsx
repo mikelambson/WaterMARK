@@ -1,8 +1,10 @@
 // ./app/page.tsx
 import SysInfo from "@/components/cards/SysInfo";
+import LahontanLakeLevel from "@/components/cards/LahontanLevel";
 import Ordercount from "@/components/cards/Ordercount";
-import LakeForcast from "@/components/cards/LakeForcast";
 import Demand from "../features/scheduling/Demand";
+import LakeForcast from "@/components/cards/LakeForcast";
+
 
 export default function Home() {
     return (
@@ -23,7 +25,9 @@ export default function Home() {
             <div className={"flex flex-row justify-center gap-4 flex-wrap px-[1%]"}>
                 <div className={"flex flex-col gap-4 min-w-fit w-full md:w-3/4 md:max-w-screen-lg"}>
                     <SysInfo className={" w-full"} />
+                    <LahontanLakeLevel className={"w-full"} />
                     <LakeForcast className={"w-full mb-4"} />
+                    
                 </div>
                 <div className=" min-w-[10rem] flex flex-col flex-grow gap-4 w-full md:w-[20%] md:max-w-[24rem]">
                     <Demand />
