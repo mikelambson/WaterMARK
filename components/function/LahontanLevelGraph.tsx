@@ -1,18 +1,16 @@
 "use client"
 import { cn } from '@/lib/utils';
 import { 
-    LineChart, 
-    Line, 
+    AreaChart, 
+    Area, 
     CartesianGrid, 
     XAxis, 
     YAxis, 
     Tooltip, 
     ResponsiveContainer, 
     Label, 
-    ReferenceLine, 
     Legend, 
-    ComposedChart, 
-    Brush 
+    ReferenceLine 
 } from 'recharts';
 
 import { useTheme } from "next-themes";
@@ -198,133 +196,117 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                 </Button>
             </div>
             <ResponsiveContainer width={"99%"} height={450}>
-                <LineChart 
-                    className=' mx-auto'
-                    data={reData.a}
-                    margin={{ top: 0, right: 40, bottom: 30, left: 20 }
-                }>
-                     <Legend 
-                        verticalAlign="top" 
-                        align="center" 
-                        wrapperStyle={{ paddingTop: 10 }} 
-                        iconType="plainline" // Set iconType to "plainline" to display different line styles
-                    />
-                    <CartesianGrid stroke="#777" strokeDasharray="1 1" />
+              
+                <AreaChart 
+                    className='mx-auto'
+                    data={reData.a} // Adjust the data as needed
+                    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                >
+                    <defs>
+                        <linearGradient id="colorCurrent" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="colorExceedence75" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="colorExceedence50" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#ff7f50" stopOpacity={0.8} />
+                            <stop offset="95%" stopColor="#ff7f50" stopOpacity={0} />
+                        </linearGradient>
+                    </defs>
                     <XAxis 
                         dataKey={"x"} 
                         type='number' 
-                        domain={[0,12]} 
+                        domain={[0, 12]} 
                         tickCount={13} 
                         tickFormatter={(value) => monthNames[value]}
                         angle={320} 
                         dx={-16}
                         dy={10}
-                        className='text-[10px]'>
+                        className='text-[10px]'
+                    >
                         <Label 
                             position="bottom" 
                             className='font-bold text-lg'
-                            offset={12}>
+                            offset={12}
+                        >
                             Month
                         </Label>
                     </XAxis>
-                    {/* Primary Y-axis */}
-                    <YAxis yAxisId={"left"} dataKey={"y"} domain={[0, maxLeftY]} tickCount={10}>
+                    <YAxis yAxisId={"left"} domain={[0, 120]} tickCount={10}>
                         <Label 
                             angle={270} 
                             position="left" 
                             style={{ textAnchor: 'middle' }}
                             className='font-bold text-xl'
-                            offset={-10}>
-                                Water Level (%)
+                            offset={-10}
+                        >
+                            Water Level (%)
                         </Label>
                     </YAxis>
-                    {/* Secondary Y-axis */}
                     <YAxis 
                         yAxisId="right" 
                         orientation="right" 
-                        domain={[0, maxRightY]} 
+                        domain={[0, 372000]} 
                         tickCount={10}
                         tickFormatter={(value) => value.toLocaleString()}
-                        className='text-sm'>
+                        className='text-sm'
+                    >
                         <Label 
                             angle={270} 
                             position="right" 
                             style={{ textAnchor: 'middle' }}
                             className='font-bold text-xl'
-                            offset={20}>
-                                Acre Feet
+                            offset={20}
+                        >
+                            Acre Feet
                         </Label>
                     </YAxis>
-                    <Tooltip content={<CustomTooltip />} />
-                    {/* <Brush dataKey="x" startIndex={2} height={30} stroke="#888000" 
-                        fill={isDarkMode ? "#555" : "#f5f5f5"} 
-                        tickFormatter={(value) => monthNames[value]}
-                        className='text-[10px]'
-                    /> */}
-                    <Line 
-                        data={reData.a} 
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <Tooltip />
+
+                    {/* <Legend verticalAlign="top" align="center" wrapperStyle={{ paddingTop: 10 }} /> */}
+
+                    {/* Area for "current" data */}
+                    <Area 
                         type="monotone" 
-                        dataKey="y" 
-                        stroke={isDarkMode ? "#080" : "green" } 
-                        strokeDasharray="3 4" 
-                        strokeWidth={1} 
-                        yAxisId="left" 
-                        name='75% Exeedence'
-                        dot={false} />
-                    <Line 
-                        data={reData.b} 
-                        type="monotone" 
-                        dataKey="y" 
-                        stroke={isDarkMode ? "#FF5C00" : "red"}
-                        strokeDasharray="8 5 2 5" 
-                        strokeWidth={1} 
-                        yAxisId="left" 
-                        name='50% Exeedence'
-                        dot={false} />
-                    <Line 
                         data={reData.current} 
-                        type="monotone" 
-                        dataKey="y" 
-                        stroke={isDarkMode ? "#5555ff" : "blue"}  
-                        strokeDasharray="0 0" 
-                        activeDot={{r: 8}} 
-                        strokeWidth={3} 
+                        dataKey="y"
                         yAxisId="right" 
-                        name='Current'
-                        dot={{
-                            fill: 'gray',
-                            fillOpacity: 0.5,
-                            strokeWidth: 1,
-                            r: 3,
-                            strokeOpacity: 0.5,
-                            }} />
+                        stroke="#8884d8" 
+                        fillOpacity={1} 
+                        fill="url(#colorCurrent)" 
+                        name="Current"
+                    />
                     <ReferenceLine 
                         yAxisId="left"
                         y={100} 
-                        stroke={"gray"} 
+                        stroke={"brown"} 
                         strokeWidth={2}
-                        strokeDasharray={"9 9"}
-                        >
+                        strokeDasharray={"9 3"}
+                    >
                         <Label 
                             position='insideLeft' 
                             value='100% Capacity' 
                             fontSize='12px' 
-                            fill='gray' 
+                            fill='brown' 
                             fontWeight='bold' 
                             offset={10}
-                            dy={-10} />
+                            dy={-10} 
+                        />
                         <Label 
                             position='insideRight' 
-                            value='310,000 Acre Feet' 
-                            fontSize='12px' 
-                            fill='gray' 
+                            value='310,000 Acre Feet Max' 
+                            fontSize='15px' 
+                            fill='brown' 
                             fontWeight='bold' 
-                            offset={10}
-                            dy={-10} />
+                            offset={14}
+                            dy={-11} 
+                        />
                     </ReferenceLine>
-                    
-                </LineChart> 
-                 
+                </AreaChart> 
             </ResponsiveContainer>
         </div>
     );
