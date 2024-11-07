@@ -33,7 +33,7 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
           if (window.Worker) {
             const worker = new Worker(new URL('@/utils/fetchWorker.js', import.meta.url));
     
-            worker.postMessage('https://nwis.waterservices.usgs.gov/nwis/iv/?sites=10312100&agencyCd=USGS&startDT=2023-11-08T10:08:41.209-08:00&endDT=2024-11-07T10:08:41.209-08:00&parameterCd=00054&format=rdb');
+            worker.postMessage('https://nwis.waterdata.usgs.gov/usa/nwis/uv/?cb_00054=on&cb_00062=on&cb_62615=on&format=rdb&site_no=10312100&legacy=1&period=&begin_date=2024-01-01&end_date=2024-11-07');
     
             worker.onmessage = (event) => {
               if (event.data.error) {
@@ -58,22 +58,24 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
       }, [data, lastFetched, setData]);
     
       if (isLoading) {
-        return <div>Loading...</div>;
+        return <Skeleton className="w-full h-96 mt-6" />;
       }
     
       if (error) {
-        return <div>Error: {error}</div>;
+        return (<div><Skeleton className="w-full h-96 mt-6" />
+                Error: {error}
+                </div>);
       }
 
     return (
         <Card className={className}>
         <CardContent>
-            {data ? <LahontanLevelGraph className={"my-4"} />
+            {data ? <LahontanLevelGraph className={"my-4"} data={data} />
             : <Skeleton className="w-full h-96 mt-6" />}
         </CardContent>
             <CardFooter className="inline-flex w-full justify-end">
                 <Dialog>
-                    <DialogTrigger>
+                    <DialogTrigger className="z-10">
                         <MdDataset size={20} />
                     </DialogTrigger>
                     <DialogContent className="w-4/5 h-5/6 bg-card">
@@ -84,8 +86,8 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
                             </DialogDescription>
                                 <ScrollArea className="w-full border h-[550]">
                                     {data ? (
-                                        <div className="w-full text-sm">
-                                            {JSON.stringify(data)}
+                                        <div className="w-full text-sm whitespace-pre-wrap">
+                                            {JSON.stringify(data, null, 2)}
                                         </div>
                                     )
                                         : <Skeleton className="w-full h-96 mt-6" />

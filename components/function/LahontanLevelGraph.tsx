@@ -28,7 +28,7 @@ console.error = (...args: any) => {
 
 interface LakeLevelProps {
     className?: string;
-    data?: any;
+    data: Array<{ datetime: string; af: number }>;
 }
 
 
@@ -82,7 +82,7 @@ const reData = {
 }
 
 
-const LahontanLevelGraph= ({className}: LakeLevelProps) => {
+const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
     const { resolvedTheme } = useTheme();
     const isDarkMode = resolvedTheme === "dark";
     const handleSavePrint = () => {
@@ -133,59 +133,44 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
         printWindow.print();
     };
     
+    // Parse datetime to a number for the X-axis (e.g., as month index or timestamp)
+    const parsedData = data.map(item => ({
+        datetime: new Date(item.datetime), // Assuming X-axis is the month index (1-12)
+        af: item.af
+    }));
    
     const monthNames = [
         '', 'January', 'February', 'March', 'April', 'May', 'June', 
         'July', 'August', 'September', 'October', 'November', 'December'
     ];
 
-        // Maximum value of the left Y-axis (100)
-    const maxLeftY = 160;
 
-    // Maximum value of the right Y-axis (310000)
-    const maxRightY = (maxLeftY * 310000) / 100;
-
-    const CustomTooltip = ({ active, payload, label }:any) => {
+    const CustomTooltip = ({ active, payload, label }: any) => {
         if (active && payload && payload.length) {
-            
             return (
                 <div className="custom-tooltip">
-                    <p>
-                        {`Month: ${monthNames[label]}`}
-                    </p>
-                    {payload.map((entry:any, index:any) => {
-                        return (
-                        <p 
+                    <p>{`Month: ${monthNames[label]}`}</p>
+                    {payload.map((entry: any, index: any) => (
+                        <p
                             key={index}
-                            className={ 
-                                index === 2 
-                                ? isDarkMode 
-                                    ? 'text-[#5555ff]' 
-                                    : 'text-[blue]' 
-                                : index === 1 
-                                ? isDarkMode 
-                                    ? 'text-[#FF5C00]' 
-                                    : 'text-[red]' 
-                                : isDarkMode 
-                                    ? 'text-[#080]' 
-                                    : 'text-[green]' }
+                            className={
+                                index === 0
+                                    ? isDarkMode
+                                        ? 'text-[#5555ff]'
+                                        : 'text-[blue]'
+                                    : isDarkMode
+                                        ? 'text-[#080]'
+                                        : 'text-[green]'
+                            }
                         >
-                            {`${entry.name}: 
-                            ${index === 2 
-                            ? entry.value > 1000 
-                                ? entry.value.toLocaleString() + ' AF'
-                                : '--' 
-                            : entry.value > 1000 
-                                ? '--' 
-                                : entry.value + '%'}`}
+                            {`${entry.name}: ${entry.value.toLocaleString()} AF`}
                         </p>
-                    )})}
+                    ))}
                 </div>
             );
         }
-        
-            return null;
-        };
+        return null;
+    };
     
 
     return ( 
@@ -199,12 +184,11 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                     <IoMdPrint />
                 </Button>
             </div>
-            <ResponsiveContainer width={"99%"} height={450}>
-              
+            <ResponsiveContainer width={"100%"} height={450} className={"-mb-14 z-0"}>
                 <AreaChart 
                     className='mx-auto'
-                    data={reData.a} // Adjust the data as needed
-                    margin={{ top: 10, right: 31, left: 0, bottom: 30 }}
+                    data={parsedData} // Adjust the data as needed
+                    margin={{ top: 10, right: 35, left: 0, bottom: 45 }}
                 >
                     <defs>
                         <linearGradient id="colorCurrent" x1="0" y1="0" x2="0" y2="1">
@@ -213,25 +197,33 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                         </linearGradient>
                     </defs>
                     <XAxis 
-                        dataKey={"x"} 
-                        type='number' 
-                        domain={[0, 12]} 
+                        dataKey={"datetime"} 
+                        type='category' 
+                        domain={[1, 12]} 
                         tickCount={13} 
-                        tickFormatter={(value) => monthNames[value]}
+                        tickFormatter={(value) => {
+                            // Convert datetime to a more readable format (e.g., "Nov 08, 2023")
+                            const date = new Date(value);
+                            return date.toLocaleDateString('en-US', {
+                                month: 'short',
+                                day: '2-digit',
+                                year: 'numeric',
+                            });
+                        }}
                         angle={320} 
-                        dx={-16}
-                        dy={10}
+                        dx={-26}
+                        dy={18}
                         className='text-[10px]'
                     >
                         <Label 
                             position="bottom" 
                             className='font-bold text-lg'
-                            offset={12}
+                            offset={28}
                         >
                             Month
                         </Label>
                     </XAxis>
-                    <YAxis yAxisId={"left"} domain={[0, 107]} tickCount={25}>
+                    <YAxis yAxisId={"left"} domain={[0, 110]} tickCount={25}>
                         <Label 
                             angle={270} 
                             position="left" 
@@ -245,7 +237,7 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                     <YAxis 
                         yAxisId="right" 
                         orientation="right" 
-                        domain={[0, 330666]} 
+                        domain={[0, 340000]} 
                         tickCount={16}
                         tickFormatter={(value) => value.toLocaleString()}
                         className='text-sm'
@@ -260,7 +252,7 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                             Acre Feet
                         </Label>
                     </YAxis>
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="1 1" />
                     <Tooltip />
 
                     {/* <Legend verticalAlign="top" align="center" wrapperStyle={{ paddingTop: 10 }} /> */}
@@ -268,8 +260,8 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                     {/* Area for "current" data */}
                     <Area 
                         type="monotone" 
-                        data={reData.current} 
-                        dataKey="y"
+                        data={parsedData} 
+                        dataKey="af"
                         yAxisId="right" 
                         stroke="#8884d8" 
                         fillOpacity={1} 
@@ -277,17 +269,17 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                         name="Current"
                     />
                     <ReferenceLine 
-                        yAxisId="left"
-                        y={2} 
-                        stroke={"#7A470D"} 
+                        yAxisId="right"
+                        y={4000} 
+                        stroke={"#7A0D0D"} 
                         strokeWidth={2}
-                        strokeDasharray={"9 3"}
+                        strokeDasharray={"2 1"}
                     >
                         <Label 
                             position='insideLeft' 
                             value='Minimum Pool' 
                             fontSize='12px' 
-                            fill='#7A470D' 
+                            fill='#7A0D0D' 
                             fontWeight='bold' 
                             offset={10}
                             dy={-10} 
@@ -295,8 +287,8 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                         
                     </ReferenceLine>
                     <ReferenceLine 
-                        yAxisId="left"
-                        y={100} 
+                        yAxisId="right"
+                        y={308000} 
                         stroke={"#7A470D"} 
                         strokeWidth={2}
                         strokeDasharray={"9 3"}
@@ -307,12 +299,12 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                             fontSize='12px' 
                             fill='#7A470D' 
                             fontWeight='bold' 
-                            offset={10}
+                            offset={12}
                             dy={-10} 
                         />
                         <Label 
                             position='insideRight' 
-                            value='310,000 Acre Feet Max' 
+                            value='308,000 Acre Feet Max' 
                             fontSize='15px' 
                             fill='#7A470D' 
                             fontWeight='bold' 
@@ -321,19 +313,19 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                         />
                     </ReferenceLine>
                     <ReferenceLine 
-                        yAxisId="left"
-                        y={95} 
+                        yAxisId="right"
+                        y={289000} 
                         stroke={"#7A470D"} 
                         strokeWidth={1}
                         strokeDasharray={"3 3"}
                     >
                         <Label 
                             position='insideLeft' 
-                            value='Boards' 
+                            value='Sill/Boards' 
                             fontSize='12px' 
                             fill='#7A470D' 
                             fontWeight='bold' 
-                            offset={10}
+                            offset={12}
                             dy={10} 
                         />
                         
