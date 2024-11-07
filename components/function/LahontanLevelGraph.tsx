@@ -73,6 +73,10 @@ const reData = {
         {"x": 4, "y": 268500},
         {"x": 5, "y": 288500},
         {"x": 6, "y": 308500},
+        {"x": 7, "y": 298500},
+        {"x": 8, "y": 248500},
+        {"x": 9, "y": 188500},
+        {"x": 11, "y": 138500},
     ]
          
 }
@@ -185,7 +189,7 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
     
 
     return ( 
-        <div id='graphContainer' className={cn(`w-full h-full`, className) }>
+        <div id='graphContainer' className={cn(`w-full h-full `, className) }>
             {/* <Vega spec={spec} /> */}
             <div className="flex justify-center items-center gap-2">
                 <h2 className="text-2xl font-bold">
@@ -200,20 +204,12 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                 <AreaChart 
                     className='mx-auto'
                     data={reData.a} // Adjust the data as needed
-                    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                    margin={{ top: 10, right: 31, left: 0, bottom: 30 }}
                 >
                     <defs>
                         <linearGradient id="colorCurrent" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
                             <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                        </linearGradient>
-                        <linearGradient id="colorExceedence75" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                        </linearGradient>
-                        <linearGradient id="colorExceedence50" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#ff7f50" stopOpacity={0.8} />
-                            <stop offset="95%" stopColor="#ff7f50" stopOpacity={0} />
                         </linearGradient>
                     </defs>
                     <XAxis 
@@ -235,7 +231,7 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                             Month
                         </Label>
                     </XAxis>
-                    <YAxis yAxisId={"left"} domain={[0, 120]} tickCount={10}>
+                    <YAxis yAxisId={"left"} domain={[0, 107]} tickCount={25}>
                         <Label 
                             angle={270} 
                             position="left" 
@@ -249,8 +245,8 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                     <YAxis 
                         yAxisId="right" 
                         orientation="right" 
-                        domain={[0, 372000]} 
-                        tickCount={10}
+                        domain={[0, 330666]} 
+                        tickCount={16}
                         tickFormatter={(value) => value.toLocaleString()}
                         className='text-sm'
                     >
@@ -282,8 +278,26 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                     />
                     <ReferenceLine 
                         yAxisId="left"
+                        y={2} 
+                        stroke={"#7A470D"} 
+                        strokeWidth={2}
+                        strokeDasharray={"9 3"}
+                    >
+                        <Label 
+                            position='insideLeft' 
+                            value='Minimum Pool' 
+                            fontSize='12px' 
+                            fill='#7A470D' 
+                            fontWeight='bold' 
+                            offset={10}
+                            dy={-10} 
+                        />
+                        
+                    </ReferenceLine>
+                    <ReferenceLine 
+                        yAxisId="left"
                         y={100} 
-                        stroke={"brown"} 
+                        stroke={"#7A470D"} 
                         strokeWidth={2}
                         strokeDasharray={"9 3"}
                     >
@@ -291,7 +305,7 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                             position='insideLeft' 
                             value='100% Capacity' 
                             fontSize='12px' 
-                            fill='brown' 
+                            fill='#7A470D' 
                             fontWeight='bold' 
                             offset={10}
                             dy={-10} 
@@ -300,11 +314,29 @@ const LahontanLevelGraph= ({className}: LakeLevelProps) => {
                             position='insideRight' 
                             value='310,000 Acre Feet Max' 
                             fontSize='15px' 
-                            fill='brown' 
+                            fill='#7A470D' 
                             fontWeight='bold' 
-                            offset={14}
-                            dy={-11} 
+                            offset={12}
+                            dy={-10} 
                         />
+                    </ReferenceLine>
+                    <ReferenceLine 
+                        yAxisId="left"
+                        y={95} 
+                        stroke={"#7A470D"} 
+                        strokeWidth={1}
+                        strokeDasharray={"3 3"}
+                    >
+                        <Label 
+                            position='insideLeft' 
+                            value='Boards' 
+                            fontSize='12px' 
+                            fill='#7A470D' 
+                            fontWeight='bold' 
+                            offset={10}
+                            dy={10} 
+                        />
+                        
                     </ReferenceLine>
                 </AreaChart> 
             </ResponsiveContainer>

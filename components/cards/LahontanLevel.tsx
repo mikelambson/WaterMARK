@@ -19,7 +19,7 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
   return (
     <Card className={className}>
       <CardContent>
-        {data ? <LahontanLevelGraph className={"mt-4"} />
+        {data ? <LahontanLevelGraph className={"my-4"} />
           : <Skeleton className="w-full h-96 mt-6" />}
       </CardContent>
     </Card>
