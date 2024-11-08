@@ -77,6 +77,8 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
         datetime: new Date(item.datetime), // Assuming X-axis is the month index (1-12)
         af: item.af
     }));
+
+    const currentLevel = Math.round(parsedData[parsedData.length - 1].af).toLocaleString();
    
     const monthNames = [
         '', 'January', 'February', 'March', 'April', 'May', 'June', 
@@ -86,21 +88,27 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
 
     const CustomTooltip = ({ active, payload, label }: any) => {
         if (active && payload && payload.length) {
+            const date = new Date(label);
+            const formattedDate = date.toLocaleString('en-US', {
+                weekday: 'short', // Mon
+                month: 'short',   // Jan
+                day: '2-digit',   // 05
+                year: 'numeric',  // 2024
+                hour: '2-digit',  // HH
+                minute: '2-digit', // mm
+                hour12: false,    // 24-hour format
+                timeZoneName: 'short' // PDT/PST
+            });
+
             return (
-                <div className="custom-tooltip">
-                    <p>{`Month: ${monthNames[label]}`}</p>
+                <div className="custom-tooltip bg-background/50 rounded-md p-4">
+                    <p className='text-sm text-foreground'>
+                        {`Date: ${formattedDate}`}
+                    </p>
                     {payload.map((entry: any, index: any) => (
                         <p
                             key={index}
-                            className={
-                                index === 0
-                                    ? isDarkMode
-                                        ? 'text-[#5555ff]'
-                                        : 'text-[blue]'
-                                    : isDarkMode
-                                        ? 'text-[#080]'
-                                        : 'text-[green]'
-                            }
+                            className={'text-card-alternative'}
                         >
                             {`${entry.name}: ${entry.value.toLocaleString()} AF`}
                         </p>
@@ -117,7 +125,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
             {/* <Vega spec={spec} /> */}
             <div className="flex justify-center items-center gap-2">
                 <h2 className="text-2xl font-bold">
-                    Lahontan Lake Level
+                    Lahontan Lake Level {currentLevel} AF
                 </h2>
                 <Button id='printButton' size={"pagination"} variant={'secondary'} onClick={handleSavePrint}>
                     <IoMdPrint />
@@ -192,11 +200,8 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                         </Label>
                     </YAxis>
                     <CartesianGrid strokeDasharray="1 1" />
-                    <Tooltip />
-
-                    {/* <Legend verticalAlign="top" align="center" wrapperStyle={{ paddingTop: 10 }} /> */}
-
-                    {/* Area for "current" data */}
+                    <Tooltip content={<CustomTooltip />} />
+                    
                     <Area 
                         type="monotone" 
                         data={parsedData} 
@@ -205,7 +210,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                         stroke="#8884d8" 
                         fillOpacity={1} 
                         fill="url(#colorCurrent)" 
-                        name="Current"
+                        name="Area Feet"
                     />
                     <ReferenceLine 
                         yAxisId="right"

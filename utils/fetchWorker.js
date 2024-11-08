@@ -44,7 +44,7 @@ self.onmessage = async (event) => {
 
     const averagedData = Object.entries(dailyData).map(([date, { totalAf, count }]) => ({
       datetime: date,
-      af: totalAf / count // Calculate average af for the day
+      af: Math.round(totalAf / count) // Calculate average af for the day
     }));
 
     // Send the processed data back to the main thread
