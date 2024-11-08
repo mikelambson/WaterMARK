@@ -9,7 +9,6 @@ import {
     Tooltip, 
     ResponsiveContainer, 
     Label, 
-    Legend, 
     ReferenceLine 
 } from 'recharts';
 
@@ -17,70 +16,10 @@ import { useTheme } from "next-themes";
 import { Button } from '@/components/ui/button';
 import { IoMdPrint } from 'react-icons/io';
 
-const error = console.error; // Remove after fixing defaultProps warning
-console.error = (...args: any) => {
-    if (/defaultProps/.test(args[0])) {
-        console.warn('\nRECHART WARNING:\n', args[0]);
-        return
-    };
-  error(...args);
-};
-
 interface LakeLevelProps {
     className?: string;
     data: Array<{ datetime: string; af: number }>;
 }
-
-
-const reData = {
-    "a":[
-        {"x": 0, "y": 30},
-        {"x": 1, "y": 40},
-        {"x": 2, "y": 50},
-        {"x": 3, "y": 66},
-        {"x": 4, "y": 80},
-        {"x": 5, "y": 90},
-        {"x": 6, "y": 100},
-        {"x": 7, "y": 110},
-        {"x": 8, "y": 100},
-        {"x": 9, "y": 90},
-        {"x": 10, "y": 70},
-        {"x": 11, "y": 60},
-        {"x": 12, "y": 65}
-    ],
-    "b": [
-        {"x": 0, "y": 50},
-        {"x": 1, "y": 60},
-        {"x": 2, "y": 70},
-        {"x": 3, "y": 86},
-        {"x": 4, "y": 100},
-        {"x": 5, "y": 120},
-        {"x": 6, "y": 130},
-        {"x": 7, "y": 150},
-        {"x": 8, "y": 110},
-        {"x": 9, "y": 90},
-        {"x": 10, "y": 80},
-        {"x": 11, "y": 70},
-        {"x": 12, "y": 85},
-
-    ],
-    "current": [
-        {"x": 0, "y": 124000},
-        {"x": .5, "y": 132000},
-        {"x": 1, "y": 155000},
-        {"x": 2, "y": 189100},
-        {"x": 3, "y": 235600},
-        {"x": 4, "y": 268500},
-        {"x": 5, "y": 288500},
-        {"x": 6, "y": 308500},
-        {"x": 7, "y": 298500},
-        {"x": 8, "y": 248500},
-        {"x": 9, "y": 188500},
-        {"x": 11, "y": 138500},
-    ]
-         
-}
-
 
 const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
     const { resolvedTheme } = useTheme();

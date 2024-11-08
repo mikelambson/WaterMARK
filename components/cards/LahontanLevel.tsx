@@ -11,11 +11,11 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useState } from "react";
 import { useLahontanDataStore } from "@/lib/store/usgs/usgsLahontan";
+import LoadingAnimation from "@/features/loader/loading.module";
 
 interface ForcastProps {
   className?: string;
 }
-
 
 const formatDate = (date: Date): string => {
     const year = date.getFullYear();
@@ -27,16 +27,16 @@ const formatDate = (date: Date): string => {
 const LahontanLakeLevel = ({ className }: ForcastProps) => {
     const { data, lastFetched, setData } = useLahontanDataStore();
     const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [lahontanIsLoading, setLahontanIsLoading] = useState(true);
   
     useEffect(() => {
-        const cacheExpiration = 60 * 60 * 1000; // 1 hour in milliseconds
+        const cacheExpiration = 12 * 60 * 60 * 1000;
         const currentTime = new Date().getTime();
         const today = new Date();
 
         if (data && lastFetched && currentTime - lastFetched < cacheExpiration) {
           // Use cached data if it's less than an hour old
-          setIsLoading(false);
+          setLahontanIsLoading(false);
         } else {
           // Fetch new data using Web Worker if cache is expired or data is missing
           if (window.Worker) {
@@ -54,62 +54,74 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
               } else {
                 setData(event.data);
               }
-              setIsLoading(false);
+              setLahontanIsLoading(false);
               worker.terminate();
             };
     
             worker.onerror = (error) => {
               setError('Worker error: ' + error.message);
-              setIsLoading(false);
+              setLahontanIsLoading(false);
               worker.terminate();
             };
           } else {
             setError('Web Workers are not supported in this browser');
-            setIsLoading(false);
+            setLahontanIsLoading(false);
           }
         }
       }, [data, lastFetched, setData]);
     
-      if (isLoading) {
-        return <Skeleton className="w-full h-96 mt-6" />;
-      }
     
       if (error) {
-        return (<div><Skeleton className="w-full h-96 mt-6" />
-                Error: {error}
-                </div>);
+        return (
+            <div>
+                <Skeleton className="w-full h-96">
+                    Error: {error}
+                </Skeleton>
+            </div>
+        );
       }
 
     return (
         <Card className={className}>
-        <CardContent>
-            {data ? <LahontanLevelGraph className={"my-4"} data={data} />
-            : <Skeleton className="w-full h-[500px] mt-6" />}
-        </CardContent>
-            <CardFooter className="inline-flex w-full justify-end">
-                <Dialog>
-                    <DialogTrigger className="z-10">
-                        <MdDataset size={20} />
-                    </DialogTrigger>
-                    <DialogContent className="w-4/5 h-5/6 bg-card">
-                        <DialogHeader>
-                            <DialogTitle>Lahoton Lake Level Data</DialogTitle>
-                            <DialogDescription>
-                                The following data is from the USGS National Water Information System (NWIS).                             
-                            </DialogDescription>
-                                <ScrollArea className="w-full border h-[550]">
-                                    {data ? (
-                                        <div className="w-full text-sm whitespace-pre-wrap">
-                                            {JSON.stringify(data, null, 2)}
-                                        </div>
-                                    )
-                                        : <Skeleton className="w-full h-96 mt-6" />
-                                    }
-                                </ScrollArea>
-                        </DialogHeader>
-                    </DialogContent>
-                </Dialog>
-            </CardFooter>
+            {lahontanIsLoading ? (
+                <CardContent>
+                    <Skeleton className="w-full h-[450px]" >
+                        <LoadingAnimation />
+                    </Skeleton>
+                </CardContent>
+            ) : (
+                <>
+                <CardContent>
+                    {data ? <LahontanLevelGraph className={"my-4"} data={data} />
+                    : <Skeleton className="w-full h-[500px] mt-6" />}
+                </CardContent>
+                 <CardFooter className="inline-flex w-full justify-end">
+                 <Dialog>
+                     <DialogTrigger className="z-10">
+                         <MdDataset size={20} />
+                     </DialogTrigger>
+                     <DialogContent className="w-4/5 h-5/6 bg-card">
+                         <DialogHeader>
+                             <DialogTitle>Lahonton Lake Level Data</DialogTitle>
+                             <DialogDescription>
+                                 The following data is from the USGS National Water Information System (NWIS).                             
+                             </DialogDescription>
+                                 <ScrollArea className="w-full border h-[550]">
+                                     {data ? (
+                                         <div className="w-full text-sm whitespace-pre-wrap">
+                                             {JSON.stringify(data, null, 2)}
+                                         </div>
+                                     )
+                                         : <Skeleton className="w-full h-96 mt-6" />
+                                     }
+                                 </ScrollArea>
+                         </DialogHeader>
+                     </DialogContent>
+                 </Dialog>
+             </CardFooter>
+             </>
+            )}
+           
         </Card>
     );
 };
