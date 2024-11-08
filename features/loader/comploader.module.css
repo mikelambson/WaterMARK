@@ -1,0 +1,69 @@
+
+  .wrapper {
+    position: relative;
+    width: 30rem;
+    height: 4rem;
+  }
+  .outerShadow {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow:
+    -0.7rem 0.2rem 0.5rem rgba(34, 100, 158, 0.1),
+    0.7rem 0.2rem 0.5rem rgba(34, 100, 158, 0.1),
+    0 0.5rem 0.5rem rgba(34, 100, 158, 0.1),
+    inset 0 -0.1rem 0.2rem rgba(34, 100, 158, 0.2),
+    inset 0 0.1rem 0.1rem rgba(255, 255, 255, 0.1),
+    0 -0.3rem 0.3rem rgba(255, 255, 255, 0.1);
+    animation: wave 3s ease-out infinite;
+    transform: scale(0);
+  }
+  .innerShadow {
+    height: 90%;
+    width: 96%;
+    border-radius: 50%;
+    box-shadow:
+    0 0.1rem 0.15rem rgba(255, 255, 255, 0.3),
+    inset 0 -0.1rem 0.15rem rgba(255, 255, 255, 0.3),
+    inset 0 0.5rem 0.5rem rgba(34, 100, 158, 0.2),
+    inset 0.2rem 0 0.3rem rgba(34, 100, 158, 0.1),
+    inset -0.2rem 0 0.3rem rgba(34, 100, 158, 0.1),
+    0 -0.1rem 0.1rem rgba(34, 100, 158, 0.2);
+  }
+  .wave_1 {
+    animation-delay: 1s;
+  }
+  .wave_2 {
+    animation-delay: 2s;
+  }
+   .wave_3 {
+    animation-delay: 3s;
+  }
+  .alignCenter {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  .drop {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: #7cb5db;
+    box-shadow:
+      inset 0 -0.2rem 0.2rem rgba(34, 100, 158, 0.3),
+      inset 0 -0.1rem 0.5rem #7cb5db, 
+      0 -0.5rem 1rem #7cb5db ;
+    transform: translateY(-7rem);
+    animation: fall 1s linear infinite;
+    opacity: 0;
+  }
+  @keyframes wave {
+    to { transform: scale(1); opacity: 0 }
+  }
+  @keyframes fall {
+    90% { transform: scale(0.7, 1); opacity: 1; }
+    100% { transform: translateY(0rem) scale(0.7, 0.3); opacity: 0.7 }
+   }

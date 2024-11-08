@@ -12,6 +12,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useState } from "react";
 import { useLahontanDataStore } from "@/lib/store/usgs/usgsLahontan";
 import LoadingAnimation from "@/features/loader/loading.module";
+import ComponentLoader from "@/features/loader/comploader.module";
 
 interface ForcastProps {
   className?: string;
@@ -85,8 +86,8 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
         <Card className={className}>
             {lahontanIsLoading ? (
                 <CardContent>
-                    <Skeleton className="w-full h-[450px]" >
-                        <LoadingAnimation />
+                    <Skeleton className="w-full h-[450px] mt-5 pt-24" >
+                        <ComponentLoader />
                     </Skeleton>
                 </CardContent>
             ) : (
