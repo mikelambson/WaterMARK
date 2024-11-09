@@ -161,7 +161,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                 <AreaChart 
                     className='mx-auto'
                     data={parsedData} // Adjust the data as needed
-                    margin={{ top: 10, right: 35, left: 0, bottom: 45 }}
+                    margin={{ top: 10, right: 30, left: 8, bottom: 45 }}
                 >
                     <defs>
                         <linearGradient id="colorCurrent" x1="0" y1="0" x2="0" y2="1">
@@ -196,13 +196,17 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                             Date
                         </Label>
                     </XAxis>
-                    <YAxis yAxisId={"left"} domain={[0, 110]} tickCount={25}>
+                    <YAxis 
+                        yAxisId={"left"} 
+                        domain={[0, 110]} 
+                        tickFormatter={(value) => value.toLocaleString() + '%'}
+                        tickCount={25}>
                         <Label 
                             angle={270} 
                             position="left" 
                             style={{ textAnchor: 'middle' }}
                             className='font-bold text-xl'
-                            offset={-10}
+                            offset={0}
                         >
                             Water Level (%)
                         </Label>
