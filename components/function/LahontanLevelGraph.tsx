@@ -193,7 +193,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                             className='font-bold text-lg'
                             offset={28}
                         >
-                            Month
+                            Date
                         </Label>
                     </XAxis>
                     <YAxis yAxisId={"left"} domain={[0, 110]} tickCount={25}>
