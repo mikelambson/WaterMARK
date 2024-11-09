@@ -15,7 +15,7 @@ export default function DemoPage() {
       // After 3 seconds, navigate to the home page
       router.push('/');
       setDemoLoading(false);
-    }, 8000);
+    }, 5000);
   };
 
   if (demoloading) {
