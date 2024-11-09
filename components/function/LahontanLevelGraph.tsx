@@ -15,6 +15,8 @@ import {
 import { useTheme } from "next-themes";
 import { Button } from '@/components/ui/button';
 import { IoMdPrint } from 'react-icons/io';
+import { max, min } from 'date-fns';
+import { is } from 'date-fns/locale';
 
 interface LakeLevelProps {
     className?: string;
@@ -118,7 +120,31 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
         }
         return null;
     };
+
+    const graphColor = {
+        dark: {
+            max: '#c08e5c',
+            sill: '#8d6843',
+            min: '#E08080',
+            grid: '#4B5563',
+        },
+        light: {
+            max: '#7A470D',
+            sill: '#7A470D',
+            min: '#7A0D0D',
+            grid: '#D1D5DB',
+        }
+    };
+
+    const getColor = { 
+        minFill: isDarkMode ? graphColor.dark.min : graphColor.light.min,
+        maxFill: isDarkMode ? graphColor.dark.max : graphColor.light.max,
+        sillFill: isDarkMode ? graphColor.dark.sill : graphColor.light.sill,
+        grid: isDarkMode ? graphColor.dark.grid : graphColor.light.grid,
+        
+    }
     
+
 
     return ( 
         <div id='graphContainer' className={cn(`w-full h-full `, className) }>
@@ -199,7 +225,10 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                             Acre Feet
                         </Label>
                     </YAxis>
-                    <CartesianGrid strokeDasharray="1 1" />
+                    <CartesianGrid 
+                        strokeDasharray="1 1" 
+                        stroke={getColor.grid} 
+                    />
                     <Tooltip content={<CustomTooltip />} />
                     
                     <Area 
@@ -215,7 +244,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                     <ReferenceLine 
                         yAxisId="right"
                         y={4000} 
-                        stroke={"#7A0D0D"} 
+                        stroke={getColor.minFill} 
                         strokeWidth={2}
                         strokeDasharray={"2 1"}
                     >
@@ -223,7 +252,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                             position='insideLeft' 
                             value='Minimum Pool' 
                             fontSize='12px' 
-                            fill='#7A0D0D' 
+                            fill={getColor.minFill} 
                             fontWeight='bold' 
                             offset={10}
                             dy={-10} 
@@ -233,7 +262,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                     <ReferenceLine 
                         yAxisId="right"
                         y={308000} 
-                        stroke={"#7A470D"} 
+                        stroke={getColor.maxFill} 
                         strokeWidth={2}
                         strokeDasharray={"9 3"}
                     >
@@ -241,7 +270,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                             position='insideLeft' 
                             value='100% Capacity' 
                             fontSize='12px' 
-                            fill='#7A470D' 
+                            fill={getColor.maxFill} 
                             fontWeight='bold' 
                             offset={12}
                             dy={-10} 
@@ -250,7 +279,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                             position='insideRight' 
                             value='308,000 Acre Feet Max' 
                             fontSize='15px' 
-                            fill='#7A470D' 
+                            fill={getColor.maxFill} 
                             fontWeight='bold' 
                             offset={12}
                             dy={-10} 
@@ -259,7 +288,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                     <ReferenceLine 
                         yAxisId="right"
                         y={289000} 
-                        stroke={"#7A470D"} 
+                        stroke={getColor.sillFill} 
                         strokeWidth={1}
                         strokeDasharray={"3 3"}
                     >
@@ -267,7 +296,7 @@ const LahontanLevelGraph= ({className, data}: LakeLevelProps) => {
                             position='insideLeft' 
                             value='Sill/Boards' 
                             fontSize='12px' 
-                            fill='#7A470D' 
+                            fill={getColor.sillFill}  
                             fontWeight='bold' 
                             offset={12}
                             dy={10} 
