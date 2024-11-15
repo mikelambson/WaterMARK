@@ -61,11 +61,13 @@ const InteractiveMap = ({ geojsonData, center, zoom }: { geojsonData: GeoJsonObj
             }
         });
     };
+
+
+
   return (
-    <div className=''>
-      
+    <div className='h-[calc(100dvh-4rem)]'>
         <MapContainer 
-            style={{ height: '91vh', width: '100%' }}
+            style={{ height: '100%', width: '100%' }}
             
             >
             <TileLayer
