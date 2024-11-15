@@ -1,7 +1,8 @@
 import { MdDashboard } from "react-icons/md";
 import { RiShieldUserFill } from "react-icons/ri";
 import { GrSchedules } from "react-icons/gr";
-import { TbLoader3 } from "react-icons/tb";
+import { TbLoader3, TbMapRoute } from "react-icons/tb";
+import { SiFreelancer } from "react-icons/si";
 
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased px-1 break-words";
 const iconStyle = `mb-[2px] subpixel-antialiased`;
@@ -45,6 +46,16 @@ export const testingLinks = [
       <>
         <TbLoader3 size={30} className={iconStyle} />
         <span className={labelTextClass}>DEV LOADER</span>
+      </>
+    ),
+  },
+  {
+    id: 999004, // Use a unique id for the logo section
+    link: "/testing/geomap", // Use "/" as the link for the logo
+    content: (
+      <>
+        <TbMapRoute size={30} className={iconStyle} />
+        <span className={labelTextClass}>Geo Mapping</span>
       </>
     ),
   },
