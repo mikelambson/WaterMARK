@@ -4,20 +4,31 @@ import { useEffect, useState } from 'react';
 import InteractiveMap from "./InteractiveMap"
 
 const GeoMap = () => {
-    const [geojsonData, setGeojsonData] = useState(null);
+    interface GeojsonData {
+      canals: any;
+      drainage: any;
+      waterbodies: any;
+    }
+    
+    const [geojsonData, setGeojsonData] = useState<GeojsonData | null>(null);
 
     useEffect(() => {
-      // Load the GeoJSON file from the public folder or fetch it from an API
-      fetch('/geodata/LBAO_Delivery_Features.geojson')
-        .then(response => response.json())
-        .then(data => setGeojsonData(data));
+      // Fetch all GeoJSON files
+    Promise.all([
+        fetch('/geodata/LBAO_Delivery_Features.geojson').then(res => res.json()),
+        fetch('/geodata/LBAO_Drainage_Features.geojson').then(res => res.json()),
+        fetch('/geodata/NHD_Waterbodies.geojson').then(res => res.json())
+      ]).then(([canals, drainage, waterbodies]) => {
+        // Set the GeoJSON data in an object for easy access
+        setGeojsonData({ canals, drainage, waterbodies });
+      });
     }, []);
   
     if (!geojsonData) return <p>Loading map...</p>;
   
     return ( 
         <div>
-            <InteractiveMap geojsonData={geojsonData} center={[39.4741, -118.8786]} zoom={10.5} />
+            <InteractiveMap geoJsonData={geojsonData} center={[39.4741, -118.8786]} zoom={10.5} />
         </div>
      );
 }
