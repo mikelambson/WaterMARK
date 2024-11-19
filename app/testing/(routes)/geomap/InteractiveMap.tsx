@@ -40,7 +40,7 @@ const InteractiveMap = ({ geoJsonData, center, zoom }: InteractiveMapProps) => {
     // Define styles for each layer
     const styles = {
         canals: { color: '#287788', weight: 3 },
-        drainage: { color: '#3498db', weight: 3 },
+        drainage: { color: '#3498db', weight: 1 },
         waterbodies: { color: '#2ecc71', weight: 3, fillOpacity: 0.5 }
     };
 
