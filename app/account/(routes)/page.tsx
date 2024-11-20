@@ -101,7 +101,7 @@ export default function Login() {
 
                     <hr />
 
-                    <Profile />
+                    <Profile className="p-4" />
                     
                 </h4>
             </div>
