@@ -25,7 +25,7 @@ export function ModeToggle() {
         <Button
           variant="outline"
           size="icon"
-          className={`group scale-75 border-none transition-all hover:scale-90 hover:bg-gray-500/80 dark:bg-background/60 dark:hover:bg-gray-600/90 bg-yellow-100/80 rounded-2xl`}
+          className={`group scale-75 border-none transition-all hover:scale-90 hover:bg-gray-500/80 dark:bg-background/60 dark:hover:bg-gray-600/90 bg-yellow-400/30 rounded-2xl`}
         >
           <PiSunDuotone
             className={`h-[1.4rem] w-[1.4rem] rotate-0 scale-125 transition-all dark:-rotate-90 dark:scale-0 group-hover:text-yellow-400`}

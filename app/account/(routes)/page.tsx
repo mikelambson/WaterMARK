@@ -35,7 +35,7 @@ export default function Login() {
     return (
         <div className="px-2">
             <div className={"pt-4"}>
-                <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>
+                <h1 className={"text-2xl font-semibold text-yellow-800 dark:text-yellow-700 md:text-center "}>
                     Profile/Login Page
                 </h1> 
             </div>
@@ -45,7 +45,11 @@ export default function Login() {
                     
                 </h2>
                 
-                <h3 className="text-center">You are currently using viewing as: {userRole.join(", ")}</h3>
+                <h3 className="text-center">Your real roles are: 
+                    <p className="font-semibold text-yellow-800 dark:text-yellow-700 "> 
+                        [ {sessionRoles.join(", ")} ]
+                    </p>
+                </h3>
             
             </div>
             { sessionRoles.some((role) => role === "admin" || "sysadmin") ? (
