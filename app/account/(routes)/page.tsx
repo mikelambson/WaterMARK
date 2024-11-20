@@ -1,13 +1,17 @@
-"use client";
+"use client"
 import { useRoleStore } from "@/components/nav/RoleContext"; // Import useRole
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import { useAuthStore } from "@/lib/store/authStore"
+import { useEffect, useState } from "react";
+import { Profile } from "./profile";
 
 export default function Login() {
     const { userRole, setUserRole } = useRoleStore((state) => state); // Access userRole and setUserRole
     const { userData } = useAuthStore(); // Access userData
     const sessionRoles = userData ? userData.roles : []; // Get the roles from the user data
+    
+
 
     const handleRoleChange = (role: string) => {
         if (role === "Session Roles") {
@@ -73,6 +77,34 @@ export default function Login() {
                     
                 </div>
             ) : null}
+            <div className="mt-8 flex justify-center">
+                <h3 className="text-center">
+                    Effective Permissions From Session:
+                    <p className="font-semibold text-yellow-800 dark:text-yellow-700">
+                        [ {userData?.permissions.join(", ")} ]
+                    </p>
+                </h3>
+            </div>
+            <div className="mt-8 flex justify-center">
+                <h4 className="">
+                    <p className="text-center">User Info:</p>
+                    <div className="grid grid-cols-2 grid-flow-row-dense justify-around border">
+                    <p>User Id:</p>
+                    <p>{userData?.id}</p>
+                    <p>Login:</p>
+                    <p>{userData?.login}</p>
+                    <p>Full Name</p>
+                    <p>{userData?.firstName} {userData?.lastName}</p>
+                    <p>Session Id:</p>
+                    <p>{}</p>
+                    </div>
+
+                    <hr />
+
+                    <Profile />
+                    
+                </h4>
+            </div>
         </div>  
     );
 }
