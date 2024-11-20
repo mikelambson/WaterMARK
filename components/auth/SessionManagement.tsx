@@ -31,12 +31,12 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
   const router = useRouter();
 
   // Handle role change
-  const handleRoleChange = (role: string) => {
+  const handleRoleChange = (role: string[]) => {
     setUserRole(role);
   };
 
     const badAuth = (error: any) => {
-        handleRoleChange("Anonymous")
+        handleRoleChange(["Anonymous"])
         clearUser();
         router.push('/');
         setError(error)
@@ -45,28 +45,28 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
 
   // Handle session authentication
   const handleAuth = (data: UserSessionData | null) => {
-    if (data) {
-            const dataId: string | null = data.id;
-            const validSession = dataId != null;
-            const mainRole = validSession ? data.roles[0] as string : "Anonymous";  
-            //set the user
-            if (validSession) {
-                setUser(data); // Zustand store update 
-                handleRoleChange(mainRole);
-                setRoles(data.roles)
-                setPermissions(data.permissions)
-                setAuthenticated(validSession)
-              
+      if (data) {
+              const dataId: string | null = data.id;
+              const validSession = dataId != null;
+              const mainRole = validSession ? data.roles : ["Anonymous"];  
+              //set the user
+              if (validSession) {
+                  setUser(data); // Zustand store update 
+                  handleRoleChange(mainRole);
+                  setRoles(data.roles)
+                  setPermissions(data.permissions)
+                  setAuthenticated(validSession)
                 
-            } else { 
-              badAuth("Please Try Again") 
-              
-            }
-        } else {
-            badAuth(data)
-           
-        }
-  };
+                  
+              } else { 
+                badAuth("Please Try Again") 
+                
+              }
+          } else {
+              badAuth(data)
+             
+          }
+    };
 
   // UseMutation to validSession and regenerate session
   const verifySession = useMutation({

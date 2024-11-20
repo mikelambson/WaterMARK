@@ -61,17 +61,17 @@ const UserLoginForm = () => {
         try {
             const user = await mutation.mutateAsync(data); 
             const roles = user?.roles && user.roles.length > 0 ? user.roles.map((role: any) => role) : ["Anonymous"];
-            const role = roles[0]
+            const role = roles
             console.log('User logged in:', user);
             console.log('User roles:', user?.roles);
             setUserRole(role)
             toast({
                 title: "Login Status",
-                description: `Welcome ${role.charAt(0).toUpperCase() + role.slice(1)}`,
+                description: `Welcome ${role[0].charAt(0).toUpperCase() + role[0].slice(1)}`,
             })
             setIsDialogOpen(false);
         } catch (error) {
-            setUserRole("Anonymous")
+            setUserRole(["Anonymous"])
             console.error("Login error:", error); // Handle error appropriately
             toast({
                 title: "Login Failed",
@@ -87,10 +87,10 @@ const UserLoginForm = () => {
                 <LogOut className="mr-0 h-4 w-4" />
                 <span>    
                 <Button
-                    variant={userRole === "Anonymous" ? "link" : "link"}
+                    variant={userRole.includes("Anonymous") ? "link" : "link"}
                     // onClick={() => setIsDialogOpen(true)}
                 >
-                    {userRole === "Anonymous" ? "LOGIN" : "LOGOUT"}
+                    {userRole[0] === "Anonymous" ? "LOGIN" : "LOGOUT"}
                 </Button>    
                 </span>
                 <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

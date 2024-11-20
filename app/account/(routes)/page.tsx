@@ -5,10 +5,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/
 
 
 export default function Login() {
-    const { userRole, setUserRole } = useRoleStore(); // Access userRole and setUserRole
+    const { userRole, setUserRole } = useRoleStore((state) => state); // Access userRole and setUserRole
     
     const handleRoleChange = (role: string) => {
-        setUserRole(role); // Update userRole when the role changes
+        setUserRole([role]); // Update userRole when the role changes
     };
 
     // Define an array of role options
@@ -34,10 +34,11 @@ export default function Login() {
             </div>
             <div className="flex flex-col gap-4 mt-8 justify-center">
                 <h2 className="text-xl text-center"> 
-                    {userRole === "Anonymous" ? "Please login to view your profile" : `Welcome ${userRole}`}
+                    {userRole.includes("Anonymous") ? "Please login to view your profile" : `Welcome ${userRole.join(", ")}`}
                     
                 </h2>
                 
+                <h3 className="text-center">You are currently using viewing as: {userRole.join(", ")}</h3>
             
             </div>
             <div className="mt-24 flex flex-col gap-2 text-center justify-center items-center">

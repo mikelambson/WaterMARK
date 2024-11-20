@@ -2,7 +2,7 @@
 // components/InteractiveMap.tsx
 import dynamic from 'next/dynamic';
 import { MapContainer, TileLayer, GeoJSON, useMap, GeoJSONProps, ZoomControl, Popup, Tooltip } from 'react-leaflet';
-import React, { use, useState, useEffect, useMemo } from 'react';
+import React, { use, useState, useEffect, useMemo, useRef } from 'react';
 import { GeoJsonObject } from 'geojson';
 import { Dialog } from '@/components/ui/dialog';
 
@@ -62,6 +62,7 @@ interface InteractiveMapProps {
 }
 
 const InteractiveMap = ({ geoJsonData, center, zoom }: InteractiveMapProps) => {
+    const tooltipRef = useRef<React.RefObject<typeof Tooltip>>(null);
     const [hoveredFeature, setHoveredFeature] = useState<FeatureInfo | null>(null);
 
     // Define styles for each layer
@@ -107,7 +108,7 @@ const InteractiveMap = ({ geoJsonData, center, zoom }: InteractiveMapProps) => {
         const map = useMap();
         useEffect(() => {
             if (map) {
-                map.setView(center, 10.5);
+                map.setView(center, 10);
             }
         }, [map, center]);
         return null;
@@ -115,6 +116,12 @@ const InteractiveMap = ({ geoJsonData, center, zoom }: InteractiveMapProps) => {
 
 
     
+
+    useEffect(() => {
+        if (tooltipRef.current && tooltipRef.current.current) {
+        // Tooltip opening logic can be implemented here if needed
+        }
+    }, []);
 
     return (
         <div className="h-[calc(100dvh-4rem)]">
@@ -142,12 +149,12 @@ const InteractiveMap = ({ geoJsonData, center, zoom }: InteractiveMapProps) => {
                         //     }
                         // }}
                     >
-                        <Tooltip>
+                        {/* <Tooltip>
                             <h2>{hoveredFeature?.Name}</h2>
                             <p>Type: {hoveredFeature?.Description}</p>
                             <p>Reach Code: {geoJsonData.canals.bbox?.[0]}</p>
                             <p>Length: {geoJsonData.canals.bbox?.[0]}</p>
-                        </Tooltip>
+                        </Tooltip> */}
                     </GeoJSON>
                 )}
                 {/* Render Drainage Layer */}
@@ -172,28 +179,28 @@ const InteractiveMap = ({ geoJsonData, center, zoom }: InteractiveMapProps) => {
                     <GeoJSON
                         data={geoJsonData.waterbodies}
                         pathOptions={styles.waterbodies}
-                        eventHandlers={{
-                            add: (e: { target: any }) => {
-                                const layerGroup = e.target; // The parent LayerGroup
-                                layerGroup.eachLayer((subLayer: any) => {
-                                    // Access the feature and attach events
-                                    const feature = subLayer.feature;
-                                    const toottipContent = (
-                                        <>
-                                            <h2>{feature.properties.GNIS_NAME}</h2>
-                                            <p>Type: {feature.properties.FTYPE}</p>
+                        // eventHandlers={{
+                        //     add: (e: { target: any }) => {
+                        //         const layerGroup = e.target; // The parent LayerGroup
+                        //         layerGroup.eachLayer((subLayer: any) => {
+                        //             // Access the feature and attach events
+                        //             const feature = subLayer.feature;
+                        //             const toottipContent = (
+                        //                 <>
+                        //                     <h2>{feature.properties.GNIS_NAME}</h2>
+                        //                     <p>Type: {feature.properties.FTYPE}</p>
                                             
-                                            <p>Area: {feature.properties.AREASQKM}</p>
-                                        </>
-                                    )
-                                    subLayer.bindTooltip(toottipContent);
-                                    // onEachFeature(feature, subLayer, styles.waterbodies);
-                                });
-                            }
-                        }}
+                        //                     <p>Area: {feature.properties.AREASQKM}</p>
+                        //                 </>
+                        //             )
+                        //             subLayer.bindTooltip(toottipContent);
+                        //             // onEachFeature(feature, subLayer, styles.waterbodies);
+                        //         });
+                        //     }
+                        // }}
                         
                     >
-                        <Tooltip>
+                        <Tooltip ref={tooltipRef}>
                             <h2>Name</h2>
                             <p>Type: </p>
                         </Tooltip>

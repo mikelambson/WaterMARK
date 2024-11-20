@@ -13,8 +13,8 @@ export const NotifyCount = () => {
   const countUnread = notifications.filter((notification: { read: any; }) => !notification.read).length;
   
   
-  const bgform = userRole !== "Anonymous" && countUnread > 0 ? 'bg-red-700 animate-bounce' : '';
-  const displayCount = userRole === "Anonymous" ? 'text-white/0' : countUnread > 0 ? 'text-white' : 'text-white/0';
+  const bgform = userRole[0] !== "Anonymous" && countUnread > 0 ? 'bg-red-700 animate-bounce' : '';
+  const displayCount = userRole[0] === "Anonymous" ? 'text-white/0' : countUnread > 0 ? 'text-white' : 'text-white/0';
 
   return (
     <div className={`absolute -bottom-2 -right-2 w-5 h-4 rounded-full text-xs ${bgform}`}>
