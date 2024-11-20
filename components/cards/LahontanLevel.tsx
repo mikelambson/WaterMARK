@@ -41,7 +41,7 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
         } else {
           // Fetch new data using Web Worker if cache is expired or data is missing
           if (window.Worker) {
-            const worker = new Worker(new URL('@/utils/fetchWorker.js', import.meta.url));
+            const worker = new Worker(new URL('@/workers/fetchWorker.js', import.meta.url));
             const endDate = formatDate(today);
             const oneYearAgo = new Date();
             oneYearAgo.setFullYear(today.getFullYear() - 1);

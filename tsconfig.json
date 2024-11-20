@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "typings.d.ts", "utils/fetchWorker.js", "utils/fetchWorker.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "typings.d.ts", "workers/fetchWorker.js", "workers/fetchWorker.js"],
   "exclude": ["node_modules"]
 }
