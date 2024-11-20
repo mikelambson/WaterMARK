@@ -104,13 +104,13 @@ const useAuthStore = create<AuthState>((set, get) => ({
     },
     setAuthenticated: (value: boolean) => {
         set({isAuthenticated: value});
-        console.log({
-            "UserData":get().userData,
-            "isAuthenticated":get().isAuthenticated,
-            "Permissions":get().permissions,
-            "Roles":get().roles,
-            "Error":get().error
-        })
+        // console.log({
+        //     "UserData":get().userData,
+        //     "isAuthenticated":get().isAuthenticated,
+        //     "Permissions":get().permissions,
+        //     "Roles":get().roles,
+        //     "Error":get().error
+        // })
     },
     setRoles: (roleArray) => { set({ roles: roleArray, }) },
     setPermissions: (permissionsArray) => { set({ permissions: permissionsArray }) },

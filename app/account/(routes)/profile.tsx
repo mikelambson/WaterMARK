@@ -5,6 +5,51 @@ interface ProfileProps {
     className?: string;
 }
 
+const renderField = (key: string, value: any, level: number = 0): JSX.Element => {
+    const indentStyle = { paddingLeft: `${level * 20}px` }; // Indentation for hierarchy
+
+    if (Array.isArray(value)) {
+        // Handle arrays
+        return (
+            <div key={key} style={indentStyle}>
+                <strong>{key}:</strong>
+                <div>
+                    {value.map((item, index) =>
+                        typeof item === "object" ? (
+                            <div key={`${key}-${index}`} style={{ paddingLeft: `${(level + 1) * 20}px` }}>
+                                {renderField(`${key}[${index}]`, item, level + 1)}
+                            </div>
+                        ) : (
+                            <div key={`${key}-${index}`} style={{ paddingLeft: `${(level + 1) * 20}px` }}>
+                                {item.toString()}
+                            </div>
+                        )
+                    )}
+                </div>
+            </div>
+        );
+    } else if (typeof value === "object" && value !== null) {
+        // Handle objects
+        return (
+            <div key={key} style={indentStyle}>
+                <strong>{key}:</strong>
+                <div>
+                    {Object.entries(value).map(([nestedKey, nestedValue]) =>
+                        renderField(nestedKey, nestedValue, level + 1)
+                    )}
+                </div>
+            </div>
+        );
+    } else {
+        // Handle primitive values
+        return (
+            <div key={key} style={indentStyle}>
+                <strong>{key}:</strong> {value?.toString()}
+            </div>
+        );
+    }
+};
+
 export const Profile = ({ className }:ProfileProps) => {
     const [profileData, setProfileData] = useState<Record<string, any> | null>(null); // Use a flexible type for dynamic data
     const profileRoute = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/profile`
@@ -34,55 +79,14 @@ export const Profile = ({ className }:ProfileProps) => {
         
     }, []);
 
-    console.log("Profile: ", profileData);
-
-     // Recursive function to render nested fields
-     const renderField = (key: string, value: any, level: number = 0): JSX.Element => {
-        if (Array.isArray(value)) {
-            return (
-                <li key={key} style={{ marginLeft: `${level * 20}px` }}>
-                    <strong>{key}:</strong>
-                    <ul>
-                        {value.map((item, index) =>
-                            typeof item === "object" ? (
-                                <li key={index}>{renderField(`${key}[${index}]`, item, level + 1)}</li>
-                            ) : (
-                                <li key={index} style={{ marginLeft: `${(level + 1) * 20}px` }}>
-                                    {item.toString()}
-                                </li>
-                            )
-                        )}
-                    </ul>
-                </li>
-            );
-        } else if (typeof value === "object" && value !== null) {
-            return (
-                <li key={key} style={{ marginLeft: `${level * 20}px` }}>
-                    <strong>{key}:</strong>
-                    <ul>
-                        {Object.entries(value).map(([nestedKey, nestedValue]) =>
-                            renderField(nestedKey, nestedValue, level + 1)
-                        )}
-                    </ul>
-                </li>
-            );
-        } else {
-            return (
-                <li key={key} style={{ marginLeft: `${level * 20}px` }}>
-                    <strong>{key}:</strong> {value?.toString()}
-                </li>
-            );
-        }
-    };
-
     return (
         <div className={className}>
              {profileData ? (
                 <div>
                     <h1>Profile Data</h1>
-                    <ul>
+                    <div>
                         {Object.entries(profileData).map(([key, value]) => renderField(key, value))}
-                    </ul>
+                    </div>
                 </div>
             ) : (
                 <div>Loading...</div>
