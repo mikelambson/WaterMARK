@@ -59,7 +59,7 @@ const AvatarMenu = () => {
                     </DropdownMenuItem>
                 </Link>
                 <DropdownMenuSeparator />                       
-                    {userRole !== "Anonymous" && (
+                    {!userRole.includes("Anonymous") && (
                     <>
                         <DropdownMenuLabel className={"text-center"}>
                             Account
@@ -104,10 +104,10 @@ const AvatarMenu = () => {
                             <LogOut className="mr-0 h-4 w-4" />
                             <span>    
                                 <Button
-                                    variant={userRole === "Anonymous" ? "link" : "link"}
+                                    variant={userRole.includes("Anonymous") ? "link" : "link"}
                                     // onClick={() => setIsDialogOpen(true)}
                                 >
-                                    {userRole === "Anonymous" ? "LOGIN" : "LOGOUT"}
+                                    {userRole.includes("Anonymous") ? "LOGIN" : "LOGOUT"}
                                 </Button>    
                             </span>
                             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

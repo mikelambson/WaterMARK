@@ -53,14 +53,14 @@ const UserLoginForm = () => {
             const role = roles[0]
             console.log('User logged in:', user);
             console.log('User roles:', user?.roles);
-            setUserRole(role)
+            setUserRole([role])
             toast({
                 title: "Login Status",
                 description: `Welcome ${role.charAt(0).toUpperCase() + role.slice(1)}`,
             })
             setIsDialogOpen(false);
         } catch (error) {
-            setUserRole("Anonymous")
+            setUserRole(["Anonymous"])
             console.error("Login error:", error); // Handle error appropriately
             toast({
                 title: "Login Failed",

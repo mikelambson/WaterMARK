@@ -28,7 +28,7 @@ LoginDialog.Content = () => {
     const router = useRouter();
     return (
         <>
-        {userRole === "Anonymous" ? (
+        {userRole.includes("Anonymous") ? (
         <DialogContent className="max-w-lg">
             <DialogHeader className="flex items-center">
                 <DialogTitle className="text-yellow-800 dark:text-yellow-700">LOGIN</DialogTitle>
@@ -55,7 +55,7 @@ LoginDialog.Content = () => {
                                     variant={"destructive"}
                                     onClick={() => {
                                         userLogout()
-                                        setUserRole("Anonymous")
+                                        setUserRole(["Anonymous"])
                                         router.push('/');
                                     }}>
                                     Yes

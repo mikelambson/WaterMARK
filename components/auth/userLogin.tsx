@@ -79,7 +79,7 @@ const UserLoginForm = () => {
             });
         }
     };
-
+    console.log('User roles:', userRole);
     return (        
         <Dialog>
             <DialogTrigger asChild>
@@ -90,6 +90,7 @@ const UserLoginForm = () => {
                     variant={userRole.includes("Anonymous") ? "link" : "link"}
                     // onClick={() => setIsDialogOpen(true)}
                 >
+
                     {userRole[0] === "Anonymous" ? "LOGIN" : "LOGOUT"}
                 </Button>    
                 </span>

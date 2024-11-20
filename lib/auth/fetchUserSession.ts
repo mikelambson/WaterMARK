@@ -48,7 +48,7 @@ export const verifySession = async () => {
     });
 
     if (!response.ok) {
-        throw new Error('Login failed'); // Throw an error if the response is not ok
+        throw new Error('Bad Session'); // Throw an error if the response is not ok
     }
     
     const data = await response.json();

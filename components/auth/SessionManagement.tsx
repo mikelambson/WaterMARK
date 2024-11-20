@@ -53,7 +53,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
               if (validSession) {
                   setUser(data); // Zustand store update 
                   handleRoleChange(mainRole);
-                  setRoles(data.roles)
+                  setRoles(mainRole)
                   setPermissions(data.permissions)
                   setAuthenticated(validSession)
                 
