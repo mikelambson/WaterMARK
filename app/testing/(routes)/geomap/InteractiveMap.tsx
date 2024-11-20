@@ -6,10 +6,8 @@ import React, { use, useState, useEffect, useMemo, useRef } from 'react';
 import { GeoJsonObject } from 'geojson';
 import { Dialog } from '@/components/ui/dialog';
 
+// import { useTCIDjsonData } from '@/app/testing/(routes)/geomap/importGeojson';
 
-// const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
-// const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
-// const SetView = dynamic(() => import('./SetView'), { ssr: false }); // Your custom SetView component
 
 interface FeatureInfo {
     Name: string;
@@ -57,18 +55,23 @@ interface InteractiveMapProps {
         drainage: GeoJsonObject;
         waterbodies: GeoJsonObject;
     };
+    geoTCIDmapping?: {
+        aLine: GeoJsonObject;
+        carsonLakePasture: GeoJsonObject;
+        carsonRiver: GeoJsonObject;
+    };
     center: [number, number];
     zoom: number;
 }
 
-const InteractiveMap = ({ geoJsonData, center, zoom }: InteractiveMapProps) => {
+const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom }: InteractiveMapProps) => {
     const tooltipRef = useRef<React.RefObject<typeof Tooltip>>(null);
     const [hoveredFeature, setHoveredFeature] = useState<FeatureInfo | null>(null);
 
     // Define styles for each layer
     const styles = {
-        canals: { color: '#287788', weight: 4 },
-        drainage: { color: '#3498db', weight: 1 },
+        canals: { color: '#28445588', weight: 2 },
+        drainage: { color: '#22764566', weight: 2 },
         waterbodies: { 
             color: '#2ecc71', 
             weight: 4, 
@@ -115,7 +118,6 @@ const InteractiveMap = ({ geoJsonData, center, zoom }: InteractiveMapProps) => {
     };
 
 
-    
 
     useEffect(() => {
         if (tooltipRef.current && tooltipRef.current.current) {
@@ -203,6 +205,48 @@ const InteractiveMap = ({ geoJsonData, center, zoom }: InteractiveMapProps) => {
                         <Tooltip ref={tooltipRef}>
                             <h2>Name</h2>
                             <p>Type: </p>
+                        </Tooltip>
+                    </GeoJSON>
+                )}
+
+                {geoTCIDmapping?.aLine && (
+                    <GeoJSON 
+                        data={geoTCIDmapping.aLine} 
+                        pathOptions={{ color: '#DD6644', weight: 4 }}
+                    >
+                        <Popup>
+                            <h2>A-Line</h2>
+                        </Popup>
+                        <Tooltip>
+                            <h2>A-Line</h2>
+                        </Tooltip>
+                    </GeoJSON>
+                )}
+
+                {geoTCIDmapping?.carsonLakePasture && (
+                    <GeoJSON 
+                        data={geoTCIDmapping.carsonLakePasture} 
+                        pathOptions={{ color: '#44DD66', weight: 4 }}
+                    >
+                        <Popup>
+                            <h2>Carson Lake Pasture</h2>
+                        </Popup>
+                        <Tooltip>
+                            <h2>Carson Lake Pasture</h2>
+                        </Tooltip>
+                    </GeoJSON>
+                )}
+
+                {geoTCIDmapping?.carsonRiver && (
+                    <GeoJSON 
+                        data={geoTCIDmapping.carsonRiver} 
+                        pathOptions={{ color: '#4466DD', weight: 4 }}
+                    >
+                        <Popup>
+                            <h2>Carson River</h2>
+                        </Popup>
+                        <Tooltip>
+                            <h2>Carson River</h2>
                         </Tooltip>
                     </GeoJSON>
                 )}
