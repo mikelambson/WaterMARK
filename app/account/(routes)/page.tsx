@@ -2,17 +2,24 @@
 import { useRoleStore } from "@/components/nav/RoleContext"; // Import useRole
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-
+import { useAuthStore } from "@/lib/store/authStore"
 
 export default function Login() {
     const { userRole, setUserRole } = useRoleStore((state) => state); // Access userRole and setUserRole
-    
+    const { userData } = useAuthStore(); // Access userData
+    const sessionRoles = userData ? userData.roles : []; // Get the roles from the user data
+
     const handleRoleChange = (role: string) => {
+        if (role === "Session Roles") {
+            setUserRole(sessionRoles); // Set userRole to the session roles
+            return;
+        }
         setUserRole([role]); // Update userRole when the role changes
     };
 
     // Define an array of role options
     const roleOptions = [
+        "Session Roles",
         "Admin",
         "Staff",
         "Watermaster",
@@ -41,25 +48,27 @@ export default function Login() {
                 <h3 className="text-center">You are currently using viewing as: {userRole.join(", ")}</h3>
             
             </div>
-            <div className="mt-24 flex flex-col gap-2 text-center justify-center items-center">
-                <h3 className="text-xl">Veiw as:</h3>
-                <Select onValueChange={handleRoleChange}>
-                    <SelectTrigger className="w-48 border-foreground/80" value={userRole}>
-                        <SelectValue id="selectedRole" placeholder={userRole} />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {roleOptions.map((role) => (
-                            <SelectItem
-                                key={role}
-                                value={role}                                
-                            >
-                                {role}
-                            </SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-                
-            </div>
+            { sessionRoles.some((role) => role === "admin" || "sysadmin") ? (
+                <div className="mt-24 flex flex-col gap-2 text-center justify-center items-center">
+                    <h3 className="text-xl">View as:</h3>
+                    <Select onValueChange={handleRoleChange}>
+                        <SelectTrigger className="w-48 border-foreground/80" value={userRole}>
+                            <SelectValue id="selectedRole" placeholder={userRole} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {roleOptions.map((role) => (
+                                <SelectItem
+                                    key={role}
+                                    value={role}                                
+                                >
+                                    {role}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    
+                </div>
+            ) : null}
         </div>  
     );
 }
