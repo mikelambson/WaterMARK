@@ -1,7 +1,7 @@
 "use client"
 // components/InteractiveMap.tsx
 import dynamic from 'next/dynamic';
-import { MapContainer, TileLayer, GeoJSON, useMap, GeoJSONProps, ZoomControl, Popup, Tooltip } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, useMap, GeoJSONProps, ZoomControl, Popup, Tooltip, LayersControl, Marker, LayerGroup } from 'react-leaflet';
 import React, { use, useState, useEffect, useMemo, useRef } from 'react';
 import { GeoJsonObject } from 'geojson';
 import { Dialog } from '@/components/ui/dialog';
@@ -59,6 +59,24 @@ interface InteractiveMapProps {
         aLine: GeoJsonObject;
         carsonLakePasture: GeoJsonObject;
         carsonRiver: GeoJsonObject;
+        dLine: GeoJsonObject;
+        eLine: GeoJsonObject;
+        gLine: GeoJsonObject; 
+        harmonReservoir: GeoJsonObject;
+        lLine: GeoJsonObject;
+        l1Lateral: GeoJsonObject;
+        lahontonReservoir: GeoJsonObject;
+        nLine: GeoJsonObject;
+        pLateral: GeoJsonObject;
+        rLine: GeoJsonObject;
+        rdLateral: GeoJsonObject;
+        sLine: GeoJsonObject;
+        sLineReservoir: GeoJsonObject;
+        shecklerReservoir: GeoJsonObject;
+        stillwaterPointReservoir: GeoJsonObject;
+        tLine: GeoJsonObject;
+        truckeeCanal: GeoJsonObject;
+        truckeeRiver: GeoJsonObject;
     };
     center: [number, number];
     zoom?: number;
@@ -79,6 +97,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
             interactive: false,
         }
     };
+
 
     const highlightStyle = { color: '#00FF00', weight: 8, interactive: false };
 
@@ -133,88 +152,119 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                
-                {/* Render Canals Layer */}
-                {geoJsonData.canals && (
-                    <GeoJSON
-                        data={geoJsonData.canals}
-                        pathOptions={styles.canals}
-                    >
+                <LayersControl>
+                    <LayersControl.Overlay name="Marker with popup">
+                        <Marker position={center}>
                         <Popup>
-                            <h2>Canal</h2>
+                            A pretty CSS3 popup. <br /> Easily customizable.
                         </Popup>
-                    </GeoJSON>
-                    
-                    
-                )}
-                {/* Render Drainage Layer */}
-                {geoJsonData.drainage && (
-                    <GeoJSON
-                        data={geoJsonData.drainage}
-                        pathOptions={styles.drainage}
-                        
-                    >  
-                        <Popup>
-                            <h2>Drainage</h2>
-                        </Popup>
-                    </GeoJSON>
-                )}
-                {/* Render Waterbodies Layer */}
-                {geoJsonData.waterbodies && (
-                    <GeoJSON
-                        data={geoJsonData.waterbodies}
-                        pathOptions={styles.waterbodies}
-                    >
-                    <Popup>
-                        <h2>Waterbody</h2>
-                    </Popup>
-                    </GeoJSON>
-                )}
-
-                {geoTCIDmapping?.aLine && (
-                    <GeoJSON 
-                        data={geoTCIDmapping.aLine} 
-                        pathOptions={{ color: '#DD6644', weight: 4 }}
-                    >
-                        <Popup>
-                            <h2>A-Line</h2>
-                        </Popup>
-                        <Tooltip>
-                            <h2>A-Line</h2>
-                        </Tooltip>
-                    </GeoJSON>
-                )}
-
-                {geoTCIDmapping?.carsonLakePasture && (
-                    <GeoJSON 
-                        data={geoTCIDmapping.carsonLakePasture} 
-                        pathOptions={{ color: '#449988AA', weight: 3 }}
-                    >
-                        <Popup>
-                            <h2>Carson Lake Pasture</h2>
-                        </Popup>
-                        <Tooltip>
-                            <h2>Carson Lake Pasture</h2>
-                        </Tooltip>
-                    </GeoJSON>
-                )}
-
-                {geoTCIDmapping?.carsonRiver && (
-                    <GeoJSON 
-                        data={geoTCIDmapping.carsonRiver} 
-                        pathOptions={{ color: '#4466DD', weight: 4 }}
-                    >
-                        <Popup>
-                            <h2>Carson River</h2>
-                        </Popup>
-                        <Tooltip>
-                            <div>
-                                <h2>Carson River</h2>
-                            </div>
-                        </Tooltip>
-                    </GeoJSON>
-                )}
-                
+                        </Marker>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="All Canals">
+                        <LayerGroup>
+                            {/* Render Canals Layer */}
+                            {geoJsonData.canals && (
+                                <GeoJSON
+                                    data={geoJsonData.canals}
+                                    pathOptions={styles.canals}
+                                >
+                                    <Popup>
+                                        <h2>Canal</h2>
+                                    </Popup>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay name="Drainage">
+                        {/* Render Drainage Layer */}
+                        <LayerGroup>
+                        {geoJsonData.drainage && (
+                            <GeoJSON
+                                data={geoJsonData.drainage}
+                                pathOptions={styles.drainage}
+                                
+                            >  
+                                
+                                <Popup>
+                                    <h2>Drainage</h2>
+                                </Popup>
+                            </GeoJSON>
+                        )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="Waterbodies">
+                    <LayerGroup>
+                        {/* Render Waterbodies Layer */}
+                        {geoJsonData.waterbodies && (
+                            <GeoJSON
+                                data={geoJsonData.waterbodies}
+                                pathOptions={styles.waterbodies}
+                            >
+                            <Popup>
+                                <h2>Waterbody</h2>
+                            </Popup>
+                            </GeoJSON>
+                        )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="A-Line">
+                        <LayerGroup>
+                            {geoTCIDmapping?.aLine && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.aLine} 
+                                    pathOptions={{ color: '#DD6644', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>A-Line</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>A-Line</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="Carson Lake Pasture">
+                        <LayerGroup>                   
+                            {geoTCIDmapping?.carsonLakePasture && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.carsonLakePasture} 
+                                    pathOptions={{ color: '#449988AA', weight: 3 }}
+                                >
+                                    <Popup>
+                                        <h2>Carson Lake Pasture</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>Carson Lake Pasture</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="Carson River">
+                        <LayerGroup>
+                            <Marker position={[39.4741, -119.0306]}>
+                                <Popup>
+                                    Carson <br /> River 
+                                </Popup>
+                            </Marker>
+                            {geoTCIDmapping?.carsonRiver && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.carsonRiver} 
+                                    pathOptions={{ color: '#4466DD', weight: 4 }}
+                                >
+                                    
+                                    <Tooltip>
+                                        <div>
+                                            <h2>Carson River</h2>
+                                        </div>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                </LayersControl>
+                {/* <MinimapControl position="topright" /> */}
             </MapContainer>
 
             {/* Tooltip for hovered feature */}

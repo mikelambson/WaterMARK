@@ -19,7 +19,26 @@ const GeoMap = () => {
         aLine: any;
         carsonLakePasture: any;
         carsonRiver: any;
+        dLine: any;
+        eLine: any;
+        gLine: any;
+        harmonReservoir: any;
+        lLine: any;
+        l1Lateral: any;
+        lahontonReservoir: any;
+        nLine: any;
+        pLateral: any;
+        rLine: any;
+        rdLateral: any;
+        sLine: any;
+        sLineReservoir: any;
+        shecklerReservoir: any;
+        stillwaterPointReservoir: any;
+        tLine: any;
+        truckeeCanal: any;
+        truckeeRiver: any;
     }
+    
     const [geojsonData, setGeojsonData] = useState<GeojsonData | null>(null);
     const [geoTCIDjson, setGeoTCIDjson] = useState<GeoTCIDdata | null>(null);
 
@@ -41,10 +60,28 @@ const GeoMap = () => {
         Promise.all([
             fetch('/geodata/A-Line.geojson').then(res => res.json()),
             fetch('/geodata/CarsonLakePasture.geojson').then(res => res.json()),
-            fetch('/geodata/CarsonRiver.geojson').then(res => res.json())
-        ]).then(([aLine, carsonLakePasture, carsonRiver]) => {
+            fetch('/geodata/CarsonRiver.geojson').then(res => res.json()),
+            fetch('/geodata/D-Line.geojson').then(res => res.json()),
+            fetch('/geodata/E-Line.geojson').then(res => res.json()),
+            fetch('/geodata/G-Line.geojson').then(res => res.json()),
+            fetch('/geodata/HarmonReservoir.geojson').then(res => res.json()),
+            fetch('/geodata/L-Line.geojson').then(res => res.json()),
+            fetch('/geodata/L1-Lateral.geojson').then(res => res.json()),
+            fetch('/geodata/LahontonReservoir.geojson').then(res => res.json()),
+            fetch('/geodata/N-Line.geojson').then(res => res.json()),
+            fetch('/geodata/P-Lateral.geojson').then(res => res.json()),
+            fetch('/geodata/R-Line.geojson').then(res => res.json()),
+            fetch('/geodata/RD-Lateral.geojson').then(res => res.json()),
+            fetch('/geodata/S-Line.geojson').then(res => res.json()),
+            fetch('/geodata/S-LineReservoir.geojson').then(res => res.json()),
+            fetch('/geodata/ShecklerReservoir.geojson').then(res => res.json()),
+            fetch('/geodata/StillwaterPointReservoir.geojson').then(res => res.json()),
+            fetch('/geodata/T-Line.geojson').then(res => res.json()),
+            fetch('/geodata/TruckeeCanal.geojson').then(res => res.json()),
+            fetch('/geodata/TruckeeRiver.geojson').then(res => res.json()),
+        ]).then(([aLine, carsonLakePasture, carsonRiver, dLine, eLine, gLine, harmonReservoir, lLine, l1Lateral, lahontonReservoir, nLine, pLateral, rLine, rdLateral, sLine, sLineReservoir, shecklerReservoir, stillwaterPointReservoir, tLine, truckeeCanal, truckeeRiver]) => {
             // Set the GeoJSON data in an object for easy access
-            setGeoTCIDjson({ aLine, carsonLakePasture, carsonRiver });
+            setGeoTCIDjson({ aLine, carsonLakePasture, carsonRiver, dLine, eLine, gLine, harmonReservoir, lLine, l1Lateral, lahontonReservoir, nLine, pLateral, rLine, rdLateral, sLine, sLineReservoir, shecklerReservoir, stillwaterPointReservoir, tLine, truckeeCanal, truckeeRiver });
         }).catch(err => console.error("Failed to fetch GeoJSON files:", err));
     }, []);
       
