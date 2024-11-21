@@ -1,13 +1,18 @@
 "use client"
 // components/InteractiveMap.tsx
-import dynamic from 'next/dynamic';
-import { MapContainer, TileLayer, GeoJSON, useMap, GeoJSONProps, ZoomControl, Popup, Tooltip, LayersControl, Marker, LayerGroup } from 'react-leaflet';
-import React, { use, useState, useEffect, useMemo, useRef } from 'react';
+import { MapContainer, TileLayer, GeoJSON, useMap, ZoomControl, Popup, Tooltip, LayersControl, Marker, LayerGroup } from 'react-leaflet';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { GeoJsonObject } from 'geojson';
+import L from "leaflet";
 import { Dialog } from '@/components/ui/dialog';
+import "leaflet/dist/leaflet.css";
 
-// import { useTCIDjsonData } from '@/app/testing/(routes)/geomap/importGeojson';
-
+// Fix Leaflet default icon paths
+L.Icon.Default.mergeOptions({
+    iconUrl: require("leaflet/dist/images/marker-icon.png"),
+    iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+    shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+  });
 
 interface FeatureInfo {
     Name: string;
@@ -55,29 +60,7 @@ interface InteractiveMapProps {
         drainage: GeoJsonObject;
         waterbodies: GeoJsonObject;
     };
-    geoTCIDmapping?: {
-        aLine: GeoJsonObject;
-        carsonLakePasture: GeoJsonObject;
-        carsonRiver: GeoJsonObject;
-        dLine: GeoJsonObject;
-        eLine: GeoJsonObject;
-        gLine: GeoJsonObject; 
-        harmonReservoir: GeoJsonObject;
-        lLine: GeoJsonObject;
-        l1Lateral: GeoJsonObject;
-        lahontonReservoir: GeoJsonObject;
-        nLine: GeoJsonObject;
-        pLateral: GeoJsonObject;
-        rLine: GeoJsonObject;
-        rdLateral: GeoJsonObject;
-        sLine: GeoJsonObject;
-        sLineReservoir: GeoJsonObject;
-        shecklerReservoir: GeoJsonObject;
-        stillwaterPointReservoir: GeoJsonObject;
-        tLine: GeoJsonObject;
-        truckeeCanal: GeoJsonObject;
-        truckeeRiver: GeoJsonObject;
-    };
+    geoTCIDmapping?: { [key: string]: GeoJsonObject };
     center: [number, number];
     zoom?: number;
 }
