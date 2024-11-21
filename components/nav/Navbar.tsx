@@ -146,17 +146,83 @@ const Navbar = () => {
                     {roleBasedLinks.map(({ id, link, allowedRoles, name, children }) =>
                         (Array.isArray(allowedRoles) && allowedRoles.includes("any")) ||
                         (Array.isArray(userRole) && userRole.some((role) => Array.isArray(allowedRoles) && allowedRoles.includes(role))) ? (
-                                <li
-                                    key={id}
-                                    className={cn(
-                                        `nav-links h-[3.8rem] inline-flex items-center px-3 capitalize font-medium subpixel-antialiased ${defaultTextColorClass} duration-200 pb-1`,
-                                        children.includes(pathname)
-                                            ? `text-orange-300 dark:text-orange-300/95 border-b-[3px] border-b-orange-300/95 -mb-2 pb-2 dark:border-b-orange-300/80 bg-gradient-to-t from-orange-300/10 via-orange-300/5 to-transparent dark:border-t-slate-800 rounded-sm`
-                                            : defaultTextColorClass
-                                    )}
-                                >
-                                    <Link href={link}>{name}</Link>
-                                </li>
+                            <li
+                                key={id}
+                                className={cn(
+                                    `nav-links h-[3.8rem] inline-flex items-center px-3 capitalize font-medium subpixel-antialiased ${defaultTextColorClass} duration-200 pb-1`,
+                                    children.includes(pathname)
+                                        ? `text-orange-300 dark:text-orange-300/95 border-b-[3px] border-b-orange-300/95 -mb-2 pb-2 dark:border-b-orange-300/80 bg-gradient-to-t from-orange-300/10 via-orange-300/5 to-transparent dark:border-t-slate-800 rounded-sm`
+                                        : defaultTextColorClass
+                                )}
+                            >
+                                {id === 0 ? ( // Check if it's the logo section
+                                    <Link href={link}>
+                                        <TooltipProvider>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                            <div
+                                                className={
+                                                "group w-max flex scale-100 hover:scale-110 duration-200"
+                                                }
+                                            >
+                                                <Image
+                                                src="/img/logo.png"
+                                                width={35}
+                                                height={35}
+                                                alt="logo"
+                                                className={cn(
+                                                    "group-hover:opacity-100 duration-200",
+                                                    children.includes(pathname)
+                                                    ? "opacity-100"
+                                                    : "opacity-60"
+                                                )}
+                                                style={{
+                                                    filter: children.includes(pathname) ? 'saturate(100%)' : 'saturate(30%)',
+                                                }} 
+                                                />
+                                                <span
+                                                className={cn(
+                                                    "ml-1 self-center group-hover:text-sky-400 duration-200",
+                                                    children.includes(pathname)
+                                                    ? "text-blue-400"
+                                                    : "text-blue-200/50"
+                                                )}
+                                                >
+                                                Water
+                                                </span>
+                                                <span
+                                                className={cn(
+                                                    `self-center  group-hover:text-yellow-400/90 dark:group-hover:text-yellow-300 
+                                                    duration-200`,
+                                                    children.includes(pathname)
+                                                    ? "text-orange-300 dark:text-orange-300/95"
+                                                    : "text-orange-100/60"
+                                                )}
+                                                >
+                                                MARK
+                                                </span>
+                                            </div>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                            <p>Home</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                        </TooltipProvider>
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        className={cn(
+                                        "hover:scale-125 duration-100 cursor-pointer",
+                                        isDarkMode
+                                            ? "hover:text-yellow-400"
+                                            : "hover:text-yellow-300"
+                                        )}
+                                        href={link}
+                                    >
+                                        {name}
+                                    </Link>
+                                )}
+                            </li>
                             ) : null
                         )}
                     </ul>

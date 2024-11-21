@@ -128,23 +128,22 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
 
     return (
         <div className="h-[calc(100dvh-4rem)]">
-            <MapContainer className={'z-0 h-full w-full'}
+            <MapContainer 
+                className={'z-0 h-full w-full'}
+                zoomControl={false}
             >
                 <SetView center={center} />
                 {/* <ZoomControl position="bottomleft" /> */}
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                <ZoomControl position="bottomleft" />
                 <LayersControl>
                     <LayersControl.Overlay checked name="Measurements">
                             <Marker position={[39.4638, -119.0486]}>
-                                <Tooltip>
-                                    <div className="flex flex-col items-center gap-0 text-center text-lg font-semibold m-0 p-0">
-                                        <span>Carson River</span>
-                                        <span className="text-xs italic font-light">below Lahontan</span>
-                                        <span>24 cfs</span>
-                                    </div>
-                                </Tooltip>
+                                <Tooltip />
+                                    
+                                
                                 <Popup>
                                     <div className="flex flex-col items-center gap-0 text-center text-lg font-semibold m-0 p-0">
                                         <span>Carson River</span>
