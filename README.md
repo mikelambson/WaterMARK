@@ -54,7 +54,7 @@ ___
 - admin & posting module
 - integrate data sources
 - integrate graphsfor meters and analysis (partially done)
-- imtegrate goes api data ingestion
+- integrate goes api data ingestion
 - meters module
 - reports module
 - task system
