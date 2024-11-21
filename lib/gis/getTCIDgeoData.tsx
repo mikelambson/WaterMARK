@@ -13,7 +13,7 @@ const geojsonFiles = {
     harmonReservoir: '/geodata/HarmonReservoir.geojson',
     lLine: '/geodata/L-Line.geojson',
     l1Lateral: '/geodata/L1-Lateral.geojson',
-    lahontonReservoir: '/geodata/LahotonReservoir.geojson',
+    lahontanReservoir: '/geodata/LahontanReservoir.geojson',
     nLine: '/geodata/N-Line.geojson',
     pLateral: '/geodata/P-Lateral.geojson',
     rLine: '/geodata/R-Line.geojson',

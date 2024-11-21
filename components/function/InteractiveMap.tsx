@@ -207,7 +207,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
                             )}
                         </LayerGroup>
                     </LayersControl.Overlay>
-                    <LayersControl.Overlay checked name="Carson Lake Pasture">
+                    <LayersControl.Overlay name="Carson Lake Pasture">
                         <LayerGroup>                   
                             {geoTCIDmapping?.carsonLakePasture && (
                                 <GeoJSON 
@@ -226,7 +226,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
                     </LayersControl.Overlay>
                     <LayersControl.Overlay checked name="Carson River">
                         <LayerGroup>
-                            <Marker position={[39.4741, -119.0306]}>
+                            <Marker position={[39.4890, -118.9706]}>
                                 <Popup>
                                     Carson <br /> River 
                                 </Popup>
@@ -240,6 +240,297 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
                                     <Tooltip>
                                         <div>
                                             <h2>Carson River</h2>
+                                        </div>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="D-Line">
+                        <LayerGroup>
+                            {geoTCIDmapping?.dLine && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.dLine} 
+                                    pathOptions={{ color: '#00931B', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>D-Line</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>D-Line</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="E-Line">
+                        <LayerGroup>
+                            {geoTCIDmapping?.eLine && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.eLine} 
+                                    pathOptions={{ color: '#590093', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>E-Line</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>E-Line</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="G-Line">
+                        <LayerGroup>
+                            {geoTCIDmapping?.gLine && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.gLine} 
+                                    pathOptions={{ color: '#686900', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>G-Line</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>G-Line</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="Harmon Reservoir">
+                        <LayerGroup>
+                            {geoTCIDmapping?.harmonReservoir && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.harmonReservoir} 
+                                    pathOptions={{ color: '#005CFF', weight: 2, fillOpacity: 0.5 }}
+                                >
+                                    <Popup>
+                                        <h2>Harmon Reservoir</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>Harmon Reservoir</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="L1-Lateral">
+                        <LayerGroup>
+                            {geoTCIDmapping?.l1Lateral && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.l1Lateral} 
+                                    pathOptions={{ color: '#FF95FC', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>L1-Lateral</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>L-Lateral</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="L-Line">
+                        <LayerGroup>
+                            {geoTCIDmapping?.lLine && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.lLine} 
+                                    pathOptions={{ color: '#FF49FC', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>L-Line</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>L-Line</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="Lahontan Reservoir">
+                        <LayerGroup>
+                            {geoTCIDmapping?.lahontanReservoir && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.lahontanReservoir} 
+                                    pathOptions={{ color: '#005CFF', weight: 2, fillOpacity: 0.5 }}
+                                >
+                                    <Popup>
+                                        <h2>Lahontan Reservoir</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>Lanhontan Reservoir</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="N-Line">
+                        <LayerGroup>
+                            {geoTCIDmapping?.nLine && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.nLine} 
+                                    pathOptions={{ color: '#D10068', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>N-Line</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>N-Line</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay name="RD-Lateral">
+                        <LayerGroup>
+                            {geoTCIDmapping?.rdLateral && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.rdLateral} 
+                                    pathOptions={{ color: '#A46739', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>RD-Lateral</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>RD-Lateral</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="R-Line">
+                        <LayerGroup>
+                            {geoTCIDmapping?.rLine && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.rLine} 
+                                    pathOptions={{ color: '#846729', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>R-Line</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>R-Line</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="S-Line">
+                        <LayerGroup>
+                            {geoTCIDmapping?.sLine && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.sLine} 
+                                    pathOptions={{ color: '#ECD300', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>S-Line</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>S-Line</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="S-Line Reservoir">
+                        <LayerGroup>
+                            {geoTCIDmapping?.sLineReservoir && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.sLineReservoir} 
+                                    pathOptions={{ color: '#005CFF', weight: 2, fillOpacity: 0.5 }}
+                                >
+                                    <Popup>
+                                        <h2>S-Line Reservoir</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>S-Line Reservoir</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="Sheckler Reservoir">
+                        <LayerGroup>
+                            {geoTCIDmapping?.shecklerReservoir && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.shecklerReservoir} 
+                                    pathOptions={{ color: '#005CFF', weight: 2, fillOpacity: 0.5 }}
+                                >
+                                    <Popup>
+                                        <h2>Sheckler Reservoir</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>Sheckler Reservoir</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="Stillwater Point Reservoir">
+                        <LayerGroup>
+                            {geoTCIDmapping?.stillwaterPointReservoir && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.stillwaterPointReservoir} 
+                                    pathOptions={{ color: '#005CFF', weight: 2, fillOpacity: 0.5 }}
+                                >
+                                    <Popup>
+                                        <h2>Stillwater Point Reservoir</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>Stillwater Point Reservoir</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="T-Line">
+                        <LayerGroup>
+                            {geoTCIDmapping?.tLine && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.tLine} 
+                                    pathOptions={{ color: '#00A4A0', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>T-Line</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>T-Line</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="Truckee Canal">
+                        <LayerGroup>
+                            {geoTCIDmapping?.truckeeCanal && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.truckeeCanal} 
+                                    pathOptions={{ color: '#006765', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>Truckee Canal</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>Truckee Canal</h2>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="Truckee River">
+                        <LayerGroup>
+                            {geoTCIDmapping?.truckeeRiver && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.truckeeRiver} 
+                                    pathOptions={{ color: '#4466DD', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>Truckee River</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <div>
+                                            <h2>Truckee River</h2>
                                         </div>
                                     </Tooltip>
                                 </GeoJSON>

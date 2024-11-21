@@ -76,7 +76,7 @@ const GeoMap = () => {
                     geoJsonData={geojsonData} 
                     geoTCIDmapping={geoTCIDjson || undefined}
                     center={[39.4741, -118.8886]}
-                    zoom={10} 
+                    zoom={9} 
                 />
             )}
         </div>
