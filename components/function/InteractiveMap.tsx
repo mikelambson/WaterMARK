@@ -61,10 +61,10 @@ interface InteractiveMapProps {
         carsonRiver: GeoJsonObject;
     };
     center: [number, number];
-    zoom: number;
+    zoom?: number;
 }
 
-const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom }: InteractiveMapProps) => {
+const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: InteractiveMapProps) => {
     const tooltipRef = useRef<React.RefObject<typeof Tooltip>>(null);
     const [hoveredFeature, setHoveredFeature] = useState<FeatureInfo | null>(null);
 
@@ -73,47 +73,46 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom }: Interacti
         canals: { color: '#28445588', weight: 2 },
         drainage: { color: '#22764566', weight: 2 },
         waterbodies: { 
-            color: '#2ecc71', 
+            color: '#2ecc7122', 
             weight: 4, 
             fillOpacity: 0.5, 
-            interactive: true 
+            interactive: false,
         }
     };
 
-    const highlightStyle = { color: '#00FF00', weight: 8, interactive: true };
+    const highlightStyle = { color: '#00FF00', weight: 8, interactive: false };
 
     // Define event handlers for each feature
-    const onEachFeature = (feature: Feature, layer: Layer, style: { color: string; weight: number }) => {
-        layer.on({
-            mouseover: () => {
-                layer.setStyle(highlightStyle);
-                setHoveredFeature({
-                    Name: feature.properties.NAME || feature.properties.GNIS_NAME || "Unknown",
-                    Description: feature.properties.Type || feature.properties.FTYPE || "No Description"
-                });
-            },
-            mouseout: () => {
-                layer.setStyle(style);
-                setHoveredFeature(null);
-            },
-            // click: () => {
-            //     alert(`Canal Segment: ${feature.properties.NAME || feature.properties.GNIS_NAME || "Unknown"}\nDescription: ${feature.properties.Type ||feature.properties.FTYPE || "No Description"}`);
-            // }
-        });
-    };
+    // const onEachFeature = (feature: Feature, layer: Layer, style: { color: string; weight: number }) => {
+    //     layer.on({
+    //         mouseover: () => {
+    //             layer.setStyle(highlightStyle);
+    //             setHoveredFeature({
+    //                 Name: feature.properties.NAME || feature.properties.GNIS_NAME || "Unknown",
+    //                 Description: feature.properties.Type || feature.properties.FTYPE || "No Description"
+    //             });
+    //         },
+    //         mouseout: () => {
+    //             layer.setStyle(style);
+    //             setHoveredFeature(null);
+    //         },
+            
+    //     });
+    // };
 
     interface SetViewProps {
         center: [number, number];
         zoom?: number;
     }
 
-    const SetView: React.FC<SetViewProps> = ({ center }) => {
+    const SetView: React.FC<SetViewProps> = ({ center, zoom }) => {
+        zoom = zoom || 10.5;
         const map = useMap();
         useEffect(() => {
             if (map) {
-                map.setView(center, 10);
+                map.setView(center, zoom);
             }
-        }, [map, center]);
+        }, [map, center, zoom]);
         return null;
     };
 
@@ -140,72 +139,35 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom }: Interacti
                     <GeoJSON
                         data={geoJsonData.canals}
                         pathOptions={styles.canals}
-                        // eventHandlers={{
-                        //     add: (e: { target: any }) => {
-                        //         const layerGroup = e.target; // The parent LayerGroup
-                        //         layerGroup.eachLayer((subLayer: any) => {
-                        //             // Access the feature and attach events
-                        //             const feature = subLayer.feature;
-                        //             onEachFeature(feature, subLayer, styles.canals);
-                        //         });
-                        //     }
-                        // }}
                     >
-                        {/* <Tooltip>
-                            <h2>{hoveredFeature?.Name}</h2>
-                            <p>Type: {hoveredFeature?.Description}</p>
-                            <p>Reach Code: {geoJsonData.canals.bbox?.[0]}</p>
-                            <p>Length: {geoJsonData.canals.bbox?.[0]}</p>
-                        </Tooltip> */}
+                        <Popup>
+                            <h2>Canal</h2>
+                        </Popup>
                     </GeoJSON>
+                    
+                    
                 )}
                 {/* Render Drainage Layer */}
                 {geoJsonData.drainage && (
                     <GeoJSON
                         data={geoJsonData.drainage}
                         pathOptions={styles.drainage}
-                        // eventHandlers={{
-                        //     add: (e: { target: any }) => {
-                        //         const layerGroup = e.target; // The parent LayerGroup
-                        //         layerGroup.eachLayer((subLayer: any) => {
-                        //             // Access the feature and attach events
-                        //             const feature = subLayer.feature;
-                        //             onEachFeature(feature, subLayer, styles.drainage);
-                        //         });
-                        //     }
-                        // }}
-                    />  
+                        
+                    >  
+                        <Popup>
+                            <h2>Drainage</h2>
+                        </Popup>
+                    </GeoJSON>
                 )}
                 {/* Render Waterbodies Layer */}
                 {geoJsonData.waterbodies && (
                     <GeoJSON
                         data={geoJsonData.waterbodies}
                         pathOptions={styles.waterbodies}
-                        // eventHandlers={{
-                        //     add: (e: { target: any }) => {
-                        //         const layerGroup = e.target; // The parent LayerGroup
-                        //         layerGroup.eachLayer((subLayer: any) => {
-                        //             // Access the feature and attach events
-                        //             const feature = subLayer.feature;
-                        //             const toottipContent = (
-                        //                 <>
-                        //                     <h2>{feature.properties.GNIS_NAME}</h2>
-                        //                     <p>Type: {feature.properties.FTYPE}</p>
-                                            
-                        //                     <p>Area: {feature.properties.AREASQKM}</p>
-                        //                 </>
-                        //             )
-                        //             subLayer.bindTooltip(toottipContent);
-                        //             // onEachFeature(feature, subLayer, styles.waterbodies);
-                        //         });
-                        //     }
-                        // }}
-                        
                     >
-                        <Tooltip ref={tooltipRef}>
-                            <h2>Name</h2>
-                            <p>Type: </p>
-                        </Tooltip>
+                    <Popup>
+                        <h2>Waterbody</h2>
+                    </Popup>
                     </GeoJSON>
                 )}
 
@@ -226,7 +188,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom }: Interacti
                 {geoTCIDmapping?.carsonLakePasture && (
                     <GeoJSON 
                         data={geoTCIDmapping.carsonLakePasture} 
-                        pathOptions={{ color: '#44DD66', weight: 4 }}
+                        pathOptions={{ color: '#449988AA', weight: 3 }}
                     >
                         <Popup>
                             <h2>Carson Lake Pasture</h2>
@@ -246,7 +208,9 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom }: Interacti
                             <h2>Carson River</h2>
                         </Popup>
                         <Tooltip>
-                            <h2>Carson River</h2>
+                            <div>
+                                <h2>Carson River</h2>
+                            </div>
                         </Tooltip>
                     </GeoJSON>
                 )}

@@ -1,11 +1,12 @@
 "use client"
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
-// import InteractiveMap from "@/app/testing/(routes)/geomap/InteractiveMap"
+import { Skeleton } from '@/components/ui/skeleton';
+import ComponentLoader from '@/features/loader/comploader.module';
 import dynamic from 'next/dynamic';
-const InteractiveMap = dynamic(() => import('@/app/testing/(routes)/geomap/InteractiveMap'), { ssr: false });
 
 
+const InteractiveMap = dynamic(() => import('@/components/function/InteractiveMap'), { ssr: false });
 
 const GeoMap = () => {
     interface GeojsonData {
@@ -48,15 +49,19 @@ const GeoMap = () => {
     }, []);
       
   
-    if (!geojsonData || !geoTCIDjson) return <p>Loading map...</p>;
+    if (!geojsonData || !geoTCIDjson) return (
+        <Skeleton>
+            <ComponentLoader className="pt-24 h-screen" />
+        </Skeleton>
+    );
   
     return ( 
         <div>
             <InteractiveMap 
                 geoJsonData={geojsonData} 
                 geoTCIDmapping={geoTCIDjson}
-                center={[39.4741, -118.8786]} 
-                zoom={10.5} 
+                center={[39.4741, -118.8886]}
+                zoom={10} 
             />
         </div>
     );
