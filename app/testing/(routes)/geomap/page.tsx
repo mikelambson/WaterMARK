@@ -17,62 +17,53 @@ const GeoMap = () => {
       waterbodies: any;
     }
 
-    interface GeoTCIDdata {
-        aLine: any;
-        carsonLakePasture: any;
-        carsonRiver: any;
-        dLine: any;
-        eLine: any;
-        gLine: any;
-        harmonReservoir: any;
-        lLine: any;
-        l1Lateral: any;
-        lahontonReservoir: any;
-        nLine: any;
-        pLateral: any;
-        rLine: any;
-        rdLateral: any;
-        sLine: any;
-        sLineReservoir: any;
-        shecklerReservoir: any;
-        stillwaterPointReservoir: any;
-        tLine: any;
-        truckeeCanal: any;
-        truckeeRiver: any;
-    }
-
     const [geojsonData, setGeojsonData] = useState<GeojsonData | null>(null);
     const [geoTCIDjson, setGeoTCIDjson] = useState<{ [key: string]: any } | null>(null);
+    const [geoLoading, setGeoLoading] = useState(true); // Track loading state
 
-    useEffect(() => {
-      // Fetch all GeoJSON files
-      
-        Promise.all([
-            fetch('/geodata/LBAO_Delivery_Features.geojson').then(res => res.json()),
-            fetch('/geodata/LBAO_Drainage_Features.geojson').then(res => res.json()),
-            fetch('/geodata/NHD_Waterbodies.geojson').then(res => res.json())
-        ]).then(([canals, drainage, waterbodies]) => {
-            // Set the GeoJSON data in an object for easy access
-            setGeojsonData({ canals, drainage, waterbodies });
-        }).catch(err => console.error("Failed to fetch GeoJSON files:", err));
-    }, []);
+    const fetchWithRetry = async (url: string, retries: number = 3): Promise<any> => {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return await response.json();
+        } catch (error) {
+            if (retries > 0) {
+                console.warn(`Retrying fetch for ${url}. Retries left: ${retries}`);
+                return fetchWithRetry(url, retries - 1);
+            } else {
+                console.error(`Failed to fetch ${url} after retries.`);
+                return null; // Return null if all retries fail
+            }
+        }
+    };
 
-    // Fetch TCID GeoJSON data with retries
-    useEffect(() => {
-        const fetchTCIDData = async () => {
+     useEffect(() => {
+        const fetchData = async () => {
             try {
-                const fetchedData = await getTCIDjsonData();
-                setGeoTCIDjson(fetchedData);
+                // Fetch core GeoJSON files
+                const [canals, drainage, waterbodies] = await Promise.all([
+                    fetchWithRetry('/geodata/LBAO_Delivery_Features.geojson'),
+                    fetchWithRetry('/geodata/LBAO_Drainage_Features.geojson'),
+                    fetchWithRetry('/geodata/NHD_Waterbodies.geojson'),
+                ]);
+
+                setGeojsonData({ canals, drainage, waterbodies });
+
+                // Fetch TCID GeoJSON data
+                const fetchedTCIDData = await getTCIDjsonData(); // Robust function for TCID data
+                setGeoTCIDjson(fetchedTCIDData);
             } catch (error) {
-                console.error("Failed to fetch TCID GeoJSON data:", error);
+                console.error("Error fetching GeoJSON data:", error);
+            } finally {
+                setGeoLoading(false); // Ensure loading is false once all requests complete
             }
         };
 
-        fetchTCIDData();
+        fetchData();
     }, []);
       
   
-    if (!geojsonData || !geoTCIDjson) return (
+    if (geoLoading) return (
         <Skeleton>
             <ComponentLoader className="pt-24 h-screen" />
         </Skeleton>
@@ -80,12 +71,14 @@ const GeoMap = () => {
   
     return ( 
         <div>
-            <InteractiveMap 
-                geoJsonData={geojsonData} 
-                geoTCIDmapping={geoTCIDjson}
-                center={[39.4741, -118.8886]}
-                zoom={10} 
-            />
+            {geojsonData && (
+                <InteractiveMap 
+                    geoJsonData={geojsonData} 
+                    geoTCIDmapping={geoTCIDjson || undefined}
+                    center={[39.4741, -118.8886]}
+                    zoom={10} 
+                />
+            )}
         </div>
     );
 }
