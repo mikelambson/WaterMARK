@@ -175,7 +175,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
                         )}
                         </LayerGroup>
                     </LayersControl.Overlay>
-                    <LayersControl.Overlay checked name="Waterbodies">
+                    <LayersControl.Overlay checked name="NHD Waterbodies">
                     <LayerGroup>
                         {/* Render Waterbodies Layer */}
                         {geoJsonData.waterbodies && (
@@ -382,7 +382,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
                             )}
                         </LayerGroup>
                     </LayersControl.Overlay>
-                    <LayersControl.Overlay name="RD-Lateral">
+                    <LayersControl.Overlay checked name="RD-Lateral">
                         <LayerGroup>
                             {geoTCIDmapping?.rdLateral && (
                                 <GeoJSON 

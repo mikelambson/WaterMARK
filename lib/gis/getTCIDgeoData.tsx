@@ -25,6 +25,7 @@ const geojsonFiles = {
     tLine: '/geodata/T-Line.geojson',
     truckeeCanal: '/geodata/TruckeeCanal.geojson',
     truckeeRiver: '/geodata/TruckeeRiver.geojson',
+    vLine: '/geodata/V-Line.geojson',
 };
 
 export async function getTCIDjsonData(retryCount = 3): Promise<GeoTCIDdata> {
