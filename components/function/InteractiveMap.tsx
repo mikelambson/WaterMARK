@@ -136,12 +136,23 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <LayersControl>
-                    <LayersControl.Overlay name="Marker with popup">
-                        <Marker position={center}>
-                        <Popup>
-                            A pretty CSS3 popup. <br /> Easily customizable.
-                        </Popup>
-                        </Marker>
+                    <LayersControl.Overlay checked name="Measurements">
+                            <Marker position={[39.4638, -119.0486]}>
+                                <Tooltip>
+                                    <div className="flex flex-col items-center gap-0 text-center text-lg font-semibold m-0 p-0">
+                                        <span>Carson River</span>
+                                        <span className="text-xs italic font-light">below Lahontan</span>
+                                        <span>24 cfs</span>
+                                    </div>
+                                </Tooltip>
+                                <Popup>
+                                    <div className="flex flex-col items-center gap-0 text-center text-lg font-semibold m-0 p-0">
+                                        <span>Carson River</span>
+                                        <span className="text-xs italic font-light">below Lahontan</span>
+                                        <span>24 cfs</span>
+                                    </div>
+                                </Popup>
+                            </Marker>
                     </LayersControl.Overlay>
                     <LayersControl.Overlay checked name="All Canals">
                         <LayerGroup>
@@ -226,17 +237,14 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
                     </LayersControl.Overlay>
                     <LayersControl.Overlay checked name="Carson River">
                         <LayerGroup>
-                            <Marker position={[39.4890, -118.9706]}>
-                                <Popup>
-                                    Carson <br /> River 
-                                </Popup>
-                            </Marker>
                             {geoTCIDmapping?.carsonRiver && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.carsonRiver} 
                                     pathOptions={{ color: '#4466DD', weight: 4 }}
                                 >
-                                    
+                                    <Popup>
+                                        <h2>Carson River</h2>
+                                    </Popup>
                                     <Tooltip>
                                         <div>
                                             <h2>Carson River</h2>
@@ -532,6 +540,23 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
                                         <div>
                                             <h2>Truckee River</h2>
                                         </div>
+                                    </Tooltip>
+                                </GeoJSON>
+                            )}
+                        </LayerGroup>
+                    </LayersControl.Overlay>
+                    <LayersControl.Overlay checked name="V-Line">
+                        <LayerGroup>
+                            {geoTCIDmapping?.vLine && (
+                                <GeoJSON 
+                                    data={geoTCIDmapping.vLine} 
+                                    pathOptions={{ color: '#01C700', weight: 4 }}
+                                >
+                                    <Popup>
+                                        <h2>V-Line</h2>
+                                    </Popup>
+                                    <Tooltip>
+                                        <h2>V-Line</h2>
                                     </Tooltip>
                                 </GeoJSON>
                             )}
