@@ -261,7 +261,7 @@ const Navbar = () => {
                     {/* Icon Links */}
                     {iconLinks.map(({ id, children }) => (
                         <div key={id} className={"inline-flex h-16 items-center pr-4 space-x-3"}>
-                            {["Admin", "sysadmin", "Watermaster", "Analyst", "ditchrider"].some((role) => userRole.includes(role)) && (
+                            {["Admin", "sysadmin", "Watermaster", "Analyst", "ditchrider", "Anonymous"].some((role) => userRole.includes(role)) && (
                                 <Link href="/dashboard">
                                     <AiTwotoneDashboard
                                         size={30}
