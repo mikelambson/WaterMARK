@@ -5,16 +5,17 @@ self.onmessage = async (event) => {
     const fetchWithRetry = async (url, retries = maxRetries, delay = backoffDelay) => {
         for (let attempt = 1; attempt <= retries; attempt++) {
             try {
+                console.log(`Worker fetching attempt ${attempt}/${retries}`);
                 const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error(`Fetch failed with status: ${response.status}`);
                 }
                 return response; // Return successful response
             } catch (error) {
+                console.warn(`Worker fetch retry (${attempt}/${retries}) error: ${error.message}`);
                 if (attempt === retries) {
                     throw error; // Throw error if all retries fail
                 }
-                console.warn(`Retrying fetch (${attempt}/${retries}) after error: ${error.message}`);
                 await new Promise((resolve) => setTimeout(resolve, delay * Math.pow(2, attempt - 1))); // Exponential backoff
             }
         }
@@ -69,6 +70,7 @@ self.onmessage = async (event) => {
         // Send the processed data back to the main thread
         self.postMessage(averagedData);
     } catch (error) {
+        console.error(`Worker error: ${error.message}`);
         self.postMessage({ error: error.message });
     }
 };

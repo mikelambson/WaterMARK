@@ -32,7 +32,7 @@ const AvatarMenu = () => {
     return ( 
         <LoginDialog>
             <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger className=" cursor-pointer" asChild>
                 <div  className={`${defaultTextColorClass}`}>
                     <Avatar>
                         <AvatarImage />

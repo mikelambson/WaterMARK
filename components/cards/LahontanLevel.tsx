@@ -51,13 +51,14 @@ const LahontanLakeLevel = ({ className }: ForcastProps) => {
     
             worker.onmessage = (event) => {
               if (event.data.error) {
-                setError(event.data.error);
+                  console.error(`Error from worker: ${event.data.error}`);
+                  setError(event.data.error);
               } else {
-                setData(event.data);
+                  setData(event.data);
               }
               setLahontanIsLoading(false);
               worker.terminate();
-            };
+          };
     
             worker.onerror = (error) => {
               setError('Worker error: ' + error.message);
