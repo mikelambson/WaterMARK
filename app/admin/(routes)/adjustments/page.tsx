@@ -15,8 +15,8 @@ import { Skeleton } from "@/components/ui/skeleton";
     const currentDateTime  = DateTime();
   
     return (
-      <div className="p-1">
-        <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Water Order Adjustments</h1>
+      <div className="p-2">
+        <h1 className={"p-2 text-2xl font-semibold text-yellow-800 text-center "}>Water Order Adjustments</h1>
         <p className="mb-4">
           This page will provide office staff a central location to begin the water
           adjustments process as well as to look up the status of any particular
@@ -34,8 +34,8 @@ import { Skeleton } from "@/components/ui/skeleton";
             <div className="ml-24 flex items-center space-x-4 mb-2">
                 <Skeleton className="h-12 w-12 rounded-full" />
                 <div className=" space-y-2">
-                    <Skeleton className="h-4 w-[650px]" />
-                    <Skeleton className="h-4 w-[400px]" />
+                    <Skeleton className="h-4 w-36" />
+                    <Skeleton className="h-4 w-24" />
                 </div>
             </div>
             <Skeleton className="h-4 w-full" />

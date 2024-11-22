@@ -11,7 +11,7 @@ const AboutLayout = async ({ children }: { children: React.ReactNode} ) => {
         <div className={"h-full m-0 pt-[4rem]"}>
             {/* <Sidebar sideLinks={metersLinks} /> */}
             <Suspense fallback={<LoadingAnimation />}>
-                <main className={"p-1"}>
+                <main className={"p-2"}>
                     {children}
                 </main>
             </Suspense>

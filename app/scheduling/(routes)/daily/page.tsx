@@ -152,7 +152,7 @@ const Daily = () => {
     
     <div className={"overflow-auto"}>
       <span className={"ml-2 pt-4 flex gap-6"}>
-      <h1 className={"mt-2 text-xl font-bold "}>Order Count | {rows.length}</h1> 
+      <h1 className={"mb-4 mt-2 text-xl font-bold pl-14 sm:pl-0"}>Order Count | {rows.length}</h1> 
       <Button className={"active:bg-slate-500"}>Schedule These</Button>
       </span> 
       <form onSubmit={handleSubmit}>

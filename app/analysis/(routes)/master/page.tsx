@@ -151,7 +151,7 @@ const Master = () => {
 
   return (
     <div className={"overflow-auto"}>
-		<h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>
+		<h1 className={"text-2xl font-semibold text-yellow-800 text-center "}>
 			Master Analysis
 			</h1>
 		<span className={"ml-2 pt-4 flex gap-6"}>

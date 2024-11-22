@@ -11,7 +11,7 @@ const PublicScheduleLayout = async ({ children }: { children: React.ReactNode} )
         <div className={"h-full m-0 pt-[4rem]"}>
         <Sidebar sideLinks={onlineLinks} />
         <Suspense fallback={<LoadingAnimation />}>
-            <main className={"pt-0 pl-16"}>
+            <main className={"pt-0 sm:pl-16"}>
                 {children}
             </main>
         </Suspense>

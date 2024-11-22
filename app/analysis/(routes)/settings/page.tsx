@@ -25,7 +25,10 @@ const Settings = async () => {
   const finalHsData = hsData || errorMessage;
 
   return (
-    <>
+    <div>
+      <h1 className="p-2 text-2xl font-semibold text-yellow-800 text-center">
+        Settings
+      </h1>
       <Tabs defaultValue="home" className=" w-[98%] mx-auto mt-1">
         <TabsList className=" w-full">
           {" "}
@@ -49,7 +52,7 @@ const Settings = async () => {
           Change your ditchriders here.
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   );
 };
 

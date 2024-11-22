@@ -22,11 +22,11 @@ const RenderOrders: React.FC<RenderOrdersProps> = ({ repeatCount = 5 }) => {
 
     for (let i = 0; i < repeatCount; i++) {
       components.push(
-        <div key={i} className="ml-4 flex items-center space-x-4 mb-2">
-          <Skeleton className="h-12 w-96" />
+        <div key={i} className="flex items-center space-x-4 mb-2">
+          <Skeleton className="h-12 w-full" />
           <div className=" space-y-2">
-            <Skeleton className="h-4 w-[650px]" />
-            <Skeleton className="h-4 w-[650px]" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
           </div>
           <Button
             variant={"secondary"}

@@ -67,7 +67,7 @@ const ScheduleWater = () => {
 
     return (
         <section className="mb-4 lg:mb-0">
-            <div className='w-11/12 grid lg:grid-flow-col grid-cols-1 lg:grid-cols-3 gap-4 lg:max-gap-24 lg:mx-auto my-4 lg:my-[1px]'>
+            <div className='w-11/12 grid lg:grid-flow-col grid-cols-1 lg:grid-cols-3 gap-4 lg:max-gap-24 mx-auto my-4 lg:my-[1px]'>
                 <h1 className='text-center lg:text-left text-2xl text-yellow-800 font-semibold'>
                     Scheduling Board
                 </h1> 

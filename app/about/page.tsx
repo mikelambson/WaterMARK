@@ -8,10 +8,10 @@ import {
 const AboutPage = () => {
     return (
         <div className="p-2">
-            <h1 className={"text-2xl font-semibold text-yellow-800 text-center "}>
+            <h1 className={"p-2 text-2xl font-semibold text-yellow-800 text-center "}>
                 About WaterMARK
             </h1>
-            <p className="md:text-lg md:mx-14">
+            <p className="ml-4 md:text-lg md:mx-14">
                 WaterMARK is a Water Measurement Administration & Record Keeping system designed to provide access to critical information in water delivery and management, maintain accuracy in records, and facilitate transparency in operations to the users.
             </p>
             <div className="mt-8 flex w-11/12 md:w-5/6 mx-auto justify-center items-center">

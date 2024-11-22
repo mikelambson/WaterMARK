@@ -39,7 +39,7 @@ export default function Login() {
     return (
         <div className="px-2">
             <div className={"pt-4"}>
-                <h1 className={"text-2xl font-semibold text-yellow-800 dark:text-yellow-700 md:text-center "}>
+                <h1 className={"text-2xl font-semibold text-yellow-800 dark:text-yellow-700 text-center "}>
                     Profile/Login Page
                 </h1> 
             </div>

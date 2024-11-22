@@ -7,16 +7,14 @@ import { Suspense } from "react";
 
 const ReportsLayout = async ({ children }: { children: React.ReactNode} ) => {
     return ( 
-        <>
         <div className={"h-full m-0 pt-[4rem]"}>
-        <Sidebar sideLinks={reportLinks} />
-        <Suspense fallback={<LoadingAnimation />}>
-            <main className={"pt-0 pl-16"}>
-                {children}
-            </main>
-        </Suspense>
+            <Sidebar sideLinks={reportLinks} />
+            <Suspense fallback={<LoadingAnimation />}>
+                <main className={"pt-0 sm:pl-16"}>
+                    {children}
+                </main>
+            </Suspense>
         </div>
-        </>
      );
 }
  

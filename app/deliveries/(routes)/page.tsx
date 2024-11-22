@@ -12,11 +12,11 @@ import SysInfo from "@/components/cards/SysInfo";
 
 export default function Deliveries() {
   return (
-    <div className="p-1">
-      <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Deliveries Dashboard</h1>
+    <div className="p-2">
+      <h1 className={"text-2xl font-semibold text-yellow-800 text-center "}>Deliveries Dashboard</h1>
 
-      <Tabs defaultValue="dashboard" className="mt-3 w-full p">
-      <TabsList className="w-[81vw] md:w-full">
+      <Tabs defaultValue="dashboard" className="mt-4 w-full">
+      <TabsList className="w-full">
         <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
         <TabsTrigger value="updateflows">Update Flows</TabsTrigger>
       </TabsList>

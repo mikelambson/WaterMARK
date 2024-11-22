@@ -7,16 +7,16 @@ import { Suspense } from "react";
 
 const SchedulingLayout = async ({ children }: { children: React.ReactNode} ) => {
     return ( 
-        <>
+        
         <div className={"h-full m-0 pt-[4rem]"}>
-        <Sidebar sideLinks={schedulingLinks} />
-        <Suspense fallback={<LoadingAnimation />}>
-            <main className={"pt-0 pl-14"}>
-                {children}
-            </main>
-        </Suspense>
+            <Sidebar sideLinks={schedulingLinks} />
+            <Suspense fallback={<LoadingAnimation />}>
+                <main className={"pt-0 sm:pl-14"}>
+                    {children}
+                </main>
+            </Suspense>
         </div>
-        </>
+        
      );
 }
  

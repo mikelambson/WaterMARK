@@ -31,9 +31,12 @@ const Settings = async () => {
   const finalHsData = hsData || errorMessage;
 
   return (
-    <>
-      <Tabs defaultValue="home" className=" w-[98%] mx-auto mt-1">
-        <TabsList className=" w-full">
+    <div className="p-2">
+      <h1 className="sm:hidden p-2 text-2xl font-semibold text-yellow-800 text-center">
+        Scheduling Settings
+      </h1>
+      <Tabs defaultValue="home" className="w-full mx-auto mt-1">
+        <TabsList className="w-full mx-auto">
           {" "}
           {/* items-center justify-center */}
           <TabsTrigger value="home">Settings</TabsTrigger>
@@ -60,7 +63,7 @@ const Settings = async () => {
           <FlowsSettings />
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   );
 };
 

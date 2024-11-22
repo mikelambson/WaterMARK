@@ -165,10 +165,11 @@ const Lookup = () => {
   );
 
 
-  return (<>
-    <h1 className={'text-2xl font-semibold text-yellow-800 md:text-center'}>Water Order Lookup</h1>
+  return (
+  <div className='p-2'>
+    <h1 className={'p-2 text-2xl font-semibold text-yellow-800 text-center'}>Water Order Lookup</h1>
 
-    <h2>
+    <h2 className='text-center'>
       This lookup form is a placeholder for the final design. Part of the backend code for this component will be used, but the elements of the process and method to find orders will be streamlined and simplified.
     </h2>
 
@@ -243,7 +244,7 @@ const Lookup = () => {
         })}
       </TableBody>
     </Table>
-    </>
+    </div>
   );
 };
 

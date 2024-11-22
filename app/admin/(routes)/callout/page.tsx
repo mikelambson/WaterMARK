@@ -4,12 +4,12 @@ import RenderOrders from "@/features/admin/callout/RenderOrders";
 
 const Callout = () => {
   return (
-    <div className="p-1">
-      <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>Order Callouts</h1>
+    <div className="p-2">
+      <h1 className={"p-2 text-2xl font-semibold text-yellow-800 text-center "}>Order Callouts</h1>
       <p className="mb-4">
         This page will provide office staff a central location to make calls for scheduled orders.
       </p>
-      <Tabs defaultValue="west" className="w-full pr-4">
+      <Tabs defaultValue="west" className="w-full">
         <TabsList className="w-full">
           <TabsTrigger value="west">West</TabsTrigger>
           <TabsTrigger value="central">Central</TabsTrigger>

@@ -146,7 +146,7 @@ export default function Meters() {
 
   return (
     <div className="p-2">
-      <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center mb-2"}>
+      <h1 className={"text-2xl font-semibold text-yellow-800 text-center mb-2"}>
         System Overview
       </h1>
       <LakeForcast className='mx-2' />
