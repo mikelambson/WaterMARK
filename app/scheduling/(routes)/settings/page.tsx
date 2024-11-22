@@ -36,7 +36,7 @@ const Settings = async () => {
         Scheduling Settings
       </h1>
       <Tabs defaultValue="home" className="w-full mx-auto mt-1">
-        <TabsList className="w-full mx-auto">
+        <TabsList className="w-full">
           {" "}
           {/* items-center justify-center */}
           <TabsTrigger value="home">Settings</TabsTrigger>
