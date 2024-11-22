@@ -5,8 +5,10 @@ const FullScreenLayout = ({ children }: { children: React.ReactNode}) => {
 
 
     return (
-        <div className={"w-full h-screen overflow-hidden z-auto"}>
-            {children}
+        <div className={"grid"}>
+            <div className={"z-50"}>
+                {children}
+            </div>
         </div>
     );
 };
