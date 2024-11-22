@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 
 import { FaBars, FaTimes, FaBell } from "react-icons/fa";
 import { BsDatabaseFillGear } from "react-icons/bs";
+import { AiTwotoneDashboard } from "react-icons/ai";
 import { useTheme } from "next-themes";
 
 import {
@@ -260,6 +261,14 @@ const Navbar = () => {
                     {/* Icon Links */}
                     {iconLinks.map(({ id, children }) => (
                         <div key={id} className={"inline-flex h-16 items-center pr-4 space-x-3"}>
+                            {["Admin", "sysadmin", "Watermaster", "Analyst"].some((role) => userRole.includes(role)) && (
+                                <Link href="/dashboard">
+                                    <AiTwotoneDashboard
+                                        size={30}
+                                        className={`${defaultTextColorClass} ${iconHoverColorClass}`}
+                                    />
+                                </Link>
+                            )}
                             {["Admin", "sysadmin"].some((role) => userRole.includes(role)) && (
                                 <Link href="/system">
                                     <BsDatabaseFillGear
@@ -270,6 +279,7 @@ const Navbar = () => {
                                     />
                                 </Link>
                             )}
+                            
                             <ModeToggle />
                             <div className={"w-px h-6 bg-gray-400"}></div>
                             <Sheet>
