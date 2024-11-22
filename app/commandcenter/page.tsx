@@ -70,7 +70,7 @@ const CommandCenterPage: React.FC = () => {
                         
                     </div>
                     <div 
-                        className={"absolute bottom-0 right-0 p-2 hover:bottom-4 hover:right-4 hover:bg-slate-100/25 hover:scale-150 hover:text-center hover:text-yellow-400 hover:pt-3 hover:pl-4 cursor-pointer transition-transform duration-300 rounded-md flex items-center justify-center"}
+                        className={"absolute top-2 right-0 p-2 hover:top-4 hover:right-4 hover:bg-slate-600/25 hover:dark:bg-slate-100/25 hover:scale-150 hover:text-center hover:text-yellow-600 hover:dark:text-yellow-400 hover:pt-3 hover:pl-4 cursor-pointer transition-transform duration-300 rounded-md flex items-center justify-center"}
                         onClick={() => {router.push('/');}}
                     >
                         <ImExit size={30} className='self-center justify-self-center' />
