@@ -137,11 +137,33 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
             >
                 <SetView center={center} />
                 {/* <ZoomControl position="bottomleft" /> */}
-                <TileLayer
+                {/* <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
+                /> */}
                 {type === "page" ? <ZoomControl position="bottomleft" /> : null}
                 <LayersControl>
+                    <LayersControl.BaseLayer checked name="OpenStreetMap">
+                        <TileLayer
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />  
+                    </LayersControl.BaseLayer>
+                    {/* ESRI Satellite */}
+                    <LayersControl.BaseLayer name="Satellite">
+                    <TileLayer
+                        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                        attribution='Tiles &copy; <a href="https://www.esri.com/">Esri</a>'
+                    />
+                    </LayersControl.BaseLayer>
+                    {/* Mapbox Hybrid (Satellite + Streets) */}
+                    {/* <LayersControl.BaseLayer name="Hybrid">
+                    <TileLayer
+                        url="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token=YOUR_MAPBOX_ACCESS_TOKEN"
+                        attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://www.mapbox.com/">Mapbox</a>'
+                        tileSize={512}
+                        zoomOffset={-1}
+                    />
+                    </LayersControl.BaseLayer> */}
+                    
                     <LayersControl.Overlay checked name="Measurements">
                             <Marker position={[39.4638, -119.0486]}>
                                 <Tooltip />
