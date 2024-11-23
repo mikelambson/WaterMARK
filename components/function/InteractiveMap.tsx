@@ -69,7 +69,19 @@ interface InteractiveMapProps {
 const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: InteractiveMapProps) => {
     const tooltipRef = useRef<React.RefObject<typeof Tooltip>>(null);
     const [hoveredFeature, setHoveredFeature] = useState<FeatureInfo | null>(null);
-    const sizeSettings = type === 'page' ? "h-[calc(100dvh-4rem)]" : type === 'card' ? "h-full" : "h-full";
+    const sizeSettings = ((type: string = 'default') => {
+        switch (type) {
+            case 'screen':
+                return "h-[100dvh]";
+            case 'page':
+                return "h-[calc(100dvh-4rem)]";
+            case 'card':
+                return "h-full";
+            default:
+                return "h-full";
+        }
+    })(type);
+    
     
 
     // Define styles for each layer

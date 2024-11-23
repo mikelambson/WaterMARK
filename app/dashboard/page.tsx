@@ -25,8 +25,17 @@ const CommandCenterPage: React.FC = () => {
                 return <LahontanLakeLevel className='h-full pt-14' />;
             case 'table':
                 return <div className={classes}>Table</div>;
-            case 'settings':
-                return <div className={classes}>Settings</div>;
+            case 'fullmap':
+                return (
+                    <div className={classes}>
+                        <div className={"absolute top-0 left-0 w-screen h-screen"}>
+                            <GeoMapInterface 
+                            sizeClass={"h-full w-full"} 
+                            type={'screen'}
+                            />
+                        </div>
+                    </div>
+                );
             default:
                 return <GeoMapInterface 
                     sizeClass={"h-full w-full"} 
@@ -111,13 +120,13 @@ const CommandCenterPage: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="relative row-span-4 border rounded-xl bg-slate-100/5">
+                <div className="row-span-4 border rounded-xl bg-slate-100/5">
 {/* <Suspense fallback={<ComponentLoader className='h-full'/>}> */}
                         <div className="absolute top-0 right-[50%] h-14 w-96 group">
                         {/* Inner div that slides down on hover */}
-                            <div className="relative h-2 w-full rounded-b-xl drop-shadow-lg border border-gray-700/80 border-b-2 bg-gray-800/70 transform translate-x-1/2 z-50 transition-all duration-300 ease-in-out group-hover:h-full group-hover:bg-gray-600/80">
+                            <div className="relative h-2 w-full rounded-b-xl drop-shadow-lg border border-gray-700/80 border-b-2 bg-gray-700/70 transform translate-x-1/2 z-50 transition-all duration-300 ease-in-out group-hover:h-full group-hover:bg-gray-600/80">
                                 <div className='hidden group-hover:inline-flex px-2 pt-[0.4rem] gap-2'>
-                                    <Button onClick={() => setCentralDisplay('map')}>Map</Button>
+                                    <Button onClick={() => centralDisplay === "map" ? setCentralDisplay('fullmap') : setCentralDisplay('map')}>{centralDisplay === "map" ? "Full Screen" : "Map"}</Button>
                                     <Button onClick={() => setCentralDisplay('graph')}>Graph</Button>
                                     <Button onClick={() => setCentralDisplay('table')}>Table</Button>
                                 </div>
