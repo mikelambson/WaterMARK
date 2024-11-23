@@ -142,18 +142,19 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                 /> */}
                 {type === "page" ? <ZoomControl position="bottomleft" /> : null}
                 <LayersControl>
-                    <LayersControl.BaseLayer checked name="OpenStreetMap">
-                        <TileLayer
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />  
-                    </LayersControl.BaseLayer>
                     {/* ESRI Satellite */}
-                    <LayersControl.BaseLayer name="Satellite">
+                    <LayersControl.BaseLayer checked name="Satellite">
                     <TileLayer
                         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
                         attribution='Tiles &copy; <a href="https://www.esri.com/">Esri</a>'
                     />
                     </LayersControl.BaseLayer>
+                    <LayersControl.BaseLayer name="OpenStreetMap">
+                        <TileLayer
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />  
+                    </LayersControl.BaseLayer>
+                    
                     {/* Mapbox Hybrid (Satellite + Streets) */}
                     {/* <LayersControl.BaseLayer name="Hybrid">
                     <TileLayer
