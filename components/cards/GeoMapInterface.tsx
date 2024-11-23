@@ -10,7 +10,12 @@ import { getTCIDjsonData } from '@/lib/gis/getTCIDgeoData';
 
 const InteractiveMap = dynamic(() => import('@/components/function/InteractiveMap'), { ssr: false });
 
-const GeoMap = () => {
+interface GeoMapInterfaceProps {
+    sizeClass?: string;
+    type?: string;
+}
+
+const GeoMapInterface = ({ sizeClass, type }: GeoMapInterfaceProps) => {
     interface GeojsonData {
       canals: any;
       drainage: any;
@@ -65,23 +70,23 @@ const GeoMap = () => {
   
     if (geoLoading) return (
         <Skeleton>
-            <ComponentLoader className="pt-24 h-screen" />
+            <ComponentLoader className="pt-24 h-full w-full" />
         </Skeleton>
     );
   
     return ( 
-        <div>
+        <div className={sizeClass}>
             {geojsonData && (
                 <InteractiveMap 
                     geoJsonData={geojsonData} 
                     geoTCIDmapping={geoTCIDjson || undefined}
                     center={[39.4741, -118.8886]}
                     zoom={9} 
-                    type={'page'}
+                    type={type}
                 />
             )}
         </div>
     );
 }
  
-export default GeoMap;
+export default GeoMapInterface;

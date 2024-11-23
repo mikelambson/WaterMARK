@@ -1,7 +1,9 @@
 "use client";
+import { Geo } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { ImExit } from "react-icons/im";
+import GeoMapInterface from '@/components/cards/GeoMapInterface'; // Adjust the path as necessary
 
 const CommandCenterPage: React.FC = () => {
     const router = useRouter();
@@ -38,7 +40,10 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                 </div>
                 <div className="row-span-4 border bg-slate-100/5">
-                    -- Map Here --
+                    <GeoMapInterface 
+                        sizeClass={"h-full w-full"} 
+                        type={'card'}
+                    />
                 </div>
                 <div className="row-span-1 grid grid-cols-5 gap-2">
                     <div className="border bg-slate-100/5">

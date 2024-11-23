@@ -63,11 +63,14 @@ interface InteractiveMapProps {
     geoTCIDmapping?: { [key: string]: GeoJsonObject };
     center: [number, number];
     zoom?: number;
+    type?: string;
 }
 
-const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: InteractiveMapProps) => {
+const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: InteractiveMapProps) => {
     const tooltipRef = useRef<React.RefObject<typeof Tooltip>>(null);
     const [hoveredFeature, setHoveredFeature] = useState<FeatureInfo | null>(null);
+    const sizeSettings = type === 'page' ? "h-[calc(100dvh-4rem)]" : type === 'card' ? "h-full" : "h-full";
+    
 
     // Define styles for each layer
     const styles = {
@@ -127,17 +130,17 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom}: Interactiv
     }, []);
 
     return (
-        <div className="h-[calc(100dvh-4rem)]">
+        <div className={`${sizeSettings}`}>
             <MapContainer 
                 className={'z-0 h-full w-full'}
-                zoomControl={false}
+                zoomControl={type === "page" ? false : true}
             >
                 <SetView center={center} />
                 {/* <ZoomControl position="bottomleft" /> */}
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <ZoomControl position="bottomleft" />
+                {type === "page" ? <ZoomControl position="bottomleft" /> : null}
                 <LayersControl>
                     <LayersControl.Overlay checked name="Measurements">
                             <Marker position={[39.4638, -119.0486]}>
