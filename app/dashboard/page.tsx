@@ -12,11 +12,26 @@ const CommandCenterPage: React.FC = () => {
     return (
         <div className='relative h-screen w-screen grid grid-cols-5 gap-2 p-2 bg-card'>
             <div className="col-span-1 grid grid-rows-6 gap-2">
-                <div className="row-span-1 border rounded-xl bg-slate-100/5 p-4">
+                <div className="row-span-1 border rounded-xl bg-slate-100/5 p-4 grid">
                     <h1 className="row-span-1 text-center font-bold">Lahontan Level</h1>
+                    
                 </div>
-                <div className="row-span-3 border rounded-xl bg-slate-100/5 p-4">
+                <div className="row-span-3 grid border rounded-xl bg-slate-100/5 p-4">
                     <h1 className="row-span-1 text-center font-bold">Reservoir Levels</h1>
+                    <div className="row-span-2 grid grid-cols-3 justify-center p-4">
+                        <div className='col-span-2 text-xl grid grid-rows-4 gap-4'>
+                                <p>Sheckler Reservoir</p>
+                                <p>S-Line Reservoir</p>
+                                <p>Harmon Reservoir</p>
+                                <p>Stillwater Point</p>
+                        </div>
+                        <div className='col-span-1 grid grid-rows-4 gap-4 text-4xl text-orange-500 font-semibold'>
+                            <p>{"--"}</p>
+                            <p>{"--"}</p>
+                            <p>{"--"}</p>
+                            <p>{"--"}</p>
+                        </div>
+                    </div>
                 </div>
                 <div className="row-span-2 border rounded-xl bg-slate-100/5 p-4">
                     <h1 className="row-span-1 text-center font-bold">USFW Flows</h1>
