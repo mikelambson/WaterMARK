@@ -69,8 +69,8 @@ const GeoMapInterface = ({ sizeClass, type }: GeoMapInterfaceProps) => {
       
   
     if (geoLoading) return (
-        <Skeleton>
-            <ComponentLoader className="pt-24 h-full w-full" />
+        <Skeleton className='h-full'>
+            <ComponentLoader className="pt-[20%] h-full w-full" /> 
         </Skeleton>
     );
   
