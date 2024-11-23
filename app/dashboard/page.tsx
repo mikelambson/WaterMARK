@@ -28,7 +28,7 @@ const CommandCenterPage: React.FC = () => {
             case 'fullmap':
                 return (
                     <div className={classes}>
-                        <div className={"absolute top-0 left-0 w-screen h-screen"}>
+                        <div className={"absolute top-0 left-0 w-screen h-screen z-10"}>
                             <GeoMapInterface 
                             sizeClass={"h-full w-full"} 
                             type={'screen'}
@@ -124,11 +124,29 @@ const CommandCenterPage: React.FC = () => {
 {/* <Suspense fallback={<ComponentLoader className='h-full'/>}> */}
                         <div className="absolute top-0 right-[50%] h-14 w-96 group">
                         {/* Inner div that slides down on hover */}
-                            <div className="relative h-2 w-full rounded-b-xl drop-shadow-lg border border-gray-700/80 border-b-2 bg-gray-700/70 transform translate-x-1/2 z-50 transition-all duration-300 ease-in-out group-hover:h-full group-hover:bg-gray-600/80">
-                                <div className='hidden group-hover:inline-flex px-2 pt-[0.4rem] gap-2'>
-                                    <Button onClick={() => centralDisplay === "map" ? setCentralDisplay('fullmap') : setCentralDisplay('map')}>{centralDisplay === "map" ? "Full Screen" : "Map"}</Button>
-                                    <Button onClick={() => setCentralDisplay('graph')}>Graph</Button>
-                                    <Button onClick={() => setCentralDisplay('table')}>Table</Button>
+                            <div className="relative h-2 w-full rounded-b-xl drop-shadow-lg border-x border-neutral-600/70 border-b-2 bg-gray-700/70 transform translate-x-1/2 z-50 transition-all duration-300 ease-in-out group-hover:h-full group-hover:border-neutral-700/90 group-hover:bg-neutral-700/90">
+                                <div className='hidden group-hover:inline-flex w-full px-2 pt-[0.4rem] gap-3 justify-center'>
+                                    <Button 
+                                        variant={"secondary"}
+                                        onClick={() => centralDisplay === "map" ? setCentralDisplay('fullmap') : setCentralDisplay('map')}
+                                    >
+                                            {centralDisplay === "map" ? "Full Screen" : centralDisplay === "fullmap" ? "Small Map" : "Map"}
+                                    </Button>
+                                    <Button 
+                                        variant={"secondary"}
+                                        onClick={() => setCentralDisplay('graph')}>
+                                            Graph
+                                    </Button>
+                                    <Button 
+                                        variant={"secondary"}
+                                        onClick={() => setCentralDisplay('table')}>
+                                            Table
+                                    </Button>
+                                    <Button 
+                                        variant={"secondary"}
+                                        onClick={() => router.push('/')}>
+                                            <ImExit size={26} className='self-center justify-self-center' />
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -209,12 +227,12 @@ const CommandCenterPage: React.FC = () => {
                 </div>
                 
             </div>
-            <div 
+            {/* <div 
                 className={"absolute top-2 right-0 p-2 hover:top-4 hover:right-4 hover:bg-slate-600/25 hover:dark:bg-slate-100/25 hover:scale-150 hover:text-center hover:text-yellow-600 hover:dark:text-yellow-400 hover:pt-3 hover:pl-4 cursor-pointer transition-transform duration-300 rounded-md flex items-center justify-center"}
                 onClick={() => {router.push('/');}}
             >
                 <ImExit size={30} className='self-center justify-self-center' />
-            </div>
+            </div> */}
             
         </div>
     );
