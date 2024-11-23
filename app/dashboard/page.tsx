@@ -1,13 +1,39 @@
 "use client";
 import { Geo } from 'next/font/google';
 import { useRouter } from 'next/navigation';
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { ImExit } from "react-icons/im";
 import GeoMapInterface from '@/components/cards/GeoMapInterface'; // Adjust the path as necessary
 import ComponentLoader from '@/features/loader/comploader.module';
+import { Button } from '@/components/ui/button';
+import LahontanLakeLevel from '@/components/cards/LahontanLevel';
 
 const CommandCenterPage: React.FC = () => {
     const router = useRouter();
+    const [centralDisplay, setCentralDisplay] = useState('map');
+
+    const centralDisplayObj = (() => {
+        const classes = 'h-full w-full p-4';
+
+        switch(centralDisplay) {
+            case 'map':
+                return <GeoMapInterface 
+                    sizeClass={"h-full w-full"} 
+                    type={'card'}
+                />;
+            case 'graph':
+                return <LahontanLakeLevel className='h-full pt-14' />;
+            case 'table':
+                return <div className={classes}>Table</div>;
+            case 'settings':
+                return <div className={classes}>Settings</div>;
+            default:
+                return <GeoMapInterface 
+                    sizeClass={"h-full w-full"} 
+                    type={'card'}
+                />;
+        }
+    })();
 
     return (
         <div className='relative h-screen w-screen grid grid-cols-5 gap-2 p-2 bg-card'>
@@ -85,12 +111,22 @@ const CommandCenterPage: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row-span-4 border rounded-xl bg-slate-100/5">
-                    {/* <Suspense fallback={<ComponentLoader className='h-full'/>}> */}
-                        <GeoMapInterface 
-                            sizeClass={"h-full w-full"} 
-                            type={'card'}
-                        />
+                <div className="relative row-span-4 border rounded-xl bg-slate-100/5">
+{/* <Suspense fallback={<ComponentLoader className='h-full'/>}> */}
+                        <div className="absolute top-0 right-[50%] h-14 w-96 group">
+                        {/* Inner div that slides down on hover */}
+                            <div className="relative h-2 w-full rounded-b-xl drop-shadow-lg border border-gray-700/80 border-b-2 bg-gray-800/70 transform translate-x-1/2 z-50 transition-all duration-300 ease-in-out group-hover:h-full group-hover:bg-gray-600/80">
+                                <div className='hidden group-hover:inline-flex px-2 pt-[0.4rem] gap-2'>
+                                    <Button onClick={() => setCentralDisplay('map')}>Map</Button>
+                                    <Button onClick={() => setCentralDisplay('graph')}>Graph</Button>
+                                    <Button onClick={() => setCentralDisplay('table')}>Table</Button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {centralDisplayObj}
+                        
+                        
                     {/* </Suspense> */}
                 </div>
                 <div className="row-span-1 grid grid-cols-5 gap-2">
