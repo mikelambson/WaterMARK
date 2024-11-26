@@ -51,16 +51,16 @@ const CommandCenterPage: React.FC = () => {
                     <h1 className="row-span-1 text-center font-bold">Lahontan Level</h1>
                     
                 </div>
-                <div className="row-span-3 grid border rounded-xl bg-slate-100/5 p-4">
+                <div className="row-span-3 border rounded-xl bg-slate-100/5 p-4">
                     <h1 className="row-span-1 text-center font-bold">Reservoir Levels</h1>
-                    <div className="row-span-2 grid grid-cols-3 justify-center p-4">
-                        <div className='col-span-2 text-xl grid grid-rows-4 gap-4'>
+                    <div className="row-span-2 h-full grid grid-cols-3 justify-center p-4">
+                        <div className='col-span-2 grid grid-rows-4 gap-4'>
                                 <p>Sheckler Reservoir</p>
                                 <p>S-Line Reservoir</p>
                                 <p>Harmon Reservoir</p>
                                 <p>Stillwater Point</p>
                         </div>
-                        <div className='col-span-1 grid grid-rows-4 gap-4 text-4xl text-orange-500 font-semibold'>
+                        <div className='col-span-1 grid grid-rows-4 gap-4 text-2xl text-orange-500 font-semibold pl-4'>
                             <p>{"--"}</p>
                             <p>{"--"}</p>
                             <p>{"--"}</p>
@@ -72,12 +72,14 @@ const CommandCenterPage: React.FC = () => {
                     <h1 className="row-span-1 text-center font-bold">USFW Flows</h1>
                 </div>
             </div>
-            <div className="col-span-3 grid grid-rows-6 gap-2">
+            <div className="h-[calc(100dvh-.7rem)] col-span-3 grid grid-rows-6 gap-2">
                 <div className="row-span-1 grid grid-cols-5 gap-2">
-                    <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
-                        <h1 className="row-span-1 text-center font-bold">River Below Diversion</h1>
-                        <div className="row-span-2 flex justify-center">
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                    <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 py-4">
+                        <h1 className="row-span-1 text-center font-bold">River at Diversion
+                            {/* <span className='text-xs -mt-3'>Below Diversion</span> */}
+                        </h1>
+                        <div className="row-span-2 grid justify-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"6.00"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -85,8 +87,8 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                     <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
                         <h1 className="row-span-1 text-center font-bold">V-Line</h1>
-                        <div className="row-span-2 flex justify-center">
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                        <div className="row-span-2 grid justify-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -94,8 +96,8 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                     <div className="border rounded-md bg-slate-100/5 grid grid-rows-3 p-4">
                         <h1 className="row-span-1 text-center font-bold">T-Line</h1>
-                        <div className="row-span-2 flex justify-center">
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                        <div className="row-span-2 grid justify-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -103,8 +105,8 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                     <div className="border rounded-lg bg-slate-100/5 grid grid-rows-3 p-4">
                         <h1 className="row-span-1 text-center font-bold">A-Line</h1>
-                        <div className="row-span-2 flex justify-center">
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                        <div className="row-span-2 grid justify-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -112,8 +114,8 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                     <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
                         <h1 className="row-span-1 text-center font-bold">S-Line</h1>
-                        <div className="row-span-2 flex justify-center">
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                        <div className="row-span-2 grid justify-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -122,9 +124,11 @@ const CommandCenterPage: React.FC = () => {
                 </div>
                 <div className="row-span-4 border rounded-xl bg-slate-100/5">
 {/* <Suspense fallback={<ComponentLoader className='h-full'/>}> */}
-                        <div className="absolute top-0 right-[50%] h-14 w-96 group">
+
+                    {centralDisplayObj}
+                    <div className="absolute top-0 right-[50%] h-14 w-96 group">
                         {/* Inner div that slides down on hover */}
-                            <div className="relative h-2 w-full rounded-b-xl drop-shadow-lg border-x border-neutral-600/70 border-b-2 bg-gray-700/70 transform translate-x-1/2 z-50 transition-all duration-300 ease-in-out group-hover:h-full group-hover:border-neutral-700/90 group-hover:bg-neutral-700/90">
+                            <div className="relative h-2 w-full rounded-b-xl drop-shadow-lg border-x border-neutral-600/70 border-b-2 bg-gray-600/70 transform translate-x-1/2 z-50 transition-all duration-300 ease-in-out group-hover:h-full group-hover:border-neutral-700/90 group-hover:bg-neutral-700/90">
                                 <div className='hidden group-hover:inline-flex w-full px-2 pt-[0.4rem] gap-3 justify-center'>
                                     <Button 
                                         variant={"secondary"}
@@ -149,18 +153,13 @@ const CommandCenterPage: React.FC = () => {
                                     </Button>
                                 </div>
                             </div>
-                        </div>
-
-                        {centralDisplayObj}
-                        
-                        
-                    {/* </Suspense> */}
+                        </div>    
                 </div>
                 <div className="row-span-1 grid grid-cols-5 gap-2">
                     <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
                         <h1 className="row-span-1 text-center font-bold">L-Line</h1>
-                        <div className="row-span-2 flex justify-center">
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                        <div className="row-span-2 grid justify-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -168,8 +167,8 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                     <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
                         <h1 className="row-span-1 text-center font-bold">L1-Lateral</h1>
-                        <div className="row-span-2 flex justify-center">
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                        <div className="row-span-2 grid justify-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -177,8 +176,8 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                     <div className="border rounded-md bg-slate-100/5 grid grid-rows-3 p-4">
                         <h1 className="row-span-1 text-center font-bold">D-Line</h1>
-                        <div className="row-span-2 flex justify-center">
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                        <div className="row-span-2 grid justify-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -186,8 +185,8 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                     <div className="border rounded-lg bg-slate-100/5 grid grid-rows-3 p-4">
                         <h1 className="row-span-1 text-center font-bold">G-Line</h1>
-                        <div className="row-span-2 flex justify-center">
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                        <div className="row-span-2 grid justify-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -195,8 +194,8 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                     <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
                         <h1 className="row-span-1 text-center font-bold">D-Line</h1>
-                        <div className="row-span-2 flex justify-center">
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                        <div className="row-span-2 grid justify-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -213,13 +212,13 @@ const CommandCenterPage: React.FC = () => {
                     <div className="row-span-2 grid grid-cols-2 -mt-2">
                         <div className='grid'>
                             <h1 className='font-medium text-center'>Carson</h1>
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                         </div>
                         <div className='grid'>
                             <h1 className='font-medium text-center'>Truckee</h1>
-                            <h1 className="relative m-auto text-5xl text-orange-500 font-semibold text-center">
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                         </div>
