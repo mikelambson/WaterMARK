@@ -49,6 +49,16 @@ const CommandCenterPage: React.FC = () => {
             <div className="col-span-1 grid grid-rows-6 gap-2">
                 <div className="row-span-1 border rounded-xl bg-slate-100/5 p-4 grid">
                     <h1 className="row-span-1 text-center font-bold">Lahontan Level</h1>
+                    <div className='w-full grid grid-cols-2 justify-items-center'>
+                        <div>Lake Level</div>
+                        <div>--</div>
+                    </div>
+                    <div className='w-full grid grid-cols-4 justify-items-center'>
+                        <div>Inflow</div>
+                        <div>240</div>
+                        <div>Outflow</div>
+                        <div>48</div>
+                    </div>
                     
                 </div>
                 <div className="row-span-3 border rounded-xl bg-slate-100/5 p-4">
@@ -75,12 +85,11 @@ const CommandCenterPage: React.FC = () => {
             <div className="h-[calc(100dvh-.7rem)] col-span-3 grid grid-rows-6 gap-2">
                 <div className="row-span-1 grid grid-cols-5 gap-2">
                     <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 py-4">
-                        <h1 className="row-span-1 text-center font-bold">River at Diversion
-                            {/* <span className='text-xs -mt-3'>Below Diversion</span> */}
-                        </h1>
+                        <h1 className="row-span-1 text-center font-bold">River at Diversion</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"6.00"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"6.00"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
                         </div>
@@ -89,7 +98,8 @@ const CommandCenterPage: React.FC = () => {
                         <h1 className="row-span-1 text-center font-bold">V-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
                         </div>
@@ -98,7 +108,8 @@ const CommandCenterPage: React.FC = () => {
                         <h1 className="row-span-1 text-center font-bold">T-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
                         </div>
@@ -107,7 +118,8 @@ const CommandCenterPage: React.FC = () => {
                         <h1 className="row-span-1 text-center font-bold">A-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
                         </div>
@@ -116,7 +128,8 @@ const CommandCenterPage: React.FC = () => {
                         <h1 className="row-span-1 text-center font-bold">S-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
                         </div>
@@ -160,7 +173,8 @@ const CommandCenterPage: React.FC = () => {
                         <h1 className="row-span-1 text-center font-bold">L-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
                         </div>
@@ -169,7 +183,8 @@ const CommandCenterPage: React.FC = () => {
                         <h1 className="row-span-1 text-center font-bold">L1-Lateral</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
                         </div>
@@ -178,7 +193,8 @@ const CommandCenterPage: React.FC = () => {
                         <h1 className="row-span-1 text-center font-bold">D-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
                         </div>
@@ -187,7 +203,8 @@ const CommandCenterPage: React.FC = () => {
                         <h1 className="row-span-1 text-center font-bold">G-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
                         </div>
@@ -196,7 +213,8 @@ const CommandCenterPage: React.FC = () => {
                         <h1 className="row-span-1 text-center font-bold">D-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
                         </div>
@@ -213,13 +231,15 @@ const CommandCenterPage: React.FC = () => {
                         <div className='grid'>
                             <h1 className='font-medium text-center'>Carson</h1>
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                         </div>
                         <div className='grid'>
                             <h1 className='font-medium text-center'>Truckee</h1>
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"--"}<span className='absolute text-xs text-foreground/50'>CFS</span>
+                                {"--"}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                         </div>
                     </div>
