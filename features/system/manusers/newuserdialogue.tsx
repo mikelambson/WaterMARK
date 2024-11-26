@@ -33,9 +33,9 @@ const NewUserDialogue: React.FC<UserType> = ({userType}) => {
     const [middlename, setMiddlename] = useState('');
     const [lastname, setLastname] = useState('');
     const isStaff: boolean = userType === "staff";
-    let constructedlogin = firstname !== '' && middlename !== '' && lastname !== '' 
-        ? `${firstname?.[0].toLowerCase()}${middlename?.[0].toLowerCase()}${lastname?.toLowerCase()}`
-        : '--';
+    let constructedlogin = firstname !== '' && lastname !== ''
+    ? `${firstname?.[0].toLowerCase()}${middlename?.[0]?.toLowerCase() || ''}${lastname?.toLowerCase()}`
+    : '--';
 
     const handleActiveChecked = (checked: boolean) => {
         setIsActiveChecked(checked);
@@ -73,18 +73,18 @@ const NewUserDialogue: React.FC<UserType> = ({userType}) => {
                                 <Input 
                                     id="addemail" 
                                     type="email" 
-                                    placeholder="Email**"
+                                    placeholder="Email*"
                                     value={email} 
                                     onChange={(e) => setEmail(e.target.value)} 
                                     className="max-w-sm" 
                                 />
-                                <Input id="addtemppass" type="string" placeholder="Temporary Password**" className="max-w-[17.5rem]" />
+                                <Input id="addtemppass" type="string" placeholder="Temporary Password*" className="max-w-[17.5rem]" />
                             </div>
                             <div className={"flex flex-col gap-2 max-w-2xl"}>
                                 <Input 
                                     id="addfirstName" 
                                     type="string" 
-                                    placeholder="First Name**" 
+                                    placeholder="First Name*" 
                                     value={firstname} 
                                     onChange={(e) => setFirstname(e.target.value)} 
                                 />
@@ -98,7 +98,7 @@ const NewUserDialogue: React.FC<UserType> = ({userType}) => {
                                 <Input 
                                     id="addlastname" 
                                     type="string" 
-                                    placeholder="Last Name**" 
+                                    placeholder="Last Name*" 
                                     value={lastname} 
                                     onChange={(e) => setLastname(e.target.value)} 
                                 />
@@ -184,7 +184,7 @@ const NewUserDialogue: React.FC<UserType> = ({userType}) => {
                             </div>
                             <DialogFooter>
                                 <p className="text-xs text-red-600 dark:text-red-400">
-                                    <span className="font-semibold">**</span>
+                                    <span className="font-bold">*</span>
                                     Required
                                 </p>
                                 <DialogTrigger asChild>
