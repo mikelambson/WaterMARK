@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils";
+import { useFetchRoles } from "@/services/GetRoles";
 
 interface UserType {
     userType: string
@@ -39,7 +40,11 @@ const NewUserDialogue: React.FC<UserType> = ({userType}) => {
 
     const handleActiveChecked = (checked: boolean) => {
         setIsActiveChecked(checked);
-      };
+    };
+
+    const { data: roles, isLoading, error } = useFetchRoles();
+    
+
     return ( 
         <Dialog>
                         <DialogTrigger asChild>
@@ -130,6 +135,12 @@ const NewUserDialogue: React.FC<UserType> = ({userType}) => {
                                         </SelectTrigger>
                                         <SelectContent>
                                             <SelectItem value="none">No Role</SelectItem>
+                                            {roles?.map((role) => (
+                                                <SelectItem key={role.id} value={role.name}>
+                                                    {role.name}
+                                                </SelectItem>
+                                            ))}
+{/*                                             
                                             <SelectItem value="sysadmin">Sysadmin</SelectItem>
                                             <SelectItem value="watermaster">Watermaster</SelectItem>
                                             <SelectItem value="senioranalyst">Senior Analyst</SelectItem>
@@ -137,7 +148,7 @@ const NewUserDialogue: React.FC<UserType> = ({userType}) => {
                                             <SelectItem value="scheduler">Scheduler</SelectItem>
                                             <SelectItem value="lead">Lead</SelectItem>
                                             <SelectItem value="ditchrider">Ditchrider</SelectItem>
-                                            <SelectItem value="staff">Staff</SelectItem>
+                                            <SelectItem value="staff">Staff</SelectItem> */}
                                         </SelectContent>
                                     </Select>
                                     <Input 
