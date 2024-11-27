@@ -140,15 +140,6 @@ const NewUserDialogue: React.FC<UserType> = ({userType}) => {
                                                     {role.name}
                                                 </SelectItem>
                                             ))}
-{/*                                             
-                                            <SelectItem value="sysadmin">Sysadmin</SelectItem>
-                                            <SelectItem value="watermaster">Watermaster</SelectItem>
-                                            <SelectItem value="senioranalyst">Senior Analyst</SelectItem>
-                                            <SelectItem value="analyst">Analyst</SelectItem>
-                                            <SelectItem value="scheduler">Scheduler</SelectItem>
-                                            <SelectItem value="lead">Lead</SelectItem>
-                                            <SelectItem value="ditchrider">Ditchrider</SelectItem>
-                                            <SelectItem value="staff">Staff</SelectItem> */}
                                         </SelectContent>
                                     </Select>
                                     <Input 
