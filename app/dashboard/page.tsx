@@ -7,6 +7,8 @@ import GeoMapInterface from '@/components/cards/GeoMapInterface'; // Adjust the 
 import ComponentLoader from '@/features/loader/comploader.module';
 import { Button } from '@/components/ui/button';
 import LahontanLakeLevel from '@/components/cards/LahontanLevel';
+import { measurementNumber } from '@/lib/utils';
+
 
 const CommandCenterPage: React.FC = () => {
     const router = useRouter();
@@ -51,13 +53,20 @@ const CommandCenterPage: React.FC = () => {
                     <h1 className="row-span-1 text-center font-bold">Lahontan Level</h1>
                     <div className='w-full grid grid-cols-2 justify-items-center'>
                         <div>Lake Level</div>
-                        <div>--</div>
+                        <div className='text-orange-500'>
+                            {measurementNumber({number: 120100, precision: 0})} 
+                            <span className='text-foreground pl-1 text-sm'>AF</span>
+                        </div>
                     </div>
                     <div className='w-full grid grid-cols-4 justify-items-center'>
                         <div>Inflow</div>
-                        <div>240</div>
+                        <div className='text-orange-500'>
+                            {measurementNumber({number: 64.8, precision: 2})} 
+                        </div>
                         <div>Outflow</div>
-                        <div>48</div>
+                        <div className='text-orange-500'>
+                            {measurementNumber({number: 2.05, precision: 2})}
+                        </div>
                     </div>
                     
                 </div>
@@ -88,7 +97,7 @@ const CommandCenterPage: React.FC = () => {
                         <h1 className="row-span-1 text-center font-bold">River at Diversion</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {"6.00"}
+                                {measurementNumber({number: 0, precision: 2})}
                                 <span className='absolute text-xs text-foreground/50'>CFS</span>
                             </h1>
                             
@@ -224,6 +233,9 @@ const CommandCenterPage: React.FC = () => {
             <div className="col-span-1 grid grid-rows-6 gap-2">
                 <div className="row-span-5 border rounded-xl bg-slate-100/5 p-4">
                     <h1 className="row-span-1 text-center font-bold">District Stats</h1>
+                    <div className='text-orange-500 text-center px-4 pt-8'>
+                        Important information for each district.
+                    </div>
                 </div>
                 <div className="row-span-1 border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
                     <h1 className="row-span-1 text-center font-bold">Division Demand</h1>

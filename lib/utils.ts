@@ -21,4 +21,15 @@ export const calculateNewScheduleTimestamp = (currentTimestamp: string, duration
   return convertedDate.toISOString();
 };
 
+export const measurementNumber = ({ number, precision = 2 }: { number: number; precision?: number }) => {
+  if (number === 0) {
+    return "--";
+  }
+  return new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    minimumFractionDigits: precision,
+    maximumFractionDigits: precision,
+  }).format(number);
+};
+
 
