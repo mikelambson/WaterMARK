@@ -233,11 +233,24 @@ const CommandCenterPage: React.FC = () => {
                 </div>
             </div>
             <div className="col-span-1 grid grid-rows-6 gap-2">
-                <div className="row-span-5 border rounded-xl bg-slate-100/5 p-4">
-                    <h1 className="row-span-1 text-center font-bold">District Stats</h1>
-                    <div className='text-orange-500 text-center px-4 pt-8'>
-                        Important information for each district.
+                <div className="row-span-5 border rounded-xl bg-slate-100/5 p-4 grid grid-rows-5">
+                    <h1 className="row-span-1 text-center font-bold">Bay Levels</h1>
+                    <div className='row-span-4 grid grid-cols-3 gap-2'>
+                        <div className='col-span-2 grid gap-4'>
+                            <p>Diversion Pond</p>
+                            <p>Colman Dam</p>
+                            <p></p>
+                            <p></p>
+                        </div>
+                        <div className='col-span-1 grid gap-4 text-orange-500 text-xl font-semibold'>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
+                        <p></p>
+                        <p></p>
                     </div>
+                    </div>
+                    
+
                 </div>
                 <div className="row-span-1 border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
                     <h1 className="row-span-1 text-center font-bold">Division Demand</h1>
