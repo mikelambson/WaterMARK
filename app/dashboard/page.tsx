@@ -248,16 +248,28 @@ const CommandCenterPage: React.FC = () => {
                 </div>
             </div>
             <div className="col-span-1 grid grid-rows-6 gap-2">
-                <div className="row-span-5 border rounded-xl bg-slate-100/5 p-4 grid grid-rows-5">
+                <div className="row-span-5 border rounded-xl bg-slate-100/5 p-4 grid gap-2">
                     <h1 className="row-span-1 text-center font-bold">Truckee Canal</h1>
                     <div className='row-span-4 grid grid-cols-3 gap-2'>
                         <div className='col-span-2 grid gap-2'>
                             <p>Derby Dam</p>
+                            <p>Gilipin Spill</p>
                             <p>Fernley Check</p>
                             <p>TC1</p>
                             <p>TC4</p>
+                            <p>TC8</p>
+                            <p>TC9</p>
+                            <p>TC10</p>
+                            <p>TC13</p>
+                            <p>Flow Into Lahotan</p>
                         </div>
                         <div className='col-span-1 grid gap-2 text-orange-500 text-xl font-semibold'>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
