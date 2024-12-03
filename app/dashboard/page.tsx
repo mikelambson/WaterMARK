@@ -1,7 +1,6 @@
 "use client";
-import { Geo } from 'next/font/google';
 import { useRouter } from 'next/navigation';
-import React, { Suspense, useState } from 'react';
+import React, { useState } from 'react';
 import { ImExit } from "react-icons/im";
 import GeoMapInterface from '@/components/cards/GeoMapInterface'; 
 // import ComponentLoader from '@/features/loader/comploader.module';
