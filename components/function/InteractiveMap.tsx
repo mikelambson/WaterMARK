@@ -91,7 +91,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
         waterbodies: { 
             color: '#2ecc7122', 
             weight: 4, 
-            fillOpacity: 0.5, 
+            fillOpacity: 0.2, 
             interactive: false,
         }
     };
@@ -243,7 +243,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.aLine && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.aLine} 
-                                    pathOptions={{ color: '#DD6644', weight: 4 }}
+                                    pathOptions={{ color: '#FF5500', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>A-Line</h2>
@@ -277,7 +277,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.carsonRiver && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.carsonRiver} 
-                                    pathOptions={{ color: '#4466DD', weight: 4 }}
+                                    pathOptions={{ color: '#4466DDAA', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>Carson River</h2>
@@ -296,7 +296,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.dLine && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.dLine} 
-                                    pathOptions={{ color: '#00931B', weight: 4 }}
+                                    pathOptions={{ color: '#FFAA00', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>D-Line</h2>
@@ -313,7 +313,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.eLine && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.eLine} 
-                                    pathOptions={{ color: '#590093', weight: 4 }}
+                                    pathOptions={{ color: '#C500FF', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>E-Line</h2>
@@ -330,7 +330,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.gLine && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.gLine} 
-                                    pathOptions={{ color: '#686900', weight: 4 }}
+                                    pathOptions={{ color: '#38A800', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>G-Line</h2>
@@ -347,7 +347,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.harmonReservoir && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.harmonReservoir} 
-                                    pathOptions={{ color: '#005CFF', weight: 2, fillOpacity: 0.5 }}
+                                    pathOptions={{ color: '#005CFFAA', weight: 1, fillOpacity: .5 }}
                                 >
                                     <Popup>
                                         <h2>Harmon Reservoir</h2>
@@ -381,7 +381,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.lLine && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.lLine} 
-                                    pathOptions={{ color: '#FF49FC', weight: 4 }}
+                                    pathOptions={{ color: '#00A884', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>L-Line</h2>
@@ -398,7 +398,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.lahontanReservoir && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.lahontanReservoir} 
-                                    pathOptions={{ color: '#005CFF', weight: 2, fillOpacity: 0.5 }}
+                                    pathOptions={{ color: '#005CFFAA', weight: 1, fillOpacity: 0.5 }}
                                 >
                                     <Popup>
                                         <h2>Lahontan Reservoir</h2>
@@ -415,7 +415,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.nLine && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.nLine} 
-                                    pathOptions={{ color: '#D10068', weight: 4 }}
+                                    pathOptions={{ color: '#828282', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>N-Line</h2>
@@ -449,7 +449,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.rLine && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.rLine} 
-                                    pathOptions={{ color: '#846729', weight: 4 }}
+                                    pathOptions={{ color: '#FF000088', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>R-Line</h2>
@@ -466,7 +466,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.sLine && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.sLine} 
-                                    pathOptions={{ color: '#ECD300', weight: 4 }}
+                                    pathOptions={{ color: '#73FFDF', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>S-Line</h2>
@@ -483,7 +483,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.sLineReservoir && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.sLineReservoir} 
-                                    pathOptions={{ color: '#005CFF', weight: 2, fillOpacity: 0.5 }}
+                                    pathOptions={{ color: '#005CFFAA', weight: 1, fillOpacity: 0.5 }}
                                 >
                                     <Popup>
                                         <h2>S-Line Reservoir</h2>
@@ -500,7 +500,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.shecklerReservoir && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.shecklerReservoir} 
-                                    pathOptions={{ color: '#005CFF', weight: 2, fillOpacity: 0.5 }}
+                                    pathOptions={{ color: '#005CFFAA', weight: 1, fillOpacity: 0.5 }}
                                 >
                                     <Popup>
                                         <h2>Sheckler Reservoir</h2>
@@ -517,7 +517,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.stillwaterPointReservoir && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.stillwaterPointReservoir} 
-                                    pathOptions={{ color: '#005CFF', weight: 2, fillOpacity: 0.5 }}
+                                    pathOptions={{ color: '#005CFFAA', weight: 1, fillOpacity: 0.5 }}
                                 >
                                     <Popup>
                                         <h2>Stillwater Point Reservoir</h2>
@@ -534,7 +534,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.tLine && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.tLine} 
-                                    pathOptions={{ color: '#00A4A0', weight: 4 }}
+                                    pathOptions={{ color: '#A87000', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>T-Line</h2>
@@ -568,7 +568,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.truckeeRiver && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.truckeeRiver} 
-                                    pathOptions={{ color: '#4466DD', weight: 4 }}
+                                    pathOptions={{ color: '#4466DDAA', weight: 2 }}
                                 >
                                     <Popup>
                                         <h2>Truckee River</h2>
@@ -587,7 +587,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.vLine && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.vLine} 
-                                    pathOptions={{ color: '#01C700', weight: 4 }}
+                                    pathOptions={{ color: '#FFFF73', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>V-Line</h2>

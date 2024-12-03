@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import React, { Suspense, useState } from 'react';
 import { ImExit } from "react-icons/im";
 import GeoMapInterface from '@/components/cards/GeoMapInterface'; // Adjust the path as necessary
-import ComponentLoader from '@/features/loader/comploader.module';
+// import ComponentLoader from '@/features/loader/comploader.module';
 import { Button } from '@/components/ui/button';
 import LahontanLakeLevel from '@/components/cards/LahontanLevel';
 import { measurementNumber } from '@/lib/utils';
