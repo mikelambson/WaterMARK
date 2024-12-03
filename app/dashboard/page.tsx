@@ -3,7 +3,7 @@ import { Geo } from 'next/font/google';
 import { useRouter } from 'next/navigation';
 import React, { Suspense, useState } from 'react';
 import { ImExit } from "react-icons/im";
-import GeoMapInterface from '@/components/cards/GeoMapInterface'; // Adjust the path as necessary
+import GeoMapInterface from '@/components/cards/GeoMapInterface'; 
 // import ComponentLoader from '@/features/loader/comploader.module';
 import { Button } from '@/components/ui/button';
 import LahontanLakeLevel from '@/components/cards/LahontanLevel';
