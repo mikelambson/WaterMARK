@@ -89,8 +89,23 @@ const CommandCenterPage: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row-span-2 border rounded-xl bg-slate-100/5 p-4">
-                    <h1 className="row-span-1 text-center font-bold">USFW Flows</h1>
+                <div className="row-span-2 border rounded-xl bg-slate-100/5 p-4 grid grid-rows-3">
+                    
+                    <h1 className="row-span-1 text-center font-bold">Bay Levels</h1>
+                    <div className='row-span-2 grid grid-cols-3 gap-2'>
+                        <div className='col-span-2 grid gap-2'>
+                            <p>Diversion Pond</p>
+                            <p>Colman Dam</p>
+                            <p></p>
+                            <p></p>
+                        </div>
+                        <div className='col-span-1 grid gap-2 text-orange-500 text-xl font-semibold'>
+                            <p>{measurementNumber({number: 0, precision: 2})}</p>
+                            <p>{measurementNumber({number: 0, precision: 2})}</p>
+                            <p></p>
+                            <p></p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="h-[calc(100dvh-.7rem)] col-span-3 grid grid-rows-6 gap-2">
@@ -234,23 +249,21 @@ const CommandCenterPage: React.FC = () => {
             </div>
             <div className="col-span-1 grid grid-rows-6 gap-2">
                 <div className="row-span-5 border rounded-xl bg-slate-100/5 p-4 grid grid-rows-5">
-                    <h1 className="row-span-1 text-center font-bold">Bay Levels</h1>
+                    <h1 className="row-span-1 text-center font-bold">Truckee Canal</h1>
                     <div className='row-span-4 grid grid-cols-3 gap-2'>
-                        <div className='col-span-2 grid gap-4'>
-                            <p>Diversion Pond</p>
-                            <p>Colman Dam</p>
-                            <p></p>
-                            <p></p>
+                        <div className='col-span-2 grid gap-2'>
+                            <p>Derby Dam</p>
+                            <p>Fernley Check</p>
+                            <p>TC1</p>
+                            <p>TC4</p>
                         </div>
-                        <div className='col-span-1 grid gap-4 text-orange-500 text-xl font-semibold'>
+                        <div className='col-span-1 grid gap-2 text-orange-500 text-xl font-semibold'>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
-                        <p></p>
-                        <p></p>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
                     </div>
-                    </div>
-                    
-
+                </div>                    
                 </div>
                 <div className="row-span-1 border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
                     <h1 className="row-span-1 text-center font-bold">Division Demand</h1>
