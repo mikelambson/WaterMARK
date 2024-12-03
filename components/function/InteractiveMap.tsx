@@ -432,7 +432,7 @@ const InteractiveMap = ({ geoJsonData, geoTCIDmapping, center, zoom, type}: Inte
                             {geoTCIDmapping?.rdLateral && (
                                 <GeoJSON 
                                     data={geoTCIDmapping.rdLateral} 
-                                    pathOptions={{ color: '#A46739', weight: 4 }}
+                                    pathOptions={{ color: '#845739', weight: 4 }}
                                 >
                                     <Popup>
                                         <h2>RD-Lateral</h2>
