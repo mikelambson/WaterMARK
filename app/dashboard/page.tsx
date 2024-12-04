@@ -48,6 +48,25 @@ const CommandCenterPage: React.FC = () => {
     return (
         <div className='relative h-screen w-screen grid grid-cols-5 gap-2 p-2 bg-card'>
             <div className="col-span-1 grid grid-rows-6 gap-2">
+                <div className="row-span-1 border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
+                    <h1 className="row-span-1 text-center font-bold">Division Demand</h1>
+                    <div className="row-span-2 grid grid-cols-2 -mt-2">
+                        <div className='grid'>
+                            <h1 className='font-medium text-center'>Carson</h1>
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
+                                {measurementNumber({number: 0, precision: 2})}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
+                            </h1>
+                        </div>
+                        <div className='grid'>
+                            <h1 className='font-medium text-center'>Truckee</h1>
+                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
+                                {measurementNumber({number: 0, precision: 2})}
+                                <span className='absolute text-xs text-foreground/50'>CFS</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
                 <div className="row-span-1 border rounded-xl bg-slate-100/5 p-4 grid">
                     <h1 className="row-span-1 text-center font-bold">Lahontan Level</h1>
                     <div className='w-full grid grid-cols-2 justify-items-center'>
@@ -72,38 +91,35 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                     
                 </div>
-                <div className="row-span-3 border rounded-xl bg-slate-100/5 p-4">
+                <div className="row-span-2 border rounded-xl bg-slate-100/5 p-4 grid">
                     <h1 className="row-span-1 text-center font-bold">Reservoir Levels</h1>
-                    <div className="row-span-2 h-full grid grid-cols-3 justify-center p-4">
-                        <div className='col-span-2 grid grid-rows-4 gap-4'>
+                    <div className='row-span-2 grid grid-cols-3'>
+                        <div className='col-span-2 grid gap-2'>
                                 <p>Sheckler Reservoir</p>
                                 <p>S-Line Reservoir</p>
-                                <p>Sagouspe Dam</p>
                                 <p>Harmon Reservoir</p>
                         </div>
-                        <div className='col-span-1 grid grid-rows-4 gap-4 text-2xl text-orange-500 font-semibold pl-4'>
-                            <p>{measurementNumber({number: 0, precision: 2})}</p>
+                        <div className='col-span-1 grid gap-2 text-2xl text-orange-500 font-semibold pl-4'>
                             <p>{measurementNumber({number: 0, precision: 2})}</p>
                             <p>{measurementNumber({number: 0, precision: 2})}</p>
                             <p>{measurementNumber({number: 0, precision: 2})}</p>
                         </div>
                     </div>
                 </div>
-                <div className="row-span-2 border rounded-xl bg-slate-100/5 p-4 grid grid-rows-3">
-                    
+                <div className="row-span-2 border rounded-xl bg-slate-100/5 p-4 grid">
                     <h1 className="row-span-1 text-center font-bold">Bay Levels</h1>
-                    <div className='row-span-2 grid grid-cols-3 gap-2'>
+                    <div className='row-span-2 grid grid-cols-3'>
                         <div className='col-span-2 grid gap-2'>
                             <p>Diversion Pond</p>
                             <p>Lewis Spill</p>
                             <p>Colman Dam</p>
-                            <p></p>
+                            <p>Sagouspe Dam</p>
                         </div>
-                        <div className='col-span-1 grid gap-2 text-orange-500 text-xl font-semibold'>
+                        <div className='col-span-1 grid gap-2 text-orange-500 text-2xl font-semibold pl-4'>
                             <p>{measurementNumber({number: 0, precision: 2})}</p>
                             <p>{measurementNumber({number: 0, precision: 2})}</p>
                             <p>{measurementNumber({number: 0, precision: 2})}</p>
-                            <p></p>
+                            <p>{measurementNumber({number: 0, precision: 2})}</p>
                         </div>
                     </div>
                 </div>
@@ -254,13 +270,15 @@ const CommandCenterPage: React.FC = () => {
                 </div>
             </div>
             <div className="col-span-1 grid grid-rows-6 gap-2">
-                <div className="row-span-5 border rounded-xl bg-slate-100/5 p-4 grid">
+                <div className="row-span-6 border rounded-xl bg-slate-100/5 p-4 grid">
                     <h1 className="row-span-1 text-center font-bold">Truckee Canal</h1>
-                    <div className='row-span-4 grid grid-cols-3 gap-2 pl-3'>
+                    <div className='row-span-5 grid grid-cols-3 gap-2'>
                         <div className='col-span-2 grid gap-2'>
                             <p>Floriston Target</p>
-                            <p>Derby Pool</p>
                             <p>Derby Flow</p>
+                            <p>Derby Pool</p>
+                            <p>Derby Target</p>
+                            <p>Watermaster Bridge</p>
                             <p>Gilipin Spill</p>
                             <p>Wadsworth Flow</p>
                             <p>Fernley Check</p>
@@ -270,7 +288,9 @@ const CommandCenterPage: React.FC = () => {
                             <p>TC @ Hazen</p>
                             <p>Flow Into Lahontan</p>
                         </div>
-                        <div className='col-span-1 grid gap-2 text-orange-500 text-xl font-semibold'>
+                        <div className='col-span-1 grid gap-2 text-orange-500 text-2xl font-semibold pl-4'>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
@@ -285,25 +305,7 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                 </div>                    
                 </div>
-                <div className="row-span-1 border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
-                    <h1 className="row-span-1 text-center font-bold">Division Demand</h1>
-                    <div className="row-span-2 grid grid-cols-2 -mt-2">
-                        <div className='grid'>
-                            <h1 className='font-medium text-center'>Carson</h1>
-                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {measurementNumber({number: 0, precision: 2})}
-                                <span className='absolute text-xs text-foreground/50'>CFS</span>
-                            </h1>
-                        </div>
-                        <div className='grid'>
-                            <h1 className='font-medium text-center'>Truckee</h1>
-                            <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
-                                {measurementNumber({number: 0, precision: 2})}
-                                <span className='absolute text-xs text-foreground/50'>CFS</span>
-                            </h1>
-                        </div>
-                    </div>
-                </div>
+                
                 
             </div>
             {/* <div 
