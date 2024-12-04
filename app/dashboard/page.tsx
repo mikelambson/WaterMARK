@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { ImExit } from "react-icons/im";
 import GeoMapInterface from '@/components/cards/GeoMapInterface'; 
-// import ComponentLoader from '@/features/loader/comploader.module';
+import DistrictInfo from '@/features/dashboard/DistrictInfo';
 import { Button } from '@/components/ui/button';
 import LahontanLakeLevel from '@/components/cards/LahontanLevel';
 import { measurementNumber } from '@/lib/utils';
@@ -23,9 +23,13 @@ const CommandCenterPage: React.FC = () => {
                     type={'card'}
                 />;
             case 'graph':
-                return <LahontanLakeLevel className='h-full pt-0' />;
+                return (
+                    <div className={"h-full w-full overflow-hidden"}>
+                        <LahontanLakeLevel className='h-full pt-0' />
+                    </div>
+                );
             case 'table':
-                return <div className={classes}>Table</div>;
+                return <div className={"w-full h-full overflow-hidden"}><DistrictInfo /></div>;
             case 'fullmap':
                 return (
                     <div className={classes}>
