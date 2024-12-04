@@ -29,7 +29,7 @@ const CommandCenterPage: React.FC = () => {
                     </div>
                 );
             case 'table':
-                return <div className={"w-full h-full overflow-hidden"}><DistrictInfo /></div>;
+                return <div className={"w-full h-full"}><DistrictInfo /></div>;
             case 'fullmap':
                 return (
                     <div className={classes}>
