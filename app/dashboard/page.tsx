@@ -78,8 +78,8 @@ const CommandCenterPage: React.FC = () => {
                         <div className='col-span-2 grid grid-rows-4 gap-4'>
                                 <p>Sheckler Reservoir</p>
                                 <p>S-Line Reservoir</p>
+                                <p>Sagouspe Dam</p>
                                 <p>Harmon Reservoir</p>
-                                <p>Stillwater Point</p>
                         </div>
                         <div className='col-span-1 grid grid-rows-4 gap-4 text-2xl text-orange-500 font-semibold pl-4'>
                             <p>{measurementNumber({number: 0, precision: 2})}</p>
@@ -95,14 +95,14 @@ const CommandCenterPage: React.FC = () => {
                     <div className='row-span-2 grid grid-cols-3 gap-2'>
                         <div className='col-span-2 grid gap-2'>
                             <p>Diversion Pond</p>
+                            <p>Lewis Spill</p>
                             <p>Colman Dam</p>
-                            <p></p>
                             <p></p>
                         </div>
                         <div className='col-span-1 grid gap-2 text-orange-500 text-xl font-semibold'>
                             <p>{measurementNumber({number: 0, precision: 2})}</p>
                             <p>{measurementNumber({number: 0, precision: 2})}</p>
-                            <p></p>
+                            <p>{measurementNumber({number: 0, precision: 2})}</p>
                             <p></p>
                         </div>
                     </div>
@@ -141,7 +141,7 @@ const CommandCenterPage: React.FC = () => {
                         </div>
                     </div>
                     <div className="border rounded-lg bg-slate-100/5 grid grid-rows-3 p-4">
-                        <h1 className="row-span-1 text-center font-bold">A-Line</h1>
+                        <h1 className="row-span-1 text-center font-bold">N-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {measurementNumber({number: 0, precision: 2})}
@@ -151,7 +151,10 @@ const CommandCenterPage: React.FC = () => {
                         </div>
                     </div>
                     <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
-                        <h1 className="row-span-1 text-center font-bold">S-Line</h1>
+                        <h1 className="row-span-1 text-center font-bold">
+                            A-Line
+                            <span className='text-xs pl-1'>(west)</span>
+                        </h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {measurementNumber({number: 0, precision: 2})}
@@ -196,7 +199,10 @@ const CommandCenterPage: React.FC = () => {
                 </div>
                 <div className="row-span-1 grid grid-cols-5 gap-2">
                     <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
-                        <h1 className="row-span-1 text-center font-bold">L-Line</h1>
+                    <h1 className="row-span-1 text-center font-bold">
+                            A-Line
+                            <span className='text-xs pl-1'>(central)</span>
+                        </h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {measurementNumber({number: 0, precision: 2})}
@@ -206,7 +212,7 @@ const CommandCenterPage: React.FC = () => {
                         </div>
                     </div>
                     <div className="border rounded-xl bg-slate-100/5 grid grid-rows-3 p-4">
-                        <h1 className="row-span-1 text-center font-bold">L1-Lateral</h1>
+                        <h1 className="row-span-1 text-center font-bold">G-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {measurementNumber({number: 0, precision: 2})}
@@ -216,7 +222,7 @@ const CommandCenterPage: React.FC = () => {
                         </div>
                     </div>
                     <div className="border rounded-md bg-slate-100/5 grid grid-rows-3 p-4">
-                        <h1 className="row-span-1 text-center font-bold">D-Line</h1>
+                        <h1 className="row-span-1 text-center font-bold">L-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {measurementNumber({number: 0, precision: 2})}
@@ -226,7 +232,7 @@ const CommandCenterPage: React.FC = () => {
                         </div>
                     </div>
                     <div className="border rounded-lg bg-slate-100/5 grid grid-rows-3 p-4">
-                        <h1 className="row-span-1 text-center font-bold">G-Line</h1>
+                        <h1 className="row-span-1 text-center font-bold">S-Line</h1>
                         <div className="row-span-2 grid justify-center">
                             <h1 className="relative m-auto text-2xl text-orange-500 font-semibold text-center">
                                 {measurementNumber({number: 0, precision: 2})}
@@ -250,20 +256,22 @@ const CommandCenterPage: React.FC = () => {
             <div className="col-span-1 grid grid-rows-6 gap-2">
                 <div className="row-span-5 border rounded-xl bg-slate-100/5 p-4 grid gap-2">
                     <h1 className="row-span-1 text-center font-bold">Truckee Canal</h1>
-                    <div className='row-span-4 grid grid-cols-3 gap-2'>
+                    <div className='row-span-4 grid grid-cols-3 gap-2 pl-3'>
                         <div className='col-span-2 grid gap-2'>
-                            <p>Derby Dam</p>
+                            <p>Floriston Target</p>
+                            <p>Derby Pool</p>
+                            <p>Derby Flow</p>
                             <p>Gilipin Spill</p>
+                            <p>Wadsworth Flow</p>
                             <p>Fernley Check</p>
-                            <p>TC1</p>
-                            <p>TC4</p>
-                            <p>TC8</p>
-                            <p>TC9</p>
-                            <p>TC10</p>
-                            <p>TC13</p>
+                            <p>TC1 Stage</p>
+                            <p>Andersen Check</p>
+                            <p>Allendale Check</p>
+                            <p>TC @ Hazon</p>
                             <p>Flow Into Lahotan</p>
                         </div>
                         <div className='col-span-1 grid gap-2 text-orange-500 text-xl font-semibold'>
+                        <p>{measurementNumber({number: 0, precision: 2})}</p>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
