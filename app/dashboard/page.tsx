@@ -254,7 +254,7 @@ const CommandCenterPage: React.FC = () => {
                 </div>
             </div>
             <div className="col-span-1 grid grid-rows-6 gap-2">
-                <div className="row-span-5 border rounded-xl bg-slate-100/5 p-4 grid gap-2">
+                <div className="row-span-5 border rounded-xl bg-slate-100/5 p-4 grid">
                     <h1 className="row-span-1 text-center font-bold">Truckee Canal</h1>
                     <div className='row-span-4 grid grid-cols-3 gap-2 pl-3'>
                         <div className='col-span-2 grid gap-2'>
@@ -264,11 +264,11 @@ const CommandCenterPage: React.FC = () => {
                             <p>Gilipin Spill</p>
                             <p>Wadsworth Flow</p>
                             <p>Fernley Check</p>
-                            <p>TC1 Stage</p>
+                            <p>Stage @ TC1</p>
                             <p>Andersen Check</p>
                             <p>Allendale Check</p>
-                            <p>TC @ Hazon</p>
-                            <p>Flow Into Lahotan</p>
+                            <p>TC @ Hazen</p>
+                            <p>Flow Into Lahontan</p>
                         </div>
                         <div className='col-span-1 grid gap-2 text-orange-500 text-xl font-semibold'>
                         <p>{measurementNumber({number: 0, precision: 2})}</p>
