@@ -23,7 +23,7 @@ const CommandCenterPage: React.FC = () => {
                     type={'card'}
                 />;
             case 'graph':
-                return <LahontanLakeLevel className='h-full pt-14' />;
+                return <LahontanLakeLevel className='h-full pt-0' />;
             case 'table':
                 return <div className={classes}>Table</div>;
             case 'fullmap':
