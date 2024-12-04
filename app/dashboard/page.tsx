@@ -281,8 +281,8 @@ const CommandCenterPage: React.FC = () => {
                             <p>Watermaster Bridge</p>
                             <p>Gilipin Spill</p>
                             <p>Wadsworth Flow</p>
-                            <p>Fernley Check</p>
                             <p>Stage @ TC1</p>
+                            <p>Fernley Check</p>
                             <p>Andersen Check</p>
                             <p>Allendale Check</p>
                             <p>TC @ Hazen</p>
