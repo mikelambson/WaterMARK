@@ -28,7 +28,7 @@ const CommandCenterPage: React.FC = () => {
                         <LahontanLakeLevel className='h-full pt-0' />
                     </div>
                 );
-            case 'table':
+            case 'districts':
                 return <div className={"w-full h-full"}><DistrictInfo /></div>;
             case 'fullmap':
                 return (
@@ -188,7 +188,7 @@ const CommandCenterPage: React.FC = () => {
 {/* <Suspense fallback={<ComponentLoader className='h-full'/>}> */}
 
                     {centralDisplayObj}
-                    <div className="absolute top-0 right-[50%] h-14 w-96 group">
+                    <div className="absolute top-0 right-[50%] h-14 w-[30rem] group">
                         {/* Inner div that slides down on hover */}
                             <div className="relative h-2 w-full rounded-b-xl drop-shadow-lg border-x border-neutral-600/70 border-b-2 bg-gray-600/70 transform translate-x-1/2 z-50 transition-all duration-300 ease-in-out group-hover:h-full group-hover:border-neutral-700/90 group-hover:bg-neutral-700/90">
                                 <div className='hidden group-hover:inline-flex w-full px-2 pt-[0.4rem] gap-3 justify-center'>
@@ -205,8 +205,8 @@ const CommandCenterPage: React.FC = () => {
                                     </Button>
                                     <Button 
                                         variant={"secondary"}
-                                        onClick={() => setCentralDisplay('table')}>
-                                            Table
+                                        onClick={() => setCentralDisplay('districts')}>
+                                            Districts
                                     </Button>
                                     <Button 
                                         variant={"secondary"}
