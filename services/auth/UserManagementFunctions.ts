@@ -18,6 +18,6 @@ export const useUserData = () => {
         queryKey: ['userData'],
         queryFn: fetchUserData,
         retry: true, // Retry on error
-        refetchOnWindowFocus: false, // Disable refetch on window focus
+        refetchOnWindowFocus: true, // Disable refetch on window focus
     });
 };
