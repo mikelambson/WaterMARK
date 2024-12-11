@@ -20,7 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils";
-import { useFetchRoles } from "@/services/GetRoles";
+import { useFetchRoles } from "@/services/auth/GetRoles";
 
 interface UserType {
     userType: string

@@ -1,4 +1,9 @@
-export const LogoutUser = async ( userId:string ) => {
+interface LogoutUser {
+    userId?: string;
+    sessionId?: string;
+}
+
+export const LogoutUser = async ( { userId, sessionId }:LogoutUser ) => {
 
     const loginRoute = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/logout`
 
