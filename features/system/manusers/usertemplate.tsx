@@ -19,21 +19,44 @@ import { FaUserEdit } from "react-icons/fa";
 import { MdLockReset } from "react-icons/md";
 import { MdResetTv } from "react-icons/md";
 import { BsPersonVcard } from "react-icons/bs";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface UserTemplateProps {
     userList: any[] | null;
-    error: string | null;
+    error?: string | null;
+    isError?: boolean;
+    isLoading?: boolean;
 }
 
-const UserTemplate = ({userList, error}: UserTemplateProps) => {
+const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) => {
     
-
     return (
         <div className={"border rounded-md bg-yellow-400"}>
             <Accordion type="single" collapsible className="px-4 bg-card rounded-md">
-            {error ? (
-                <p className="text-red-500">Error: {error}</p>
-            ) : userList ? (
+            {isLoading ? ( 
+                <>
+                    <AccordionItem value="loading" className="py-2">
+                        <Skeleton className="px-4 py-1 w-full "><div>Loading...</div></Skeleton> 
+                    </AccordionItem>
+                    <AccordionItem value="loading" className="py-2">
+                        <Skeleton className="px-4 py-1 w-full h-8"></Skeleton>
+                    </AccordionItem>
+                    <AccordionItem value="loading" className="py-2">
+                        <Skeleton className="px-4 py-1 w-full h-8"></Skeleton>
+                    </AccordionItem>
+                    <AccordionItem value="loading" className="py-2">
+                        <Skeleton className="px-4 py-1 w-full h-8"></Skeleton>
+                    </AccordionItem>
+                    <AccordionItem value="loading" className="py-2">
+                        <Skeleton className="px-4 py-1 w-full h-8"></Skeleton>
+                    </AccordionItem>
+                </>
+                ) : isError ? (
+                    <p className=" py-2">
+                        <span className="text-red-500 mr-2">Error:</span>
+                        {error}
+                    </p>
+                ) : userList ? (
                 <>
                     {userList.map((user) => (
                         <AccordionItem value={user.id} key={user.id}>

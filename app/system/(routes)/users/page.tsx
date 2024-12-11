@@ -11,7 +11,6 @@ import UserTemplate from "@/features/system/manusers/usertemplate";
 import NewUserDialogue from "@/features/system/manusers/newuserdialogue";
 import {useUserData} from "@/services/auth/UserManagementFunctions";
 
-type UserListType = any[]; // Replace `any` with the actual user type if known
 
 const ManageUsers = () => {
   const [userType, setUserType] = useState("staff");
@@ -47,7 +46,7 @@ const ManageUsers = () => {
         </div>
       </div>
 
-      <UserTemplate userList={userList} error={error ? error.message : null} />
+      <UserTemplate userList={userList} isLoading={isLoading} isError={isError} error={error?.message} />
       
     </div>
   );
