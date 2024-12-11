@@ -32,16 +32,26 @@ export const useAddNewUser = () => {
 
 
 const fetchUserData = async () => {
-    const response = await fetch(usersRoute, {
-        method: 'GET',
-        credentials: 'include',
-    });
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    return data;
-    
+    try {
+        const response = await fetch(usersRoute, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Origin": "https://backend.watermark.work",
+          },
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
+        const data = await response.json();
+        return data; // Update state with the fetched data
+      } catch (error: any) {
+        return error.message; // Set error if something goes wrong
+      }
 };
 
 const addNewUser = async (newUser: NewUserForm) => {

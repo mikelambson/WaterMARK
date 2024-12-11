@@ -26,6 +26,8 @@ interface UserTemplateProps {
 }
 
 const UserTemplate = ({userList, error}: UserTemplateProps) => {
+    
+
     return (
         <div className={"border rounded-md bg-yellow-400"}>
             <Accordion type="single" collapsible className="px-4 bg-card rounded-md">

@@ -9,43 +9,16 @@ import {
 } from "@/components/ui/select";
 import UserTemplate from "@/features/system/manusers/usertemplate";
 import NewUserDialogue from "@/features/system/manusers/newuserdialogue";
+import {useUserData} from "@/services/auth/UserManagementFunctions";
 
 type UserListType = any[]; // Replace `any` with the actual user type if known
 
 const ManageUsers = () => {
   const [userType, setUserType] = useState("staff");
-  const [userList, setUserList] = useState<UserListType | null>(null); // Initialize with `null` to check loading state
-  const [error, setError] = useState<string | null>(null); // Handle errors
+  const { data: userList, isLoading, isError, error } = useUserData();
 
   const handleUserType = (type: string) => setUserType(type);
 
-  useEffect(() => {
-    const allUsers = async () => {
-      try {
-        const usersRoute = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/manage/users`;
-        const response = await fetch(usersRoute, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": "true",
-            "Access-Control-Allow-Origin": "https://backend.watermark.work",
-          },
-          credentials: "include",
-        });
-
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
-
-        const data = await response.json();
-        setUserList(data); // Update state with the fetched data
-      } catch (error: any) {
-        setError(error.message); // Set error if something goes wrong
-      }
-    };
-
-    allUsers();
-  }, [userType]); // Run once on component mount
 
   return (
     <div className="p-2 h-full">
@@ -74,7 +47,7 @@ const ManageUsers = () => {
         </div>
       </div>
 
-      <UserTemplate userList={userList} error={error} />
+      <UserTemplate userList={userList} error={error ? error.message : null} />
       
     </div>
   );
