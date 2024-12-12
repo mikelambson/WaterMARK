@@ -60,27 +60,32 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
         <div>
              <div className="mb-4 flex justify-around">
                 <div className="flex flex-wrap gap-2">
-                <input 
+                <Input 
                     name="nameStartWith" 
                     value={filters.nameStartWith} 
                     onChange={handleFilterChange} 
                     placeholder="Seach by Name" 
-                    className="m-2 p-2" 
+                    className="w-48" 
                 />
-                <input 
+                <Input 
                     name="titleStartWith" 
                     value={filters.titleStartWith} 
                     onChange={handleFilterChange} 
                     placeholder="Search by Title" 
-                    className="m-2 p-2" 
+                    className="w-48" 
                 />
                 
-                <select name="roleName" value={filters.roleName} onChange={handleFilterChange} className="m-2 p-2">
-                    <option value="">All Roles</option>
-                    {Array.from(new Set(userList?.flatMap(user => user.roleId.map((role: { role: { name: any; }; }) => role.role.name)))).map(name => (
-                    <option key={name} value={name}>{name}</option>
-                    ))}
-                </select>
+                <Select>
+                    <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
+                        <SelectValue placeholder="All Roles" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="">All Roles</SelectItem>
+                        {Array.from(new Set(userList?.flatMap(user => user.roleId.map((role: { role: { name: any; }; }) => role.role.name)))).map(name => (
+                            <SelectItem key={name} value={name}>{name}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
                 </div>
                 </div>
         <div className={"border rounded-md bg-yellow-400"}>
