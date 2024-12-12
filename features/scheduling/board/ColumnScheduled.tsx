@@ -88,8 +88,7 @@ const ScheduledColumn = ({ id, columns, index }: Properties) => {
 
                 <TabsContent  value={selectedSheet.name === "Select" ? "1" : "0"} className="h-full pb-4">
                     <div className="w-full h-full flex flex-col pt-24 text-center text-6xl md:text-8xl rounded-md bg-black/25 shadow-md">
-                    {optionSelection(selectedDistrict)}
-                    {/* <p className="text-md">{(selectedSheet.name === "Select" ? "sudo1" : "sudo0")}</p> */}
+                        {optionSelection(selectedDistrict)}
                     </div>
                 </TabsContent>
                 <Droppable droppableId={"1"} type="card" >
