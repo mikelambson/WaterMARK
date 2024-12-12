@@ -1,5 +1,5 @@
 "use client"
-
+import { useState } from 'react';
 import {
     Select,
     SelectContent,
@@ -29,8 +29,60 @@ interface UserTemplateProps {
 }
 
 const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) => {
-    
+    const [filters, setFilters] = useState({
+        nameStartWith: '',  
+        titleStartWith: '',
+        roleName: '',
+      });
+      
+    const handleFilterChange = (e: any) => {
+        const { name, value } = e.target;
+        setFilters(prev => ({ ...prev, [name]: value }));
+    };
+        
+    // Filter logic
+    const filteredUserList = userList?.filter(user => {
+        // Combined name filter checks if any name field starts with the input
+        const matchesName = filters.nameStartWith ? 
+          [user.firstName, user.middleName || '', user.lastName].some(name => 
+            name.toLowerCase().startsWith(filters.nameStartWith.toLowerCase())
+          ) : true;
+        
+          const matchesTitle = filters.titleStartWith ? 
+          user.title.toLowerCase().startsWith(filters.titleStartWith.toLowerCase()) : true;
+        
+        const matchesRole = filters.roleName ? user.roleId.some((role: { role: { name: string } }) => role.role.name.toLowerCase() === filters.roleName.toLowerCase()) : true;
+      
+        return matchesName && matchesTitle && matchesRole;
+      });
+
     return (
+        <div>
+             <div className="mb-4 flex justify-around">
+                <div className="flex flex-wrap gap-2">
+                <input 
+                    name="nameStartWith" 
+                    value={filters.nameStartWith} 
+                    onChange={handleFilterChange} 
+                    placeholder="Seach by Name" 
+                    className="m-2 p-2" 
+                />
+                <input 
+                    name="titleStartWith" 
+                    value={filters.titleStartWith} 
+                    onChange={handleFilterChange} 
+                    placeholder="Search by Title" 
+                    className="m-2 p-2" 
+                />
+                
+                <select name="roleName" value={filters.roleName} onChange={handleFilterChange} className="m-2 p-2">
+                    <option value="">All Roles</option>
+                    {Array.from(new Set(userList?.flatMap(user => user.roleId.map((role: { role: { name: any; }; }) => role.role.name)))).map(name => (
+                    <option key={name} value={name}>{name}</option>
+                    ))}
+                </select>
+                </div>
+                </div>
         <div className={"border rounded-md bg-yellow-400"}>
             <Accordion type="single" collapsible className="px-4 bg-card rounded-md">
             {isLoading ? ( 
@@ -58,7 +110,7 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
                     </p>
                 ) : userList ? (
                 <>
-                    {userList.map((user) => (
+                    {filteredUserList?.map((user) => (
                         <AccordionItem value={user.id} key={user.id}>
                             <AccordionTrigger className="font-semibold text-xl text-gray-100 p-1">
                                 <div className="text-left w-full rounded-md mr-2 text-card-alternative">
@@ -156,6 +208,7 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
                 <p>Loading...</p>
             )}
             </Accordion>
+        </div>
         </div>
     )
 }
