@@ -1,5 +1,5 @@
 "use client"
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import {
     Select,
     SelectContent,
@@ -20,6 +20,7 @@ import { MdLockReset } from "react-icons/md";
 import { MdResetTv } from "react-icons/md";
 import { BsPersonVcard } from "react-icons/bs";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useDebounce } from '@/lib/utils/Debounce';
 
 interface UserTemplateProps {
     userList: any[] | null;
@@ -34,31 +35,41 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
         titleStartWith: '',
         emailStartWith: '',
         roleName: '',
-      });
+    });
       
-    const handleFilterChange = (e: any) => {
-        const { name, value } = e.target;
-        setFilters(prev => ({ ...prev, [name]: value }));
-    };
+    // Debounced filter values to delay the actual filter logic
+    const debouncedFilters = useDebounce(filters, 300);
         
     // Filter logic
-    const filteredUserList = userList?.filter(user => {
-        // Combined name filter checks if any name field starts with the input
-        const matchesName = filters.nameStartWith ? 
-          [user.firstName, user.middleName || '', user.lastName].some(name => 
-            name.toLowerCase().startsWith(filters.nameStartWith.toLowerCase())
-          ) : true;
-        
-        const matchesTitle = filters.titleStartWith ? 
-        user.title?.toLowerCase().startsWith(filters.titleStartWith.toLowerCase()) : true;
+    const filteredUserList = userList?.filter((user) => {
+        const matchesName = debouncedFilters.nameStartWith
+        ? [user.firstName, user.middleName || "", user.lastName].some((name) =>
+            name.toLowerCase().startsWith(debouncedFilters.nameStartWith.toLowerCase())
+            )
+        : true;
 
-        const matchesEmail = filters.emailStartWith ?
-        user.email?.toLowerCase().startsWith(filters.emailStartWith.toLowerCase()) : true;
-        
-        const matchesRole = filters.roleName ? user.roleId?.some((role: { role: { name: string } }) => role.role.name.toLowerCase() === filters.roleName.toLowerCase()) : true;
-      
+        const matchesTitle = debouncedFilters.titleStartWith
+        ? user.title?.toLowerCase().startsWith(debouncedFilters.titleStartWith.toLowerCase())
+        : true;
+
+        const matchesEmail = debouncedFilters.emailStartWith
+        ? user.email?.toLowerCase().startsWith(debouncedFilters.emailStartWith.toLowerCase())
+        : true;
+
+        const matchesRole = debouncedFilters.roleName
+        ? user.roleId?.some(
+            (role: { role: { name: string } }) =>
+                role.role.name.toLowerCase() === debouncedFilters.roleName.toLowerCase()
+            )
+        : true;
+
         return matchesName && matchesTitle && matchesEmail && matchesRole;
-      });
+    });
+
+    const handleFilterChange = (e: any) => {
+        const { name, value } = e.target;
+        setFilters(prev => ({ ...prev, [name]: value}));
+    };
 
     return (
         <div>
@@ -80,7 +91,7 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
                 />
                 <Input 
                     name="titleStartWith" 
-                    value={filters.titleStartWith} 
+                    value={filters.titleStartWith}
                     onChange={handleFilterChange} 
                     placeholder="Search by Title" 
                     className="w-48" 
