@@ -32,6 +32,7 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
     const [filters, setFilters] = useState({
         nameStartWith: '',  
         titleStartWith: '',
+        emailStartWith: '',
         roleName: '',
       });
       
@@ -48,12 +49,15 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
             name.toLowerCase().startsWith(filters.nameStartWith.toLowerCase())
           ) : true;
         
-          const matchesTitle = filters.titleStartWith ? 
-          user.title.toLowerCase().startsWith(filters.titleStartWith.toLowerCase()) : true;
+        const matchesTitle = filters.titleStartWith ? 
+        user.title?.toLowerCase().startsWith(filters.titleStartWith.toLowerCase()) : true;
+
+        const matchesEmail = filters.emailStartWith ?
+        user.email?.toLowerCase().startsWith(filters.emailStartWith.toLowerCase()) : true;
         
-        const matchesRole = filters.roleName ? user.roleId.some((role: { role: { name: string } }) => role.role.name.toLowerCase() === filters.roleName.toLowerCase()) : true;
+        const matchesRole = filters.roleName ? user.roleId?.some((role: { role: { name: string } }) => role.role.name.toLowerCase() === filters.roleName.toLowerCase()) : true;
       
-        return matchesName && matchesTitle && matchesRole;
+        return matchesName && matchesTitle && matchesEmail && matchesRole;
       });
 
     return (
@@ -65,6 +69,13 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
                     value={filters.nameStartWith} 
                     onChange={handleFilterChange} 
                     placeholder="Seach by Name" 
+                    className="w-48" 
+                />
+                <Input 
+                    name="emailStartWith" 
+                    value={filters.emailStartWith} 
+                    onChange={handleFilterChange} 
+                    placeholder="Search by Email" 
                     className="w-48" 
                 />
                 <Input 
@@ -116,7 +127,7 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
                 ) : userList ? (
                 <>
                     {filteredUserList?.map((user) => (
-                        <AccordionItem value={user.id} key={user.id}>
+                        <AccordionItem value={user.id} key={user.id} className='py-1'>
                             <AccordionTrigger className="font-semibold text-xl text-gray-100 p-1">
                                 <div className="text-left w-full rounded-md mr-2 text-card-alternative">
                                 {user.firstName} {user.middleName ? user.middleName + ' ' : ''}{user.lastName}
