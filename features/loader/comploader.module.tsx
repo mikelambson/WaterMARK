@@ -1,5 +1,5 @@
 // @/features/loader/componentLoader.tsx
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/GeneralUtils';
 import styles from '@/features/loader/comploader.module.css'
 import { Skeleton } from '@/components/ui/skeleton';
 

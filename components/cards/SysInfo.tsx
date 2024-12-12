@@ -13,7 +13,7 @@ import useFlowsStore from "@/lib/store/opsFlowsStore";
 import { formatNumber, initializeFlowsStore } from "@/lib/basicFunctions";
 import { SimpleForcast } from "@/components/cards/Forcast";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/GeneralUtils";
 
 initializeFlowsStore();
 

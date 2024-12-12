@@ -6,7 +6,7 @@ import { useTable, useSortBy } from "react-table";
 import { Button } from "@/components/ui/button"
 import useQueryStore from '@/lib/store/queryStore';
 import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/GeneralUtils";
 import { Order } from '@/typings';
 import {
   Table,

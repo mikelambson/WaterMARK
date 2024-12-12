@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { DraggableProvidedDragHandleProps, DraggableProvidedDraggableProps } from "@hello-pangea/dnd";
 import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/GeneralUtils";
 import { Order, TypedColumn } from "@/typings";
 import DragIcon from "@/features/scheduling/board/DragIcon";
 import { Button } from "@/components/ui/button";

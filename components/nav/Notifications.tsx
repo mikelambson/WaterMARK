@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import useNotificationStore from '@/lib/store/notifications';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/GeneralUtils';
 import { IoMdClose } from 'react-icons/io';
 import { useRoleStore } from './RoleContext';
 

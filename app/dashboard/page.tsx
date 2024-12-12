@@ -6,7 +6,7 @@ import GeoMapInterface from '@/components/cards/GeoMapInterface';
 import DistrictInfo from '@/features/dashboard/DistrictInfo';
 import { Button } from '@/components/ui/button';
 import LahontanLakeLevel from '@/components/cards/LahontanLevel';
-import { measurementNumber } from '@/lib/utils';
+import { measurementNumber } from '@/lib/utils/GeneralUtils';
 
 
 const CommandCenterPage: React.FC = () => {

@@ -18,7 +18,7 @@ import {
 import { DatePicker, TimePicker } from '@/features/delivery/schedule/DateTimePicker';
 import UpdateMeasurements from '@/features/delivery/schedule/UpdateMeasurements';
 import EndRun from './EndRun';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/GeneralUtils';
 
 interface Props {
     schedule: Schedule

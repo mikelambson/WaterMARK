@@ -8,7 +8,7 @@ import useQueryStore from '@/lib/store/analysisStore';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/GeneralUtils";
 import { Order } from '@/typings';
 
 

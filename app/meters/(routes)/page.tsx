@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react';
 import LakeForcast from "@/components/cards/LakeForcast";
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/GeneralUtils';
 
 interface Item {
   id: string;

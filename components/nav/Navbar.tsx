@@ -4,7 +4,7 @@ import LoadingAnimation from "@/features/loader/loading.module";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/GeneralUtils";
 
 import { FaBars, FaTimes, FaBell } from "react-icons/fa";
 import { BsDatabaseFillGear } from "react-icons/bs";

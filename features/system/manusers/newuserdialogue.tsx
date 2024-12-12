@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/GeneralUtils";
 import { useFetchRoles } from "@/services/auth/GetRoles";
 
 interface UserType {

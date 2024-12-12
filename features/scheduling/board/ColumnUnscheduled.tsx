@@ -8,7 +8,7 @@ import { ScrollArea } from "@/features/scheduling/board/scroll-area";
 // import { ScrollArea } from "@/components/ui/scroll-area";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import OrderCard from "@/app/scheduling/(routes)/board/OrderCard";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/GeneralUtils";
 import { useState } from "react";
 import PaginationComponent from "./getPage";
 

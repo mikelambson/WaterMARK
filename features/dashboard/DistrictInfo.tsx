@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import ComponentLoader from '@/features/loader/comploader.module';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { measurementNumber } from '@/lib/utils';
+import { measurementNumber } from '@/lib/utils/GeneralUtils';
 
 const DistrictInfo = () => {
     return ( 

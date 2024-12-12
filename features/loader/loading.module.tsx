@@ -1,7 +1,7 @@
 
 import styles from '@/features/loader/loading.module.css'
 import React from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/GeneralUtils';
 
 interface fadeOutProps {
     fadeOut?: boolean;

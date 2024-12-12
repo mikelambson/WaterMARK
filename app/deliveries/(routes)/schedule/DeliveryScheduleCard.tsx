@@ -2,7 +2,7 @@
 "use client"
 import React, { useState, useEffect, useRef } from "react";
 import { format, parseISO  } from 'date-fns';
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/GeneralUtils";
 import { Schedule } from "@/typings";
 import { Button } from "@/components/ui/button";
 import { 
@@ -28,7 +28,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { TbGridDots } from "react-icons/tb";
-import { formatPhoneNumber } from "@/lib/utils";
+import { formatPhoneNumber } from "@/lib/utils/GeneralUtils";
 import { FaHandHoldingWater } from "react-icons/fa";
 import { PiDotsThreeDuotone } from "react-icons/pi";
 import CancelOrder from "@/components/function/CancelOrder";

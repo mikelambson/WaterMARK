@@ -2,7 +2,7 @@
 import { useSchedulingStore } from '@/lib/store/schedulingStore';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/GeneralUtils";
 import { Order, Schedule, TypedColumn } from "@/typings";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import { useEffect } from 'react';

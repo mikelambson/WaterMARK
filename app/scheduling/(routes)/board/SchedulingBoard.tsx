@@ -15,7 +15,7 @@ import { TbRotateClockwise2 } from "react-icons/tb";
 import { handleOnDragEnd } from '@/features/scheduling/board/utils/handleOnDragEnd';
 
 import { toast } from "@/components/ui/use-toast";
-import { calculateNewScheduleTimestamp, cn } from "@/lib/utils";
+import { calculateNewScheduleTimestamp, cn } from "@/lib/utils/GeneralUtils";
 import ApiFetch from "@/lib/apiFetch";
 import { TypedUnscheduled } from "@/typings";
 
