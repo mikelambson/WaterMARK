@@ -1,19 +1,16 @@
-export function useThrottle<T extends (...args: any[]) => any>(func: T, limit: number): (...args: Parameters<T>) => void {
-    let lastFunc: ReturnType<typeof setTimeout>;
-    let lastRan: number;
+import { useRef } from "react";
 
-    return function(...args: Parameters<T>) {
-        if (!lastRan) {
-            func(...args);
-            lastRan = Date.now();
-        } else {
-            clearTimeout(lastFunc);
-            lastFunc = setTimeout(function() {
-                if ((Date.now() - lastRan) >= limit) {
-                    func(...args);
-                    lastRan = Date.now();
-                }
-            }, limit - (Date.now() - lastRan));
-        }
-    };
-}
+export const useThrottle = <T extends (...args: any[]) => void>(
+  callback: T,
+  delay: number
+): ((...args: Parameters<T>) => void) => {
+  const lastExecuted = useRef<number>(0);
+
+  return (...args: Parameters<T>) => {
+    const now = Date.now();
+    if (now - lastExecuted.current >= delay) {
+      callback(...args);
+      lastExecuted.current = now;
+    }
+  };
+};
