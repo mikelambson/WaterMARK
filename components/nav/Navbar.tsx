@@ -60,7 +60,7 @@ const Navbar = () => {
         {
             id: 11,
             link: "/admin",
-            allowedRoles: ["Staff", "Watermaster", "Analyst", "Senior Analyst", "Admin", "sysadmin"],
+            allowedRoles: ["Staff", "Watermaster", "Analyst", "Senior Analyst", "administrator", "sysadmin"],
             name: "Admin",
             children: ["/admin", "/admin/lookup", "/admin/callout", "/admin/adjustments", "/admin/post"],
         },
@@ -74,7 +74,7 @@ const Navbar = () => {
         {
             id: 33,
             link: "/scheduling",
-            allowedRoles: ["Watermaster", "Scheduler", "Admin", "sysadmin", "Senior Analyst"],
+            allowedRoles: ["Watermaster", "Scheduler", "administrator", "sysadmin", "Senior Analyst"],
             name: "Scheduling",
             children: [
                 "/scheduling",
@@ -89,14 +89,14 @@ const Navbar = () => {
         {
             id: 44,
             link: "/deliveries",
-            allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "Admin", "sysadmin", "Senior Analyst"],
+            allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "administrator", "sysadmin", "Senior Analyst"],
             name: "Deliveries",
             children: ["/deliveries", "/deliveries/schedule", "/deliveries/tasks", "/deliveries/ditchrider-schedule"],
         },
         {
             id: 55,
             link: "/analysis",
-            allowedRoles: ["Scheduler", "Admin", "sysadmin", "Analyst", "Senior Analyst", "Watermaster"],
+            allowedRoles: ["Scheduler", "administrator", "sysadmin", "Analyst", "Senior Analyst", "Watermaster"],
             name: "Analysis",
             children: [
                 "/analysis",
@@ -109,7 +109,7 @@ const Navbar = () => {
         {
             id: 66,
             link: "/reports",
-            allowedRoles: ["Watermaster", "Senior Analyst", "Admin", "sysadmin", "Staff"],
+            allowedRoles: ["Watermaster", "Senior Analyst", "administrator", "sysadmin", "Staff"],
             name: "Reports",
             children: ["/reports"],
         },
@@ -132,7 +132,7 @@ const Navbar = () => {
         {
             id: 88,
             link: "/system",
-            allowedRoles: ["Admin", "sysadmin"],
+            allowedRoles: ["administrator", "sysadmin"],
             name: "System Administration",
             children: ["/system", "/system/users", "/system/meters", "/testing", "/testing/login", "/testing/scheduling"],
         },
@@ -261,7 +261,7 @@ const Navbar = () => {
                     {/* Icon Links */}
                     {iconLinks.map(({ id, children }) => (
                         <div key={id} className={"inline-flex h-16 items-center pr-4 space-x-3"}>
-                            {["Admin", "sysadmin", "Watermaster", "Analyst", "ditchrider", "Anonymous"].some((role) => userRole.includes(role)) && (
+                            {["administrator", "sysadmin", "Watermaster", "Analyst", "ditchrider", "Anonymous"].some((role) => userRole.includes(role)) && (
                                 <Link href="/dashboard">
                                     <AiTwotoneDashboard
                                         size={30}
@@ -269,7 +269,7 @@ const Navbar = () => {
                                     />
                                 </Link>
                             )}
-                            {["Admin", "sysadmin"].some((role) => userRole.includes(role)) && (
+                            {["administrator", "sysadmin"].some((role) => userRole.includes(role)) && (
                                 <Link href="/system">
                                     <BsDatabaseFillGear
                                         size={24}

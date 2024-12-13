@@ -23,7 +23,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useDebounce } from '@/lib/utils/Debounce';
 
 interface UserTemplateProps {
-    userList: any[] | null;
+    userList?: any[] | null;
     error?: string | null;
     isError?: boolean;
     isLoading?: boolean;
