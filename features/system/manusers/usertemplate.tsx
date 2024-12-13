@@ -41,35 +41,46 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
     const debouncedFilters = useDebounce(filters, 300);
         
     // Filter logic
-    const filteredUserList = userList?.filter((user) => {
-        const matchesName = debouncedFilters.nameStartWith
-        ? [user.firstName, user.middleName || "", user.lastName].some((name) =>
-            name.toLowerCase().startsWith(debouncedFilters.nameStartWith.toLowerCase())
-            )
-        : true;
+    const filteredUserList = Array.isArray(userList) 
+        ? userList?.filter((user) => {
+            const matchesName = debouncedFilters.nameStartWith
+            ? [user.firstName, user.middleName || "", user.lastName].some((name) =>
+                name.toLowerCase().startsWith(debouncedFilters.nameStartWith.toLowerCase())
+                )
+            : true;
 
-        const matchesTitle = debouncedFilters.titleStartWith
-        ? user.title?.toLowerCase().startsWith(debouncedFilters.titleStartWith.toLowerCase())
-        : true;
+            const matchesTitle = debouncedFilters.titleStartWith
+            ? user.title?.toLowerCase().startsWith(debouncedFilters.titleStartWith.toLowerCase())
+            : true;
 
-        const matchesEmail = debouncedFilters.emailStartWith
-        ? user.email?.toLowerCase().startsWith(debouncedFilters.emailStartWith.toLowerCase())
-        : true;
+            const matchesEmail = debouncedFilters.emailStartWith
+            ? user.email?.toLowerCase().startsWith(debouncedFilters.emailStartWith.toLowerCase())
+            : true;
 
-        const matchesRole = debouncedFilters.roleName
-        ? user.roleId?.some(
-            (role: { role: { name: string } }) =>
-                role.role.name.toLowerCase() === debouncedFilters.roleName.toLowerCase()
-            )
-        : true;
+            const matchesRole = debouncedFilters.roleName
+            ? user.roleId?.some(
+                (role: { role: { name: string } }) =>
+                    role.role.name.toLowerCase() === debouncedFilters.roleName.toLowerCase()
+                )
+            : true;
 
-        return matchesName && matchesTitle && matchesEmail && matchesRole;
-    });
+            return matchesName && matchesTitle && matchesEmail && matchesRole;
+        })
+        : [];
 
     const handleFilterChange = (e: any) => {
         const { name, value } = e.target;
         setFilters(prev => ({ ...prev, [name]: value}));
     };
+
+    const getUniqueRoleNames = (list: any[] | undefined | null) => {
+        if (!Array.isArray(list)) return [];
+        return Array.from(new Set(
+          list.flatMap(user => user.roleId?.map((role: { role: { name: any; }; }) => role.role.name) || [])
+        ));
+    };
+      
+    const uniqueRoleNames = getUniqueRoleNames(userList);
 
     return (
         <div>
@@ -102,8 +113,8 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
                         <SelectValue placeholder="All Roles" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="">All Roles</SelectItem>
-                        {Array.from(new Set(userList?.flatMap(user => user.roleId.map((role: { role: { name: any; }; }) => role.role.name)))).map(name => (
+                    <SelectItem value="">All Roles</SelectItem>
+                        {uniqueRoleNames.map(name => (
                             <SelectItem key={name} value={name}>{name}</SelectItem>
                         ))}
                     </SelectContent>
@@ -145,19 +156,51 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent>
-                                <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3">
-                                    <Input className="col-span-1 bg-slate-400 dark:bg-card-foreground" type="login" placeholder={user.login} />
-                                    <Input className="col-span-2 bg-card-foreground" type="email" placeholder={user.email} />
-                                    <Input className="bg-card-foreground" type="first" placeholder={user.firstName} />
-                                    <Input className="bg-card-foreground" type="middle" placeholder={user.middleName} />
-                                    <Input className=" bg-card-foreground" type="last" placeholder={user.lastName} />
-                                    <Input className="bg-card-foreground" type="title" placeholder={user.title} />
+                                <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3 p-1">
+                                    <div className='col-span-1 relative'> 
+                                        <div className='absolute left-2 h-full flex items-center text-foreground/50'>
+                                            Login:
+                                        </div>
+                                        <Input className="pl-14 bg-slate-400 dark:bg-card-foreground" type="login" placeholder={user.login} />
+                                    </div>
+                                    <div className='col-span-2 relative'> 
+                                        <div className='absolute left-2 h-full flex items-center text-foreground/50'>
+                                            Email:
+                                        </div>
+                                        <Input className="pl-14 bg-card-foreground" type="email" placeholder={user.email ? user.email : "No Email"} />
+                                    </div>
+                                    <div className='relative'>
+                                        <div className='absolute left-2 h-full flex items-center text-foreground/50'>
+                                            First:
+                                        </div>
+                                        <Input className="pl-14 bg-card-foreground" type="first" placeholder={user.firstName} />
+                                    </div>
+                                    <div className='relative'>
+                                        <div className='absolute left-2 h-full flex items-center text-foreground/50 text-xs'>
+                                            Middle:
+                                        </div>
+                                        <Input className="pl-14 bg-card-foreground" type="middle" placeholder={user.middleName ? `${user.middleName}` : "N/A"} />
+                                    </div>
+                                    <div className='relative'>
+                                        <div className='absolute left-2 h-full flex items-center text-foreground/50'>
+                                            Last:
+                                        </div>
+                                        <Input className="pl-14 bg-card-foreground" type="last" placeholder={user.lastName} />
+                                    </div>
+                                    <div className='relative'>
+                                        <div className='absolute left-2 h-full flex items-center text-foreground/50'>
+                                            Title:
+                                        </div>
+                                        <Input className="pl-14 bg-card-foreground" type="title" placeholder={user.title} />
+                                    </div>
                                     <div className="border-b-2 col-span-3" />
-                                    <div className="col-span-3 flex sm:inline-flex items-center gap-3">
-                                        <p className="w-44 h-1 ">User Roles</p>
-                                        <div className="p-2 bg-card-foreground">
+                                    <div className="col-span-3 flex items-center gap-3">
+                                        <div className="text-right font-semibold">
+                                            <p>User</p><p>Roles</p>
+                                        </div>
+                                        <div className='flex gap-2'>
                                             {user.roleId.map((role: any) => (
-                                                <div key={role.role.id} className="pl-4">
+                                                <div key={role.role.id} className="p-2 border rounded-md">
                                                     <p className="text-sm">Name: {role.role.name}</p>
                                                     <p className="text-sm">Super Admin: {role.role.superAdmin ? 'Yes' : 'No'}</p>
                                                     <p className="text-sm">Protected: {role.role.protected ? 'Yes' : 'No'}</p>

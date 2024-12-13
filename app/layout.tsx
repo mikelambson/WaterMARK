@@ -34,7 +34,12 @@ export const metadata: Metadata = {
   icons: {
     icon: "favicon.ico",
   },
-  viewport: "width=device-width, initial-scale=1",
+};
+
+// Separate viewport export
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
