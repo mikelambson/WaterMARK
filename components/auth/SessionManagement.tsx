@@ -14,7 +14,7 @@ interface SessionProviderProps {
 
 interface SessionContextType {
   userSession: any; // Update with correct user type if needed
-  verifySession: () => void;
+  verifySession: () => Promise<UserSessionData | null>;
 }
 
 // Create a SessionContext
@@ -121,7 +121,7 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
 
   // Provide session data and actions to the rest of the app
   return (
-    <SessionContext.Provider value={{ userSession: userData, verifySession: verifySession.mutate }}>
+    <SessionContext.Provider value={{ userSession: userData, verifySession: async () => await verifySession.mutateAsync() }}>
       {typeof window !== 'undefined' && isLoading && <LoadingAnimation fadeOut={fadeOut} />}
       {children}
     </SessionContext.Provider>
