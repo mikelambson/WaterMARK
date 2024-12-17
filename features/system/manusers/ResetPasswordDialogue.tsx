@@ -75,7 +75,7 @@ const ResetPasswordDialogue = ({ user, manProtected, iconKey }: ResetPasswordDia
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <Input
-                    type="password"
+                    
                     placeholder="Confirm Password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
