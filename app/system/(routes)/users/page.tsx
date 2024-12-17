@@ -49,7 +49,7 @@ const ManageUsers = () => {
         </div>
       </div>
 
-      <UserTemplate userList={userList} isLoading={isLoading} isError={isError} error={error?.message} />
+      <UserTemplate userList={userList} isLoading={isLoading} isError={isError} error={error?.message} userType={userType} />
       
     </div>
   );

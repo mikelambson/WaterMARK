@@ -28,9 +28,10 @@ interface UserTemplateProps {
     error?: string | null;
     isError?: boolean;
     isLoading?: boolean;
+    userType?: string;
 }
 
-const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) => {
+const UserTemplate = ({userList, error, isError, isLoading, userType}: UserTemplateProps) => {
     const [filters, setFilters] = useState({
         nameStartWith: '',  
         titleStartWith: '',
@@ -101,25 +102,29 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
                         placeholder="Search by Email" 
                         className="w-48" 
                     />
-                    <Input 
-                        name="titleStartWith" 
-                        value={filters.titleStartWith}
-                        onChange={handleFilterChange} 
-                        placeholder="Search by Title" 
-                        className="w-48" 
-                    />
-                    
-                    <Select>
-                        <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
-                            <SelectValue placeholder="All Roles" />
-                        </SelectTrigger>
-                        <SelectContent>
-                        <SelectItem value="">All Roles</SelectItem>
-                            {uniqueRoleNames.map(name => (
-                                <SelectItem key={name} value={name}>{name}</SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+                    {userType === 'staff' && (
+                        <>
+                            <Input 
+                                name="titleStartWith" 
+                                value={filters.titleStartWith}
+                                onChange={handleFilterChange} 
+                                placeholder="Search by Title" 
+                                className="w-48" 
+                            />
+                            
+                            <Select>
+                                <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
+                                    <SelectValue placeholder="All Roles" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                <SelectItem value="">All Roles</SelectItem>
+                                    {uniqueRoleNames.map(name => (
+                                        <SelectItem key={name} value={name}>{name}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </>    
+                    )}
                 </div>
             </div>
             <div className={"border rounded-md bg-yellow-400"}>
