@@ -34,8 +34,7 @@ export const useAddNewUser = () => {
 
 const fetchUserData = async (userType?: string) => {
     const isStaff = userType === "staff";
-    console.log(userType);
-    let url = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/manage/users?tcid_staff=${isStaff}`;
+    let url = `${usersRoute}?tcid_staff=${isStaff}`;
 
     try {
         const response = await fetch(url, {
