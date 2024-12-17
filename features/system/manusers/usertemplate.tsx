@@ -29,16 +29,18 @@ interface UserTemplateProps {
     isError?: boolean;
     isLoading?: boolean;
     userType?: string;
+    manProtected?: boolean;
 }
 
-const UserTemplate = ({userList, error, isError, isLoading, userType}: UserTemplateProps) => {
+const UserTemplate = ({userList, error, isError, isLoading, userType, manProtected=false}: UserTemplateProps) => {
     const [filters, setFilters] = useState({
         nameStartWith: '',  
         titleStartWith: '',
         emailStartWith: '',
         roleName: '',
     });
-      
+    
+
     // Debounced filter values to delay the actual filter logic
     const debouncedFilters = useDebounce(filters, 300);
         
@@ -154,38 +156,56 @@ const UserTemplate = ({userList, error, isError, isLoading, userType}: UserTempl
                                             <div className='absolute left-2 h-full flex items-center text-foreground/50'>
                                                 Login:
                                             </div>
-                                            <Input className="pl-14 bg-slate-400 dark:bg-card-foreground" type="login" placeholder={user.login} />
+                                            <Input className="pl-14 bg-slate-400 dark:bg-card-foreground" type="login" placeholder={user.login} 
+                                            disabled={!manProtected && user.protected} 
+                                            />
                                         </div>
                                         <div className='col-span-2 relative'> 
                                             <div className='absolute left-2 h-full flex items-center text-foreground/50'>
                                                 Email:
                                             </div>
-                                            <Input className="pl-14 bg-card-foreground" type="email" placeholder={user.email ? user.email : "No Email"} />
+                                            <Input className="pl-14 bg-card-foreground" type="email" placeholder={user.email ? user.email : "No Email"}
+                                            disabled={!manProtected && user.protected} 
+                                            />
                                         </div>
                                         <div className='relative'>
                                             <div className='absolute left-2 h-full flex items-center text-foreground/50'>
                                                 First:
                                             </div>
-                                            <Input className="pl-14 bg-card-foreground" type="first" placeholder={user.firstName} />
+                                            <Input className="pl-14 bg-card-foreground" type="first" placeholder={user.firstName} 
+                                            disabled={!manProtected && user.protected} 
+                                            />
                                         </div>
                                         <div className='relative'>
                                             <div className='absolute left-2 h-full flex items-center text-foreground/50 text-xs'>
                                                 Middle:
                                             </div>
-                                            <Input className="pl-14 bg-card-foreground" type="middle" placeholder={user.middleName ? `${user.middleName}` : "N/A"} />
+                                            <Input className="pl-14 bg-card-foreground" type="middle" placeholder={user.middleName ? `${user.middleName}` : "N/A"}disabled={!manProtected && user.protected} 
+                                            />
                                         </div>
                                         <div className='relative'>
                                             <div className='absolute left-2 h-full flex items-center text-foreground/50'>
                                                 Last:
                                             </div>
-                                            <Input className="pl-14 bg-card-foreground" type="last" placeholder={user.lastName} />
+                                            <Input className="pl-14 bg-card-foreground" type="last" placeholder={user.lastName}
+                                            disabled={!manProtected && user.protected} 
+                                            />
                                         </div>
                                         <div className='relative'>
                                             <div className='absolute left-2 h-full flex items-center text-foreground/50'>
                                                 Title:
                                             </div>
-                                            <Input className="pl-14 bg-card-foreground" type="title" placeholder={user.title} />
+                                            <Input className="pl-14 bg-card-foreground" type="title" placeholder={user.title}
+                                            disabled={!manProtected && user.protected} 
+                                            />
                                         </div>
+                                            <div className='relative'>
+                                                <div className='absolute left-2 h-full flex items-center text-foreground/50 text-xs'>
+                                                    TmpPw:
+                                                </div>
+                                                <Input className="pl-14 bg-card-foreground" type="title" placeholder={user.temppass ? user.temppass : "No Temp Password"} disabled={!user.temppass || !manProtected && user.protected}
+                                                />
+                                            </div>
                                         <div className="border-b-2 col-span-3" />
                                         <div className="col-span-3 flex items-center gap-3">
                                             <div className="text-right font-semibold">
@@ -225,10 +245,10 @@ const UserTemplate = ({userList, error, isError, isLoading, userType}: UserTempl
                                             <p className="text-md font-semibold col-span-3">
                                                 Add/Remove Roles
                                             </p>
-                                            <Button>
+                                            <Button disabled={!manProtected && user.protected}>
                                                 <BsPersonVcard size={"24"} />
                                             </Button>
-                                            <Select>
+                                            <Select disabled={!manProtected && user.protected}>
                                                 <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
                                                     <SelectValue placeholder="User Role" />
                                                 </SelectTrigger>
@@ -246,19 +266,25 @@ const UserTemplate = ({userList, error, isError, isLoading, userType}: UserTempl
                                         </div>
                                         <div className="inline-flex items-center gap-2 justify-end">
                                             <p className="text-md font-semibold text-right">Manage Sessions</p>
-                                            <Button>
+                                            <Button disabled={!manProtected && user.protected}>
                                                 <MdResetTv size={"24"} />
                                             </Button>
                                         </div>
                                         <div className="inline-flex items-center gap-2 justify-end">
                                             <p className="text-md font-semibold text-right">Reset Password</p>
-                                            <Button variant={"destructive"}>
+                                            <Button 
+                                            variant={"destructive"}
+                                            disabled={!manProtected && user.protected}
+                                            >
                                                 <MdLockReset size={"28"} />
                                             </Button>
                                         </div>
                                         <div className="inline-flex flex-row-reverse lg:flex-row items-center gap-2 justify-end">
                                             <p className="text-md font-semibold text-right">Save Changes</p>
-                                            <Button variant={"default"}>
+                                            <Button 
+                                            variant={"default"}
+                                            disabled={!manProtected && user.protected}
+                                            >
                                                 <FaUserEdit size={"24"} />
                                             </Button>
                                         </div>

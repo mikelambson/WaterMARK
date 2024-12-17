@@ -64,7 +64,7 @@ const useAuthStore = create<AuthState>((set, get) => ({
         }
     
         try {
-            const logout = await LogoutUser(userData.id); 
+            const logout = await LogoutUser({userId: userData.id}); 
             set({ userData: null, isAuthenticated: false, roles: ["Anonymous"], permissions: [] });
     
             return logout;

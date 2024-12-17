@@ -10,9 +10,11 @@ import {
 import UserTemplate from "@/features/system/manusers/usertemplate";
 import NewUserDialogue from "@/features/system/manusers/newuserdialogue";
 import {useUserData} from "@/services/auth/UserManagementFunctions";
+import { useAuthStore } from "@/lib/store/authStore";
 
 
 const ManageUsers = () => {
+  const { userData } = useAuthStore();
   const [userType, setUserType] = useState("staff");
   const { data: userList, isLoading, isError, error, refetch } = useUserData(userType);
 
@@ -49,7 +51,7 @@ const ManageUsers = () => {
         </div>
       </div>
 
-      <UserTemplate userList={userList} isLoading={isLoading} isError={isError} error={error?.message} userType={userType} />
+      <UserTemplate userList={userList} isLoading={isLoading} isError={isError} error={error?.message} userType={userType} manProtected={userData?.roles.includes("sysadmin")} />
       
     </div>
   );
