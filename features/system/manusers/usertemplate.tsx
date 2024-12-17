@@ -15,13 +15,17 @@ import {
   } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FaUserEdit } from "react-icons/fa";
-import { MdLockReset } from "react-icons/md";
+import { FaKey, FaUserEdit } from "react-icons/fa";
 import { MdResetTv } from "react-icons/md";
 import { BsPersonVcard } from "react-icons/bs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDebounce } from '@/lib/utils/Debounce';
 import ComponentLoader from '@/features/loader/comploader.module';
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
+import { Session } from 'inspector';
+import SessionDialogue from '@/features/system/manusers/SessionDialogue';
+import { ResetPasswordDialogue } from '@/features/system/manusers/ResetPasswordDialogue';
 
 interface UserTemplateProps {
     userList?: any[] | null;
@@ -199,12 +203,19 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                             disabled={!manProtected && user.protected} 
                                             />
                                         </div>
-                                            <div className='relative'>
+                                            <div className='relative inline-flex gap-2'>
                                                 <div className='absolute left-2 h-full flex items-center text-foreground/50 text-xs'>
                                                     TmpPw:
                                                 </div>
                                                 <Input className="pl-14 bg-card-foreground" type="title" placeholder={user.temppass ? user.temppass : "No Temp Password"} disabled={!user.temppass || !manProtected && user.protected}
                                                 />
+                                                {user.temppass && (
+                                                    <ResetPasswordDialogue 
+                                                        user={user} 
+                                                        manProtected={manProtected}
+                                                        iconKey='key' 
+                                                    />
+                                                )}
                                             </div>
                                         <div className="border-b-2 col-span-3" />
                                         <div className="col-span-3 flex items-center gap-3">
@@ -228,16 +239,9 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                             {user.ActiveSessions.length > 0 && (
                                                 <div className="mt-2">
                                                 <h3 className="text-md font-semibold">Active Sessions:</h3>
-                                                {user.ActiveSessions.map((session: any) => (
-                                                    <div key={session.id} className="pl-4">
-                                                    <p className="text-sm">Session ID: {session.id}</p>
-                                                    <p className="text-sm">IP Address: {session.ipAddress}</p>
-                                                    <p className="text-sm">User Agent: {session.userAgent}</p>
-                                                    <p className="text-sm">Created At: {new Date(session.createdAt).toLocaleString()}</p>
-                                                    <p className="text-sm">Expires At: {new Date(session.expiresAt).toLocaleString()}</p>
-                                                    <p className="text-sm">Is Active: {session.isActive ? 'Yes' : 'No'}</p>
-                                                    </div>
-                                                ))}
+                                                    {user.ActiveSessions.map((session: any) => (
+                                                        <SessionDialogue session={session} />
+                                                    ))}
                                                 </div>
                                             )}
                                         </div>
@@ -272,12 +276,7 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                         </div>
                                         <div className="inline-flex items-center gap-2 justify-end">
                                             <p className="text-md font-semibold text-right">Reset Password</p>
-                                            <Button 
-                                            variant={"destructive"}
-                                            disabled={!manProtected && user.protected}
-                                            >
-                                                <MdLockReset size={"28"} />
-                                            </Button>
+                                            <ResetPasswordDialogue user={user} manProtected={manProtected} />
                                         </div>
                                         <div className="inline-flex flex-row-reverse lg:flex-row items-center gap-2 justify-end">
                                             <p className="text-md font-semibold text-right">Save Changes</p>
