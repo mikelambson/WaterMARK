@@ -21,6 +21,7 @@ import { MdResetTv } from "react-icons/md";
 import { BsPersonVcard } from "react-icons/bs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDebounce } from '@/lib/utils/Debounce';
+import ComponentLoader from '@/features/loader/comploader.module';
 
 interface UserTemplateProps {
     userList?: any[] | null;
@@ -84,201 +85,187 @@ const UserTemplate = ({userList, error, isError, isLoading}: UserTemplateProps) 
 
     return (
         <div>
-             <div className="mb-4 flex justify-around">
+            <div className="mb-4 flex justify-around">
                 <div className="flex flex-wrap gap-2">
-                <Input 
-                    name="nameStartWith" 
-                    value={filters.nameStartWith} 
-                    onChange={handleFilterChange} 
-                    placeholder="Seach by Name" 
-                    className="w-48" 
-                />
-                <Input 
-                    name="emailStartWith" 
-                    value={filters.emailStartWith} 
-                    onChange={handleFilterChange} 
-                    placeholder="Search by Email" 
-                    className="w-48" 
-                />
-                <Input 
-                    name="titleStartWith" 
-                    value={filters.titleStartWith}
-                    onChange={handleFilterChange} 
-                    placeholder="Search by Title" 
-                    className="w-48" 
-                />
-                
-                <Select>
-                    <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
-                        <SelectValue placeholder="All Roles" />
-                    </SelectTrigger>
-                    <SelectContent>
-                    <SelectItem value="">All Roles</SelectItem>
-                        {uniqueRoleNames.map(name => (
-                            <SelectItem key={name} value={name}>{name}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
+                    <Input 
+                        name="nameStartWith" 
+                        value={filters.nameStartWith} 
+                        onChange={handleFilterChange} 
+                        placeholder="Seach by Name" 
+                        className="w-48" 
+                    />
+                    <Input 
+                        name="emailStartWith" 
+                        value={filters.emailStartWith} 
+                        onChange={handleFilterChange} 
+                        placeholder="Search by Email" 
+                        className="w-48" 
+                    />
+                    <Input 
+                        name="titleStartWith" 
+                        value={filters.titleStartWith}
+                        onChange={handleFilterChange} 
+                        placeholder="Search by Title" 
+                        className="w-48" 
+                    />
+                    
+                    <Select>
+                        <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
+                            <SelectValue placeholder="All Roles" />
+                        </SelectTrigger>
+                        <SelectContent>
+                        <SelectItem value="">All Roles</SelectItem>
+                            {uniqueRoleNames.map(name => (
+                                <SelectItem key={name} value={name}>{name}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
                 </div>
-                </div>
-        <div className={"border rounded-md bg-yellow-400"}>
-            <Accordion type="single" collapsible className="px-4 bg-card rounded-md">
-            {isLoading ? ( 
-                <>
-                    <AccordionItem value="loading" className="py-2">
-                        <Skeleton className="px-4 py-1 w-full "><div>Loading...</div></Skeleton> 
-                    </AccordionItem>
-                    <AccordionItem value="loading" className="py-2">
-                        <Skeleton className="px-4 py-1 w-full h-8"></Skeleton>
-                    </AccordionItem>
-                    <AccordionItem value="loading" className="py-2">
-                        <Skeleton className="px-4 py-1 w-full h-8"></Skeleton>
-                    </AccordionItem>
-                    <AccordionItem value="loading" className="py-2">
-                        <Skeleton className="px-4 py-1 w-full h-8"></Skeleton>
-                    </AccordionItem>
-                    <AccordionItem value="loading" className="py-2">
-                        <Skeleton className="px-4 py-1 w-full h-8"></Skeleton>
-                    </AccordionItem>
-                </>
+            </div>
+            <div className={"border rounded-md bg-yellow-400"}>
+                {isLoading ? ( 
+                    // Loading Skeleton
+                        <Skeleton className="px-4 py-1 w-full h-96">
+                            <ComponentLoader />
+                        </Skeleton> 
+
                 ) : isError ? (
-                    <p className=" py-2">
-                        <span className="text-red-500 mr-2">Error:</span>
-                        {error}
-                    </p>
+                        <p className=" py-2">
+                            <span className="text-red-500 mr-2">Error:</span>
+                            {error}
+                        </p>
                 ) : userList ? (
-                <>
-                    {filteredUserList?.map((user) => (
-                        <AccordionItem value={user.id} key={user.id} className='py-1'>
-                            <AccordionTrigger className="font-semibold text-xl text-gray-100 p-1">
-                                <div className="text-left w-full rounded-md mr-2 text-card-alternative">
-                                {user.firstName} {user.middleName ? user.middleName + ' ' : ''}{user.lastName}
-                                </div>
-                            </AccordionTrigger>
-                            <AccordionContent>
-                                <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3 p-1">
-                                    <div className='col-span-1 relative'> 
-                                        <div className='absolute left-2 h-full flex items-center text-foreground/50'>
-                                            Login:
-                                        </div>
-                                        <Input className="pl-14 bg-slate-400 dark:bg-card-foreground" type="login" placeholder={user.login} />
+                    <Accordion type="single" collapsible className="px-4 bg-card rounded-md">
+                        {filteredUserList?.map((user) => (
+                            <AccordionItem value={user.id} key={user.id} className='py-1'>
+                                <AccordionTrigger className="font-semibold text-xl text-gray-100 p-1">
+                                    <div className="text-left w-full rounded-md mr-2 text-card-alternative">
+                                    {user.firstName} {user.middleName ? user.middleName + ' ' : ''}{user.lastName}
                                     </div>
-                                    <div className='col-span-2 relative'> 
-                                        <div className='absolute left-2 h-full flex items-center text-foreground/50'>
-                                            Email:
-                                        </div>
-                                        <Input className="pl-14 bg-card-foreground" type="email" placeholder={user.email ? user.email : "No Email"} />
-                                    </div>
-                                    <div className='relative'>
-                                        <div className='absolute left-2 h-full flex items-center text-foreground/50'>
-                                            First:
-                                        </div>
-                                        <Input className="pl-14 bg-card-foreground" type="first" placeholder={user.firstName} />
-                                    </div>
-                                    <div className='relative'>
-                                        <div className='absolute left-2 h-full flex items-center text-foreground/50 text-xs'>
-                                            Middle:
-                                        </div>
-                                        <Input className="pl-14 bg-card-foreground" type="middle" placeholder={user.middleName ? `${user.middleName}` : "N/A"} />
-                                    </div>
-                                    <div className='relative'>
-                                        <div className='absolute left-2 h-full flex items-center text-foreground/50'>
-                                            Last:
-                                        </div>
-                                        <Input className="pl-14 bg-card-foreground" type="last" placeholder={user.lastName} />
-                                    </div>
-                                    <div className='relative'>
-                                        <div className='absolute left-2 h-full flex items-center text-foreground/50'>
-                                            Title:
-                                        </div>
-                                        <Input className="pl-14 bg-card-foreground" type="title" placeholder={user.title} />
-                                    </div>
-                                    <div className="border-b-2 col-span-3" />
-                                    <div className="col-span-3 flex items-center gap-3">
-                                        <div className="text-right font-semibold">
-                                            <p>User</p><p>Roles</p>
-                                        </div>
-                                        <div className='flex gap-2'>
-                                            {user.roleId.map((role: any) => (
-                                                <div key={role.role.id} className="p-2 border rounded-md">
-                                                    <p className="text-sm">Name: {role.role.name}</p>
-                                                    <p className="text-sm">Super Admin: {role.role.superAdmin ? 'Yes' : 'No'}</p>
-                                                    <p className="text-sm">Protected: {role.role.protected ? 'Yes' : 'No'}</p>
-                                                    <p className="text-sm">Assigned By: {role.assignedBy}</p>
-                                                    <p className="text-sm">Assigned At: {new Date(role.assignedAt).toLocaleString()}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="border-b-2 col-span-3">
-                                        {/* Active Sessions */}
-                                        {user.ActiveSessions.length > 0 && (
-                                            <div className="mt-2">
-                                            <h3 className="text-md font-semibold">Active Sessions:</h3>
-                                            {user.ActiveSessions.map((session: any) => (
-                                                <div key={session.id} className="pl-4">
-                                                <p className="text-sm">Session ID: {session.id}</p>
-                                                <p className="text-sm">IP Address: {session.ipAddress}</p>
-                                                <p className="text-sm">User Agent: {session.userAgent}</p>
-                                                <p className="text-sm">Created At: {new Date(session.createdAt).toLocaleString()}</p>
-                                                <p className="text-sm">Expires At: {new Date(session.expiresAt).toLocaleString()}</p>
-                                                <p className="text-sm">Is Active: {session.isActive ? 'Yes' : 'No'}</p>
-                                                </div>
-                                            ))}
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3 p-1">
+                                        <div className='col-span-1 relative'> 
+                                            <div className='absolute left-2 h-full flex items-center text-foreground/50'>
+                                                Login:
                                             </div>
-                                        )}
+                                            <Input className="pl-14 bg-slate-400 dark:bg-card-foreground" type="login" placeholder={user.login} />
+                                        </div>
+                                        <div className='col-span-2 relative'> 
+                                            <div className='absolute left-2 h-full flex items-center text-foreground/50'>
+                                                Email:
+                                            </div>
+                                            <Input className="pl-14 bg-card-foreground" type="email" placeholder={user.email ? user.email : "No Email"} />
+                                        </div>
+                                        <div className='relative'>
+                                            <div className='absolute left-2 h-full flex items-center text-foreground/50'>
+                                                First:
+                                            </div>
+                                            <Input className="pl-14 bg-card-foreground" type="first" placeholder={user.firstName} />
+                                        </div>
+                                        <div className='relative'>
+                                            <div className='absolute left-2 h-full flex items-center text-foreground/50 text-xs'>
+                                                Middle:
+                                            </div>
+                                            <Input className="pl-14 bg-card-foreground" type="middle" placeholder={user.middleName ? `${user.middleName}` : "N/A"} />
+                                        </div>
+                                        <div className='relative'>
+                                            <div className='absolute left-2 h-full flex items-center text-foreground/50'>
+                                                Last:
+                                            </div>
+                                            <Input className="pl-14 bg-card-foreground" type="last" placeholder={user.lastName} />
+                                        </div>
+                                        <div className='relative'>
+                                            <div className='absolute left-2 h-full flex items-center text-foreground/50'>
+                                                Title:
+                                            </div>
+                                            <Input className="pl-14 bg-card-foreground" type="title" placeholder={user.title} />
+                                        </div>
+                                        <div className="border-b-2 col-span-3" />
+                                        <div className="col-span-3 flex items-center gap-3">
+                                            <div className="text-right font-semibold">
+                                                <p>User</p><p>Roles</p>
+                                            </div>
+                                            <div className='flex gap-2'>
+                                                {user.roleId.map((role: any) => (
+                                                    <div key={role.role.id} className="p-2 border rounded-md">
+                                                        <p className="text-sm">Name: {role.role.name}</p>
+                                                        <p className="text-sm">Super Admin: {role.role.superAdmin ? 'Yes' : 'No'}</p>
+                                                        <p className="text-sm">Protected: {role.role.protected ? 'Yes' : 'No'}</p>
+                                                        <p className="text-sm">Assigned By: {role.assignedBy}</p>
+                                                        <p className="text-sm">Assigned At: {new Date(role.assignedAt).toLocaleString()}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="border-b-2 col-span-3">
+                                            {/* Active Sessions */}
+                                            {user.ActiveSessions.length > 0 && (
+                                                <div className="mt-2">
+                                                <h3 className="text-md font-semibold">Active Sessions:</h3>
+                                                {user.ActiveSessions.map((session: any) => (
+                                                    <div key={session.id} className="pl-4">
+                                                    <p className="text-sm">Session ID: {session.id}</p>
+                                                    <p className="text-sm">IP Address: {session.ipAddress}</p>
+                                                    <p className="text-sm">User Agent: {session.userAgent}</p>
+                                                    <p className="text-sm">Created At: {new Date(session.createdAt).toLocaleString()}</p>
+                                                    <p className="text-sm">Expires At: {new Date(session.expiresAt).toLocaleString()}</p>
+                                                    <p className="text-sm">Is Active: {session.isActive ? 'Yes' : 'No'}</p>
+                                                    </div>
+                                                ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="col-span-3 inline-flex items-center gap-2 justify-end">
+                                            <p className="text-md font-semibold col-span-3">
+                                                Add/Remove Roles
+                                            </p>
+                                            <Button>
+                                                <BsPersonVcard size={"24"} />
+                                            </Button>
+                                            <Select>
+                                                <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
+                                                    <SelectValue placeholder="User Role" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="sysadmin">Sysadmin</SelectItem>
+                                                    <SelectItem value="watermaster">Watermaster</SelectItem>
+                                                    <SelectItem value="senioranalyst">Senior Analyst</SelectItem>
+                                                    <SelectItem value="analyst">Analyst</SelectItem>
+                                                    <SelectItem value="scheduler">Scheduler</SelectItem>
+                                                    <SelectItem value="lead">Lead</SelectItem>
+                                                    <SelectItem value="ditchrider">Ditchrider</SelectItem>
+                                                    <SelectItem value="staff">Staff</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                        <div className="inline-flex items-center gap-2 justify-end">
+                                            <p className="text-md font-semibold text-right">Manage Sessions</p>
+                                            <Button>
+                                                <MdResetTv size={"24"} />
+                                            </Button>
+                                        </div>
+                                        <div className="inline-flex items-center gap-2 justify-end">
+                                            <p className="text-md font-semibold text-right">Reset Password</p>
+                                            <Button variant={"destructive"}>
+                                                <MdLockReset size={"28"} />
+                                            </Button>
+                                        </div>
+                                        <div className="inline-flex flex-row-reverse lg:flex-row items-center gap-2 justify-end">
+                                            <p className="text-md font-semibold text-right">Save Changes</p>
+                                            <Button variant={"default"}>
+                                                <FaUserEdit size={"24"} />
+                                            </Button>
+                                        </div>
                                     </div>
-                                    <div className="col-span-3 inline-flex items-center gap-2 justify-end">
-                                        <p className="text-md font-semibold col-span-3">
-                                            Add/Remove Roles
-                                        </p>
-                                        <Button>
-                                            <BsPersonVcard size={"24"} />
-                                        </Button>
-                                        <Select>
-                                            <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
-                                                <SelectValue placeholder="User Role" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="sysadmin">Sysadmin</SelectItem>
-                                                <SelectItem value="watermaster">Watermaster</SelectItem>
-                                                <SelectItem value="senioranalyst">Senior Analyst</SelectItem>
-                                                <SelectItem value="analyst">Analyst</SelectItem>
-                                                <SelectItem value="scheduler">Scheduler</SelectItem>
-                                                <SelectItem value="lead">Lead</SelectItem>
-                                                <SelectItem value="ditchrider">Ditchrider</SelectItem>
-                                                <SelectItem value="staff">Staff</SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                    <div className="inline-flex items-center gap-2 justify-end">
-                                        <p className="text-md font-semibold text-right">Manage Sessions</p>
-                                        <Button>
-                                            <MdResetTv size={"24"} />
-                                        </Button>
-                                    </div>
-                                    <div className="inline-flex items-center gap-2 justify-end">
-                                        <p className="text-md font-semibold text-right">Reset Password</p>
-                                        <Button variant={"destructive"}>
-                                            <MdLockReset size={"28"} />
-                                        </Button>
-                                    </div>
-                                    <div className="inline-flex flex-row-reverse lg:flex-row items-center gap-2 justify-end">
-                                        <p className="text-md font-semibold text-right">Save Changes</p>
-                                        <Button variant={"default"}>
-                                            <FaUserEdit size={"24"} />
-                                        </Button>
-                                    </div>
-                                </div>
-                            </AccordionContent>
-                        </AccordionItem>
-                    ))}
-                </>
-            ) : (
-                <p>Loading...</p>
-            )}
-            </Accordion>
-        </div>
+                                </AccordionContent>
+                            </AccordionItem>
+                        ))}
+                    </Accordion>
+                ) : (
+                    <p>Loading...</p>
+                )}
+            </div>
         </div>
     )
 }

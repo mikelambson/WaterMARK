@@ -14,10 +14,13 @@ import {useUserData} from "@/services/auth/UserManagementFunctions";
 
 const ManageUsers = () => {
   const [userType, setUserType] = useState("staff");
-  const { data: userList, isLoading, isError, error } = useUserData();
+  const { data: userList, isLoading, isError, error, refetch } = useUserData(userType);
 
   const handleUserType = (type: string) => setUserType(type);
-
+  
+  // useEffect(() => {
+  //   refetch();
+  // }, [userType, refetch]);
 
   return (
     <div className="p-2 h-full">
