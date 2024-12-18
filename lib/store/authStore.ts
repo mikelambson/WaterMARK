@@ -13,7 +13,7 @@ interface AuthState {
     permissions: string[];
     error: string | null;
     userLogin: (login: string, password: string) => Promise<UserSessionData | null>;
-    userLogout: (byUserId?: boolean, sessionId?: string) => Promise<void>;
+    userLogout: (options?: { byUserId?: boolean; sessionId?: string }) => Promise<void>;
     checkSession: () => Promise<UserSessionData | null>;
     setUser: (arg0: UserSessionData) => void;
     clearUser: () => void;

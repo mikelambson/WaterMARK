@@ -25,6 +25,8 @@ import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/comp
 import { Dialog, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import SessionDialogue from '@/features/system/manusers/SessionDialogue';
 import { ResetPasswordDialogue } from '@/features/system/manusers/ResetPasswordDialogue';
+import { LogoutUser } from '@/lib/auth/UserLogout';
+import LogoutAllSessionsDialogue from './LogoutAllSessionsDialogue';
 
 interface UserTemplateProps {
     userList?: any[] | null;
@@ -273,10 +275,18 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                             </Select>
                                         </div>
                                         <div className="inline-flex items-center gap-2 justify-end">
-                                            <p className="text-md font-semibold text-right">Manage Sessions</p>
-                                            <Button disabled={!manProtected && user.protected}>
+                                            <p className="text-md font-semibold text-right">Logout All Sessions</p>
+                                            {/* <Button 
+                                                disabled={!manProtected && user.protected}
+                                                onClick={() => {
+                                                    alert('Are you sure you wish to logout all sessions?');
+                                                    LogoutUser({ userId: user.id });
+                                                    onRefetch();
+                                                }}
+                                            >
                                                 <MdResetTv size={"24"} />
-                                            </Button>
+                                            </Button> */}
+                                            <LogoutAllSessionsDialogue logoutUserId={user.id} onRefresh={onRefetch} />
                                         </div>
                                         <div className="inline-flex items-center gap-2 justify-end">
                                             <p className="text-md font-semibold text-right">Reset Password</p>

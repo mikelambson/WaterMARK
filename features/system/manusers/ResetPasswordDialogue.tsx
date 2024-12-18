@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Dialog, DialogTrigger, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogTrigger, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { MdLockReset } from "react-icons/md"
@@ -74,17 +74,18 @@ const ResetPasswordDialogue = ({ user, manProtected, iconKey }: ResetPasswordDia
                     {iconKey === 'key' ? <FaKey size={"28"} /> : <MdLockReset size={"28"} />}
                 </Button>
             </DialogTrigger>
-            <DialogHeader>
-                <DialogTitle>
-                <span className="text-lg font-semibold">
-                    {iconKey === 'key' ? 'Change Password' : 'Reset Password'}
-                </span>
-                </DialogTitle>
-            </DialogHeader>
             <DialogContent className='w-96'>
-                <h1 className="text-lg font-semibold">
-                    {iconKey === 'key' ? 'Change Password' : 'Reset Password'}
-                </h1>
+                <DialogHeader>
+                    <DialogTitle>
+                    <span className="text-lg font-semibold">
+                        {iconKey === 'key' ? 'Change Password' : 'Reset Password'}
+                    </span>
+                    </DialogTitle>
+                    <DialogDescription>
+                        {user.protected ? "Protected" : "Not Protected"}
+                    </DialogDescription>
+                </DialogHeader>
+                
                 <p>
                   Are you sure you want to reset the password for {user.firstName}{' '}
                   {user.middleName ? user.middleName + ' ' : ''}{user.lastName}?
