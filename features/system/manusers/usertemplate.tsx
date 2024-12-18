@@ -157,7 +157,7 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                     </div>
                                 </AccordionTrigger>
                                 <AccordionContent>
-                                    <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3 p-1">
+                                    <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3 px-1 pt-1 -mb-2">
                                         <div className='col-span-1 relative'> 
                                             <div className='absolute left-2 h-full flex items-center text-foreground/50'>
                                                 Login:
@@ -236,10 +236,11 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 ))}
                                             </div>
                                         </div>
+                                        <div className="border-b-2 col-span-3" />
                                         <div className="border-b-2 col-span-3">
                                             {/* Active Sessions */}
-                                            {user.ActiveSessions.length > 0 && (
-                                                <div className="mt-2">
+                                            {user.ActiveSessions.length > 0 ? (
+                                                <div className="">
                                                 <h3 className="text-md font-semibold">Active Sessions:</h3>
                                                     {user.ActiveSessions.map((session: any) => (
                                                         <SessionDialogue 
@@ -249,6 +250,10 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                         />
                                                     ))}
                                                 </div>
+                                            ) : ( 
+                                                <h3 className=''>
+                                                    No Active Sessions
+                                                </h3> 
                                             )}
                                         </div>
                                         <div className="col-span-3 inline-flex items-center gap-2 justify-end">
@@ -276,16 +281,7 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                         </div>
                                         <div className="inline-flex items-center gap-2 justify-end">
                                             <p className="text-md font-semibold text-right">Logout All Sessions</p>
-                                            {/* <Button 
-                                                disabled={!manProtected && user.protected}
-                                                onClick={() => {
-                                                    alert('Are you sure you wish to logout all sessions?');
-                                                    LogoutUser({ userId: user.id });
-                                                    onRefetch();
-                                                }}
-                                            >
-                                                <MdResetTv size={"24"} />
-                                            </Button> */}
+                                            
                                             <LogoutAllSessionsDialogue logoutUserId={user.id} onRefresh={onRefetch} />
                                         </div>
                                         <div className="inline-flex items-center gap-2 justify-end">
@@ -301,6 +297,7 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 <FaUserEdit size={"24"} />
                                             </Button>
                                         </div>
+                                        <div className="border-b-2 col-span-3 -mb-2" />
                                     </div>
                                 </AccordionContent>
                             </AccordionItem>

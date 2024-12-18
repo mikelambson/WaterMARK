@@ -46,13 +46,11 @@ const UserLoginForm = () => {
     });
 
     const onSubmit = async (data: LoginFormValues) => {
-        console.log('Submitting form', data);
+        
         try {
             const user = await mutation.mutateAsync(data); 
             const roles = user?.roles && user.roles.length > 0 ? user.roles.map((role: any) => role) : ["Anonymous"];
             const role = roles[0]
-            console.log('User logged in:', user);
-            console.log('User roles:', user?.roles);
             setUserRole([role])
             toast({
                 title: "Login Status",
