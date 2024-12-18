@@ -47,7 +47,11 @@ const ManageUsers = () => {
 
         {/* Add User Button */}
         <div className="md:col-start-3 md:justify-self-end">
-          <NewUserDialogue userType={userType} />
+          <NewUserDialogue 
+            userType={userType} 
+            manProtected={userData?.roles.includes("sysadmin")}
+            onRefetch={refetch}
+          />
         </div>
       </div>
 
