@@ -240,14 +240,14 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 <div className="mt-2">
                                                 <h3 className="text-md font-semibold">Active Sessions:</h3>
                                                     {user.ActiveSessions.map((session: any) => (
-                                                        <SessionDialogue session={session} />
+                                                        <SessionDialogue key={user.id} session={session} />
                                                     ))}
                                                 </div>
                                             )}
                                         </div>
                                         <div className="col-span-3 inline-flex items-center gap-2 justify-end">
                                             <p className="text-md font-semibold col-span-3">
-                                                Add/Remove Roles
+                                                Add/Remove Roles 
                                             </p>
                                             <Button disabled={!manProtected && user.protected}>
                                                 <BsPersonVcard size={"24"} />

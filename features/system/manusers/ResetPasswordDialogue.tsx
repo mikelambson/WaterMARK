@@ -1,16 +1,19 @@
 import { useState } from "react"
-import { Dialog, DialogTrigger, DialogContent, DialogFooter } from "@/components/ui/dialog"
+import { Dialog, DialogTrigger, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { MdLockReset } from "react-icons/md"
 import { FaKey} from "react-icons/fa";
 import { useRandomPassword } from "@/lib/utils/RandomPassword"
+import { useSaveUser } from "@/services/auth/UpdateUser"
 
 interface User {
+    id: string;
     firstName: string;
     middleName?: string;
     lastName: string;
     protected: boolean;
+    temppass?: string;
 }
 
 interface ResetPasswordDialogueProps {
@@ -21,6 +24,7 @@ interface ResetPasswordDialogueProps {
 
 const ResetPasswordDialogue = ({ user, manProtected, iconKey }: ResetPasswordDialogueProps) => {
     const [open, setOpen] = useState(false);
+    const { mutate: saveUser } = useSaveUser();
 
     const {
         password,
@@ -41,9 +45,19 @@ const ResetPasswordDialogue = ({ user, manProtected, iconKey }: ResetPasswordDia
             return;
         }
 
-        // If we get here, passwords match and fields are not empty.
-        // Perform your reset password action here:
-        // onResetPassword(password, confirmPassword);
+         // Perform the update using the mutation
+         saveUser(
+            { id: user.id, temppass: password }, // Pass updated fields to the mutation
+            {
+                onSuccess: () => {
+                    // Close the dialog on success
+                    setOpen(false);
+                },
+                onError: (error) => {
+                    alert(`Failed to reset password: ${error.message}`);
+                },
+            }
+        );
         
         // After successful action, close the dialog
         setOpen(false);
@@ -60,6 +74,13 @@ const ResetPasswordDialogue = ({ user, manProtected, iconKey }: ResetPasswordDia
                     {iconKey === 'key' ? <FaKey size={"28"} /> : <MdLockReset size={"28"} />}
                 </Button>
             </DialogTrigger>
+            <DialogHeader>
+                <DialogTitle>
+                <span className="text-lg font-semibold">
+                    {iconKey === 'key' ? 'Change Password' : 'Reset Password'}
+                </span>
+                </DialogTitle>
+            </DialogHeader>
             <DialogContent className='w-96'>
                 <h1 className="text-lg font-semibold">
                     {iconKey === 'key' ? 'Change Password' : 'Reset Password'}
