@@ -51,7 +51,14 @@ const ManageUsers = () => {
         </div>
       </div>
 
-      <UserTemplate userList={userList} isLoading={isLoading} isError={isError} error={error?.message} userType={userType} manProtected={userData?.roles.includes("sysadmin")} />
+      <UserTemplate 
+        userList={userList} 
+        isLoading={isLoading} 
+        isError={isError} error={error?.message} 
+        userType={userType} 
+        manProtected={userData?.roles.includes("sysadmin")} 
+        onRefetch={refetch}
+        />
       
     </div>
   );

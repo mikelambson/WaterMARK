@@ -2,6 +2,7 @@
 import { create } from 'zustand';
 import { UserSessionData, fetchUserSession, verifySession } from '@/lib/auth/fetchUserSession';
 import { LogoutUser } from '@/lib/auth/UserLogout';
+import { boolean } from 'zod';
 
 
 
@@ -12,7 +13,7 @@ interface AuthState {
     permissions: string[];
     error: string | null;
     userLogin: (login: string, password: string) => Promise<UserSessionData | null>;
-    userLogout: () => Promise<void>;
+    userLogout: (byUserId?: boolean, sessionId?: string) => Promise<void>;
     checkSession: () => Promise<UserSessionData | null>;
     setUser: (arg0: UserSessionData) => void;
     clearUser: () => void;
@@ -56,23 +57,39 @@ const useAuthStore = create<AuthState>((set, get) => ({
         }
     },
 
-    userLogout: async () => {
-        const { userData } = get(); // Assuming you have user in the Zustand store
+    userLogout: async ({ byUserId, sessionId }: { byUserId?: boolean; sessionId?: string } = {}) => {
+        const { userData } = get(); 
         if (!userData || !userData.id) {
             console.error("Logout failed: No user found.");
             return;
         }
     
         try {
-            const logout = await LogoutUser({userId: userData.id}); 
-            set({ userData: null, isAuthenticated: false, roles: ["Anonymous"], permissions: [] });
+            let logout;
+            
+            switch (true) {
+                case !!sessionId:
+                    // Logout by sessionId
+                    logout = await LogoutUser({ sessionId });
+                    break;
+                case byUserId === true:
+                    // Logout by userId
+                    logout = await LogoutUser({ userId: userData.id });
+                    break;
+                default:
+                    // Logout current active session
+                    logout = await LogoutUser({ activeSession: true });
+            }
     
+            set({ userData: null, isAuthenticated: false, roles: ["Anonymous"], permissions: [] });
             return logout;
         } catch (error) {
             console.error("Logout failed:", error);
             set({ error: 'Logout failed. Please try again.' });
         }
     },
+    
+    
     
     // Function to regen session
     checkSession: async (): Promise<UserSessionData> => {

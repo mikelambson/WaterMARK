@@ -1,24 +1,36 @@
-interface LogoutUser {
+interface LogoutOptions {
     userId?: string;
     sessionId?: string;
+    activeSession?: boolean;
 }
 
-export const LogoutUser = async ( { userId, sessionId }:LogoutUser ) => {
+export const LogoutUser = async ({ userId, sessionId, activeSession }: LogoutOptions) => {
+  const loginRoute = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/logout`;
+  
+  let body: any = {};
+  
+  if (activeSession === true) {
+    body = { activeSession: true };
+  } else if (userId) {
+    body = { userId };
+  } else if (sessionId) {
+    body = { sessionId };
+  }
 
-    const loginRoute = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/logout`
+  const response = await fetch(loginRoute, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    credentials: 'include' // If you need cookies to be included
+  });
 
-    const response = await fetch(loginRoute, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId}),
-    });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Logout failed');
+  }
 
-    if (!response.ok) {
-        throw new Error('Logout failed'); // Throw an error if the response is not ok
-    }
-
-    const data = await response.json();
-    return data; // Return user data
+  const data = await response.json();
+  return data; // Return response data
 };

@@ -19,7 +19,7 @@ import { LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { MdHistory } from "react-icons/md";
 import { useRoleStore } from "@/components/nav/RoleContext";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 
 

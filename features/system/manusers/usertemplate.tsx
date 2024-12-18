@@ -23,7 +23,6 @@ import { useDebounce } from '@/lib/utils/Debounce';
 import ComponentLoader from '@/features/loader/comploader.module';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Dialog, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
-import { Session } from 'inspector';
 import SessionDialogue from '@/features/system/manusers/SessionDialogue';
 import { ResetPasswordDialogue } from '@/features/system/manusers/ResetPasswordDialogue';
 
@@ -34,9 +33,10 @@ interface UserTemplateProps {
     isLoading?: boolean;
     userType?: string;
     manProtected?: boolean;
+    onRefetch: () => void;
 }
 
-const UserTemplate = ({userList, error, isError, isLoading, userType, manProtected=false}: UserTemplateProps) => {
+const UserTemplate = ({userList, error, isError, isLoading, userType, manProtected=false, onRefetch}: UserTemplateProps) => {
     const [filters, setFilters] = useState({
         nameStartWith: '',  
         titleStartWith: '',
@@ -240,7 +240,11 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 <div className="mt-2">
                                                 <h3 className="text-md font-semibold">Active Sessions:</h3>
                                                     {user.ActiveSessions.map((session: any) => (
-                                                        <SessionDialogue key={user.id} session={session} />
+                                                        <SessionDialogue 
+                                                            key={session.id} 
+                                                            session={session} 
+                                                            onRefetch={onRefetch} 
+                                                        />
                                                     ))}
                                                 </div>
                                             )}
