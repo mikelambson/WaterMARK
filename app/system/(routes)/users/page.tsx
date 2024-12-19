@@ -20,9 +20,6 @@ const ManageUsers = () => {
 
   const handleUserType = (type: string) => setUserType(type);
   
-  // useEffect(() => {
-  //   refetch();
-  // }, [userType, refetch]);
 
   return (
     <div className="p-2 h-full">
