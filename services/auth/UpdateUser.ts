@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/components/ui/use-toast'; 
 
 interface User {
     id?: string; // Optional for new users
@@ -7,13 +7,13 @@ interface User {
     password?: string; // Optional for updates
     email?: string; // Optional
     firstName?: string; // Optional
-    middleName?: string; // Optional
+    middleName?: string | null; // Optional
     lastName?: string; // Optional
-    title?: string; // Optional
+    title?: string | null; // Optional
     tcid_staff?: boolean; // Optional
     active?: boolean; // Optional
     temppass?: string; // Optional
-    roleId?: string; // Optional
+    roleId?: string | null; // Optional
 }
 
 const usersRoute = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/manage/users`;

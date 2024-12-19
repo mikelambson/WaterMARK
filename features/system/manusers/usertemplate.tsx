@@ -25,8 +25,7 @@ import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/comp
 import { Dialog, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import SessionDialogue from '@/features/system/manusers/SessionDialogue';
 import { ResetPasswordDialogue } from '@/features/system/manusers/ResetPasswordDialogue';
-import { LogoutUser } from '@/lib/auth/UserLogout';
-import LogoutAllSessionsDialogue from './LogoutAllSessionsDialogue';
+import LogoutAllSessionsDialogue from '@/features/system/manusers/LogoutAllSessionsDialogue';
 
 interface UserTemplateProps {
     userList?: any[] | null;

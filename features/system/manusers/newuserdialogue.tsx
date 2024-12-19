@@ -25,12 +25,12 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils/GeneralUtils";
 import { useFetchRoles } from "@/services/auth/GetRoles";
-import { fi } from "date-fns/locale";
+import { useSaveUser } from "@/services/auth/UpdateUser"
 
 interface UserType {
     userType: string;
     manProtected?: boolean;
-    onRefetch?: () => void;
+    onRefetch: () => void;
 }
 
 const newUserSchema = z.object({
@@ -51,7 +51,7 @@ type NewUserFormValues = z.infer<typeof newUserSchema>;
 
 const NewUserDialogue = ({ userType, manProtected, onRefetch }: UserType) => {
     const [open, setOpen] = useState(false);
-
+    const { mutate: saveUser } = useSaveUser();
     const isStaff: boolean = userType === "staff";
     const { data: roles } = useFetchRoles();
 
@@ -122,8 +122,23 @@ const NewUserDialogue = ({ userType, manProtected, onRefetch }: UserType) => {
     }
 
     const onSubmit = (data: NewUserFormValues) => {
-        console.log("Form Data:", data);
-        // handle submission (e.g., calling an API)
+        const payload = {
+            login: data.login,
+            password: data.temppass, // Use `temppass` as the initial password
+            firstName: data.firstName,
+            middleName: data.middleName || null,
+            lastName: data.lastName,
+            email: data.email,
+            title: data.title || null,
+            tcid_staff: data.tcid_staff,
+            protected: data.protected,
+            active: data.active,
+            temppass: data.temppass,
+            roleId: data.roleId || null,
+        };
+        saveUser(payload);
+        onRefetch()
+        setOpen(false);
     };
 
     return (
