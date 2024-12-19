@@ -24,14 +24,16 @@ export default function Login() {
     // Define an array of role options
     const roleOptions = [
         "Session Roles",
-        "Admin",
-        "Staff",
+        "sysadmin",
+        "administrator",
         "Watermaster",
         "Scheduler",
         "Ditchrider",
         "Senior Analyst",
         "Analyst",
+        "Staff",
         "Anonymous",
+        
         
         // Add other roles as needed
     ];
@@ -56,7 +58,7 @@ export default function Login() {
                 </h3>
             
             </div>
-            { sessionRoles.some((role) => role === "admin" || "sysadmin") ? (
+            {userData?.permissions.some((permission) => permission === "superAdmin") ? (
                 <div className="mt-24 flex flex-col gap-2 text-center justify-center items-center">
                     <h3 className="text-xl">View as:</h3>
                     <Select onValueChange={handleRoleChange}>
@@ -76,7 +78,7 @@ export default function Login() {
                     </Select>
                     
                 </div>
-            ) : null}
+            ) : null }
             <div className="mt-8 flex justify-center">
                 <h3 className="text-center">
                     Effective Permissions From Session:

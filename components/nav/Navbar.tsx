@@ -44,7 +44,7 @@ const Navbar = () => {
     const defaultbg = "bg-slate-800/95 dark:bg-slate-800";
     const onlineScheduleName =
         Array.isArray(userRole) &&
-        userRole.some((role) => role !== "Anonymous" && role !== "OtherSpecifiedRole")
+        userRole.some((role) => role !== "Anonymous" && role !== "sysadmin")
             ? "Schedule"
             : "Public";
 
@@ -60,7 +60,7 @@ const Navbar = () => {
         {
             id: 11,
             link: "/admin",
-            allowedRoles: ["Staff", "Watermaster", "Analyst", "Senior Analyst", "administrator", "sysadmin"],
+            allowedRoles: ["Staff", "Watermaster", "Analyst", "Senior Analyst", "administrator", "sysadmin", "Scheduler"],
             name: "Admin",
             children: ["/admin", "/admin/lookup", "/admin/callout", "/admin/adjustments", "/admin/post"],
         },
@@ -261,14 +261,12 @@ const Navbar = () => {
                     {/* Icon Links */}
                     {iconLinks.map(({ id, children }) => (
                         <div key={id} className={"inline-flex h-16 items-center pr-4 space-x-3"}>
-                            {["administrator", "sysadmin", "Watermaster", "Analyst", "ditchrider", "Anonymous"].some((role) => userRole.includes(role)) && (
-                                <Link href="/dashboard">
-                                    <AiTwotoneDashboard
-                                        size={30}
-                                        className={`${defaultTextColorClass} ${iconHoverColorClass}`}
-                                    />
-                                </Link>
-                            )}
+                            <Link href="/dashboard">
+                                <AiTwotoneDashboard
+                                    size={30}
+                                    className={`${defaultTextColorClass} ${iconHoverColorClass}`}
+                                />
+                            </Link>
                             {["administrator", "sysadmin"].some((role) => userRole.includes(role)) && (
                                 <Link href="/system">
                                     <BsDatabaseFillGear
