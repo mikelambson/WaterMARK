@@ -15,17 +15,15 @@ import {
   } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FaKey, FaUserEdit } from "react-icons/fa";
-import { MdResetTv } from "react-icons/md";
+import { FaUserEdit } from "react-icons/fa";
 import { BsPersonVcard } from "react-icons/bs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDebounce } from '@/lib/utils/Debounce';
 import ComponentLoader from '@/features/loader/comploader.module';
-import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
-import { Dialog, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import SessionDialogue from '@/features/system/manusers/SessionDialogue';
 import { ResetPasswordDialogue } from '@/features/system/manusers/ResetPasswordDialogue';
 import LogoutAllSessionsDialogue from '@/features/system/manusers/LogoutAllSessionsDialogue';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface UserTemplateProps {
     userList?: any[] | null;
@@ -215,9 +213,22 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                         user={user} 
                                                         manProtected={manProtected}
                                                         iconKey='key' 
+                                                        variant='secondary'
                                                     />
                                                 )}
                                             </div>
+                                            {manProtected && (
+                                                <div className='relative inline-flex gap-2 px-8'>
+                                                    <Button
+                                                        className='flex-1'
+                                                        variant={'destructive'}
+                                                        disabled={user.protected}
+                                                        onClick={() => console.log('Delete User')}
+                                                    >
+                                                        Delete User
+                                                    </Button>
+                                                </div>
+                                            )}
                                         <div className="border-b-2 col-span-3" />
                                         <div className="col-span-3 flex items-center gap-3">
                                             <div className="text-right font-semibold">
@@ -255,28 +266,46 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 </h3> 
                                             )}
                                         </div>
-                                        <div className="col-span-3 inline-flex items-center gap-2 justify-end">
-                                            <p className="text-md font-semibold col-span-3">
-                                                Add/Remove Roles 
-                                            </p>
-                                            <Button disabled={!manProtected && user.protected}>
-                                                <BsPersonVcard size={"24"} />
-                                            </Button>
-                                            <Select disabled={!manProtected && user.protected}>
-                                                <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
-                                                    <SelectValue placeholder="User Role" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="sysadmin">Sysadmin</SelectItem>
-                                                    <SelectItem value="watermaster">Watermaster</SelectItem>
-                                                    <SelectItem value="senioranalyst">Senior Analyst</SelectItem>
-                                                    <SelectItem value="analyst">Analyst</SelectItem>
-                                                    <SelectItem value="scheduler">Scheduler</SelectItem>
-                                                    <SelectItem value="lead">Lead</SelectItem>
-                                                    <SelectItem value="ditchrider">Ditchrider</SelectItem>
-                                                    <SelectItem value="staff">Staff</SelectItem>
-                                                </SelectContent>
-                                            </Select>
+                                        <div className="col-span-3 inline-flex items-center gap-2 justify-between">
+                                            <div>
+                                                <div className={"ml-2 inline-flex border h-10 rounded-md px-3 items-center gap-2 bg-card whitespace-nowrap"}>
+                                                    <Checkbox
+                                                        id="protecteduser"
+                                                        disabled={!manProtected}
+                                                        defaultChecked={user.protected}
+                                                        onCheckedChange={(checked) => console.log(checked)}
+                                                    />       
+                                                    <label
+                                                        htmlFor="protecteduser"
+                                                        className="pl-2 text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                    >
+                                                        PROTECTED USER
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div className="inline-flex items-center gap-2 justify-end">
+                                                <p className="text-md font-semibold">
+                                                    Add/Remove Roles 
+                                                </p>
+                                                <Button disabled={!manProtected && user.protected}>
+                                                    <BsPersonVcard size={"24"} />
+                                                </Button>
+                                                <Select disabled={!manProtected && user.protected}>
+                                                    <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
+                                                        <SelectValue placeholder="User Role" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="sysadmin">Sysadmin</SelectItem>
+                                                        <SelectItem value="watermaster">Watermaster</SelectItem>
+                                                        <SelectItem value="senioranalyst">Senior Analyst</SelectItem>
+                                                        <SelectItem value="analyst">Analyst</SelectItem>
+                                                        <SelectItem value="scheduler">Scheduler</SelectItem>
+                                                        <SelectItem value="lead">Lead</SelectItem>
+                                                        <SelectItem value="ditchrider">Ditchrider</SelectItem>
+                                                        <SelectItem value="staff">Staff</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
                                         </div>
                                         <div className="inline-flex items-center gap-2 justify-end">
                                             <p className="text-md font-semibold text-right">Logout All Sessions</p>

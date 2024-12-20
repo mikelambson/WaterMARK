@@ -20,11 +20,13 @@ interface ResetPasswordDialogueProps {
     user: User;
     manProtected: boolean;
     iconKey?: string;
+    variant?: string;
 }
 
-const ResetPasswordDialogue = ({ user, manProtected, iconKey }: ResetPasswordDialogueProps) => {
+const ResetPasswordDialogue = ({ user, manProtected, iconKey, variant }: ResetPasswordDialogueProps) => {
     const [open, setOpen] = useState(false);
     const { mutate: saveUser } = useSaveUser();
+    const variantColor: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" = variant as any || "destructive";
 
     const {
         password,
@@ -67,7 +69,7 @@ const ResetPasswordDialogue = ({ user, manProtected, iconKey }: ResetPasswordDia
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button 
-                  variant={"destructive"}
+                  variant={variantColor}
                   disabled={!manProtected && user.protected}
                   onClick={() => setOpen(true)}
                 >
