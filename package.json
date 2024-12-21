@@ -16,6 +16,7 @@
     "commit": "node -e \"const readlineSync = require('readline-sync'); const commitMessage = readlineSync.question('Enter your commit message: '); require('child_process').execSync(`git commit -m '\"'\"${commitMessage}\"'\"'`, {stdio: 'inherit'});\"",
     "count": "node count-lines.js",
     "optimize": "npm prune && npm find-dupes && npm ddp",
+    "pm2-build": "pm2 start 'npm start' --name WaterMARK-Build",
     "pm2": "pm2 start 'npm run dev' --name WaterMARK",
     "stop": "pm2 stop WaterMARK && pm2 delete WaterMARK",
     "scale": "pm2 scale WaterMARK +3",

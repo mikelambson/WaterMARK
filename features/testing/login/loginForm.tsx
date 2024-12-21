@@ -63,13 +63,13 @@ const LoginForm: React.FC = () => {
             const role = roles[0]
             console.log(user)
             console.log(user?.roles)
-            setUserRole(role)
+            setUserRole([role])
             toast({
                 title: "Login Status",
                 description: `Welcome ${role.charAt(0).toUpperCase() + role.slice(1)}`,
             })
         } catch (error) {
-            setUserRole("Anonymous")
+            setUserRole(["Anonymous"])
             console.error("Login error:", error); // Handle error appropriately
             toast({
                 title: "Login Failed",
@@ -82,13 +82,13 @@ const LoginForm: React.FC = () => {
         <Dialog>
             <DialogTrigger asChild>
                 <Button
-                    variant={userRole === "Anonymous" ? "default" : "destructive"}
+                    variant={userRole.includes("Anonymous") ? "default" : "destructive"}
                 >
-                    {userRole === "Anonymous" ? "LOGIN" : "LOGOUT"}
+                    {userRole.includes("Anonymous") ? "LOGIN" : "LOGOUT"}
                 </Button>
             </DialogTrigger>
                         
-            {userRole === "Anonymous" ?
+            {userRole.includes("Anonymous") ?
                 <DialogContent className="max-w-lg">
                     <DialogHeader className="flex items-center">
                         <DialogTitle className="text-yellow-800 dark:text-yellow-700">LOGIN</DialogTitle>
@@ -166,7 +166,7 @@ const LoginForm: React.FC = () => {
                             <DialogTrigger asChild>
                                 <Button 
                                     variant={"secondary"}
-                                    onClick={() => setUserRole("Anonymous")}
+                                    onClick={() => setUserRole(["Anonymous"])}
                                 >
                                     Yes
                                 </Button>
