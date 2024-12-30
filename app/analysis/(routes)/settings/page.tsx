@@ -5,7 +5,7 @@ import {
   columns,
 } from "@/features/scheduling/settings/hs-columns";
 import { DataTable } from "@/features/scheduling/settings/data-table";
-import ApiFetch from "@/lib/apiFetch";
+import ApiFetch from "@/services/apiFetch";
 
 const apiFetch = new ApiFetch();
 const errorMessage: Headsheets[] = [

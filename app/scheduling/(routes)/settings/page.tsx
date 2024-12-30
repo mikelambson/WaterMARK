@@ -7,7 +7,7 @@ import {
 } from "@/features/scheduling/settings/hs-columns";
 import { DataTable } from "@/features/scheduling/settings/data-table";
 import FlowsSettings from "../../../../features/scheduling/settings/flowsSettings";
-import ApiFetch from "@/lib/apiFetch";
+import ApiFetch from "@/services/apiFetch";
 
 const apiFetch = new ApiFetch();
 

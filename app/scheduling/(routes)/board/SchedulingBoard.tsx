@@ -16,7 +16,7 @@ import { handleOnDragEnd } from '@/features/scheduling/board/utils/handleOnDragE
 
 import { toast } from "@/components/ui/use-toast";
 import { calculateNewScheduleTimestamp, cn } from "@/lib/utils/GeneralUtils";
-import ApiFetch from "@/lib/apiFetch";
+import ApiFetch from "@/services/apiFetch";
 import { TypedUnscheduled } from "@/typings";
 
 

@@ -1,7 +1,7 @@
 // handleOnDragEnd.ts
 import { toast } from "@/components/ui/use-toast";
 import { calculateNewScheduleTimestamp } from "@/lib/utils/GeneralUtils";
-import ApiFetch from "@/lib/apiFetch";
+import ApiFetch from "@/services/apiFetch";
 import { HeadsheetsData, Board, PartialHeadsheetsData, HeadData, SchBoard, TypedUnscheduled } from '@/typings';
 
 

@@ -1,4 +1,4 @@
-import ApiFetch from '@/lib/apiFetch';
+import ApiFetch from '@/services/apiFetch';
 import {  
     TypedScheduled, 
     PartialHeadsheetsData, 

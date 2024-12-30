@@ -1,7 +1,7 @@
 // @/lib/getScheduleGroupedByTypedSchedule.ts
 import { TypedScheduled, PartialHeadsheetsData, HeadData, Schedule, SchBoard } from "@/typings";
 
-import ApiFetch from "@/lib/apiFetch";
+import ApiFetch from "@/services/apiFetch";
 // import { toast } from "@/components/ui/use-toast";
 
 const api = new ApiFetch();
