@@ -2,7 +2,7 @@
 "use client";
 import { Sidebar } from "@/components/nav/Sidebar";
 import { adminLinks } from "@/features/admin/navigation/adminLinks";
-import { useRoleStore } from "@/components/nav/RoleContext"; // Import useRole
+import { useRoleStore } from "@/lib/context/RoleContext"; // Import useRole
 import { useRouter } from "next/navigation";
 import { Suspense } from "react";
 import LoadingAnimation from "@/features/loader/loading.module";

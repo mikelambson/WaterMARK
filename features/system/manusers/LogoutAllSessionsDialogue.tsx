@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
-import { useRoleStore } from "@/components/nav/RoleContext";
+import { useRoleStore } from "@/lib/context/RoleContext";
 import { LogoutUser } from '@/lib/auth/UserLogout';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { MdResetTv } from 'react-icons/md';

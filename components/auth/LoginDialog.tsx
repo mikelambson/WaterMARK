@@ -8,7 +8,7 @@ import {
     DialogTrigger 
 } from "@/components/ui/dialog";
 import LoginForm from "@/components/auth/LoginForm"
-import { useRoleStore } from "@/components/nav/RoleContext";
+import { useRoleStore } from "@/lib/context/RoleContext";
 import { useAuthStore } from "@/lib/store/authStore";
 import { Button } from "../ui/button";
 import { useRouter } from 'next/navigation';

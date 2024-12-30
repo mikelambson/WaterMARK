@@ -8,7 +8,7 @@ import { ReactQueryProvider } from "@/components/auth/ReactQueryProvider"
 
 import { SessionProvider } from "@/components/auth/SessionManagement";
 import { ThemeProvider } from "@/components/nav/theme-provider";
-import { RoleProvider } from "@/components/nav/RoleContext";
+import { RoleProvider } from "@/lib/context/RoleContext";
 import Navbar from "@/components/nav/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 

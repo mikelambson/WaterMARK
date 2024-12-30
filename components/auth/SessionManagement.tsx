@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect, ReactNode, useState } from
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
-import { useRoleStore } from '@/components/nav/RoleContext';
+import { useRoleStore } from '@/lib/context/RoleContext';
 import { UserSessionData } from '@/lib/auth/fetchUserSession';
 import LoadingAnimation from '@/features/loader/loading.module';
 

@@ -11,7 +11,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useState } from "react";
 import { useLahontanDataStore } from "@/lib/store/usgs/usgsLahontan";
-import LoadingAnimation from "@/features/loader/loading.module";
+// import LoadingAnimation from "@/features/loader/loading.module";
 import ComponentLoader from "@/features/loader/comploader.module";
 
 interface ForcastProps {

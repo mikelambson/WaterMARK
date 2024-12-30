@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import useNotificationStore from '@/lib/store/notifications';
 import { cn } from '@/lib/utils/GeneralUtils';
 import { IoMdClose } from 'react-icons/io';
-import { useRoleStore } from './RoleContext';
+import { useRoleStore } from '../../lib/context/RoleContext';
 
 
 export const NotifyCount = () => {

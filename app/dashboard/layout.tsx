@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { useRoleStore } from '@/components/nav/RoleContext';
+import { useRoleStore } from '@/lib/context/RoleContext';
 import { useRouter } from 'next/navigation';
 
 const FullScreenLayout = ({ children }: { children: React.ReactNode}) => {

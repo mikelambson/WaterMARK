@@ -11,8 +11,6 @@ import {
     TypedUnscheduled} from "@/typings";
     import { useSchedulingStore } from '@/lib/store/schedulingStore';
 
-    // const { board, isLoading, setPage, setPageSize, totalPages, getBoard, page, pageSize, selectedDistrict, setSelectedDistrict, setDistrict, headsheets, selectedSheet, getHeadsheets, setSelectedSheet, setSelectedHead, selectedHead, schedule, getSchedule, updateOrderStatus, getUnscheduled} = useSchedulingStore();
-
     interface ApiFilters {
       district: string;
       headsheet: PartialHeadsheetsData;
@@ -149,7 +147,7 @@ export class scheduleFetcher {
         
             // if (headsheet.name !== "Select") return;
             const scheduledRoute = `/schedule?find:district=${district}&find:status=${scheduledStatus}&find:line=${headsheet.name}`
-            const result = headsheet.name == ("Select" || '') ? { success: false } : await this.api.fetchData(scheduledRoute);
+            const result = (headsheet.name === "Select" || headsheet.name === '') ? { success: false } : await this.api.fetchData(scheduledRoute);
             if (!result.success) return console.warn({
                 variant: "Incomplete request.",
                 description: "Could not connect to the server!",

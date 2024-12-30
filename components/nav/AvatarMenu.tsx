@@ -18,7 +18,7 @@ import { RiListSettingsLine } from "react-icons/ri";
 import { LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { MdHistory } from "react-icons/md";
-import { useRoleStore } from "@/components/nav/RoleContext";
+import { useRoleStore } from "@/lib/context/RoleContext";
 import { Button } from "@/components/ui/button";
 
 
