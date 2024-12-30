@@ -27,7 +27,7 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import navbarLinks from "@/components/nav/RoleBasedLinks";
+import navbarLinks from "@/components/nav/NavbarLinks";
 import { useRole } from "@/lib/context/RoleContext"; // Import useRole
 import { ModeToggle } from "@/components/nav/ModeToggle";
 import { Notify, NotifyCount } from "@/components/nav/Notifications";
