@@ -27,12 +27,14 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+import navbarLinks from "@/components/nav/RoleBasedLinks";
 import { useRole } from "@/lib/context/RoleContext"; // Import useRole
 import { ModeToggle } from "@/components/nav/ModeToggle";
 import { Notify, NotifyCount } from "@/components/nav/Notifications";
 import AvatarMenu from "@/components/nav/AvatarMenu";
 
 const Navbar = () => {
+    const { roleBasedLinks, iconLinks } = navbarLinks();
     const { userRole } = useRole(); // Destructure userRole from context
     const [nav, setNav] = useState(false);
     const { theme } = useTheme();
@@ -42,101 +44,7 @@ const Navbar = () => {
     const iconHoverColorClass =
         "transition-all hover:text-yellow-400 hover:scale-125 dark:hover:text-yellow-300";
     const defaultbg = "bg-slate-800/95 dark:bg-slate-800";
-    const onlineScheduleName =
-        Array.isArray(userRole) &&
-        userRole.some((role) => role !== "Anonymous" && role !== "sysadmin")
-            ? "Schedule"
-            : "Public";
-
-    // Navigation links with allowed roles
-    const roleBasedLinks = [
-        {
-            id: 0o0,
-            link: "/",
-            allowedRoles: ["any"],
-            name: "Home",
-            children: ["/"],
-        },
-        {
-            id: 11,
-            link: "/admin",
-            allowedRoles: ["Staff", "Watermaster", "Analyst", "Senior Analyst", "administrator", "sysadmin", "Scheduler"],
-            name: "Admin",
-            children: ["/admin", "/admin/lookup", "/admin/callout", "/admin/adjustments", "/admin/post"],
-        },
-        {
-            id: 22,
-            link: "/meters",
-            allowedRoles: ["any"],
-            name: "Meters",
-            children: ["/meters", "/meters/west", "/meters/central", "/meters/east", "/meters/truckee"],
-        },
-        {
-            id: 33,
-            link: "/scheduling",
-            allowedRoles: ["Watermaster", "Scheduler", "administrator", "sysadmin", "Senior Analyst"],
-            name: "Scheduling",
-            children: [
-                "/scheduling",
-                "/scheduling/daily",
-                "/scheduling/board",
-                "/scheduling/schedule-orders",
-                "/scheduling/ditchrider-tasks",
-                "/scheduling/ditchrider-schedule",
-                "/scheduling/settings",
-            ],
-        },
-        {
-            id: 44,
-            link: "/deliveries",
-            allowedRoles: ["Watermaster", "Scheduler", "Ditchrider", "administrator", "sysadmin", "Senior Analyst"],
-            name: "Deliveries",
-            children: ["/deliveries", "/deliveries/schedule", "/deliveries/tasks", "/deliveries/ditchrider-schedule"],
-        },
-        {
-            id: 55,
-            link: "/analysis",
-            allowedRoles: ["Scheduler", "administrator", "sysadmin", "Analyst", "Senior Analyst", "Watermaster"],
-            name: "Analysis",
-            children: [
-                "/analysis",
-                "/analysis/master",
-                "/analysis/meters",
-                "/analysis/adjustments",
-                "/analysis/settings",
-            ],
-        },
-        {
-            id: 66,
-            link: "/reports",
-            allowedRoles: ["Watermaster", "Senior Analyst", "administrator", "sysadmin", "Staff"],
-            name: "Reports",
-            children: ["/reports"],
-        },
-        {
-            id: 77,
-            link: "/online-schedule",
-            allowedRoles: ["any"],
-            name: onlineScheduleName,
-            children: [
-                "/online-schedule",
-                "/online-schedule/west",
-                "/online-schedule/central",
-                "/online-schedule/east",
-                "/online-schedule/truckee",
-            ],
-        },
-    ];
-
-    const iconLinks = [
-        {
-            id: 88,
-            link: "/system",
-            allowedRoles: ["administrator", "sysadmin"],
-            name: "System Administration",
-            children: ["/system", "/system/users", "/system/meters", "/testing", "/testing/login", "/testing/scheduling"],
-        },
-    ];
+   
 
     return (
         <Suspense fallback={<LoadingAnimation />}>
