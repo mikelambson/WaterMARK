@@ -24,6 +24,7 @@ import SessionDialogue from '@/features/system/manusers/SessionDialogue';
 import { ResetPasswordDialogue } from '@/features/system/manusers/ResetPasswordDialogue';
 import LogoutAllSessionsDialogue from '@/features/system/manusers/LogoutAllSessionsDialogue';
 import { Checkbox } from '@/components/ui/checkbox';
+import { is } from 'date-fns/locale';
 
 interface UserTemplateProps {
     userList?: any[] | null;
@@ -88,6 +89,7 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
     };
       
     const uniqueRoleNames = getUniqueRoleNames(userList);
+    const isProtected = (user: any) => { return !manProtected && user.protected ? true : false; }; 
 
     return (
         <div>
@@ -160,7 +162,7 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 Login:
                                             </div>
                                             <Input className="pl-14 bg-slate-400 dark:bg-card-foreground" type="login" placeholder={user.login} 
-                                            disabled={!manProtected && user.protected} 
+                                            disabled={isProtected(user)} 
                                             />
                                         </div>
                                         <div className='col-span-2 relative'> 
@@ -168,7 +170,7 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 Email:
                                             </div>
                                             <Input className="pl-14 bg-card-foreground" type="email" placeholder={user.email ? user.email : "No Email"}
-                                            disabled={!manProtected && user.protected} 
+                                            disabled={isProtected(user)} 
                                             />
                                         </div>
                                         <div className='relative'>
@@ -176,14 +178,17 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 First:
                                             </div>
                                             <Input className="pl-14 bg-card-foreground" type="first" placeholder={user.firstName} 
-                                            disabled={!manProtected && user.protected} 
+                                            disabled={isProtected(user)} 
                                             />
                                         </div>
                                         <div className='relative'>
                                             <div className='absolute left-2 h-full flex items-center text-foreground/50 text-xs'>
                                                 Middle:
                                             </div>
-                                            <Input className="pl-14 bg-card-foreground" type="middle" placeholder={user.middleName ? `${user.middleName}` : "N/A"}disabled={!manProtected && user.protected} 
+                                            <Input 
+                                            className="pl-14 bg-card-foreground" 
+                                            type="middle" placeholder={user.middleName ? `${user.middleName}` : "N/A"}
+                                            disabled={isProtected(user)} 
                                             />
                                         </div>
                                         <div className='relative'>
@@ -191,7 +196,7 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 Last:
                                             </div>
                                             <Input className="pl-14 bg-card-foreground" type="last" placeholder={user.lastName}
-                                            disabled={!manProtected && user.protected} 
+                                            disabled={isProtected(user)} 
                                             />
                                         </div>
                                         <div className='relative'>
@@ -199,14 +204,14 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 Title:
                                             </div>
                                             <Input className="pl-14 bg-card-foreground" type="title" placeholder={user.title}
-                                            disabled={!manProtected && user.protected} 
+                                            disabled={isProtected(user)} 
                                             />
                                         </div>
                                             <div className='relative inline-flex gap-2'>
                                                 <div className='absolute left-2 h-full flex items-center text-foreground/50 text-xs'>
                                                     TmpPw:
                                                 </div>
-                                                <Input className="pl-14 bg-card-foreground" type="title" placeholder={user.temppass ? user.temppass : "No Temp Password"} disabled={!user.temppass || !manProtected && user.protected}
+                                                <Input className="pl-14 bg-card-foreground" type="title" placeholder={user.temppass ? user.temppass : "No Temp Password"} disabled={!user.temppass || isProtected(user)}
                                                 />
                                                 {user.temppass && (
                                                     <ResetPasswordDialogue 
@@ -287,10 +292,10 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                                 <p className="text-md font-semibold">
                                                     Add/Remove Roles 
                                                 </p>
-                                                <Button disabled={!manProtected && user.protected}>
+                                                <Button disabled={isProtected(user)}>
                                                     <BsPersonVcard size={"24"} />
                                                 </Button>
-                                                <Select disabled={!manProtected && user.protected}>
+                                                <Select disabled={isProtected(user)}>
                                                     <SelectTrigger className="w-[180px] font-semibold text-lg pl-4">
                                                         <SelectValue placeholder="User Role" />
                                                     </SelectTrigger>
@@ -320,7 +325,7 @@ const UserTemplate = ({userList, error, isError, isLoading, userType, manProtect
                                             <p className="text-md font-semibold text-right">Save Changes</p>
                                             <Button 
                                             variant={"default"}
-                                            disabled={!manProtected && user.protected}
+                                            disabled={isProtected(user)}
                                             >
                                                 <FaUserEdit size={"24"} />
                                             </Button>
