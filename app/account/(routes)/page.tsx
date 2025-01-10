@@ -4,7 +4,7 @@ import { useRoleStore } from "@/lib/context/RoleContext"; // Import useRole
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import { useAuthStore } from "@/lib/store/authStore"
 // import { useEffect, useState } from "react";
-import { Profile } from "./profile";
+import { Profile } from "@/features/account/profile";
 
 export default function Login() {
     const { userRole, setUserRole } = useRoleStore((state) => state); // Access userRole and setUserRole

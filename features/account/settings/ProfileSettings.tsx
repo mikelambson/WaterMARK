@@ -1,18 +1,102 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useAuthStore } from "@/lib/store/authStore";
+import { Button } from "@/components/ui/button";
 
-const ProfileSettings: React.FC = () => {
-    const { userData } = useAuthStore();
+interface ProfileObject {
+    id: string;
+    email: string;
+    firstName: string;
+    middleName?: string;
+    lastName: string;
+    title?: string;
+    active: boolean;
+    tcid_staff: boolean;
+    protected: boolean;
+}
+
+interface ProfileField {
+    key: keyof ProfileObject;
+    label: string;
+    editable: boolean;
+}
+  
+const profileFields: ProfileField[] = [
+{ key: "id", label: "ID", editable: false },
+{ key: "email", label: "Email", editable: true },
+{ key: "firstName", label: "First Name", editable: true },
+{ key: "middleName", label: "Middle Name", editable: true },
+{ key: "lastName", label: "Last Name", editable: true },
+{ key: "title", label: "Title", editable: false },
+{ key: "active", label: "Active", editable: false },
+{ key: "tcid_staff", label: "TCID Staff", editable: false },
+{ key: "protected", label: "Protected", editable: false },
+];
+
+const ProfileSettings = () => {
+    const [profileData, setProfileData] = useState<Record<string, any> | null>(null); 
+    const [editableValues, setEditableValues] = useState<Partial<ProfileObject>>({});
+    const profileRoute = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/profile`
+
+    useEffect(() => {
+        const fetchProfileData = async () => {
+            const response = await fetch(profileRoute, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Credentials': 'true',
+                    'Access-Control-Allow-Origin': 'https://backend.watermark.work',
+                },
+                credentials: 'include',
+            });
+        
+            if (!response.ok) {
+                throw new Error('Login failed'); // Throw an error if the response is not ok
+            }
+            
+            const data = await response.json();
+            setProfileData(data);
+        };
+
+        fetchProfileData();
+        
+        
+    }, []);
+
+
+    const defaultProfile: ProfileObject = {
+        id: "",
+        email: "",
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        title: "",
+        active: false,
+        tcid_staff: false,
+        protected: false,
+    };
 
     // Convert userData object into an array of key-value pairs
-    const profile = userData
-        ? Object.entries(userData).map(([key, value]) => ({ key, value }))
-        : [];
+    const profile: ProfileObject = {
+        ...defaultProfile,
+        ...(profileData as Partial<ProfileObject>),
+    };
 
+    const handleInputChange = (key: string, newValue: string) => {
+        setEditableValues((prev) => ({
+          ...prev,
+          [key]: newValue,
+        }));
+    };
+  
     const handleUpdate = (key: string, newValue: string) => {
         // Update logic here
-        console.log(`Updated ${key} with value ${newValue}`);
+        alert(`Updated ${key} with value ${newValue}`);
+        // Optionally update the local profile data after a successful API response
+        setProfileData((prev) => ({
+            ...prev,
+            [key]: newValue,
+        }));
     };
 
     return (
@@ -27,29 +111,51 @@ const ProfileSettings: React.FC = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {profile.map((item) => (
-                        <TableRow key={item.key}>
-                            <TableCell className="max-w-16">
-                                {item.key}
-                            </TableCell>
+                    {profileFields.map((field) => {
+                        const value = profile[field.key];
+                        const isEditable = field.editable;
+                        return (
+                        <TableRow key={field.key}>
+                            <TableCell className="font-medium">{field.label}</TableCell>
                             <TableCell>
+                            {isEditable ? (
                                 <input
-                                    type="text"
-                                    defaultValue={item.value as string}
-                                    onBlur={(e) => handleUpdate(item.key, e.target.value)}
-                                    className={item.key == "id" ? "w-full" : "input w-full"}
+                                type="text"
+                                value={
+                                    editableValues[field.key] !== undefined
+                                      ? String(editableValues[field.key])
+                                      : value !== null && value !== undefined
+                                      ? String(value)
+                                      : ""
+                                  }
+                                  onChange={(e) => handleInputChange(field.key, e.target.value)}
+                                className="w-full p-2 border rounded"
                                 />
+                            ) : (
+                                <input
+                                type="text"
+                                value={
+                                    value !== null && value !== undefined ? String(value) : ""
+                                }
+                                readOnly
+                                className="w-full p-2 border rounded bg-gray-100"
+                                />
+                            )}
                             </TableCell>
                             <TableCell>
-                                <button
-                                    onClick={() => handleUpdate(item.key, item.value as string)}
-                                    className="button"
+                            {isEditable && (
+                                <Button
+                                onClick={() => handleUpdate(field.key, String(editableValues[field.key] || ""))}
+                                variant={"default"}
+                                className=""
                                 >
-                                    Update
-                                </button>
+                                Update
+                                </Button>
+                            )}
                             </TableCell>
                         </TableRow>
-                    ))}
+                        );
+                    })}
                 </TableBody>
             </Table>
         </div>
@@ -57,3 +163,6 @@ const ProfileSettings: React.FC = () => {
 };
 
 export default ProfileSettings;
+
+
+
