@@ -4,7 +4,7 @@ export default function UserSettings() {
     
     return (
         <div className="px-2">
-            <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>
+            <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center pt-4"}>
                 User Settings
             </h1>
             <ProfileSettings />

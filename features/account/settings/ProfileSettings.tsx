@@ -12,7 +12,7 @@ interface ProfileObject {
     title?: string;
     active: boolean;
     tcid_staff: boolean;
-    protected: boolean;
+    // protected: boolean;
 }
 
 interface ProfileField {
@@ -30,7 +30,7 @@ const profileFields: ProfileField[] = [
 { key: "title", label: "Title", editable: false },
 { key: "active", label: "Active", editable: false },
 { key: "tcid_staff", label: "TCID Staff", editable: false },
-{ key: "protected", label: "Protected", editable: false },
+// { key: "protected", label: "Protected", editable: false },
 ];
 
 const ProfileSettings = () => {
@@ -73,7 +73,7 @@ const ProfileSettings = () => {
         title: "",
         active: false,
         tcid_staff: false,
-        protected: false,
+        // protected: false,
     };
 
     // Convert userData object into an array of key-value pairs
@@ -101,7 +101,12 @@ const ProfileSettings = () => {
 
     return (
         <div className="profile-settings">
-            <h2>Profile Settings</h2>
+            <div className="my-4">
+                <Button variant="default" onClick={() => alert("Update Password")}>
+                    Update Password
+                </Button>
+            </div>
+            <h2 className="text-center">Profile Settings</h2>
             <Table>
                 <TableHeader>
                     <TableRow>
