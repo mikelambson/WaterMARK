@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogTrigger, DialogContent, DialogClose, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 interface ProfileObject {
     id: string;
@@ -36,7 +38,9 @@ const profileFields: ProfileField[] = [
 const ProfileSettings = () => {
     const [profileData, setProfileData] = useState<Record<string, any> | null>(null); 
     const [editableValues, setEditableValues] = useState<Partial<ProfileObject>>({});
+    const [open, setOpen] = useState(false);
     const profileRoute = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/profile`
+    
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -102,9 +106,37 @@ const ProfileSettings = () => {
     return (
         <div className="profile-settings">
             <div className="my-4">
-                <Button variant="default" onClick={() => alert("Update Password")}>
-                    Update Password
-                </Button>
+                
+                <Dialog open={open} onOpenChange={() => {}}>
+                <DialogTrigger>
+                    <Button variant="secondary" onClick={() => setOpen(true)}>Update Password</Button>
+                </DialogTrigger>
+                <DialogContent className="w-96">
+                    <DialogHeader>
+                        <DialogTitle>Update Password</DialogTitle>
+                        <DialogClose />
+                    </DialogHeader>
+                    <DialogDescription>
+                        <p>Enter your passwords</p>
+                    </DialogDescription>
+                    <Input type="password" placeholder="Current Password" />
+                    <Input type="password" placeholder="New Password" />
+                    <Input type="password" placeholder="Confirm Password" />
+                    <DialogFooter>
+                        <Button variant="default" onClick={() => setOpen(false)}>Cancel</Button>
+                        <Button 
+                            variant="destructive"
+                            onClick={() => {
+                                alert("Password Updated");
+                                setOpen(false);
+                            }}
+                            >
+                            Update Password
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+                
+                </Dialog>
             </div>
             <h2 className="text-center">Profile Settings</h2>
             <Table>
