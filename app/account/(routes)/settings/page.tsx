@@ -1,3 +1,4 @@
+import ProfileSettings from '@/features/account/settings/ProfileSettings';
 
 export default function UserSettings() {
     
@@ -6,6 +7,7 @@ export default function UserSettings() {
             <h1 className={"text-2xl font-semibold text-yellow-800 md:text-center "}>
                 User Settings
             </h1>
+            <ProfileSettings />
         </div>  
     );
 }
