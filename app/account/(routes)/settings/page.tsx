@@ -8,6 +8,9 @@ export default function UserSettings() {
                 User Settings
             </h1>
             <ProfileSettings />
+            <div className="mt-14 mb-2 text-center text-foreground/50">
+                Profile Management
+            </div>
         </div>  
     );
 }
