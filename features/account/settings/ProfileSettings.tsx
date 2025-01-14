@@ -109,7 +109,7 @@ const ProfileSettings = () => {
             <div className="my-4">
                 <ChangeProfilePassword />
             </div>
-            <h2 className="text-center">Profile Settings</h2>
+            <h2 className="text-center">Profile Management</h2>
             <Table>
                 <TableHeader>
                     <TableRow>

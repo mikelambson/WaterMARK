@@ -82,7 +82,7 @@ const ChangeProfilePassword = () => {
                 <DialogTrigger asChild>
                     <Button variant="default">Change Password</Button>
                     </DialogTrigger>
-                <DialogContent className="w-96">
+                <DialogContent className="max-w-lg">
                     <DialogHeader>
                         <DialogTitle className="text-red-600/95">Change Password</DialogTitle>
                         <DialogDescription>
