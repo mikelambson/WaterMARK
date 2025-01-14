@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { ChangeProfilePassword } from "@/features/account/settings/UpdateProfilePassword";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogTrigger, DialogContent, DialogClose, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
@@ -106,37 +107,7 @@ const ProfileSettings = () => {
     return (
         <div className="profile-settings">
             <div className="my-4">
-                
-                <Dialog open={open} onOpenChange={() => {}}>
-                <DialogTrigger>
-                    <Button variant="secondary" onClick={() => setOpen(true)}>Update Password</Button>
-                </DialogTrigger>
-                <DialogContent className="w-96">
-                    <DialogHeader>
-                        <DialogTitle>Update Password</DialogTitle>
-                        <DialogClose />
-                    </DialogHeader>
-                    <DialogDescription>
-                        <p>Enter your passwords</p>
-                    </DialogDescription>
-                    <Input type="password" placeholder="Current Password" />
-                    <Input type="password" placeholder="New Password" />
-                    <Input type="password" placeholder="Confirm Password" />
-                    <DialogFooter>
-                        <Button variant="default" onClick={() => setOpen(false)}>Cancel</Button>
-                        <Button 
-                            variant="destructive"
-                            onClick={() => {
-                                alert("Password Updated");
-                                setOpen(false);
-                            }}
-                            >
-                            Update Password
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
-                
-                </Dialog>
+                <ChangeProfilePassword />
             </div>
             <h2 className="text-center">Profile Settings</h2>
             <Table>
