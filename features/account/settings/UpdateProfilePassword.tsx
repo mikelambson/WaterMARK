@@ -5,7 +5,8 @@ import {
     DialogHeader, 
     DialogTitle, 
     DialogFooter, 
-    DialogClose
+    DialogClose,
+    DialogDescription
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
@@ -25,6 +26,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 // Zod schema for validation
 const changePasswordSchema = z.object({
+    username: z.string().optional(),
     currentPassword: z.string().min(1, "Password must be at least 1 characters long"),
     password: z.string().min(6, "Password must be at least 6 characters long"),
     confirmPassword: z.string().min(6, "Confirm password must be at least 6 characters long"),
@@ -42,6 +44,7 @@ const ChangeProfilePassword = () => {
     const form = useForm<ChangePasswordFormValues>({
         resolver: zodResolver(changePasswordSchema),
         defaultValues: {
+            username: "",
             currentPassword: "",
             password: "",
             confirmPassword: "",
@@ -82,9 +85,30 @@ const ChangeProfilePassword = () => {
                 <DialogContent className="w-96">
                     <DialogHeader>
                         <DialogTitle className="text-red-600/95">Change Password</DialogTitle>
+                        <DialogDescription>
+                            Please enter your current password and a new password to update your profile.
+                        </DialogDescription>
                     </DialogHeader>
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                             {/* Hidden Username Field */}
+                             <FormField
+                                control={form.control}
+                                name="username"
+                                render={({ field }) => (
+                                    <FormItem className="hidden">
+                                        <FormLabel>Username</FormLabel>
+                                        <FormControl>
+                                            <Input 
+                                                type="text" 
+                                                autoComplete="username" 
+                                                placeholder="Username" 
+                                                {...field} 
+                                            />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
                             <FormField
                                 control={form.control}
                                 name="currentPassword"
@@ -92,7 +116,11 @@ const ChangeProfilePassword = () => {
                                 <FormItem>
                                     <FormLabel>Current Password</FormLabel>
                                     <FormControl>
-                                    <Input type="password" placeholder="Current password" {...field} />
+                                    <Input 
+                                        type="password" 
+                                        placeholder="Current password" 
+                                        autoComplete="current-password"
+                                        {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -105,7 +133,12 @@ const ChangeProfilePassword = () => {
                                 <FormItem>
                                     <FormLabel>New Password</FormLabel>
                                     <FormControl>
-                                    <Input type="password" placeholder="Enter new password" {...field} />
+                                    <Input 
+                                        type="password" 
+                                        placeholder="Enter new password" 
+                                        autoComplete="new-password" 
+                                        {...field} 
+                                    />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -118,7 +151,12 @@ const ChangeProfilePassword = () => {
                                 <FormItem>
                                     <FormLabel>Confirm Password</FormLabel>
                                     <FormControl>
-                                    <Input type="password" placeholder="Confirm new password" {...field} />
+                                    <Input 
+                                        type="password" 
+                                        placeholder="Enter new password" 
+                                        autoComplete="new-password" 
+                                        {...field} 
+                                    />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
