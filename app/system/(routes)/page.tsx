@@ -8,8 +8,6 @@ const System = () => {
                 <h1 className={"text-2xl font-semibold text-yellow-950 dark:text-orange-300 animate-bounce"}>System Settings</h1>
             </div>
             <BackendStatus />
-            
-
         </div>
      );
 }

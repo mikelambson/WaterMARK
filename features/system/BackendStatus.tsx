@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea"; // Adjust import as per your library structure
+import { cn } from "@/lib/utils/GeneralUtils";
 
 const BackendStatus: React.FC = () => {
   const [status, setStatus] = useState<string>("");
@@ -23,15 +24,18 @@ const BackendStatus: React.FC = () => {
       eventSource.close();
     };
   }, []);
+  
 
   return (
-    <div className="relative">
-      <h1 className="absolute left-2 text-lg font-semibold">Backend Status</h1>
-      <Textarea 
-        className="w-full h-96" 
-        value={status} 
-        readOnly 
-      />
+    <div className="relative text-green-500">
+        <h1 className="absolute left-2 text-lg font-semibold">Backend Data Requests</h1>
+        <div className={"h-96 border w-full text-foreground"}>
+        <Textarea 
+            className={"w-full h-full" }
+            value={status} 
+            readOnly 
+        />
+        </div>
     </div>
   );
 };
