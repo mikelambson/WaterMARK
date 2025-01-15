@@ -53,8 +53,34 @@ const ChangeProfilePassword = () => {
 
     const onSubmit = async (data: ChangePasswordFormValues) => {
         try {
+            const updatePacket = {
+                oldpassword: data.currentPassword,
+                newpassword: data.password,
+            };
+            const updateRoute = `${process.env.NEXT_PUBLIC_AUTH_ADDRESS}/profile/updatepassword`;
+            const backendAddress = process.env.API_ADDRESS;
+            const response = await fetch(updateRoute, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": "true",
+                    "Access-Control-Allow-Origin": `${backendAddress}`,
+                },
+                credentials: "include",
+                body: JSON.stringify(updatePacket),
+            });
+            
             // Replace with your password update logic
-            console.log("Password updated:", data.password);
+            
+            if (!response.ok) {
+                toast({
+                    title: "Error",
+                    description: "Failed to update password",
+                    variant: "destructive",
+                });
+                throw new Error("Failed to update password");
+                
+            }
             toast({
                 title: "Success",
                 description: "Password updated successfully",
@@ -81,7 +107,7 @@ const ChangeProfilePassword = () => {
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                     <Button variant="default">Change Password</Button>
-                    </DialogTrigger>
+                </DialogTrigger>
                 <DialogContent className="max-w-lg">
                     <DialogHeader>
                         <DialogTitle className="text-red-600/95">Change Password</DialogTitle>
