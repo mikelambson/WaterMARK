@@ -5,7 +5,7 @@ export const navbarLinks = () => {
 const { userRole } = useRole();
 const onlineScheduleName =
         Array.isArray(userRole) &&
-        userRole.some((role) => role !== "Anonymous" && role !== "any")
+        userRole.some((role) => role === "Anonymous" || role === "any")
             ? "Schedule"
             : "Public";
 
