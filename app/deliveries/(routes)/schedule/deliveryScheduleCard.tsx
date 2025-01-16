@@ -154,13 +154,13 @@ const ScheduledDeliveryCard = ({
                 : "bg-emerald-900/75 dark:bg-emerald-950/75" 
             : "bg-slate-700/90 dark:bg-gray-800/90")}
         >
-            <div className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,1fr,2fr] md:grid-cols-[2.25rem,2fr,3fr,2fr] lg:grid-cols-[2.75rem,2fr,3fr,2fr]
+            <div className="group grid grid-flow-row grid-rows-5 grid-cols-[2.25rem,1fr,1fr,2fr] md:grid-cols-[2.25rem,2fr,3fr,2fr] lg:grid-cols-[2.75rem,2fr,3fr,2fr]
             gap-0 rounded-sm align-text-bottom">
                 <TooltipProvider>
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <div 
-                                className={cn(`group col-start-1 row-start-1 row-span-5 flex justify-center items-center cursor-pointer ${schedule.order.status !== "running" 
+                                className={cn(`col-start-1 row-start-1 row-span-5 flex justify-center items-center cursor-pointer ${schedule.order.status !== "running" 
                                 ? "text-gray-400 dark:text-gray-500"
                                 : "text-neutral-400 dark:text-stone-500"}`)}
                                 onClick={toggleVisibility}

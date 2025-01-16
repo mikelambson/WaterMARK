@@ -62,13 +62,13 @@ const ManageDelivery: React.FC<Props> = ({schedule, className}) => {
                     size="sm"
                     buttonText="Add Delivery"
                 />
-                <ScrollArea className="flex flex-col max-h-[65svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md px-4 min-h-96">
+                <ScrollArea className="pt-2 px-4 min-h-96 flex flex-col max-h-[65svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md">
                     {schedule.deliveries?.length === 0 
-                    ? <div className="h-48 flex justify-center items-center">
-                        <p className="text-2xl">No Deliveries Recorded</p>
-                        
-                    </div> 
-                    : <div className="h-2" />}
+                    && (
+                        <div className="h-full flex justify-center items-center">
+                            <p className="mt-24 text-center text-4xl pt-14">No Deliveries Recorded</p>    
+                        </div>
+                    )}
                     {schedule.deliveries?.slice().reverse().map((delivery, index) => { 
                         const reversedIndex = schedule.deliveries.length - index;
 
