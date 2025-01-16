@@ -16,6 +16,7 @@ import UpdateMeasurements from "@/features/delivery/schedule/updateMeasurements"
 import EndRun from "@/features/delivery/schedule/EndRun";
 import ManageDelivery from "@/features/delivery/schedule/ManageDeliveries";
 import OrderDetails from "@/features/delivery/schedule/orderDetails";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 
 
@@ -38,9 +39,6 @@ const ScheduledDeliveryCard = ({
     const toggleVisibility = () => {
         setIsDetailsVisible(!isDetailsVisible);
     };
-    
-    const [date, setDate] = React.useState<Date>()
-
     const handleClickOutside = (event: MouseEvent) => {
         if (
             cardRef.current &&
@@ -60,7 +58,7 @@ const ScheduledDeliveryCard = ({
         };
       }, []);
 
-    const parsedDate = parseISO(schedule.scheduledDate);
+   
     const borderColors = schedule.order.status !== "running"
         ? "border-gray-200/60 dark:border-gray-600" 
         : "border-neutral-200/60 dark:border-stone-600";
@@ -158,20 +156,33 @@ const ScheduledDeliveryCard = ({
         >
             <div className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,1fr,2fr] md:grid-cols-[2.25rem,2fr,3fr,2fr] lg:grid-cols-[2.75rem,2fr,3fr,2fr]
             gap-0 rounded-sm align-text-bottom">
-                <div className={cn(`group col-start-1 row-start-1 row-span-5 flex justify-center items-center cursor-pointer ${schedule.order.status !== "running" 
-                    ? "text-gray-400 dark:text-gray-500"
-                    : "text-neutral-400 dark:text-stone-500"}`)}
-                    style={{ writingMode: 'vertical-rl', textOrientation: 'upright', letterSpacing: '-0.2em' }}
-                    onClick={toggleVisibility}>
-                    <span className={`border-y pt-[0.5em] pb-[0.525em] bg-black/20 dark:bg-black/30 rounded-sm cursor-pointer  hover:text-yellow-500 hover:border-yellow-500 dark:hover:border-yellow-500
-                        ${schedule.order.status !== "running" 
-                        ? "border-gray-400 dark:border-gray-500"
-                        : "border-neutral-400 dark:border-stone-500"}`}
-                        onClick={toggleVisibility}>
-                        {schedule.order.orderNumber}
-                    </span>
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <div 
+                                className={cn(`group col-start-1 row-start-1 row-span-5 flex justify-center items-center cursor-pointer ${schedule.order.status !== "running" 
+                                ? "text-gray-400 dark:text-gray-500"
+                                : "text-neutral-400 dark:text-stone-500"}`)}
+                                onClick={toggleVisibility}
+                                style={{ writingMode: 'vertical-rl', textOrientation: 'upright', letterSpacing: '-0.2em' }}>
+                                <span 
+                                    className={`border-y pt-[0.5em] pb-[0.525em] bg-black/20 dark:bg-black/30 rounded-sm cursor-pointer group-hover:text-yellow-500/50 group-hover:border-yellow-500/50 hover:text-yellow-500 hover:border-yellow-500 dark:hover:border-yellow-500 hover:scale-110 transition ease-in-out duration-100 
+                                    ${schedule.order.status !== "running" 
+                                    ? "border-gray-400 dark:border-gray-500"
+                                    : "border-neutral-400 dark:border-stone-500"}`}
+                                    onClick={toggleVisibility}>
+                                {schedule.order.orderNumber}
+                                </span>
+                            </div>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" align="end">
+                            <p>Toggle Details</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
+                <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">
+                    {schedule.order.laterals.join(', ')}
                 </div>
-                <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">{schedule.order.laterals.join(', ')}</div>
                 <div className={`flex justify-end text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-3 border-b-2 z-10 ${borderColors}`}>
                     {schedule.order.status === "scheduled" ? (
                         <UpdateMeasurements 
@@ -230,7 +241,6 @@ const ScheduledDeliveryCard = ({
                 >
                     {hoursCalc(99)}
                 </div>
-                
                 <div className={cn(`col-span-2 text-bottom row-start-3 border-b-2 text-sm sm:text-md font-semibold flex flex-wrap text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
                     Instructions: {schedule.instructions}
                 </div>
@@ -268,7 +278,7 @@ const ScheduledDeliveryCard = ({
                             ? "Over Delivered" : capitalizedStatus}
                     </span>
                     {Math.round((currentAFCalc / schedule.order.details.approxAf) * 100)}%
-                    </div>
+                </div>
                 
                 <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>
                     Travel: {schedule.travelTime} hrs
@@ -278,13 +288,19 @@ const ScheduledDeliveryCard = ({
                     {schedule.order.approxCfs} CFS
                     <div className={cn(`flex justify-between px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
                     {schedule.order.approxHrs} hrs 
-                    <PiDotsThreeDuotone onClick={toggleVisibility}  className={`absolute bottom-2 right-2 sm:relative hover:scale-125 ${iconStyle}`} />
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger className={"absolute bottom-2 right-2 cursor-pointer sm:relative hover:scale-125 transition ease-in-out duration-100"}>
+                                    <PiDotsThreeDuotone onClick={toggleVisibility}  className={ "cursor-pointer transition ease-in-out duration-100 text-2xl rounded text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1"} />
+                                </TooltipTrigger>
+                                <TooltipContent side="left" align="end">
+                                    <p>Toggle Details</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </div>
                 </div>
-                </div>
-                
-
 {/* //////////////////////////////////////// Hidden Details //////////////////////////////////////// */}
-
                 <div className={`col-start-1 col-span-4 row-start-6 relative overflow-hidden transition-all ${isDetailsVisible ? cn(`h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md ${borderColors}`) : 'h-0 opacity-0'} duration-300 ease-in-out`}>
                     <div className={cn(`p-2 flex flex-col bg-stone-400/60 dark:bg-stone-800/70`)}>
                         <div className="pl-4">
