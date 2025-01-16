@@ -10,7 +10,7 @@ import { ChevronsUpDown } from "lucide-react";
 import { Command, CommandGroup, CommandItem, CommandInput, CommandList  } from "@/components/ui/command";
 import { Schedule } from "@/typings";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ScheduledDeliveryBoard }from "@/app/deliveries/(routes)/schedule/DeliveryBoard";
+import { ScheduledDeliveryBoard }from "@/app/deliveries/(routes)/schedule/deliveryBoard";
 
 export default function DeliverySchedule() {
     const { userDefaultDistrict, selectedSheet, headsheets, setSelectedSheet, selectedHead, setSelectedHead, selectedDistrict, open, setOpen, setDistrict, getHeadsheets, getSchedule, schedule } = useDeliveriesStore();

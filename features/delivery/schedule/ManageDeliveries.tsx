@@ -16,7 +16,7 @@ import {
     DialogTrigger 
 } from '@/components/ui/dialog';
 import { DatePicker, TimePicker } from '@/features/delivery/schedule/DateTimePicker';
-import UpdateMeasurements from '@/features/delivery/schedule/UpdateMeasurements';
+import UpdateMeasurements from '@/features/delivery/schedule/updateMeasurements';
 import EndRun from './EndRun';
 import { cn } from '@/lib/utils/GeneralUtils';
 
@@ -33,12 +33,11 @@ const ManageDelivery: React.FC<Props> = ({schedule}) => {
                 <DrawerTitle className="flex gap-3 text-xl justify-center">
                     <FaHandHoldingWater size={"1.25em"} />
                     Manage Deliveries
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button variant={"secondary"} size={"sm"}>Add Delivery</Button>
-                        </DialogTrigger>
-                        <UpdateMeasurements />
-                    </Dialog>
+                    <UpdateMeasurements 
+                        variant="secondary"
+                        size="sm"
+                        buttonText="Add Delivery"
+                    />
                 </DrawerTitle>  
                 <DrawerDescription className="flex justify-center gap-4 -my-1">
                     <span className="text-sm">

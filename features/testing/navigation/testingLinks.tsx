@@ -3,12 +3,24 @@ import { RiShieldUserFill } from "react-icons/ri";
 import { GrSchedules } from "react-icons/gr";
 import { TbLoader3, TbMapRoute } from "react-icons/tb";
 import { SiFreelancer } from "react-icons/si";
+import { IoIosColorPalette } from "react-icons/io";
+import { BsDatabaseFillGear } from "react-icons/bs";
 
 const labelTextClass = "text-[10px] leading-3 subpixel-antialiased px-1 break-words";
 const iconStyle = `mb-[2px] subpixel-antialiased`;
 
 
 export const testingLinks = [
+  {
+    id: 998999, // Use a unique id for the logo section
+    link: "/system", // Use "/" as the link for the logo
+    content: (
+      <>
+        <BsDatabaseFillGear size={30} className={iconStyle} />
+        <span className={labelTextClass}>Back to System</span>
+      </>
+    ),
+  },
   {
     id: 999000, // Use a unique id for the logo section
     link: "/testing", // Use "/" as the link for the logo
@@ -56,6 +68,16 @@ export const testingLinks = [
       <>
         <TbMapRoute size={30} className={iconStyle} />
         <span className={labelTextClass}>Geo Mapping</span>
+      </>
+    ),
+  },
+  {
+    id: 999005, // Use a unique id for the logo section
+    link: "/testing/colors", // Use "/" as the link for the logo
+    content: (
+      <>
+        <IoIosColorPalette size={30} className={iconStyle} />
+        <span className={labelTextClass}>Colors</span>
       </>
     ),
   },
