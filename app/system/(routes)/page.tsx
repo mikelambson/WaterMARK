@@ -1,5 +1,5 @@
 
-import BackendStatus from "@/features/system/BackendStatus";
+import BackendStatus from "@/features/system/backendStatus";
 
 const System = () => {
     return ( 
