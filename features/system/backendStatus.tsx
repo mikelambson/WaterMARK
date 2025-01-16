@@ -27,9 +27,9 @@ const BackendStatus = () => {
   
 
   return (
-    <div className="relative text-green-700">
-        <h1 className="absolute left-2 text-lg font-semibold">Backend Data Requests</h1>
-        <div className={"h-96 border w-full text-foreground"}>
+    <div className="relative">
+        <h1 className="absolute left-2 top-1 px-2 text-lg font-semibold bg-background/80 rounded text-green-800">Backend Data Requests</h1>
+        <div className={"h-96 w-full text-foreground"}>
         <Textarea 
             className={"w-full h-full" }
             value={status} 
