@@ -28,7 +28,7 @@ const ManageDelivery: React.FC<Props> = ({schedule}) => {
     // Component logic goes here
 
     return (
-        <DrawerContent>
+        <DrawerContent className="w-full min-h-96">
             <DrawerHeader>
                 <DrawerTitle className="flex gap-3 text-xl justify-center">
                     <FaHandHoldingWater size={"1.25em"} />
@@ -40,14 +40,17 @@ const ManageDelivery: React.FC<Props> = ({schedule}) => {
                     />
                 </DrawerTitle>  
                 <DrawerDescription className="flex justify-center gap-4 -my-1">
-                    <span className="text-sm">
+                    <span className="text-foreground/50 text-sm">
                         Order Number:
                         <span className="ml-1 text-card-alternative font-semibold">
                             {schedule.order.orderNumber}
                         </span>
                     </span>
-                    <span className="text-sm">
-                        OrderID: {schedule.orderId}
+                    <span className="text-foreground/50 text-sm">
+                        Serial Number: 
+                        <span className="ml-1 text-card-alternative font-semibold">
+                            {schedule.order.tcidSn}
+                        </span>
                     </span>
                 </DrawerDescription>                                      
             </DrawerHeader>
@@ -152,14 +155,13 @@ const ManageDelivery: React.FC<Props> = ({schedule}) => {
                 </ScrollArea>          
             </div>
             <DrawerFooter className='w-full flex sm:grid grid-cols-2 gap-4'>
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button variant="destructive">
-                            End Run
-                        </Button>
-                    </DialogTrigger>
-                    <EndRun />
-                </Dialog>
+                <div className='w-full'>
+                    <EndRun 
+                        variant="destructive"
+                        className="w-full"
+                        buttonText="End Run"
+                    />
+                </div>
                 <DrawerClose asChild>
                     <Button variant="secondary">Exit</Button>
                 </DrawerClose>

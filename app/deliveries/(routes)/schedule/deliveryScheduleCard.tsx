@@ -307,10 +307,13 @@ const ScheduledDeliveryCard = ({
 
                     <div className={`col-start-1 col-span-4 row-start-6 relative overflow-hidden transition-all ${isDetailsVisible ? cn(`h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md ${borderColors}`) : 'h-0 opacity-0'} duration-300 ease-in-out`}>
                         <div className={cn(`p-2 flex flex-col bg-stone-400/60 dark:bg-stone-800/70`)}>
-                            <p className="text-foreground/50">
-                                OrderID: {schedule.orderId}
+                            <p className="before:content-['Serial_Number:'] before:mr-2 before:text-foreground/50">    
+                                {schedule.order.tcidSn}
                             </p>
-                            <p className="before:content-['Total_AF:'] after:content-['AF_Scheduled'] before:mr-1 before:text-foreground/50 after:ml-1 after:text-foreground/50">
+                            <p className="before:content-['Current_Balance:'] before:mr-2 before:text-foreground/50">
+                                {schedule.order.details.balance}
+                            </p>
+                            <p className="before:content-['Total_AF:'] after:content-['AF_Scheduled'] before:mr-2 before:text-foreground/50 after:ml-2 after:text-foreground/50">
                                 {currentAFCalc} / {schedule.order.details.approxAf}
                             </p>
                             <div className={deliveriesArray.length !== 0 ? "grid my-1 gap-2" : "before:content-['Deliveries:'] before:mr-1 before:text-foreground/50"}>
