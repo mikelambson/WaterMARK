@@ -35,6 +35,7 @@ import CancelOrder from "@/components/function/CancelOrder";
 import UpdateMeasurements from "@/features/delivery/schedule/updateMeasurements";
 import EndRun from "@/features/delivery/schedule/EndRun";
 import ManageDelivery from "@/features/delivery/schedule/ManageDeliveries";
+import OrderDetails from "./orderDetails";
 
 
 
@@ -175,7 +176,7 @@ const ScheduledDeliveryCard = ({
                 : "bg-emerald-900/75 dark:bg-emerald-950/75" 
             : "bg-slate-700/90 dark:bg-gray-800/90")}
         >
-            <Sheet>
+            <div>
                 <div className="group grid grid-flow-row grid-rows-5 grid-cols-[2rem,1fr,1fr,2fr] md:grid-cols-[2.25rem,2fr,3fr,2fr] lg:grid-cols-[2.75rem,2fr,3fr,2fr]
                 gap-0 rounded-sm align-text-bottom">
                     <div className={cn(`group col-start-1 row-start-1 row-span-5 flex justify-center items-center cursor-pointer ${schedule.order.status !== "running" 
@@ -373,16 +374,17 @@ const ScheduledDeliveryCard = ({
                                     </div>
                                 ))}
                             </div>
-                            <div className="mt-2 flex justify-between">
-                            <SheetTrigger asChild>
-                                <Button 
-                                    variant={"outline"} 
-                                    size={"sm"} 
-                                    className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
-                                        <TbGridDots className={"mr-1"} />
-                                        Details
-                                </Button>
-                            </SheetTrigger>
+                            <div className="mt-2 flex justify-center gap-8">
+                                <OrderDetails schedule={schedule} />
+                                {/* <SheetTrigger asChild>
+                                    <Button 
+                                        variant={"outline"} 
+                                        size={"sm"} 
+                                        className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                                            <TbGridDots className={"mr-1"} />
+                                            Order Details
+                                    </Button>
+                                </SheetTrigger> */}
 
 {/* ///////////////////////////// Drawer Section /////////////////////////// */}
 
@@ -403,157 +405,9 @@ const ScheduledDeliveryCard = ({
                 </div>
 
 {/* //////////////////////////////////////// Side Sheet Details //////////////////////////////////////// */}
-
-                <SheetContent className={"w-11/12 sm:w-[800px]"} side="right">
-                    <SheetHeader>
-                    <SheetTitle className="text-card-alternative">Schedule #{schedule.order.orderNumber} Details</SheetTitle>
-                    <SheetDescription className="flex flex-col w-full gap-2">
-                        Laterals: {schedule.order.laterals.join(' | ')} <br />
-                        Remarks: {schedule.order.remarks} <br />
-                        Irrigator: {schedule.order.details.irrigatorsName}<br />
-                        Owner: {schedule.order.details.ownersName}<br />
-                        Scheduleed AF: {schedule.order.details.approxAf}<br />
-                        Balance: {schedule.order.details.balance}<br />
-                        {schedule.order.approxCfs} CFS for {schedule.order.approxHrs} HRS
-                    </SheetDescription>
-                    </SheetHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-2">
-                            <Label>Scheduled:</Label>
-                            <span className="pl-1 border rounded-md col-span-3">{
-                                new Date(schedule.scheduledDate).toLocaleString('en-US', {
-                                year: 'numeric',
-                                month: 'numeric',
-                                day: 'numeric',
-                                hour: 'numeric',
-                                minute: 'numeric',
-                                hour12: false,
-                                
-                            })}
-                            </span>
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-2">
-                            <Label htmlFor="instructions" className="col-span-2">
-                            Instructions: 
-                            </Label>
-                            <div className="row-start-2 col-span-4 text-left">{schedule.instructions}</div>
-                            {/* <Input id="instructions" defaultValue={schedule.instructions || "Enter Instructions"} className="row-start-2 col-span-4 text-left" /> */}
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-2">
-                            <Label htmlFor="deliverynotes" className="col-span-2 flex items-center gap-2">
-                                {schedule.deliveries.length > 1 
-                                    ? "Deliveries:" 
-                                    : "Delivery:"}
-                                <Drawer>
-                                <DrawerTrigger asChild>
-                                    <Button variant={"outline"} size={"pagination"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
-                                    <FaHandHoldingWater className={""} />
-                                       
-                                    </Button>
-                                </DrawerTrigger>
-                                <ManageDelivery
-                                    schedule={schedule}
-                                />
-                                </Drawer>
-                            </Label>
-                            <div className="col-span-4">
-                                {schedule.deliveries.map((delivery, index) => (
-                                    <div key={index} className="grid text-sm">
-                                        <div className="flex justify-between">
-                                            <p>{index + 1}:</p>
-                                            <p>{hoursCalc(index)} hrs</p>
-                                            <p className="after:content-['cfs'] after:ml-1">
-                                                {delivery.measurment ? delivery.measurment : schedule.order.approxCfs}
-                                            </p>
-                                            <p className="after:content-['af'] after:ml-1">
-                                                {deliveryAF(index)}
-                                            </p>
-                                        </div>
-                                        <p>{delivery.deliveryNote ? delivery.deliveryNote : "No note..."}</p>
-                                    </div>
-                                    
-                                ))}
-                            </div>
-                            
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-2">
-                            <Label htmlFor="specialRequest" className="col-span-2">
-                                Special Request:
-                            </Label>
-                            <input
-                                id="specialRequest"
-                                defaultValue={schedule.specialRequest 
-                                    ? schedule.specialRequest 
-                                    : "No Special Requests"}
-                                className="flex flex-wrap col-span-4 px-2"
-                            />
-                        </div>
-                        <div className="grid grid-cols-6 items-center gap-4">
-                            <Label htmlFor="startdate" className="text-right">
-                            Start Date
-                            </Label>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <Button
-                                    id="startdate"
-                                    variant={"outline"}
-                                    className={cn(
-                                        "col-span-4 justify-start text-left font-normal",
-                                        !date && "text-muted-foreground"
-                                    )}
-                                    disabled={schedule.order.status === "running"}
-                                    >
-                                    <CalendarIcon className="mr-2 h-4 w-4" />
-                                    {parsedDate ? format(parsedDate, "PPP") : <span>Pick a date</span>}
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0">
-                                    <Calendar
-                                    mode="single"
-                                    selected={parsedDate}
-                                    onSelect={setDate}
-                                    initialFocus
-                                    />
-                                    
-                                </PopoverContent>
-                            </Popover>
-                        </div>
-
-                        <div className="grid grid-cols-6 items-center gap-2">
-                            <Label htmlFor="starttime" className="text-right">
-                            Start Time
-                            </Label>
-                            <Input id="starttime" defaultValue={new Date(schedule.scheduledDate).toLocaleString('en-US', {
-                                hour: 'numeric',
-                                minute: 'numeric',
-                                hour12: false,
-                                })} 
-                                className="col-span-2"
-                                disabled={schedule.order.status === "running"} 
-                            />
-                            <Label htmlFor="traveltime" className="text-right">
-                            Travel Time
-                            </Label>
-                            <Input id="traveltime" 
-                                defaultValue={`${schedule.travelTime} hrs`} 
-                                className="col-span-2" 
-                                disabled={schedule.order.status === "running"}
-                            />
-                        </div>
-                    </div>
-                    <SheetFooter>
-                        <CancelOrder 
-                            disabled={schedule.order.status === "running" ? true : false}
-                            orderId={schedule.orderId}
-                            orderNumber={schedule.order.orderNumber}
-                        />
-                    <Button variant={"secondary"} type="reset">Reset</Button>
-                    <SheetClose asChild>
-                        <Button type="submit">Save changes</Button>
-                    </SheetClose>
-                    </SheetFooter>
-                </SheetContent>
-            </Sheet>
+                
+                
+            </div>
         </div>
      );
 }
