@@ -23,40 +23,46 @@ import { cn } from '@/lib/utils/GeneralUtils';
 
 interface Props {
     schedule: Schedule
+    className?: string;
 }
 
-const ManageDelivery: React.FC<Props> = ({schedule}) => {
+const ManageDelivery: React.FC<Props> = ({schedule, className}) => {
     // Component logic goes here
 
     return (
         <DrawerContent className="w-full min-h-96">
             <DrawerHeader>
-                <DrawerTitle className="flex gap-3 text-xl justify-center">
-                    <FaHandHoldingWater size={"1.25em"} />
-                    Manage Deliveries
-                    <UpdateMeasurements 
-                        variant="secondary"
-                        size="sm"
-                        buttonText="Add Delivery"
-                    />
+                <DrawerTitle className="flex flex-col gap-3 text-xl justify-center">
+                    <div className='inline-flex gap-3 justify-center items-center'>
+                        <FaHandHoldingWater size={"1.25em"} />
+                        Manage Deliveries
+                    </div>
                 </DrawerTitle>  
-                <DrawerDescription className="flex justify-center gap-4 -my-1">
-                    <span className="text-foreground/50 text-sm">
+                <DrawerDescription className="grid gap-4 -my-1">
+                    <div className="flex justify-center gap-4">
+                        <span className="text-foreground/50 text-sm">
                         Order Number:
-                        <span className="ml-1 text-card-alternative font-semibold">
-                            {schedule.order.orderNumber}
+                            <span className="ml-1 text-card-alternative font-semibold">
+                                {schedule.order.orderNumber}
+                            </span>
                         </span>
-                    </span>
-                    <span className="text-foreground/50 text-sm">
-                        Serial Number: 
-                        <span className="ml-1 text-card-alternative font-semibold">
-                            {schedule.order.tcidSn}
+                        <span className="text-foreground/50 text-sm">
+                            Serial Number: 
+                            <span className="ml-1 text-card-alternative font-semibold">
+                                {schedule.order.tcidSn}
+                            </span>
                         </span>
-                    </span>
+                    </div>    
                 </DrawerDescription>                                      
             </DrawerHeader>
             <div className="flex flex-col w-full px-2 h-full gap-2 mx-auto justify-center align-middle">
-                <ScrollArea className="flex flex-col max-h-[65svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md px-4">
+                <UpdateMeasurements 
+                    variant="default"
+                    className='w-full'
+                    size="sm"
+                    buttonText="Add Delivery"
+                />
+                <ScrollArea className="flex flex-col max-h-[65svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md px-4 min-h-96">
                     {schedule.deliveries?.length === 0 
                     ? <div className="h-48 flex justify-center items-center">
                         <p className="text-2xl">No Deliveries Recorded</p>

@@ -265,21 +265,24 @@ const ScheduledDeliveryCard = ({
                     })    
                 }
                 </div>
-                <div className={cn(`col-start-3 row-start-4 border-r-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
-                    Status:
-                    <span className={cn("mx-1 drop-shadow-md", 
-                        schedule.order.status !== "running" 
-                        ? "text-cyan-300/90 dark:text-cyan-200/70"
-                        : currentAFCalc > schedule.order.details.approxAf 
-                            ? "text-red-400  dark:text-red-500 animate-pulse transform-gpu" 
-                            : "text-green-500 animate-pulse transform-gpu"
-                    )}>
-                        {currentAFCalc > schedule.order.details.approxAf 
-                            ? "Over Delivered" : capitalizedStatus}
-                    </span>
-                    {Math.round((currentAFCalc / schedule.order.details.approxAf) * 100)}%
+                <div className={cn(`col-start-3 row-start-4 border-r-2 px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
+                    <div className="w-full flex gap-1 ">
+                        <p>Status:</p>
+                        <p className={cn("mx-1 drop-shadow-md", 
+                            schedule.order.status !== "running" 
+                            ? "text-cyan-300/90 dark:text-cyan-200/70"
+                            : currentAFCalc > schedule.order.details.approxAf 
+                                ? "text-red-400  dark:text-red-500 animate-pulse transform-gpu" 
+                                : "text-green-500 animate-pulse transform-gpu"
+                        )}>
+                            {currentAFCalc > schedule.order.details.approxAf 
+                                ? "Over Delivered" : capitalizedStatus}
+                        </p>
+                        <p>
+                            {Math.round((currentAFCalc / schedule.order.details.approxAf) * 100)}%
+                        </p>
+                    </div>
                 </div>
-                
                 <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>
                     Travel: {schedule.travelTime} hrs
                 </div>
@@ -377,16 +380,17 @@ const ScheduledDeliveryCard = ({
                         <div className="mt-2 flex justify-center gap-8">
                             <Drawer>
                                 <DrawerTrigger asChild>
-                                    <Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                                    <Button variant={"outline"} size={"sm"} className="md:text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
                                         Manage Deliveries 
                                         <FaHandHoldingWater className={"ml-1"} />
                                     </Button>
                                 </DrawerTrigger>
                                 <ManageDelivery
-                                schedule={schedule}
+                                    schedule={schedule}
+                                    className="md:text-xl"
                                 />
                             </Drawer>
-                            <OrderDetails schedule={schedule} />
+                            <OrderDetails schedule={schedule} className="text-sm md:text-xl" />
                         </div>
                     </div>    
                 </div>

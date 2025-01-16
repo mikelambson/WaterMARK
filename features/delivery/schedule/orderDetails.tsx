@@ -92,7 +92,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ schedule, className }) => {
                 <Button 
                     variant={"outline"} 
                     size={"sm"} 
-                    className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
+                    className={cn("bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu", className)}>
                         <TbGridDots className={"mr-1"} />
                         Order Details
                 </Button>
