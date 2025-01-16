@@ -374,15 +374,10 @@ const ScheduledDeliveryCard = ({
                             ))}
                         </div>
                         <div className="mt-2 flex justify-center gap-8">
-                            <OrderDetails schedule={schedule} />
-                            
-
-{/* ///////////////////////////// Drawer Section /////////////////////////// */}
-
                             <Drawer>
                                 <DrawerTrigger asChild>
                                     <Button variant={"outline"} size={"sm"} className="text-xl bg-neutral-300/90 dark:bg-slate-600/80 border-gray-600 dark:border-gray-500 shadow-md hover:animate-pulse font-semibold transform-gpu">
-                                        Delivery 
+                                        Manage Deliveries 
                                         <FaHandHoldingWater className={"ml-1"} />
                                     </Button>
                                 </DrawerTrigger>
@@ -390,13 +385,11 @@ const ScheduledDeliveryCard = ({
                                 schedule={schedule}
                                 />
                             </Drawer>
+                            <OrderDetails schedule={schedule} />
                         </div>
                     </div>    
                 </div>
             </div>
-
-{/* //////////////////////////////////////// Side Sheet Details //////////////////////////////////////// */}
-
         </div>
      );
 }
