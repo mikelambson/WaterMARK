@@ -6,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 // import { cn } from "@/lib/utils";
 import { Schedule } from "@/typings";
 import { useEffect } from 'react';
-import { ScheduledDeliveryCard } from '@/features/delivery/schedule/deliveryScheduleCard';
+import { ScheduledDeliveryCard } from '@/app/deliveries/(routes)/schedule/deliveryScheduleCard';
 
 type Properties = {
     id: number | null,
