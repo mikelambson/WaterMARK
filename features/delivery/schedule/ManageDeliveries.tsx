@@ -1,3 +1,4 @@
+"use client";
 import { Schedule } from '@/typings';
 import { 
     DrawerClose, 

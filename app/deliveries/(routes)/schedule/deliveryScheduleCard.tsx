@@ -1,37 +1,17 @@
 // @/app/(scheduling)/_components/ScheduleCard.tsx
-"use client"
+"use client";
 import React, { useState, useEffect, useRef } from "react";
-import { format, parseISO  } from 'date-fns';
+import { parseISO  } from 'date-fns';
 import { cn } from "@/lib/utils/GeneralUtils";
 import { Schedule } from "@/typings";
 import { Button } from "@/components/ui/button";
-import { 
-    Sheet, 
-    SheetClose, 
-    SheetContent, 
-    SheetDescription, 
-    SheetFooter, 
-    SheetHeader, 
-    SheetTitle, 
-    SheetTrigger } from "@/components/ui/sheet";
 import {
     Drawer,
     DrawerTrigger,
     } from "@/components/ui/drawer"
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Calendar as CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { TbGridDots } from "react-icons/tb";
-import { formatPhoneNumber } from "@/lib/utils/GeneralUtils";
 import { FaHandHoldingWater } from "react-icons/fa";
 import { PiDotsThreeDuotone } from "react-icons/pi";
-import CancelOrder from "@/components/function/CancelOrder";
+import { formatPhoneNumber } from "@/lib/utils/GeneralUtils";
 import UpdateMeasurements from "@/features/delivery/schedule/updateMeasurements";
 import EndRun from "@/features/delivery/schedule/EndRun";
 import ManageDelivery from "@/features/delivery/schedule/ManageDeliveries";
@@ -307,71 +287,76 @@ const ScheduledDeliveryCard = ({
 
                 <div className={`col-start-1 col-span-4 row-start-6 relative overflow-hidden transition-all ${isDetailsVisible ? cn(`h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md ${borderColors}`) : 'h-0 opacity-0'} duration-300 ease-in-out`}>
                     <div className={cn(`p-2 flex flex-col bg-stone-400/60 dark:bg-stone-800/70`)}>
-                        <p className="before:content-['Serial_Number:'] before:mr-2 before:text-foreground/50">    
-                            {schedule.order.tcidSn}
-                        </p>
-                        <p className="before:content-['Current_Balance:'] before:mr-2 before:text-foreground/50">
-                            {schedule.order.details.balance}
-                        </p>
-                        <p className="before:content-['Total_AF:'] after:content-['AF_Scheduled'] before:mr-2 before:text-foreground/50 after:ml-2 after:text-foreground/50">
-                            {currentAFCalc} / {schedule.order.details.approxAf}
-                        </p>
-                        <div className={deliveriesArray.length !== 0 ? "grid my-1 gap-2" : "before:content-['Deliveries:'] before:mr-1 before:text-foreground/50"}>
-                            {deliveriesArray.length === 0 ? "Start the delivery to add details..." : null}
-                            {deliveriesArray?.map((delivery, index) => (
-                                <div key={index} className="mx-2 grid border-y border-foreground rounded-md pb-1 bg-black/25">
-                                    <div className="py-1 mb-1 flex flex-col justify-center align-middle text-center bg-black/25">
-                                        <p className="text-sm">
-                                            -- DELIVERY {index + 1} --
-                                        </p>
-                                    </div>
-                                    <div className="px-2">
-                                        <div className="flex flex-col justify-between md:flex-row">
-                                            <p>
-                                                <span className="text-sm mr-1">Start Time:</span>
-                                                {new Date(delivery.startTime).toLocaleTimeString('en-US', {
-                                                    year: 'numeric',
-                                                    month: 'numeric',
-                                                    day: 'numeric',
-                                                    hour: 'numeric',
-                                                    minute: 'numeric',
-                                                    hour12: false,
-                                                })}
+                        <div className="pl-4">
+                            <p className="before:content-['Serial_Number:'] before:mr-2 before:text-foreground/50">    
+                                {schedule.order.tcidSn}
+                            </p>
+                            <p className="before:content-['Acres_Given:'] before:mr-2 before:text-foreground/50">
+                                {schedule.order.remarks?.match(/A\s*[\/\\]?\s*(\d+)/)?.[1]}
+                            </p>
+                            <p className="before:content-['Current_Balance:'] before:mr-2 before:text-foreground/50">
+                                {schedule.order.details.balance}
+                            </p>
+                            <p className="before:content-['Total_AF:'] after:content-['AF_Scheduled'] before:mr-2 before:text-foreground/50 after:ml-2 after:text-foreground/50">
+                                {currentAFCalc} / {schedule.order.details.approxAf}
+                            </p>
+                            <div className={deliveriesArray.length !== 0 ? "grid my-1 gap-2" : "before:content-['Deliveries:'] before:mr-1 before:text-foreground/50"}>
+                                {deliveriesArray.length === 0 ? "Start the delivery to add details..." : null}
+                                {deliveriesArray?.map((delivery, index) => (
+                                    <div key={index} className="mx-2 grid border-y border-foreground rounded-md pb-1 bg-black/25">
+                                        <div className="py-1 mb-1 flex flex-col justify-center align-middle text-center bg-black/25">
+                                            <p className="text-sm">
+                                                -- DELIVERY {index + 1} --
                                             </p>
-                                            <p>
-                                                <span className="text-sm mr-1">
-                                                    Stop Time:
-                                                </span>
-                                                {delivery.stopTime 
-                                                    ? new Date(delivery.stopTime).toLocaleString('en-US', {
+                                        </div>
+                                        <div className="px-2">
+                                            <div className="flex flex-col justify-between md:flex-row">
+                                                <p>
+                                                    <span className="text-sm mr-1">Start Time:</span>
+                                                    {new Date(delivery.startTime).toLocaleTimeString('en-US', {
                                                         year: 'numeric',
                                                         month: 'numeric',
                                                         day: 'numeric',
                                                         hour: 'numeric',
                                                         minute: 'numeric',
                                                         hour12: false,
-                                                    }) 
-                                                : "Running..."}
-                                            </p>
-                                            <p className="after:content-['HRS'] after:ml-1 after:text-sm">
-                                                {hoursCalc(index)}
-                                            </p>
-                                            <p className="after:content-['CFS'] after:ml-1 after:text-sm">  
-                                                {schedule.order.approxCfs}
-                                            </p>
-                                            <p className="after:content-['AF'] after:ml-1 after:text-sm">
-                                                {deliveryAF(index)}
+                                                    })}
+                                                </p>
+                                                <p>
+                                                    <span className="text-sm mr-1">
+                                                        Stop Time:
+                                                    </span>
+                                                    {delivery.stopTime 
+                                                        ? new Date(delivery.stopTime).toLocaleString('en-US', {
+                                                            year: 'numeric',
+                                                            month: 'numeric',
+                                                            day: 'numeric',
+                                                            hour: 'numeric',
+                                                            minute: 'numeric',
+                                                            hour12: false,
+                                                        }) 
+                                                    : "Running..."}
+                                                </p>
+                                                <p className="after:content-['HRS'] after:ml-1 after:text-sm">
+                                                    {hoursCalc(index)}
+                                                </p>
+                                                <p className="after:content-['CFS'] after:ml-1 after:text-sm">  
+                                                    {schedule.order.approxCfs}
+                                                </p>
+                                                <p className="after:content-['AF'] after:ml-1 after:text-sm">
+                                                    {deliveryAF(index)}
+                                                </p>
+                                            </div>
+                                            <p className="">
+                                                <span className="text-sm mr-1">
+                                                    Delivery Note:
+                                                </span>
+                                                {delivery.deliveryNote}
                                             </p>
                                         </div>
-                                        <p className="">
-                                            <span className="text-sm mr-1">
-                                                Delivery Note:
-                                            </span>
-                                            {delivery.deliveryNote}
-                                        </p>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                         <div className="mt-2 flex justify-center gap-8">
                             <Drawer>
