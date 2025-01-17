@@ -83,7 +83,7 @@ export const TimePicker: React.FC<DateTimePickerProps> = ({className, inputClass
         if (onChange) {
         onChange(initialTime); // Send initial value to the parent
         }
-    }, [initialTime]);
+    }, []);
 
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newTime = event.target.value;
