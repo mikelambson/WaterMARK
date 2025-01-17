@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, use, useEffect, useState } from "react";
 import {
     InputOTP,
     InputOTPGroup,
@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils/GeneralUtils";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
+import { on } from "events";
 
   
 
@@ -23,23 +24,33 @@ interface DateTimePickerProps {
     onChange?: (value: string) => void;
 }
 
-export const DatePicker: React.FC<DateTimePickerProps> = ({className, defaultDate}) => {
+export const DatePicker: React.FC<DateTimePickerProps> = ({className, defaultDate, onChange}) => {
     const [date, setDate] = React.useState<Date>();
+    const enteredDate = typeof defaultDate === "string" ? new Date(defaultDate) : new Date();
+    const defaultDateValue = defaultDate ? new Date(enteredDate) : "";
+
+    
 
     useEffect(() => { 
         let isMounted = true;
-        const enteredDate = typeof defaultDate === "string" ? new Date(defaultDate) : new Date();
-        const defaultDateValue = defaultDate ? new Date(enteredDate) : "";
+        
 
         if (isMounted) { 
             setDate(defaultDateValue as Date); 
         }
+
 
         return () => { 
             isMounted = false; 
         };
 
     }, [defaultDate]);
+
+    useEffect(() => {
+        if (onChange) {
+            onChange(date ? date.toISOString() : "");
+        }
+    }, [date]);
 
   return (
         <Popover>

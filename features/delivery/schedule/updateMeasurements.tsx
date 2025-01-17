@@ -25,13 +25,26 @@ interface UpdateMeasurementsProps {
 
 
 const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
+    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [selectedTime, setSelectedTime] = useState("");
+
+    const handleDateChange = (newDate: string) => {
+        setSelectedDate(new Date(newDate));
+    }
+
     const handleTimeChange = (newTime: string) => {
         setSelectedTime(newTime);
     };
 
     const handleSubmit = () => {
+        console.log("Selected Date:", selectedDate);
         console.log("Selected Time:", selectedTime);
+        // const date = selectedDate ? new Date(selectedDate) : new Date();
+        // const [hours, minutes] = selectedTime.split(":").map(Number);
+        // date.setHours(hours, minutes);
+        // const utcDate = date.toISOString();
+        // console.log("UTC Date and Time:", utcDate);
+
         // Perform submission logic here
       };
     const handleNumberEntry: KeyboardEventHandler<HTMLInputElement> = (event) => { // Update the type of handleNumberEntry
@@ -82,7 +95,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                         </div>
                     </DialogHeader>
                     <div className="pt-2 flex justify-center gap-2 flex-wrap">
-                        <DatePicker defaultDate={true} />
+                        <DatePicker defaultDate={true} onChange={handleDateChange} />
                         <TimePicker gap={1} defaultTime={true} onChange={handleTimeChange} />
                         
                             <Button 
