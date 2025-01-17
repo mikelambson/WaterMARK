@@ -33,13 +33,13 @@ const ManageDelivery: React.FC<Props> = ({schedule, className}) => {
         <DrawerContent className="w-full min-h-96">
             <DrawerHeader>
                 <DrawerTitle className="flex flex-col gap-3 text-xl justify-center">
-                    <div className='inline-flex gap-3 justify-center items-center'>
+                    <span className='inline-flex gap-3 justify-center items-center'>
                         <FaHandHoldingWater size={"1.25em"} />
                         Manage Deliveries
-                    </div>
+                    </span>
                 </DrawerTitle>  
                 <DrawerDescription className="grid gap-4 -my-1">
-                    <div className="flex justify-center gap-4">
+                    <span className="flex justify-center gap-4">
                         <span className="text-foreground/50 text-sm">
                         Order Number:
                             <span className="ml-1 text-card-alternative font-semibold">
@@ -52,7 +52,7 @@ const ManageDelivery: React.FC<Props> = ({schedule, className}) => {
                                 {schedule.order.tcidSn}
                             </span>
                         </span>
-                    </div>    
+                    </span>    
                 </DrawerDescription>                                      
             </DrawerHeader>
             <div className="flex flex-col w-full px-2 h-full gap-2 mx-auto justify-center align-middle">
