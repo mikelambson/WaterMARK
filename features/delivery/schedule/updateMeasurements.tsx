@@ -1,4 +1,5 @@
 "use client";
+import React, { useState } from "react";
 import {
     Dialog,
     DialogTrigger,
@@ -24,7 +25,15 @@ interface UpdateMeasurementsProps {
 
 
 const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
+    const [selectedTime, setSelectedTime] = useState("");
+    const handleTimeChange = (newTime: string) => {
+        setSelectedTime(newTime);
+    };
 
+    const handleSubmit = () => {
+        console.log("Selected Time:", selectedTime);
+        // Perform submission logic here
+      };
     const handleNumberEntry: KeyboardEventHandler<HTMLInputElement> = (event) => { // Update the type of handleNumberEntry
         const key = event.key;
         // Allow digits, backspace, delete, tab, and a single decimal point
@@ -74,10 +83,16 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                     </DialogHeader>
                     <div className="pt-2 flex justify-center gap-2 flex-wrap">
                         <DatePicker defaultDate={true} />
-                        <TimePicker gap={2} defaultTime={true} />
-                        <DialogClose asChild>
-                            <Button variant={"secondary"}>Save Measurment</Button>
-                        </DialogClose>
+                        <TimePicker gap={1} defaultTime={true} onChange={handleTimeChange} />
+                        
+                            <Button 
+                            variant={"secondary"}
+                            onClick={() => {
+                                handleSubmit();
+                            }}>
+                                Save Measurment
+                            </Button>
+                        
                     </div>
                     <TabsContent value="est">
                         <p className="text-center text-lg">Estimation</p>
@@ -116,11 +131,17 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                 estcalc.innerHTML = `The flow is: ${result} CFS.`;
                             }}>Calculate</Button>
                             
-                            <DialogClose asChild>
-                                <Button className="mt-2">
+                            
+                                <Button 
+                                    className="mt-2"
+                                    onSubmit={() => {
+                                        console.log("Submitted");
+                                        handleSubmit();
+                                    }}
+                                >
                                     Submit
                                 </Button>
-                            </DialogClose>
+                            
                         </div>
                         <div className=" border-t-2 mt-4 text-sm text-center">
                             <p>
