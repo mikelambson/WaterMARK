@@ -17,6 +17,8 @@ import EndRun from "@/features/delivery/schedule/EndRun";
 import ManageDelivery from "@/features/delivery/schedule/ManageDeliveries";
 import OrderDetails from "@/features/delivery/schedule/orderDetails";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { FaAnglesUp } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
 
 
 
@@ -159,8 +161,8 @@ const ScheduledDeliveryCard = ({
                 <TooltipProvider>
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <div 
-                                className={cn(`col-start-1 row-start-1 row-span-5 flex justify-center items-center cursor-pointer ${schedule.order.status !== "running" 
+                            <Button variant={"link"} size={"pagination"}
+                                className={cn(`h-full col-start-1 row-start-1 row-span-5 flex justify-center items-center cursor-pointer ${schedule.order.status !== "running" 
                                 ? "text-gray-400 dark:text-gray-500"
                                 : "text-neutral-400 dark:text-stone-500"}`)}
                                 onClick={toggleVisibility}
@@ -173,7 +175,7 @@ const ScheduledDeliveryCard = ({
                                     onClick={toggleVisibility}>
                                 {schedule.order.orderNumber}
                                 </span>
-                            </div>
+                            </Button>
                         </TooltipTrigger>
                         <TooltipContent side="right" align="end">
                             <p>Toggle Details</p>
@@ -294,7 +296,10 @@ const ScheduledDeliveryCard = ({
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger className={"absolute bottom-2 right-2 cursor-pointer sm:relative hover:scale-125 transition ease-in-out duration-100"}>
-                                    <PiDotsThreeDuotone onClick={toggleVisibility}  className={ "cursor-pointer transition ease-in-out duration-100 text-2xl rounded text-stone-100 dark:text-gray-400 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1"} />
+                                        <Button variant={"link"} size={"pagination"} onClick={toggleVisibility} className="cursor-pointer transition ease-in-out duration-100 text-stone-100/70 dark:text-gray-400/60 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1 text-sm">
+                                            {!isDetailsVisible ? "(open)" 
+                                            : <FaAnglesUp className="text-xl font-bold" />} 
+                                        </Button>
                                 </TooltipTrigger>
                                 <TooltipContent side="left" align="end">
                                     <p>Toggle Details</p>
@@ -305,7 +310,7 @@ const ScheduledDeliveryCard = ({
                 </div>
 {/* //////////////////////////////////////// Hidden Details //////////////////////////////////////// */}
                 <div className={`col-start-1 col-span-4 row-start-6 relative overflow-hidden transition-all ${isDetailsVisible ? cn(`h-auto opacity-100 border-t-2 rounded-b-md drop-shadow-md ${borderColors}`) : 'h-0 opacity-0'} duration-300 ease-in-out`}>
-                    <div className={cn(`p-2 flex flex-col bg-stone-400/60 dark:bg-stone-800/70`)}>
+                    <div className={cn(`p-2 flex flex-col bg-orange-50/75 dark:bg-zinc-900/80`)}>
                         <div className="pl-4">
                             <p className="before:content-['Serial_Number:'] before:mr-2 before:text-foreground/50">    
                                 {schedule.order.tcidSn}
@@ -392,6 +397,11 @@ const ScheduledDeliveryCard = ({
                             </Drawer>
                             <OrderDetails schedule={schedule} className="text-sm md:text-xl" />
                         </div>
+                        <Button variant={"link"} size={"sm"} 
+                        onClick={toggleVisibility}
+                        className="absolute sm:bottom-1 right-0 py-5 text-foreground/0 sm:text-foreground/50 sm:text-2xl font-semibold">
+                            <IoClose />
+                        </Button>
                     </div>    
                 </div>
             </div>
