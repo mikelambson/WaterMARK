@@ -191,6 +191,7 @@ const ScheduledDeliveryCard = ({
                             variant="secondary"
                             className="mt-4 mr-4 bg-green-950 active:bg-black/50 border dark:border-foreground/50 text-background dark:text-foreground"
                             buttonText="Start Run"
+                            orderId={schedule.order.id}
                         />
                     ) : (
                     <div className={"flex justify-between text-emerald-50 dark:text-gray-300/95 text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold"}>
@@ -295,7 +296,7 @@ const ScheduledDeliveryCard = ({
                     {schedule.order.approxHrs} hrs 
                         <TooltipProvider>
                             <Tooltip>
-                                <TooltipTrigger className={"absolute bottom-2 right-2 cursor-pointer sm:relative hover:scale-125 transition ease-in-out duration-100"}>
+                                <TooltipTrigger className={"absolute bottom-2 right-2 cursor-pointer sm:relative hover:scale-125 transition ease-in-out duration-100"} asChild>
                                         <Button variant={"link"} size={"pagination"} onClick={toggleVisibility} className="cursor-pointer transition ease-in-out duration-100 text-stone-100/70 dark:text-gray-400/60 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1 text-sm">
                                             {!isDetailsVisible ? "(open)" 
                                             : <FaAnglesUp className="text-xl font-bold" />} 

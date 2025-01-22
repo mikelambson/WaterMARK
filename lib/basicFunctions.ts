@@ -57,3 +57,8 @@ export const getScheduled = async (district?: string) => {
     throw error; // Propagate the error to the caller
   }
 }
+
+export const capitalizeFirstLetter = (str: string | null): string => {
+  if (!str || str === null) return '';
+  return str.replace(/\b\w/g, (char) => char.toUpperCase());
+}

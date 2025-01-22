@@ -18,19 +18,22 @@ import { DatePicker, TimePicker } from "@/features/delivery/schedule/DateTimePic
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast"
 import { cn } from "@/lib/utils/GeneralUtils";
-import { title } from "process";
-import { parse } from "path";
+import { capitalizeFirstLetter } from "@/lib/basicFunctions";
+
 
 interface UpdateMeasurementsProps {
     variant?: "link" | "destructive" | "secondary" | "default" | "outline" | "ghost" | null;
     className?: string;
     buttonText?: string;
     size?: "default" | "sm" | "lg" | "icon" | "pagination" | null;
+    orderId: string;
 }
 
 type SubmissionStructure = {
+    orderId: string;
     date: string;
     measurement: number;
+    type?: string;
 };
 
 const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
@@ -38,6 +41,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
     const [selectedTime, setSelectedTime] = useState("");
     const [saveMeasurement, setSaveMeasurement] = useState<number | null>(null);
     const [saveDate, setSaveDate] = useState<string | null>(null);
+    const [measurementType, setMeasurementType] = useState<string | null>(null);
     const [dataPacket, setDataPacket] = useState<SubmissionStructure | null>(null);
     const { toast } = useToast();
 
@@ -69,15 +73,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
         // console.log("Date and Time:", date);
         const utcDate = date.toISOString();
         setSaveDate(date.toString());
-        // console.log("Local Date and Time:\n", date);
-        // console.log("UTC Date and Time:\n", utcDate);
-        // toast({
-        //     // variant: "success",
-        //     title: "Date and Time Submitted",
-        //     description: date.toString() + "\nUTC Time: " + utcDate,
-        //     })
-
-        // Perform submission logic here
+        
     };
     const handleNumberEntry: KeyboardEventHandler<HTMLInputElement> = (event) => { // Update the type of handleNumberEntry
         const key = event.key;
@@ -113,11 +109,21 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
             return;
         }
         const submission: SubmissionStructure = {
+            orderId: props.orderId,
             date: saveDate || "",
             measurement: saveMeasurement || 0,
+            type: measurementType?.toString(),
         };
         setDataPacket(submission);
-        // console.log("Data Packet:", dataPacket);
+        console.log("Data Packet:", dataPacket);
+        
+        toast({ 
+            // variant: "success",
+            title: `OrderId: ${props.orderId}`,
+            description: `Date: ${saveDate} \nMeasurement: ${saveMeasurement} CFS \nMeasurment Type: ${measurementType}`,
+            action: <ToastAction altText="Close">Close</ToastAction>,
+        });
+        // alert("Submitted" + "\nDate: " + saveDate  + "\nMeasurement: " + saveMeasurement + " CFS" + "\nMeasurment Type: " + measurementType);
     };
 
     useEffect(() => {
@@ -151,7 +157,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                         </DialogDescription>
                         <div className="flex justify-center">
                             <TabsList>
-                                <TabsTrigger value="est">Est</TabsTrigger>
+                                <TabsTrigger value="est">Estimate</TabsTrigger>
                                 <TabsTrigger value="poly">Polystick</TabsTrigger>
                                 <TabsTrigger value="overTheBoards">OTB</TabsTrigger>
                                 <TabsTrigger value="submerged">Submerged</TabsTrigger>
@@ -182,18 +188,23 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                     <TabsContent value="est">
                         <p className="text-center text-lg -mb-2">Estimation</p>
                         <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
-                            <Label htmlFor="estCFS">Estimated CFS:</Label>
+                            <Label htmlFor="estCFS" className="">
+                                {measurementType === "estimation" || !measurementType
+                                ? "Estimated CFS:" 
+                                : capitalizeFirstLetter(measurementType) + " CFS:"}
+                            </Label>
                             <Input 
                                 id="estCFS" 
                                 type="number"
                                 min={0}
-                                defaultValue={saveMeasurement ?? "0.00"} 
+                                // defaultValue={saveMeasurement ?? "0.00"} 
                                 value={saveMeasurement?.toString() ?? "0.00"} 
                                 onChange={(e) => {
                                 if (isNaN(Number(e.target.value))) return;
                                 const value = parseFloat(e.target.value);
-                                setSaveMeasurement(value)}
-                            }/>
+                                setSaveMeasurement(value)
+                                setMeasurementType("estimation")
+                            }}/>
                         </div>
                         <p className="mt-2 border-t-2 pt-2 text-center text-md -mb-2">Timed Flow</p>
                         <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
@@ -225,6 +236,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                 const result = Math.round((parseFloat(estD.value) * parseFloat(estH.value) * parseFloat(estW.value) / parseFloat(estS.value)) * 100 ) / 100;
                                 estcalc.innerHTML = `The flow is: ${result} CFS.`;
                                 setSaveMeasurement(result);
+                                setMeasurementType("timed");
                             }}>Calculate</Button>
                             
                             
@@ -236,8 +248,8 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                         </div>
                     </TabsContent>
                     <TabsContent value="poly">
+
                         <p className="text-center text-lg">Polystick</p>
-                        
                         <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                             <Label htmlFor="polyread">Polystick Reading:</Label>
                             <Input id="polyread" defaultValue={"3.96"} />
@@ -257,6 +269,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                 const result = Math.round((parseFloat(polyread.value) * parseFloat(polywidth.value)) * 100 ) / 100;
                                 polycalc.innerHTML = `The CFS is: ${result}`;
                                 setSaveMeasurement(result);
+                                setMeasurementType("polystick");
                             }}>Calculate</Button>
                             
                         </div>
@@ -297,6 +310,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                         ( parseFloat(otbB.value) - parseFloat(otbU.value) ), 1.5 ) ) * 100 ) / 100;
                                 otbcalc.innerHTML = `The flow over the boards is: ${result} CFS.`;
                                 setSaveMeasurement(result);
+                                setMeasurementType("over-the-boards");
                             }}>Calculate</Button>
                         </div>
                         
@@ -336,6 +350,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                     ( 0.67 * ( parseFloat(subS.value) - parseFloat(subG.value) ) * parseFloat(subL.value) * Math.sqrt( 64.4 * (parseFloat(subD.value) - parseFloat(subU.value))) ) * 100 ) / 100;
                                 subcalc.innerHTML = `The flow is: ${result} CFS.`;
                                 setSaveMeasurement(result);
+                                setMeasurementType("submerged");
                             }}>Calculate</Button>
                         </div>
                         <div className=" border-t-2 mt-4 text-sm text-center">
@@ -374,6 +389,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                     ( 0.6 * (parseFloat(jetS.value) - parseFloat(jetG.value)) * parseFloat(jetL.value) * Math.sqrt( 64.4 * ( ( parseFloat(jetG.value) + parseFloat(jetS.value) )  / 2 - parseFloat(jetU.value) ) ) ) * 100 ) / 100;
                                 jetcalc.innerHTML = `The flow is: ${result} CFS.`;
                                 setSaveMeasurement(result);
+                                setMeasurementType("jet flow");
                             }}>Calculate</Button>
                             
                         </div>
@@ -392,11 +408,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                         <Button 
                             disabled={!saveDate || !saveMeasurement}
                             variant={"default"}
-                            onClick={() => {
-
-                                handleSubmit();
-                                alert("Submitted" + "\nDate: " + saveDate  + "\nMeasurement: " + saveMeasurement + " CFS" + "\nMeasurment Type: " + "Estimation");
-                            }}>
+                            onClick={() => handleSubmit()}>
                                 Submit
                         </Button>
                     </div>
