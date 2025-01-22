@@ -175,7 +175,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                         <p className="text-center text-lg -mb-2">Estimation</p>
                         <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                             <Label htmlFor="estCFS">Estimated CFS:</Label>
-                            <Input id="estCFS" defaultValue={"0.00"} onChange={(e) => setSaveMeasurement(parseFloat(e.target.value))} />
+                            <Input id="estCFS" defaultValue={saveMeasurement ?? ""} onChange={(e) => setSaveMeasurement(parseFloat(e.target.value))} />
                         </div>
                         <p className="mt-2 border-t-2 pt-2 text-center text-md -mb-2">Timed Flow</p>
                         <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
@@ -364,7 +364,8 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                             </p>
                         </div>
                     </TabsContent>
-                    <div className="mt-2 flex justify-end gap-2">
+                </Tabs>
+                    <div className="-mt-2 flex justify-end gap-2">
                         <Button 
                             disabled={!saveDate || !saveMeasurement}
                             variant={"default"}
@@ -374,9 +375,8 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                 alert("Submitted" + "\nDate: " + saveDate  + "\nMeasurement: " + saveMeasurement + " CFS" + "\nMeasurment Type: " + "Estimation");
                             }}>
                                 Submit
-                            </Button>
+                        </Button>
                     </div>
-                </Tabs>
             </DialogContent>
         </Dialog>
     );
