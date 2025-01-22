@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import {
     Dialog,
     DialogTrigger,
@@ -19,6 +19,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast"
 import { cn } from "@/lib/utils/GeneralUtils";
 import { title } from "process";
+import { parse } from "path";
 
 interface UpdateMeasurementsProps {
     variant?: "link" | "destructive" | "secondary" | "default" | "outline" | "ghost" | null;
@@ -119,6 +120,13 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
         // console.log("Data Packet:", dataPacket);
     };
 
+    useEffect(() => {
+        if ( saveMeasurement === null || isNaN(saveMeasurement) ) {
+            return;
+        }
+        document.getElementById("estCFS")?.setAttribute("value", saveMeasurement.toString());
+    }, [saveMeasurement]);
+
 
     return (
         <Dialog>
@@ -175,7 +183,17 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                         <p className="text-center text-lg -mb-2">Estimation</p>
                         <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                             <Label htmlFor="estCFS">Estimated CFS:</Label>
-                            <Input id="estCFS" defaultValue={saveMeasurement ?? ""} onChange={(e) => setSaveMeasurement(parseFloat(e.target.value))} />
+                            <Input 
+                                id="estCFS" 
+                                type="number"
+                                min={0}
+                                defaultValue={saveMeasurement ?? "0.00"} 
+                                value={saveMeasurement?.toString() ?? "0.00"} 
+                                onChange={(e) => {
+                                if (isNaN(Number(e.target.value))) return;
+                                const value = parseFloat(e.target.value);
+                                setSaveMeasurement(value)}
+                            }/>
                         </div>
                         <p className="mt-2 border-t-2 pt-2 text-center text-md -mb-2">Timed Flow</p>
                         <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
@@ -206,6 +224,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                 const estcalc = document.getElementById("estcalc") as HTMLParagraphElement;
                                 const result = Math.round((parseFloat(estD.value) * parseFloat(estH.value) * parseFloat(estW.value) / parseFloat(estS.value)) * 100 ) / 100;
                                 estcalc.innerHTML = `The flow is: ${result} CFS.`;
+                                setSaveMeasurement(result);
                             }}>Calculate</Button>
                             
                             
@@ -237,6 +256,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                 const polycalc = document.getElementById("polycalc") as HTMLParagraphElement;
                                 const result = Math.round((parseFloat(polyread.value) * parseFloat(polywidth.value)) * 100 ) / 100;
                                 polycalc.innerHTML = `The CFS is: ${result}`;
+                                setSaveMeasurement(result);
                             }}>Calculate</Button>
                             
                         </div>
@@ -276,6 +296,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                     ( 3.33 * parseFloat(otbL.value) * Math.pow(
                                         ( parseFloat(otbB.value) - parseFloat(otbU.value) ), 1.5 ) ) * 100 ) / 100;
                                 otbcalc.innerHTML = `The flow over the boards is: ${result} CFS.`;
+                                setSaveMeasurement(result);
                             }}>Calculate</Button>
                         </div>
                         
@@ -314,6 +335,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                 const result = Math.round(
                                     ( 0.67 * ( parseFloat(subS.value) - parseFloat(subG.value) ) * parseFloat(subL.value) * Math.sqrt( 64.4 * (parseFloat(subD.value) - parseFloat(subU.value))) ) * 100 ) / 100;
                                 subcalc.innerHTML = `The flow is: ${result} CFS.`;
+                                setSaveMeasurement(result);
                             }}>Calculate</Button>
                         </div>
                         <div className=" border-t-2 mt-4 text-sm text-center">
@@ -351,6 +373,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                 const result = Math.round(
                                     ( 0.6 * (parseFloat(jetS.value) - parseFloat(jetG.value)) * parseFloat(jetL.value) * Math.sqrt( 64.4 * ( ( parseFloat(jetG.value) + parseFloat(jetS.value) )  / 2 - parseFloat(jetU.value) ) ) ) * 100 ) / 100;
                                 jetcalc.innerHTML = `The flow is: ${result} CFS.`;
+                                setSaveMeasurement(result);
                             }}>Calculate</Button>
                             
                         </div>
