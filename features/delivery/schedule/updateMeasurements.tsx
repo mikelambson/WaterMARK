@@ -15,6 +15,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { KeyboardEventHandler } from "react"; // Import the KeyboardEventHandler type
 import { DatePicker, TimePicker } from "@/features/delivery/schedule/DateTimePicker";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast"
+import { cn } from "@/lib/utils/GeneralUtils";
 
 interface UpdateMeasurementsProps {
     variant?: "link" | "destructive" | "secondary" | "default" | "outline" | "ghost" | null;
@@ -27,6 +30,9 @@ interface UpdateMeasurementsProps {
 const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [selectedTime, setSelectedTime] = useState("");
+    const [selectedMeasurement, setSelectedMeasurement] = useState("");
+    const [saveDate, setSaveDate] = useState<string | null>(null);
+    const { toast } = useToast();
 
     const handleDateChange = (newDate: string) => {
         setSelectedDate(new Date(newDate));
@@ -37,16 +43,35 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
     };
 
     const handleSubmit = () => {
-        console.log("Selected Date:", selectedDate);
-        console.log("Selected Time:", selectedTime);
-        // const date = selectedDate ? new Date(selectedDate) : new Date();
-        // const [hours, minutes] = selectedTime.split(":").map(Number);
-        // date.setHours(hours, minutes);
-        // const utcDate = date.toISOString();
-        // console.log("UTC Date and Time:", utcDate);
+        // console.log("Selected Date:", selectedDate);
+        // console.log("Selected Time:", selectedTime);
+        if (!selectedDate || isNaN(new Date(selectedDate).getTime())) {
+            toast({
+                variant: "destructive",
+                title: "Invalid Date",
+                description: "Please enter a valid date and time to proceed.",
+                action: <ToastAction altText="Try again">Try again</ToastAction>,
+              })
+            return;
+        }
+        const date = new Date(selectedDate);
+        const hours = parseInt(selectedTime.slice(0, 2), 10);
+        const minutes = parseInt(selectedTime.slice(2, 4), 10);
+        date.setHours(hours, minutes);
+        
+        // console.log("Date and Time:", date);
+        const utcDate = date.toISOString();
+        setSaveDate(date.toString());
+        console.log("Local Date and Time:\n", date);
+        console.log("UTC Date and Time:\n", utcDate);
+        toast({
+            // variant: "success",
+            title: "Date and Time Submitted",
+            description: date.toString() + "\nUTC Time: " + utcDate,
+            })
 
         // Perform submission logic here
-      };
+    };
     const handleNumberEntry: KeyboardEventHandler<HTMLInputElement> = (event) => { // Update the type of handleNumberEntry
         const key = event.key;
         // Allow digits, backspace, delete, tab, and a single decimal point
@@ -105,15 +130,21 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                             }}>
                                 Save Measurment
                             </Button>
-                        
+                    </div>
+                    <div className={cn(saveDate === null ? "hidden" : "flex justify-center gap-2")}>
+                        {/* Saved Date */}
+                        <p className="text-center text-lg">Date/Time:</p>
+                        <p className="text-center text-lg text-card-alternative">{saveDate}</p>
+
+
                     </div>
                     <TabsContent value="est">
-                        <p className="text-center text-lg">Estimation</p>
+                        <p className="text-center text-lg -mb-2">Estimation</p>
                         <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                             <Label htmlFor="estCFS">Estimated CFS:</Label>
                             <Input id="estCFS" defaultValue={"0.00"} />
                         </div>
-                        <p className="mt-2 border-t-2 pt-2 text-center text-lg">Timed Flow</p>
+                        <p className="mt-2 border-t-2 pt-2 text-center text-md -mb-2">Timed Flow</p>
                         <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                             <Label htmlFor="estD">Distance ft:</Label>
                             <Input id="estD" defaultValue={"10.00"} />
@@ -144,16 +175,6 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                                 estcalc.innerHTML = `The flow is: ${result} CFS.`;
                             }}>Calculate</Button>
                             
-                            
-                                <Button 
-                                    className="mt-2"
-                                    onSubmit={() => {
-                                        console.log("Submitted");
-                                        handleSubmit();
-                                    }}
-                                >
-                                    Submit
-                                </Button>
                             
                         </div>
                         <div className=" border-t-2 mt-4 text-sm text-center">
@@ -213,7 +234,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                             <p id="otbcalc" className="text-lg">Enter over the boards measurements...</p>
                         </div>
                         <div className="mt-2 text-center text-lg">
-                            <Button className="mt-2" onClick={() => {
+                            <Button variant={"secondary"} className="mt-2" onClick={() => {
                                 const otbU = document.getElementById("otbU") as HTMLInputElement;
                                 const otbB = document.getElementById("otbB") as HTMLInputElement;
                                 const otbL = document.getElementById("otbL") as HTMLInputElement;
@@ -250,7 +271,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                             <p id="subcalc" className="text-lg">Enter submerged measurements...</p>
                         </div>
                         <div className="mt-2 text-center text-lg">
-                            <Button className="mt-2" onClick={() => {
+                            <Button variant={"secondary"} className="mt-2" onClick={() => {
                                 const subU = document.getElementById("subU") as HTMLInputElement;
                                 const subD = document.getElementById("subD") as HTMLInputElement;
                                 const subG = document.getElementById("subG") as HTMLInputElement;
@@ -288,7 +309,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                             <p id="jetcalc" className="text-lg">Enter jet flow gate measurements...</p>
                         </div>
                         <div className="mt-2 text-center text-lg">
-                            <Button className="mt-2" onClick={() => {
+                            <Button variant={"secondary"} className="mt-2" onClick={() => {
                                 const jetU = document.getElementById("jetU") as HTMLInputElement;
                                 const jetG = document.getElementById("jetG") as HTMLInputElement;
                                 const jetS = document.getElementById("jetS") as HTMLInputElement;
@@ -310,6 +331,16 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                             </p>
                         </div>
                     </TabsContent>
+                    <div className="mt-2 flex justify-center gap-2">
+                        <Button 
+                            variant={"default"}
+                            onClick={() => {
+                                // handleSubmit();
+                                alert("Submitted");
+                            }}>
+                                Submit
+                            </Button>
+                    </div>
                 </Tabs>
             </DialogContent>
         </Dialog>
