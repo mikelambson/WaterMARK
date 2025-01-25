@@ -108,18 +108,18 @@ const ScheduledDeliveryBoard= ({ id, columns, index }: Properties) => {
                             .filter((sched) => sched.id === index + 1)
                             .map((filteredSched, innerIndex) => (
                                 <div key={innerIndex} className="space-y-2">
-                                {filteredSched.schedules.map((schedule: any, innerIndex: number) => (
+                                {filteredSched.schedules.map((schedule: Schedule, innerIndex: number) => (
                                     <div key={innerIndex}>
                                     {schedule.order.status !== "running" ? (
                                         <ScheduledDeliveryCard
                                         schedule={schedule}
-                                        index={getIndexMS(schedule.scheduledDate, schedule.order.approxHrs)}
+                                        index={getIndexMS(Date.parse(schedule.scheduledDate), schedule.order.approxHrs)}
                                         innerRef={() => {}}
                                         />
                                     ) : (
                                         <ScheduledDeliveryCard
                                         schedule={schedule}
-                                        index={getIndexMS(schedule.scheduledDate, schedule.order.approxHrs)}
+                                        index={getIndexMS(Date.parse(schedule.scheduledDate), schedule.order.approxHrs)}
                                         key={innerIndex}
                                         innerRef={() => {}}
                                         />
