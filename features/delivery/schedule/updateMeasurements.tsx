@@ -53,6 +53,11 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
         setSelectedTime(newTime);
     };
 
+    const resetPage = () => {
+        setSaveMeasurement(null);
+        setSaveDate(null);
+    };
+
     const handleDateTime = () => {
         // console.log("Selected Date:", selectedDate);
         // console.log("Selected Time:", selectedTime);
@@ -169,7 +174,6 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                     <div className="pt-2 flex justify-center gap-2 flex-wrap">
                         <DatePicker defaultDate={true} onChange={handleDateChange} />
                         <TimePicker gap={1} defaultTime={true} onChange={handleTimeChange} />
-                        
                             <Button 
                             variant={"secondary"}
                             onClick={() => {
@@ -186,7 +190,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
 
                     </div>
                     <TabsContent value="est">
-                        <p className="text-center text-lg -mb-2">Estimation</p>
+                        <p className="text-center text-lg -mb-2">{measurementType ? capitalizeFirstLetter(measurementType) : "Estimation"}</p>
                         <div className="grid grid-cols-2 gap-2 w-72 mx-auto pt-3 items-center">
                             <Label htmlFor="estCFS" className="">
                                 {measurementType === "estimation" || !measurementType
@@ -405,6 +409,11 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
                     </TabsContent>
                 </Tabs>
                     <div className="-mt-2 flex justify-end gap-2">
+                        <Button 
+                            variant={"secondary"}
+                            onClick={() => resetPage()}>
+                                Clear
+                        </Button>
                         <Button 
                             disabled={!saveDate || !saveMeasurement}
                             variant={"default"}
