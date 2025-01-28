@@ -2,7 +2,7 @@
 // components/SessionManagement.js
 import React, { createContext, useContext, useEffect, ReactNode, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 import { useRoleStore } from '@/lib/context/RoleContext';
 import { UserSessionData } from '@/lib/auth/fetchUserSession';
@@ -29,6 +29,8 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
   const { userData, setUser, clearUser, checkSession, setAuthenticated, setRoles, setPermissions, setError} = useAuthStore();
   const { setUserRole } = useRoleStore();
   const router = useRouter();
+  const currentPath = usePathname();
+  const publicPaths = ["/", "/login", "/meters/*", "/online-schedule/*", "/demo", "/404", "/500"];
 
   // Handle role change
   const handleRoleChange = (role: string[]) => {
@@ -38,7 +40,10 @@ export const SessionProvider: React.FC<SessionProviderProps> = ({ children }) =>
     const badAuth = (error: any) => {
         handleRoleChange(["Anonymous"])
         clearUser();
-        router.push('/');
+        
+        if (!publicPaths.some(path => currentPath.startsWith(path))) {
+          router.push('/'); // Redirect only if the route is not public
+        }
         setError(error)
         console.log(error)
     }

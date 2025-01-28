@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import LoadingAnimation from "@/features/loader/loading.module";
 import Link from "next/link";
 import Image from "next/image";
@@ -37,12 +37,33 @@ const Navbar = () => {
     const { roleBasedLinks, iconLinks } = navbarLinks();
     const { userRole } = useRole(); // Destructure userRole from context
     const [nav, setNav] = useState(false);
+    const [showDemoLink, setShowDemoLink] = useState(false);
     const { theme } = useTheme();
     const isDarkMode = theme === "light";
     const pathname = usePathname();
     const defaultTextColorClass = "text-gray-200 dark:text-gray-400";
     const iconHoverColorClass = "transition-all hover:text-yellow-400 hover:scale-125 dark:hover:text-yellow-300";
     const defaultbg = "bg-slate-800/95 dark:bg-slate-800";
+
+    useEffect(() => {
+        interface HandleKeyDownEvent extends KeyboardEvent {
+            ctrlKey: boolean;
+            key: string;
+        }
+
+        const handleKeyDown = (event: HandleKeyDownEvent): void => {
+            if (event.ctrlKey && event.key === 'd') {
+            event.preventDefault(); // Prevent browser default behavior for Ctrl + D
+            setShowDemoLink((prev) => !prev); // Toggle visibility
+            }
+        };
+    
+        window.addEventListener('keydown', handleKeyDown);
+    
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
    
 
     return (
@@ -132,6 +153,18 @@ const Navbar = () => {
                                 )}
                             </li>
                             ) : null
+                        )}
+                         {/* Demo link toggled by Ctrl + D */}
+                        {showDemoLink && (
+                            <li
+                                className={`nav-links h-[3.8rem] inline-flex items-center px-3 capitalize font-medium subpixel-antialiased text-blue-300 ${iconHoverColorClass} duration-200 pb-1`}
+                            >
+                                <Link 
+                                    href="/demo"
+                                    onClick={() => setShowDemoLink(false)}>
+                                    Demo
+                                </Link>
+                            </li>
                         )}
                     </ul>
 
