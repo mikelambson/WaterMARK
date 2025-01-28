@@ -52,7 +52,7 @@ const Navbar = () => {
         }
 
         const handleKeyDown = (event: HandleKeyDownEvent): void => {
-            if (event.ctrlKey && event.key === 'd') {
+            if (event.ctrlKey && event.key === '/') {
             event.preventDefault(); // Prevent browser default behavior for Ctrl + D
             setShowDemoLink((prev) => !prev); // Toggle visibility
             }
