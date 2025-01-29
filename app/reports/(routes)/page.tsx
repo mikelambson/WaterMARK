@@ -17,7 +17,7 @@ export default function Reports() {
     <div className="p-4">
       <h1 className="p-2 text-2xl font-semibold text-yellow-800 text-center">Reports</h1>
 
-      {isLoading && <ComponentLoader />}
+      {isLoading && <ComponentLoader className="h-96" />}
       {isError && <p className="text-red-500 text-center">Failed to load reports.</p>}
 
       {reports && reports.length > 0 ? (

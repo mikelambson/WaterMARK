@@ -9,7 +9,8 @@
 // };
 
 export const getReports = async () => {
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    const randomtimeout = 2000 + Math.random() * 5000; 
+    await new Promise(resolve => setTimeout(resolve, randomtimeout));
 
     return [
       { id: 1, name: "Monthly Water Usage", description: "Tracks total water consumption per user." },
