@@ -35,7 +35,7 @@ export default function Reports() {
                 <TableCell>{report.name}</TableCell>
                 <TableCell>{report.description}</TableCell>
                 <TableCell>
-                  <Link href={`/reports/${report.id}`} className="text-blue-600 hover:underline">
+                  <Link href={`/reports/${report.id}`} className="text-orange-800 dark:text-orange-300 font-medium hover:underline">
                     View Report
                   </Link>
                 </TableCell>
