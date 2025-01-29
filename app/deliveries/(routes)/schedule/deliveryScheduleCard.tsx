@@ -17,8 +17,9 @@ import EndRun from "@/features/delivery/schedule/EndRun";
 import ManageDelivery from "@/features/delivery/schedule/ManageDeliveries";
 import OrderDetails from "@/features/delivery/schedule/orderDetails";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { FaAnglesUp } from "react-icons/fa6";
+import { FaAnglesDown, FaAnglesUp } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
+import { is } from "date-fns/locale";
 
 
 
@@ -182,7 +183,7 @@ const ScheduledDeliveryCard = ({
                         </TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
-                <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold">
+                <div className="col-span-2 text-bottom pt-1 pr-1 row-start-1 col-start-2 text-sm lg:text-[1em] text-emerald-50 dark:text-gray-300/95 truncate font-semibold" onClick={() => toggleVisibility()}>
                     {schedule.order.laterals.join(', ')}
                 </div>
                 <div className={`flex justify-end text-bottom pt-1 pr-1 row-start-1 col-start-4 text-sm lg:text-[1em] font-semibold row-span-3 border-b-2 z-10 ${borderColors}`}>
@@ -216,7 +217,7 @@ const ScheduledDeliveryCard = ({
                     </div>
                 )}
                 </div>
-                <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 flex flex-wrap text-sm lg:text-md text-emerald-50 dark:text-gray-300/95">
+                <div className="col-span-2 text-bottom pt-1 pr-1 row-start-2 col-start-2 flex flex-wrap text-sm lg:text-md text-emerald-50 dark:text-gray-300/95" onClick={() => toggleVisibility()}>
                     <p className="mr-1 after:content-['|'] after:ml-1">
                         {schedule.order.details.irrigatorsName
                             ? schedule.order.details.irrigatorsName
@@ -241,34 +242,39 @@ const ScheduledDeliveryCard = ({
                         : "text-emerald-50 dark:text-gray-300/95 after:content-['hrs'] after:ml-1 after:text-emerald-50/80 dark:after:text-gray-300/75"
                         }`
                     }
+                    onClick={() => toggleVisibility()}
                 >
                     {hoursCalc(99)}
                 </div>
-                <div className={cn(`col-span-2 text-bottom row-start-3 border-b-2 text-sm sm:text-md font-semibold flex flex-wrap text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)}>
+                <div className={cn(`col-span-2 text-bottom row-start-3 border-b-2 text-sm sm:text-md font-semibold flex flex-wrap text-amber-300/80 dark:text-amber-400/60 ${borderColors}`)} onClick={() => toggleVisibility()}>
                     Instructions: {schedule.instructions}
                 </div>
                 {/* <div className="col-start-1 row-start-4"></div> */}
-                <div className={cn(`row-span-2 col-start-2 row-start-4 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground ${borderColors}`)}><span className={"text-gray-200/60 dark:text-foreground/60"} >{schedule.order.status === "running" ? "Started At:" : "Scheduled:"}</span>
-                <br />{schedule.order.status !== "running" ? 
-                    new Date(index).toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: 'numeric',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        hour12: false,
-                    }) :
-                    new Date(deliveriesArray[0]?.startTime).toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: 'numeric',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        hour12: false,
-                    })    
-                }
+                <div className={cn(`row-span-2 col-start-2 row-start-4 border-r-2 text-sm py-1 text-gray-200 dark:text-foreground ${borderColors}`)} onClick={() => toggleVisibility()}>
+                    <span className={"text-gray-200/60 dark:text-foreground/60"} >
+                        {schedule.order.status === "running" ? "Started At:" : "Scheduled:"}
+                    </span>
+                    <br />
+                    {schedule.order.status !== "running" ? 
+                        new Date(index).toLocaleString('en-US', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: false,
+                        }) :
+                        new Date(deliveriesArray[0]?.startTime).toLocaleString('en-US', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: false,
+                        })    
+                    }
                 </div>
-                <div className={cn(`col-start-3 row-start-4 border-r-2 px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
+                <div className={cn(`col-start-3 row-start-4 border-r-2 px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)} onClick={() => toggleVisibility()}>
                     <div className="w-full flex gap-1 ">
                         <p>Status:</p>
                         <p className={cn("mx-1 drop-shadow-md", 
@@ -286,20 +292,31 @@ const ScheduledDeliveryCard = ({
                         </p>
                     </div>
                 </div>
-                <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )}>
+                <div className={cn(`col-start-3 row-start-5 border-r-2 pl-1 text-gray-200 dark:text-foreground ${borderColors}` )} onClick={() => toggleVisibility()}>
                     Travel: {schedule.travelTime} hrs
                 </div>
 
-                <div className={cn(`relative col-span-4 row-start-4 row-span-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}` )}>
+                <div className={cn(`relative col-span-4 row-start-4 row-span-2 pl-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}
+                onClick={() => toggleVisibility()}>
                     {schedule.order.approxCfs} CFS
                     <div className={cn(`flex justify-between px-1 font-medium text-gray-200 dark:text-foreground ${borderColors}`)}>
                     {schedule.order.approxHrs} hrs 
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger className={"absolute bottom-2 right-2 cursor-pointer sm:relative hover:scale-125 transition ease-in-out duration-100"} asChild>
-                                        <Button variant={"link"} size={"pagination"} onClick={toggleVisibility} className="cursor-pointer transition ease-in-out duration-100 text-stone-100/70 dark:text-gray-400/60 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1 text-sm">
-                                            {!isDetailsVisible ? "(open)" 
-                                            : <FaAnglesUp className="text-xl font-bold" />} 
+                                        <Button variant={"link"} size={"pagination"} 
+                                            onClick={() => toggleVisibility()}
+                                            className="cursor-pointer transition ease-in-out duration-100 text-stone-100/70 dark:text-gray-400/60 group-hover:text-amber-400/60 dark:group-hover:text-amber-400 group-hover:animate-pulse transform-gpu mr-1 text-sm">
+                                            {!isDetailsVisible ?  (
+                                                <span>
+                                                    <FaAnglesDown className="text-xl font-bold pointer-events-none" /> 
+                                                </span>
+                                            ) : (  
+                                                <span>
+                                                    <FaAnglesUp className="text-xl font-bold pointer-events-none" />
+                                                </span>
+                                            )} 
+
                                         </Button>
                                 </TooltipTrigger>
                                 <TooltipContent side="left" align="end">
