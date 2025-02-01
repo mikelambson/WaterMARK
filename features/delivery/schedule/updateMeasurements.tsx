@@ -42,7 +42,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
     const [saveMeasurement, setSaveMeasurement] = useState<number | null>(null);
     const [saveDate, setSaveDate] = useState<string | null>(null);
     const [measurementType, setMeasurementType] = useState<string | null>(null);
-    const [dataPacket, setDataPacket] = useState<SubmissionStructure | null>(null);
+    
     const { toast } = useToast();
 
     const handleDateChange = (newDate: string) => {
@@ -76,7 +76,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
         date.setHours(hours, minutes);
         
         // console.log("Date and Time:", date);
-        const utcDate = date.toISOString();
+        
         setSaveDate(date.toString());
         
     };
@@ -94,7 +94,7 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
         }
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!saveDate || isNaN(new Date(saveDate).getTime())) {
             toast({
                 variant: "destructive",
@@ -113,15 +113,16 @@ const UpdateMeasurements: React.FC<UpdateMeasurementsProps> = (props) => {
               })
             return;
         }
+        const utcDate = new Date(saveDate).toISOString();
         const submission: SubmissionStructure = {
             orderId: props.orderId,
-            date: saveDate || "",
+            date: utcDate || "",
             measurement: saveMeasurement || 0,
             type: measurementType?.toString(),
         };
-        setDataPacket(submission);
+        const dataPacket = JSON.stringify(submission);
+        console.log("Submission JSON:", submission);
         console.log("Data Packet:", dataPacket);
-        
         toast({ 
             // variant: "success",
             title: `OrderId: ${props.orderId}`,
