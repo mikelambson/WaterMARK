@@ -61,6 +61,7 @@ const ManageDelivery: React.FC<Props> = ({schedule, className}) => {
                     className='w-full'
                     size="sm"
                     buttonText="Add Delivery"
+                    orderId={schedule.order.orderNumber.toString()}
                 />
                 <ScrollArea className="pt-2 px-4 min-h-96 flex flex-col max-h-[65svh] border border-foreground/30 bg-stone-500/75 dark:bg-stone-700 rounded-md">
                     {schedule.deliveries?.length === 0 
@@ -145,7 +146,7 @@ const ManageDelivery: React.FC<Props> = ({schedule, className}) => {
                                                 Update Measurements
                                             </Button>
                                         </DialogTrigger>
-                                        <UpdateMeasurements />
+                                        <UpdateMeasurements orderId={schedule.order.orderNumber.toString()} />
                                     </Dialog>
                                 </div>
                             

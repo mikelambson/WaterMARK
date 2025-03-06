@@ -19,7 +19,7 @@ const getScheduledByHead = async (filters: ApiFilters) => {
     try {
         // if (headsheet.name !== "Select") return;
         const scheduledRoute = `/schedule?find:district=${district}&find:status=${scheduledStatus}&find:line=${headsheet.name}&find:head=${head}`
-        const result = headsheet.name == ("Select" || '') ? { success: false } : await api.fetchData(scheduledRoute);
+        const result = (headsheet.name === "Select" || headsheet.name === '') ? { success: false } : await api.fetchData(scheduledRoute);
         if (!result.success) return console.warn({
             variant: "Incomplete request.",
             description: "Could not connect to the server!",
