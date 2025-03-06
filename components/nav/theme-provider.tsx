@@ -2,7 +2,7 @@
 // @/components/theme-provider.tsx
 import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { ThemeProviderProps as NextThemesProviderProps } from "next-themes/dist/types";
+import { ThemeProviderProps as NextThemesProviderProps } from "next-themes";
 // import { useThemeStore } from "@/store/themeStore";
 
 interface CustomThemeProviderProps extends NextThemesProviderProps {
